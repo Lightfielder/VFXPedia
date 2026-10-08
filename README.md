@@ -4,7 +4,9 @@
 
 ## Overview
 
-After a short 12 year break, the VFXPedia learning resource is back on the web!
+After a short 12 year break, the [VFXPedia learning resource](https://kartaverse.github.io/VFXPedia/docs/getting-started/) is back on the web!
+
+![Webpage View](static/img/website.png)
 
 ## Editing the Wiki
 
@@ -31,9 +33,4 @@ npm start
 If the NodeJS server activates without issue, you should be able to view the content live at the following localhost address in your default web-browser:
 
 [http://localhost:1996/VFXPedia/](http://localhost:1996/VFXPedia/)   
-
-This is what the VFXPedia website should look like:
-
-![Safari View](static/img/website.png)
-
 
