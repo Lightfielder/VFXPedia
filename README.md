@@ -18,7 +18,7 @@ Use a git client like [GitKraken](https://www.gitkraken.com/download) or [GitHub
 
 > Note: The VFXPedia repo is set to a private visibility state during the development stage.
 
-In a new terminal window, navigate to the location where you downloaded the VFXPedia git repo content. Then run the `npm start` command to launch the local staging server. Example CLI Syntax:
+In a new terminal window, navigate to the location where you downloaded the VFXPedia git repo content. Then run the `npm start` command to launch the local staging server on port 2018. Example CLI Syntax:
 
 ```bash
 cd $HOME/Documents/Git/VFXPedia/
@@ -30,7 +30,7 @@ npm start
 
 If the NodeJS server activates without issue, you should be able to view the content live at the following localhost address in your default web-browser:
 
-[http://localhost:3000/VFXPedia/](http://localhost:3000/VFXPedia/)   
+[http://localhost:2018/VFXPedia/](http://localhost:2018/VFXPedia/)   
 
 This is what the VFXPedia website should look like:
 

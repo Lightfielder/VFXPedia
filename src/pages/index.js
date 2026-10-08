@@ -1,20 +1,16 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import Heading from '@theme/Heading';
 
 const sections = [
-
-
   {
     title: 'Fusion Resources',
-    image: 'img/icons/icon_main_head_big.png',
     links: [
-    ],
+    ]
   },
   {
     title: 'Manuals and Learning',
-    image: 'img/icons/icon_main_head_learning.png',
     links: [
       { label: 'Getting Started', href: '/docs/getting-started' },
       { label: 'Fusion under Linux', href: '/docs/linux/fusion-under-linux' },
@@ -27,7 +23,6 @@ const sections = [
   },
   {
     title: 'Tools and Examples',
-    image: 'img/icons/icon_main_head_toolsandexamples.png',
     links: [
       { label: 'Comps', href: '/docs/comps' },
       { label: 'Settings and Macros', href: '/docs/settings-and-macros' },
@@ -39,16 +34,14 @@ const sections = [
   },
   {
     title: 'Developer\'s Corner',
-    image: 'img/icons/icon_main_head_developer.png',
     links: [
       { label: 'Scripting Manual', href: '/docs/script' },
       { label: 'Fusion Classes', href: '/docs/script/reference/applications/fusion/classes' },
       { label: 'Fuses & Script Plugins', href: '/docs/script/reference/applications/fuse' },
     ],
   },
-    {
+  {
     title: 'Feedback',
-    image: 'img/icons/icon_main_head_feedback.png',
     links: [
       { label: 'Wishlist', href: '/docs/wishlist' },
       { label: 'Bug Reports', href: '/docs/bug-reports' },
@@ -56,7 +49,6 @@ const sections = [
   },
   {
     title: 'External Resources',
-    image: 'img/icons/icon_main_head_externalresources.png',
     links: [
       { label: 'Community Portal', href: '/docs/community-portal' },
       { label: 'Eyeon Interviews', href: '/docs/eyeon-interviews' },
@@ -71,15 +63,29 @@ export default function Home() {
       title="VFXPedia"
       description="A central resource for visual effects artists">
       <main className="vfx-main-page">
-        <div className="vfx-hero">
-          <h1>Welcome to VFXPedia</h1>
-          <p>A central resource for visual effects artists</p>
-        </div>
+        <header className="vfx-hero">
+          <span className="vfx-badge">Blackmagic Fusion · Visual Effects</span>
+          <Heading as="h1" className="vfx-hero-title">
+            <span className="brand-gold">VFX</span>
+            <span className="brand-plain">pedia</span>
+          </Heading>
+          <p className="vfx-hero-sub">
+            A central resource for visual effects artists
+          </p>
+          <div className="vfx-btn-row">
+            <Link className="button button--primary button--lg" to="/docs/getting-started">
+              Browse the Wiki
+            </Link>
+            <Link className="button button--secondary button--lg" to="/docs/about">
+              About VFXPedia
+            </Link>
+          </div>
+        </header>
         <div className="vfx-sections-grid">
           {sections.map((section, idx) => (
             <div key={idx} className="vfx-section-card">
-              <img src={useBaseUrl(section.image)} alt={section.title} className="vfx-section-icon" />
-              <ul>
+              <h3 className="vfx-section-title">{section.title}</h3>
+              <ul className="vfx-section-links">
                 {section.links.map((link, i) => (
                   <li key={i}>
                     {link.href.startsWith('http') ? (
