@@ -7,12 +7,12 @@ const prism = require('prism-react-renderer');
 module.exports = {
   title: 'VFXPedia',
   tagline: 'A central resource for visual effects artists',
-  url: 'https://kartaverse.github.io',
+  url: 'https://lightfielder.github.io',
   baseUrl: '/VFXPedia/',
   onBrokenLinks: 'ignore',
   favicon: 'img/favicon.ico',
 
-  organizationName: 'Kartaverse',
+  organizationName: 'Lightfielder',
   projectName: 'vfxpedia',
 
   // Google Fonts: IBM Plex Sans for headings + body, IBM Plex Mono for code,
@@ -90,7 +90,7 @@ module.exports = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/Kartaverse/VFXPedia',
+            href: 'https://github.com/Lightfielder/VFXPedia',
             label: 'GitHub',
             position: 'right',
           },
@@ -124,7 +124,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/Kartaverse/VFXPedia/',
+          editUrl: 'https://github.com/Lightfielder/VFXPedia/',
         },
         blog: false,
         theme: {

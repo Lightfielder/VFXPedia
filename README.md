@@ -4,7 +4,7 @@
 
 ## Overview
 
-After a short 12 year break, the [VFXPedia learning resource](https://kartaverse.github.io/VFXPedia/docs/getting-started/) is back on the web!
+After a short 12 year break, the [VFXPedia learning resource](https://lightfielder.github.io/VFXPedia/docs/getting-started/) is back on the web!
 
 ![Webpage View](static/img/website.png)
 
@@ -16,7 +16,7 @@ Add [NodeJS](https://nodejs.org/en) to your system. Make sure you have the "npm"
 
 Use a git client like [GitKraken](https://www.gitkraken.com/download) or [GitHub Desktop](https://desktop.github.com/download/) to download a local copy of the VFXPedia git repo:  
 
-[https://github.com/Kartaverse/VFXPedia/](https://github.com/Kartaverse/VFXPedia/)
+[https://github.com/Lightfielder/VFXPedia/](https://github.com/Lightfielder/VFXPedia/)
 
 > Note: The VFXPedia repo is set to a private visibility state during the development stage.
 
