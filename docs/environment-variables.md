@@ -125,13 +125,13 @@ Use this to override the maximum number of lights allowed by Fusion's OpenGL ren
 $FUSION_TEXTURE_CONVERT  # (5.2)
 ```
 
-Setting this totruewill cause Fusion to convert OpenGL textures itself, rather than having the OpenGL driver do it. This works around a current bug in nVidia drivers that can manifest as partially-missing textures in 3D image planes or Tracker patterns.
+Setting this to `true` will cause Fusion to convert OpenGL textures itself, rather than having the OpenGL driver do it. This works around a current bug in nVidia drivers that can manifest as partially-missing textures in 3D image planes or Tracker patterns.
 
 ```bash
 $FUSION_FLOAT_SMR  # (5.2)
 ```
 
-If this is set totrue, Fusion will enable smooth resizing of float images. Series 8 nVidia chips should have no trouble with this, but Series 6/7 are only capable of smoothly resizing float16 images in hardware, so float32 images will be significantly slower.
+If this is set to `true`, Fusion will enable smooth resizing of float images. Series 8 nVidia chips should have no trouble with this, but Series 6/7 are only capable of smoothly resizing float16 images in hardware, so float32 images will be significantly slower.
 
 ```bash
 $FUSION_USE_PBO  # (5.2)

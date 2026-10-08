@@ -12,8 +12,8 @@ I would suggest to put such gray dots next to all the input names on the right.
 
 Clicking on the dot would reset the input, or if the dot against the group of controls name was clicked, the whole group (Color, 3D position, 2D Offset) would be reset. The same for the Label controls and tabs: clicking on the dot would reset all the inputs which are included (resetting the Label control collapsed/expanded state doesn't make sense to me).
 
-[![Image:SetToDefault TextTab Explanation_v02.jpg](images/SetToDefault_TextTab_Explanation_v02.jpg)](index4364.html?title=File:SetToDefault_TextTab_Explanation_v02.jpg)---[![Image:SetToDefault TextTab_Crop_v02.jpg](images/SetToDefault_TextTab_Crop_v02.jpg)](index06ca.html?title=File:SetToDefault_TextTab_Crop_v02.jpg)
-
-[![Image:SetToDefault ShadingTab Explanation_v02.jpg](images/SetToDefault_ShadingTab_Explanation_v02.jpg)](index2c2c.html?title=File:SetToDefault_ShadingTab_Explanation_v02.jpg)---[![Image:SetToDefault ShadingTab_Crop.jpg](images/SetToDefault_ShadingTab_Crop.jpg)](indexfa30.html?title=File:SetToDefault_ShadingTab_Crop.jpg)
-
-Another suggestion - to display the changed parameters' names in bold and reset them by double-click on the name (like in Adobe Light Room).
+[![Image:SetToDefault TextTab Explanation_v02.jpg](images/SetToDefault_TextTab_Explanation_v02.jpg)](index4364.html?title=File:SetToDefault_TextTab_Explanation_v02.jpg)
+    -- [![Image:SetToDefault TextTab_Crop_v02.jpg](images/SetToDefault_TextTab_Crop_v02.jpg)](index06ca.html?title=File:SetToDefault_TextTab_Crop_v02.jpg)
+  -- [![Image:SetToDefault ShadingTab Explanation_v02.jpg](images/SetToDefault_ShadingTab_Explanation_v02.jpg)](index2c2c.html?title=File:SetToDefault_ShadingTab_Explanation_v02.jpg)
+    -- [![Image:SetToDefault ShadingTab_Crop.jpg](images/SetToDefault_ShadingTab_Crop.jpg)](indexfa30.html?title=File:SetToDefault_ShadingTab_Crop.jpg)
+  -- Another suggestion - to display the changed parameters' names in bold and reset them by double-click on the name (like in Adobe Light Room).

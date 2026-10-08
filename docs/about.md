@@ -11,3 +11,8 @@ Much of the information posted to this site was initially written and added by e
 ## Theme
 
 The Docusaurus theme was prepared by [Dunn Lewis](https://ko-fi.com/dunnlewis) of the Fusion based [Vonk Ultra vMographPro and OGraf](https://kartaverse.github.io/VonkUltra/) tools projects. Check out the [YouTube based Vonk Ultra Playlist](https://www.youtube.com/playlist?list=PLVDcRvd92hcgumsGnIth-hDi3gvVTc71u) for more info.
+
+<YouTubePlaylist
+  id="PLVDcRvd92hcgumsGnIth-hDi3gvVTc71u"
+  title="Vonk Ultra YouTube playlist"
+/>
