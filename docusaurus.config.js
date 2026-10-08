@@ -112,8 +112,9 @@ module.exports = {
       prism: {
         theme: prism.themes.github,
         darkTheme: prism.themes.dracula,
-        // VFXPedia documents Fusion's Lua scripting language.
-        additionalLanguages: ['lua'],
+        // VFXPedia documents Fusion's Lua scripting language, and shares
+        // shell/Bash environment-variable snippets.
+        additionalLanguages: ['lua', 'bash'],
       },
     }),
 
