@@ -1,0 +1,254 @@
+{
+	Tools = ordered() {
+		SigmoidalContrast = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "SIGM_PreDiv",
+					Source = "Background",
+					Name = "Input",
+				},
+				Midpoint = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "Midpoint",
+					MaxScale = 1,
+					Default = 0.5,
+				},
+				Contrast = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "Contrast",
+					Default = 0,
+				},
+				PreDividePostMultiply = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "PreDividePostMultiply",
+					Default = 0,
+				},
+				Blend = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "ProcessAlpha",
+					Name = "Alpha",
+					Default = 0,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "SIGM_Expression",
+					Source = "EffectMask",
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "SIGM_PostMult",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				SIGM_PreDiv = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "SIGM_Expression.PreDividePostMultiply",
+						},
+						Operation = Input {
+							Value = 7,
+						},
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 501.96, 51.004, },
+					},
+				},
+				SIGM_Expression = Custom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						NumberIn1 = Input {
+							Value = 0.5,
+							Expression = "Midpoint",
+						},
+						NumberIn2 = Input {
+							Expression = "Contrast",
+						},
+						NumberIn3 = Input {
+							Value = 0.5,
+						},
+						Setup1 = Input {
+							Value = "max(min(n1,1),0)",
+						},
+						Setup2 = Input {
+							Value = "max(n2,0.00001)",
+						},
+						Setup3 = Input {
+							Value = "1/(1+e^(s2*s1))",
+						},
+						Setup4 = Input {
+							Value = "1/(1 + e^((s2 * (s1-1)))) - s3",
+						},
+						RedExpression = Input {
+							Value = "(1/(1+e^(s2*(s1-c1)))-s3)/s4",
+						},
+						GreenExpression = Input {
+							Value = "(1/(1+e^(s2*(s1-c1)))-s3)/s4",
+						},
+						BlueExpression = Input {
+							Value = "(1/(1+e^(s2*(s1-c1)))-s3)/s4",
+						},
+						AlphaExpression = Input {
+							Value = "(1/(1+e^(s2*(s1-c1)))-s3)/s4",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "get_midpoint",
+						},
+						NameforNumber2 = Input {
+							Value = "get_contrast",
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "SIGM_PreDiv",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 503.96, 90.047, },
+					},
+					UserControls = ordered() {
+						PreDividePostMultiply = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Pre-Divide/Post-Multiply",
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+						Midpoint = {
+							INP_MaxAllowed = 1,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_Default = 0.5,
+						},
+						Contrast = {
+							INP_MaxAllowed = 100,
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							INP_MaxScale = 20,
+							INP_Default = 0,
+							INP_MinAllowed = 0,
+							LINKID_DataType = "Number",
+						},
+					},
+				},
+				SIGM_PostMult = ChannelBoolean {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "SIGM_Expression.PreDividePostMultiply",
+						},
+						Operation = Input {
+							Value = 6,
+						},
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "SIGM_Expression",
+							Source = "Output",
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SigmoidalContrast",
+}

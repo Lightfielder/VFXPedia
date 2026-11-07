@@ -1,0 +1,437 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 1000, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.31 build 74",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = true,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Rectangle1 = RectangleMask {
+			Inputs = {
+				BorderWidth = Input {
+					Value = 0.0872928,
+				},
+				Solid = Input {
+					Value = 0,
+				},
+				OutputSize = Input {
+					Value = FuID { "Custom", },
+				},
+				MaskWidth = Input {
+					Value = 100,
+				},
+				MaskHeight = Input {
+					Value = 100,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 293.561, 50.0706, },
+			},
+		},
+		pEmitter1 = pEmitter {
+			Inputs = {
+				["ParticleStyleNGon.NGonType"] = Input {
+					Value = 2,
+				},
+				RandomSeed = Input {
+					Value = 8411,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				Region = Input {
+					Value = FuID { "AllRgn", },
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Rectangle1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 400.451, 50.5068, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		Ellipse1 = EllipseMask {
+			CtrlWZoom = false,
+			Inputs = {
+				OutputSize = Input {
+					Value = FuID { "Custom", },
+				},
+				MaskWidth = Input {
+					Value = 100,
+				},
+				MaskHeight = Input {
+					Value = 100,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 514.159, -94.8779, },
+			},
+		},
+		Instance_pEmitter1 = pEmitter {
+			CtrlWZoom = false,
+			SourceOp = "pEmitter1",
+			Inputs = {
+				RandomSeed = Input {
+					Value = 4429,
+				},
+				VelocityControls = Input {
+				},
+				RotationControls = Input {
+				},
+				Rotation = Input {
+				},
+				RotationVariance = Input {
+				},
+				Spin = Input {
+				},
+				SpinVariance = Input {
+				},
+				StartEndRenderScripts = Input {
+				},
+				["ParticleStyle.ColorControls"] = Input {
+				},
+				["ParticleStyle.ColorVariance"] = Input {
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+				},
+				["ParticleStyle.SizeControls"] = Input {
+				},
+				["ParticleStyle.FadeControls"] = Input {
+				},
+				["ParticleStyle.MergeControls"] = Input {
+				},
+				["ParticleStyle.BlurControls"] = Input {
+				},
+				["ParticleStylePoint.ApplyMode"] = Input {
+				},
+				["ParticleStylePoint.SubPixelRendered"] = Input {
+				},
+				["SphereRgn.Translation"] = Input {
+				},
+				["SphereRgn.Translate.X"] = Input {
+				},
+				["SphereRgn.Translate.Y"] = Input {
+				},
+				["SphereRgn.Translate.Z"] = Input {
+				},
+				["SphereRgn.Rotation"] = Input {
+				},
+				["SphereRgn.XRotation"] = Input {
+				},
+				["SphereRgn.YRotation"] = Input {
+				},
+				["SphereRgn.ZRotation"] = Input {
+				},
+				["SphereRgn.Pivot"] = Input {
+				},
+				["SphereRgn.XPivot"] = Input {
+				},
+				["SphereRgn.YPivot"] = Input {
+				},
+				["SphereRgn.ZPivot"] = Input {
+				},
+				["SphereRgn.Size"] = Input {
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 514.124, -51.6277, },
+			},
+		},
+		pMerge1 = pMerge {
+			Inputs = {
+				Particles1 = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Particles2 = Input {
+					SourceOp = "Instance_pEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 514, 50, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1.06666666666667, 1, },
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pMerge1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 514.346, 110.059, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 1,
+			Left = 22,
+			Top = 22,
+			Width = 1568,
+			Height = 710,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							ForceSource = true,
+							AutoSnap = true,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.817621,
+						Offset = { 590.295, 211.204, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 438, },
+							ScaleX = 0.742741390952059,
+							OffsetX = -49.763673193788,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Rows = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Columns = 2,
+					RatioX = 1,
+					RatioY = 0.529801324503311,
+					{
+						ID = "Left",
+						RatioX = 0.500261096605744,
+						RatioY = 0.00892857142857143,
+						Pop = true,
+					},
+					{
+						ID = "Right",
+						RatioX = 0.499738903394256,
+						Pop = true,
+					},
+				},
+				{
+					Columns = 2,
+					RatioY = 0.470198675496689,
+					{
+						Rows = 2,
+						RatioX = 0.845953002610966,
+						RatioY = 105.400402414487,
+						{
+							ID = "Main",
+							RatioX = 1,
+							RatioY = 0.890688259109312,
+							Pop = true,
+						},
+						{
+							ID = "Time",
+							SnapY = 52,
+							Flat = true,
+						},
+						Pop = true,
+					},
+					{
+						Rows = 2,
+						PixelX = 293,
+						{
+							ID = "Controls",
+							RatioX = 1,
+							RatioY = 1,
+						},
+						{
+							ID = "Transport",
+							FixedY = -2,
+						},
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						ScaleMode = 1,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "PAL (D1)",
+				Width = 720,
+				Height = 576,
+				Rate = 25,
+				AspectX = 1.06666666666667,
+				PerFeet = 1,
+				GuideRatio = 1.33333333333333,
+			},
+			LastFile = "L:\\WANTED-2\\PROJECTS\\Episodes\\Indian_City_of_the_Dead\\Fox_in_fire(IFIF)\\Render_2D\\Sparkles_Cam01_v04.tga\\Sparkles_Cam01_v04.594.tga",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

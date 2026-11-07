@@ -1,0 +1,236 @@
+--[[ 
+
+written by: Bartos P. - info[at]talmai[dot]de
+created:	October 2009
+version:	2.0
+
+install: 	Fusion 5: Fusion:/Scripts/Comp
+			Fusion 6: "Shared Documents"/eyeon/Fusion/Scripts/Comp
+
+usage: 		Select a tool and run it! It will dump any input/output name and its values.
+
+changelog:  2.1 added time variant output
+			2.0 major changes to core
+			1.1 added dump for expression, modifyer, connected input tool, connected 
+			output tool
+
+]]--
+
+toollist = comp:GetToolList(true)
+tab = {"", "\t", "\t\t", "\t\t\t", "\t\t\t\t", "\t\t\t\t\t", "\t\t\t\t\t\t"}
+k = 0
+current = CurrentTime
+
+function Modifier(v)
+	modifier = v:GetConnectedOutput():GetTool()
+	print(tab[k],"------------------------------------------------------------")
+	print(tab[k],"Modifier: "..GetInputName(v))
+	print(tab[k],"------------------------------------------------------------")
+	print(tab[k],"ID\tName                              Value")
+	for n, mod_inp in modifier:GetInputList() do
+		print(tab[k],n,string.format("%-30s", mod_inp:GetAttrs().INPS_ID),mod_inp[current])
+		GetData(mod_inp)
+	end
+	print(tab[k],"END --------------------------------------------------------")	
+	k = k - 1
+end
+
+function Spline(v)
+	--spline = v:GetConnectedOutput():GetTool()
+	print(tab[k],"-----------------------------------------------------")
+	print(tab[k],"Spline: "..GetInputName(v))
+	print(tab[k],"-----------------------------------------------------")
+	--for n, spl_inp in spline:GetInputList() do
+	--	print(tab[k],n,string.format("%-30s", spl_inp:GetAttrs().INPS_ID),spl_inp[current])
+	--	dump(spl_inp)
+	--	GetData(mod_inp)
+	--end
+	--print(tab[k],"END --------------------------------------------------------")	
+	k = k - 1
+end
+
+function CheckModifier(v)
+	isdatatype = v:GetConnectedOutput():GetAttrs().OUTS_DataType
+	isregid = v:GetConnectedOutput():GetTool():GetAttrs().TOOLS_RegID
+	if isdatatype == "Point" or isdatatype == "Number" then
+		if isregid ~= "BezierSpline" then
+			return "modifier"
+		end
+	else
+		return "other"
+	end
+end
+
+function CheckSpline(v)
+	isregid = v:GetConnectedOutput():GetTool():GetAttrs().TOOLS_RegID
+	if isregid == "BezierSpline" then
+		return "spline"
+	else
+		return "other"
+	end
+end
+
+function GetInputName(v)
+	output = v:GetConnectedOutput()
+	if output == nil then
+		return "none"
+	else
+		gtool = output:GetTool()
+		name = gtool:GetAttrs().TOOLS_Name
+		return name
+	end
+end
+
+function GetOutputName(v)
+	names = {}
+	output = v:GetConnectedInputs()
+	if output[1] == nil then
+		names[1] = "nothing"
+	else
+		for i, inp in output do
+			if inp:GetTool() == nil then
+				names[i] = "current view"
+			else
+				names[i] = inp:GetTool():GetAttrs().TOOLS_Name
+			end
+		end
+	end
+	return names
+end
+
+function CheckType(v)
+	if v:GetAttrs().OUTS_ID ~= nil  then
+		return "output"
+	elseif v:GetAttrs().INPS_ID ~= nil then
+		return "input"
+	else
+		dump(v)
+		return "unknown"
+	end
+end
+
+function GetTableData(v)
+	if type(v[current]) == "table" then
+		for i, data in v[current] do
+			if v:GetAttrs().INPS_DataType == "Point" or v:GetAttrs().OUTS_DataType == "Point" then
+				if i == 1 then
+					if CheckType(v) == "input" then
+						print(tab[k+1], string.format("%-30s",v:GetAttrs().INPS_ID..".X"), data)			
+					end
+					if CheckType(v) == "output" then
+						print(tab[k+1], string.format("%-30s",v:GetAttrs().OUTS_ID..".X"), data)			
+					end
+				end
+				if i == 2 then
+					if CheckType(v) == "input" then
+						print(tab[k+1], string.format("%-30s",v:GetAttrs().INPS_ID..".Y"), data)			
+					end
+					if CheckType(v) == "output" then
+						print(tab[k+1], string.format("%-30s",v:GetAttrs().OUTS_ID..".Y"), data)			
+					end
+				end
+				if i == 3 then
+					if data ~= 0 then
+						if CheckType(v) == "input" then
+							print(tab[k+1], string.format("%-30s",v:GetAttrs().INPS_ID..".Z"), data)
+						end
+						if CheckType(v) == "output" then
+							print(tab[k+1], string.format("%-30s",v:GetAttrs().OUTS_ID..".Z"), data)
+						end
+					end
+				end
+			elseif type(data) == "number" or type(data) == "string" then 
+				print(data)
+			elseif type(data) == "table" then
+				GetTableData(data) --is this even possible?
+			elseif type(data) == "userdata" then
+				GetUserData(data)
+			else
+				print("GetTableData nil")
+			end
+		end
+	elseif type(v[current]) == "userdata" then
+		GetUserData(v)
+	elseif type(v[current]) == "number" or type(v[current]) == "string" then 
+		print(v[current])
+	else
+		print("GetTableData nil")
+	end
+end
+
+function GetUserData(v)
+	if CheckType(v) == "input" then
+		if v:GetAttrs().INPB_External == true and v:GetAttrs().INPB_Connected == true then
+			if CheckModifier(v) == "modifier" then
+				k = k + 1
+				Modifier(v)
+			elseif CheckSpline(v) == "spline" then
+				k = k + 1
+				Spline(v)
+			end
+		end
+		if v:GetExpression() ~= nil then
+			print(tab[k+1],string.format("%-30s","Expression:"), v:GetExpression())
+		end
+		if GetInputName(v) ~= "none" and CheckModifier(v) == "other" then
+			print(tab[k+1],string.format("%-30s","Connected Tool:"), GetInputName(v))
+		end
+	end		
+	if type(v[current]) == "userdata" then
+		for i, data in v[current] do
+			if type(data) == "number" or type(data) == "string" then 
+				print(data)
+			elseif type(data) == "table" then
+				GetTableData(data) 
+			elseif type(data) == "userdata" then
+				GetUserData(data) --is this even possible?
+			else
+				print("GetTableData nil")
+			end
+		end
+	else
+		if type(v[current]) == "table" then
+			GetTableData(v)
+		end
+	end
+end
+
+function GetData(v)
+	if type(v) == "userdata" then
+		GetUserData(v)
+	elseif type(v) == "table" then
+		GetTableData(v)
+	elseif type(v) == "number" or type(v) == "string" then
+		print(v)
+	else
+		print("GetData nil")
+	end
+end
+
+for n,tool in toollist do
+	print("")
+	print("============================================================")
+	print(tool:GetAttrs().TOOLS_Name,"Inputs")
+	print("------------------------------------------------------------")
+	print("ID\tName                              Value")
+	for i, toolinp in tool:GetInputList() do 
+		print(i,string.format("%-30s", toolinp:GetAttrs().INPS_ID),toolinp[current])
+		GetData(toolinp)
+	end
+	print("")
+	print("============================================================")
+	print(tool:GetAttrs().TOOLS_Name,"Outputs")
+	print("------------------------------------------------------------")
+	print("ID\tName                              Value")
+	for i, toolout in tool:GetOutputList() do
+		if type(toolout[current]) == "userdata" then
+			for z, conn in GetOutputName(toolout) do
+				print(i.."\["..z.."\]",string.format("%-30s","Connected Tool:"), conn)
+			end
+		else
+			print(i,string.format("%-30s", toolout:GetAttrs().OUTS_ID),toolout[current])
+			GetData(toolout)
+		end
+	end
+end
+--EOF

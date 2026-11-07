@@ -1,0 +1,402 @@
+{
+	Tools = ordered() {
+		Refraction = MacroOperator {
+			CustomData = {
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/Refraction_Description",
+			},
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Refraction for Fusion 6 and above. Distorts an image based on a height map.\n\nIn v07-3:\nMotion blur parameters. For better motion blur see the documentation (F1 on the macro node)\n\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				Input = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "Image1",
+					Name = "Image to Distort",
+				},
+				RefractionMap = InstanceInput {
+					SourceOp = "MapBlur",
+					Source = "Input",
+					Name = "Refraction Map",
+				},
+				RefractionPower = InstanceInput {
+					SourceOp = "Bol_Power",
+					Source = "Foreground",
+					Name = "Refraction Power",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "EffectMask",
+				},
+				SourceChannel = InstanceInput {
+					SourceOp = "CreateBumpMap",
+					Source = "SourceChannel",
+				},
+				SoftenRefractionMap = InstanceInput {
+					SourceOp = "MapBlur",
+					Source = "XBlurSize",
+					Name = "Soften Refraction Map",
+					Default = 0,
+				},
+				RefractionStrength = InstanceInput {
+					SourceOp = "Clr_Strength",
+					Source = "RefractionStrength",
+					Default = 1,
+				},
+				XStrengthMultiplier = InstanceInput {
+					SourceOp = "Clr_Strength",
+					Source = "XStrengthMultiplier",
+					Default = 1,
+				},
+				YStrengthMultiplier = InstanceInput {
+					SourceOp = "Clr_Strength",
+					Source = "YStrengthMultiplier",
+					Default = 1,
+				},
+				XOffset = InstanceInput {
+					SourceOp = "BC_XOffset",
+					Source = "Brightness",
+					Name = "X Offset",
+					Default = 0,
+				},
+				YOffset = InstanceInput {
+					SourceOp = "BC_YOffset",
+					Source = "Brightness",
+					Name = "Y Offset",
+					Default = 0,
+				},
+				UsePowerMap = InstanceInput {
+					SourceOp = "Bol_Power",
+					Source = "ProcessWhenBlendIs00",
+					Name = "Use Power Map",
+				},
+				Dispersion = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "LUTControls",
+					Default = 1,
+					Name = "Dispersion",
+				},
+				EnableDispersion = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "EnableDispersion",
+				},
+				RedStrengthMultiplier = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "NumberIn4",
+					Default = 1.02,
+				},
+				GreenStrengthMultiplier = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "NumberIn5",
+					Default = 1.01,
+				},
+				BlueStrengthMultiplier = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "NumberIn6",
+					Default = 1,
+				},
+				Blend = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls"
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ProcessWhenBlendIs00",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ProcessRed",
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ProcessGreen",
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ProcessBlue",
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ProcessAlpha",
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ApplyMaskInverted",
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "MultiplyByMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "MaskChannel",
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "MaskHigh",
+					ControlGroup = 4,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "MaskLow",
+					ControlGroup = 4,
+				},
+				MotionBlur = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "MotionBlur",
+				},
+				Quality = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "Quality",
+					Default = 2,
+				},
+				ShutterAngle = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "ShutterAngle",
+					Default = 180,
+				},
+				CenterBias = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "CenterBias",
+				},
+				SampleSpread = InstanceInput {
+					SourceOp = "RefractionMacro",
+					Source = "SampleSpread",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "RefractionMacro",
+					Source = "Output",
+				},
+			},
+			Tools = ordered() {
+				MapBlur = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+					Filter = Input { Value = FuID { "Multi-box", }, },
+						XBlurSize = Input {
+							Value = 0,
+--							Expression = "SoftenRefractionMap*720",
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+--						Blend = Input { Expression = "iif(RefractionMacro.Blend==0, 0, 1)", },
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -16.16, 20.15, },
+					},
+					UserControls = ordered() {
+						SoftenRefractionMap = {
+							INP_Default = 0,
+							INP_MaxScale = 0.1,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							LINKS_Name = "Soften Refraction Map",
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.498039215686275, B = 0.329411764705882, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				RefractionMacro = Custom {
+					CtrlWShown = false,
+					Inputs = {
+						NumberIn4 = Input {
+							Value = 1.02,
+						},
+						NumberIn5 = Input {
+							Value = 1.01,
+						},
+						NumberIn6 = Input {
+							Value = 1,
+						},
+						LUTControls = Input {
+							Value = 1,
+						},
+						RedExpression = Input {
+							Expression = "Text(iif(EnableDispersion==1, \"getr1w(x+r2*n4,y+g2*n4)\", \"getr1w(x+r2,y+g2)\" ))",
+						},
+						GreenExpression = Input {
+							Expression = "Text(iif(EnableDispersion==1, \"getg1w(x+r2*n5,y+g2*n5)\", \"getg1w(x+r2,y+g2)\" ))",
+						},
+						BlueExpression = Input {
+							Expression = "Text(iif(EnableDispersion==1, \"getb1w(x+r2*n6,y+g2*n6)\", \"getb1w(x+r2,y+g2)\" ))",
+						},
+						AlphaExpression = Input {
+							Value = "geta1w(x+r2,y+g2)",
+						},
+						NameforNumber4 = Input { Value = "Red Strength Multiplier", },
+						NameforNumber5 = Input { Value = "Green Strength Multiplier", },
+						NameforNumber6 = Input { Value = "Blue Strength Multiplier", },
+						Image2 = Input {
+							SourceOp = "Bol_Power",
+							Source = "Output",
+						},
+						Image3 = Input {
+							SourceOp = "BG_Power",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -13.07, 99.683, },
+					},
+			UserControls = ordered() {
+				EnableDispersion = {
+					LINKS_Name = "Enable Dispersion",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 3,
+					INPID_InputControl = "CheckboxControl",
+					INP_Default = 0,
+				},
+			},
+				},
+				CreateBumpMap = CreateBumpMap {
+					CtrlWShown = false,
+					Inputs = {
+						Input = Input {
+							SourceOp = "MapBlur",
+							Source = "Output",
+						},
+						HeightScale = Input {
+							Value = 4,
+						},
+						BumpmapTextureDepth = Input {
+							Value = 4,
+						},
+						ProcessAlpha = Input { Value = 0, },
+--						Blend = Input { Expression = "iif(RefractionMacro.Blend==0, 0, 1)", },
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -16.16, 53.15, },
+					},
+				},
+				Bol_ShiftToZero = ChannelBoolean {
+					Inputs = {
+						Background = Input {
+							SourceOp = "CreateBumpMap",
+							Source = "Output",
+						},
+						Operation = Input { Value = 2, },
+						ToRed = Input { Value = 17, },
+						ToGreen = Input { Value = 17, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 4, },
+--						Blend = Input { Expression = "iif(RefractionMacro.Blend==0, 0, 1)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 17.2873, 118.83, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				BC_XOffset = BrightnessContrast {
+					Inputs = {
+						Input = Input {
+							SourceOp = "Bol_ShiftToZero",
+							Source = "Output",
+						},
+						PreDividePostMultiply = Input { Value = 1, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+--						Blend = Input { Expression = "iif(RefractionMacro.Blend==0, 0, 1)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 76.8037, 75.9006, }, },
+				},
+				BC_YOffset = BrightnessContrast {
+					Inputs = {
+						Input = Input {
+							SourceOp = "BC_XOffset",
+							Source = "Output",
+						},
+						PreDividePostMultiply = Input { Value = 1, },
+						Red = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+--						Blend = Input { Expression = "iif(RefractionMacro.Blend==0, 0, 1)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 76.8037, 75.9006, }, },
+				},
+				Clr_Strength = ColorGain {
+					NameSet = true,
+					Inputs = {
+						GainRed = Input { Expression = "RefractionStrength*XStrengthMultiplier", },
+						GainGreen = Input { Expression = "RefractionStrength*YStrengthMultiplier", },
+--						Blend = Input { Expression = "iif(RefractionMacro.Blend==0, 0, 1)", },
+						Input = Input {
+							SourceOp = "BC_YOffset",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 47.0476, 89.3775, }, },
+					UserControls = ordered() {
+						RefractionStrength = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							LINKS_Name = "Refraction Strength",
+							INP_MinScale = -5,
+							INP_MaxScale = 5,
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+						XStrengthMultiplier = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							LINKS_Name = "X Strength Multiplier",
+							INP_MinScale = -5,
+							INP_MaxScale = 5,
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+						YStrengthMultiplier = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							LINKS_Name = "Y Strength Multiplier",
+							INP_MinScale = -5,
+							INP_MaxScale = 5,
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+					},
+				},
+		Bol_Power = ChannelBoolean {
+			CtrlWZoom = false,
+			Inputs = {
+				Blend = Input {
+					Value = 0,
+					Expression = "ProcessWhenBlendIs00",
+					},
+				Operation = Input { Value = 6, },
+				ToRed = Input { Value = 3, },
+				ToGreen = Input { Value = 3, },
+				ToBlue = Input { Value = 4, },
+				ToAlpha = Input { Value = 4, },
+				Background = Input {
+					SourceOp = "Clr_Strength",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -54.5784, 103.368, },
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+			},
+			Colors = {
+				TileColor = { R = 0.509803921568627, G = 0.341176470588235, B = 0.498039215686275, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

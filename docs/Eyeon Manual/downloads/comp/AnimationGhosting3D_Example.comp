@@ -1,0 +1,645 @@
+Composition {
+	CurrentTime = 46,
+	RenderRange = { 1, 100, },
+	GlobalRange = { 1, 100, },
+	Version = "Fusion 5.31 build 78",
+	SavedOutputs = 0,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Cube3D1 = Cube3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Cube3D1XOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Cube3D1YOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "Cube3D1ZOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					SourceOp = "Cube3D1XRotation",
+					Source = "Value",
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					SourceOp = "Cube3D1YRotation",
+					Source = "Value",
+				},
+				["Transform3DOp.Rotate.Z"] = Input {
+					SourceOp = "Cube3D1ZRotation",
+					Source = "Value",
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 0.0887018,
+				},
+				["SurfaceCubeInputs.Width"] = Input {
+					SourceOp = "Cube3D1Size",
+					Source = "Value",
+				},
+				["Front.MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.5,
+				},
+				["Front.MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0,
+				},
+				["Right.MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.200000002980232,
+				},
+				["Right.MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0,
+				},
+				["Left.MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.699999988079071,
+				},
+				["Left.MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.400000005960464,
+				},
+				["Left.MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0.699999988079071,
+				},
+				["Bottom.MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0,
+				},
+				["Top.MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0,
+				},
+				["Top.MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -550, -148.5, },
+			},
+		},
+		Cube3D1XOffset = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 6.33333333333333, 0, }, Flags = { Linear = true, }, },
+				[17] = { -0.450663302724752, LH = { 11.667200088501, -0.455834264604543, }, RH = { 23.3326998949051, -0.444522785492501, }, },
+				[36] = { 0.0339378316824571, LH = { 29.6673001050949, -0.0683682840513634, }, RH = { 47.6523299411118, 0.222183703949851, }, },
+				[69] = { -1.08, LH = { 57.5563053457222, -1.20248958259059, }, RH = { 83.4028221634908, -0.925838682266666, }, },
+				[100] = { -0.0298982914111463, LH = { 89.6666666666667, -0.0298982914111463, }, },
+			},
+		},
+		Cube3D1YOffset = BezierSpline {
+			SplineColor = { Red = 180, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 6.2, 0.66, }, Flags = { Linear = true, }, },
+				[17] = { 0.630119200974633, LH = { 11.6666666666667, 0.420079467316422, }, RH = { 21.8925933250368, 0.82280151326626, }, },
+				[36] = { 1.16, LH = { 30.7518885912923, 1.35992971521658, }, RH = { 42.3, 0.919999999999999, }, },
+				[50] = { 1.48, LH = { 45.2823909627576, 1.10259122462422, }, RH = { 61, 2.36, }, },
+				[82] = { -0.85, LH = { 70.9627755319745, -0.150619454474288, }, RH = { 88.3871958939327, -1.254733458104, }, },
+				[100] = { 2.25, LH = { 94.2117911621417, 1.09235823242833, }, },
+			},
+		},
+		Cube3D1ZOffset = BezierSpline {
+			SplineColor = { Red = 180, Green = 255, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 3.99992616092225, 0, }, Flags = { Linear = true, }, },
+				[10] = { 1.86452474022587, LH = { 6.77802286819776, 1.71075880935479, }, RH = { 18.6657998561859, 2.27809216392872, }, },
+				[36] = { -0.639108676089851, LH = { 27.2824268788771, -0.709088791501401, }, RH = { 40.7339975735854, -0.601106620706479, }, },
+				[50] = { 1.98833810339067, LH = { 45.2335842485497, 2.03122645101747, }, RH = { 60.4579287779817, 1.89423895837557, }, },
+				[81] = { -0.12, LH = { 70.4865194871987, -0.486712042790706, }, RH = { 87.5832023698604, 0.10962174120106, }, },
+				[100] = { 2.15, LH = { 93.6645527009398, 2.15, }, },
+			},
+		},
+		Cube3D1XRotation = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, Flags = { Linear = true, }, },
+				[100] = { 720, Flags = { Linear = true, }, },
+			},
+		},
+		Cube3D1YRotation = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, Flags = { Linear = true, }, },
+				[100] = { 720, Flags = { Linear = true, }, },
+			},
+		},
+		Cube3D1ZRotation = BezierSpline {
+			SplineColor = { Red = 255, Green = 255, Blue = 64, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, Flags = { Linear = true, }, },
+				[100] = { 720, Flags = { Linear = true, }, },
+			},
+		},
+		Cube3D1Size = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0.3, Flags = { Linear = true, }, },
+				[100] = { 1.5, Flags = { Linear = true, }, },
+			},
+		},
+		AnimationGhosting3D = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Animation Ghosting tool\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				FrameRange = InstanceInput {
+					SourceOp = "Dp_Ghosting_Forward",
+					Source = "FrameRange",
+					Default = 50,
+				},
+				EveryNthFrame = InstanceInput {
+					SourceOp = "Dp_Ghosting_Forward",
+					Source = "EveryNthFrame",
+					Default = 1,
+				},
+				FwdColorFill = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "Enable",
+					Name = "Enable Forward Color Fill",
+					Default = 1,
+				},
+				FwdRed = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.DiffuseRed",
+					Name = "Forward Color",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				FwdGreen = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.DiffuseGreen",
+					Name = "Forward Color Green",
+					ControlGroup = 2,
+					Default = 1,
+				},
+				FwdBlue = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.DiffuseBlue",
+					Name = "Forward Color Blue",
+					ControlGroup = 2,
+					Default = 1,
+				},
+				FwdOpacity = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.Opacity",
+					Name = "Forward Opacity",
+				},
+				BwdColorFill = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "Enable",
+					Name = "Enable Backward Color Fill",
+					Default = 1,
+				},
+				BwdRed = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.DiffuseRed",
+					Name = "Backward Color",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				BwdGreen = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.DiffuseGreen",
+					Name = "Backward Color Green",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				BwdBlue = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.DiffuseBlue",
+					Name = "Backward Color Blue",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				BwdOpacity = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.Opacity",
+					Name = "Backward Opacity",
+				},
+				Data3D = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+					Name = "3D Data",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Merge3D2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { -550, -49.5, },
+			},
+			Tools = ordered() {
+				Rpl_Ghosting_Color_Forward = ReplaceMaterial3D {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						["MtlStdInputs.DiffuseRed"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.Opacity"] = Input {
+							Value = 0.5,
+						},
+						Data3D = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -80.0613, 12.352, },
+					},
+				},
+				Dp_Ghosting_Forward = Duplicate3D {
+					CtrlWShown = false,
+					Inputs = {
+						Copies = Input {
+							Value = 41,
+							Expression = "FrameRange/EveryNthFrame+1",
+						},
+						TimeOffset = Input {
+							Value = 1,
+							Expression = "math.min(FrameRange, EveryNthFrame)",
+						},
+						["Scale.Y"] = Input {
+							Disabled = true,
+						},
+						["Scale.Z"] = Input {
+							Disabled = true,
+						},
+						["JitterScale.Y"] = Input {
+							Disabled = true,
+						},
+						["JitterScale.Z"] = Input {
+							Disabled = true,
+						},
+						Data3D = Input {
+							SourceOp = "Rpl_Ghosting_Color_Forward",
+							Source = "Output",
+						},
+						FrameRange = Input {
+							Value = 40,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 34.8677, 10.4, },
+					},
+					UserControls = ordered() {
+						FrameRange = {
+							LINKS_Name = "Ghosting Frame Range in Each Direction",
+							INP_Integer = true,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 500,
+							INP_Default = 50,
+						},
+						EveryNthFrame = {
+							INP_Integer = true,
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							INP_MaxScale = 20,
+							INP_Default = 1,
+							INP_MinScale = 1,
+							INP_MinAllowed = 1,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Ghost Every N-th Frame",
+						},
+					},
+				},
+				Dp_Ghosting_Backward = Duplicate3D {
+					CtrlWShown = false,
+					Inputs = {
+						Copies = Input {
+							Value = 41,
+							Expression = "Dp_Ghosting_Forward.Copies",
+						},
+						TimeOffset = Input {
+							Value = -1,
+							Expression = "-Dp_Ghosting_Forward.TimeOffset",
+						},
+						["Scale.Y"] = Input {
+							Disabled = true,
+						},
+						["Scale.Z"] = Input {
+							Disabled = true,
+						},
+						["JitterScale.Y"] = Input {
+							Disabled = true,
+						},
+						["JitterScale.Z"] = Input {
+							Disabled = true,
+						},
+						Data3D = Input {
+							SourceOp = "Rpl_Ghosting_Color_Backward",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 38.9747, 67.1, },
+					},
+				},
+				Rpl_Ghosting_Color_Backward = ReplaceMaterial3D {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						["MtlStdInputs.DiffuseGreen"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.Opacity"] = Input {
+							Value = 0.5,
+						},
+						Data3D = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -72.1093, 66.594, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					CtrlWShown = false,
+					Inputs = {
+						Input = Input {
+							SourceOp = "Cube3D1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { -143.309, 85.697, },
+					},
+				},
+				Merge3D2 = Merge3D {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Data3D1 = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Data3D2 = Input {
+							SourceOp = "Dp_Ghosting_Forward",
+							Source = "Data3D",
+						},
+						Data3D3 = Input {
+							SourceOp = "Dp_Ghosting_Backward",
+							Source = "Data3D",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 143.309, 86.097, },
+					},
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 110,
+			Top = 110,
+			Width = 1248,
+			Height = 710,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.06261,
+						Offset = { 826.789, 320.987, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "AnimationGhosting3D", Expanded = true, },
+							{ "Dp_Ghosting_Forward", Expanded = true, },
+							{ "Dp_Ghosting_Backward", Expanded = true, },
+							{ "AnimationGhosting3D", Expanded = true, },
+							{ "Dp_Ghosting_Forward", Expanded = true, },
+							{ "Dp_Ghosting_Backward", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 527, },
+							ScaleX = 0.10187384018011,
+							OffsetX = -9.98363633765078,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.0661812610330504,
+						ScaleY = 0.0191660108195362,
+						OffsetX = -22.6339912733032,
+						OffsetY = -4.46568052095193,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "Cube3D1YOffset", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = true,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 100, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.671556642216789,
+					RatioY = 96.3640416047548,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.43328335832084,
+						{
+							ID = "Left",
+							RatioX = 0.762484774665043,
+							RatioY = 94.2006920415225,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.237515225334957,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.48575712143928,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 401,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			Memory = {
+				Render = {
+					SimultaneousBranching = true,
+				},
+				Interactive = {
+					SimultaneousBranching = true,
+				},
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					View3D = {
+						CameraName = "Perspective",
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						Options = {
+							Grid = true,
+						},
+						CameraName = "Camera3D1",
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "2K 2.35/1.77 25fps",
+				Rate = 25,
+				PerFeet = 1,
+				GuideY1 = 0.125,
+				GuideY2 = 0.875,
+				GuideRatio = 2.35,
+				DepthFull = 3,
+				DepthPreview = 3,
+				DepthInteractive = 3,
+				DepthLoader = 1,
+				AspectLoader = 1,
+			},
+			LastFile = "D:\\=Ninja_Film\\Arbidol\\Scan\\A002_C035_0131RS.tga\\A002_C035_0131RS.001.tga",
+			Unsorted = {
+				GlobalStart = 1,
+				GlobalEnd = 100,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				AutoSnap = false,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

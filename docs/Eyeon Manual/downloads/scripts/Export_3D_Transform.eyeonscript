@@ -1,0 +1,112 @@
+------------------------------------------------------------
+-- ExportCamera.eyeonscript
+--
+-- USE: Place this script in your Fusion/Scripts/Tool directory.  Select a camera on the flow, 
+-- invoke the script through the Script menu in Fusion, and a dialog will pop up.  Select where
+-- you want to save the file, a range of frames to export and the time step.
+--
+------------------------------------------------------------
+
+
+-- is this a tool script 
+if not tool then
+	print([[This is a tool script! Please run it from Fusion:\Scripts\Tool.]])
+	do return end
+end
+
+-- is the tool a 3D tool
+id = tool:GetID()
+
+category = fusion:FindReg(id):GetAttrs().REGS_Category
+
+
+if category == "3D" and tool.Transform3DOp then
+
+	defaultFilename = tool:GetAttrs().TOOLS_Name .. ".txt"
+
+	dialog = AskUser("Export Options",{
+		{"PathFile", "FileBrowse", Save = true, Default = comp:MapPath("Comp:")..defaultFilename},
+		{"StartFrame", "Text", Lines = 1, Default = "" .. comp:GetAttrs().COMPN_RenderStartTime},
+		{"EndFrame", "Text", Lines = 1, Default = "" .. comp:GetAttrs().COMPN_RenderEndTime},
+		{"TimeStep", "Text", Lines = 1, Default = "1"}
+	})	
+
+	if dialog then
+		fh, errMsg = io.open(dialog.PathFile, "w")
+		
+		if fh == nil then
+			print("Export Failure: unable to open file")
+		else
+			
+			-- does this tool have Transform
+		
+			print("Beginning Export...");
+			
+			rot_order = tool.Transform3DOp.RotOrder[TIME_UNDEFINED]
+			target = tool.Transform3DOp.UseTarget[TIME_UNDEFINED]
+			
+			-- the first line says the tooltype, the rotation order and wether there is a target
+			aLine = id.. " " .. rot_order .. " " .. target .."\n"
+			fh:write(aLine)
+			
+			for t = dialog.StartFrame, dialog.EndFrame, dialog.TimeStep do
+				x = tool.Transform3DOp.Translate.X[t]
+				y = tool.Transform3DOp.Translate.Y[t]
+				z = tool.Transform3DOp.Translate.Z[t]
+				
+				rx = tool.Transform3DOp.Rotate.X[t]
+				ry = tool.Transform3DOp.Rotate.Y[t]
+				rz = tool.Transform3DOp.Rotate.Z[t]
+				
+				px = tool.Transform3DOp.Pivot.X[t] 
+				py = tool.Transform3DOp.Pivot.Y[t]
+				pz = tool.Transform3DOp.Pivot.Z[t]
+				
+				tx = tool.Transform3DOp.Target.X[t]
+				ty = tool.Transform3DOp.Target.Y[t]
+				tz = tool.Transform3DOp.Target.Z[t]
+				
+				
+				if tool.AoV then 
+					aov = tool.AoV[t]
+					aLine = t .. " " .. 
+							x .. " " .. 
+							y ..  " " .. 
+							z .. " " .. 
+							rx .. " " .. 
+							ry .. " " .. 
+							rz .. " " .. 
+							px .. " " .. 
+							py .. " " .. 
+							pz .. " " .. 
+							tx .. " " .. 
+							ty .. " " .. 
+							tz .. " " .. 
+							aov .. "\n"
+				else
+					aLine =  t .. " " .. 
+							x .. " " .. 
+							y ..  " " .. 
+							z .. " " .. 
+							rx .. " " .. 
+							ry .. " " .. 
+							rz .. " " .. 
+							px .. " " .. 
+							py .. " " .. 
+							pz .. " " .. 
+							tx .. " " .. 
+							ty .. " " .. 
+							tz .. "\n"
+				end
+				
+				fh:write(aLine)
+			end
+		
+			print("Export success: " .. dialog.PathFile)
+		end
+		
+		fh:close()	
+	end
+else
+	print("This script should be run on a tool with a 3D transformation.")
+end

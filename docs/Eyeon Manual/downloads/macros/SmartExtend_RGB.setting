@@ -1,0 +1,514 @@
+{
+	Tools = ordered() {
+		SmartExtend_RGB = GroupOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "MaxRankFilter9",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 5855.43, 929.8, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					GridSnap = true,
+					FullIndicator = true,
+				},
+				Size = { 545.861, 295.78, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -5855.43, -929.8, },
+			},
+			Tools = ordered() {
+				PipeRouter1_3 = PipeRouter {
+					Inputs = {
+						Input = Input {
+							SourceOp = "MaxRankFilter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { 5610, 1072.5, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					Inputs = {
+						Input = Input {
+							SourceOp = "Clip_Z_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { 5610, 973.5, },
+					},
+				},
+				PipeRouter1_3_1 = PipeRouter {
+					Inputs = {
+						Input = Input {
+							SourceOp = "MaxRankFilter5",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { 5625.36, 1171.08, },
+					},
+				},
+				MaxRankFilter9 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter10",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask9",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 6065.36, 1171.08, },
+					},
+				},
+				MaxRankFilter10 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter11",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask10",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5955.36, 1171.08, },
+					},
+				},
+				MaxRankFilter11 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter12",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask11",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5845.36, 1171.08, },
+					},
+				},
+				MaxRankFilter12 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "PipeRouter1_3_1",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask12",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5720, 1171.5, },
+					},
+				},
+				ZeroMask9 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter10",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 6065.36, 1138.08, },
+					},
+				},
+				ZeroMask10 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter11",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5955.36, 1138.08, },
+					},
+				},
+				ZeroMask11 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter12",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5845.36, 1138.08, },
+					},
+				},
+				ZeroMask12 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "PipeRouter1_3_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5720, 1138.5, },
+					},
+				},
+				MaxRankFilter8 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "PipeRouter1_3",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask8",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5704.64, 1072.92, },
+					},
+				},
+				ZeroMask8 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "PipeRouter1_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5704.64, 1039.92, },
+					},
+				},
+				MaxRankFilter4 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5720, 973.5, },
+					},
+				},
+				ZeroMask1 = Custom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5720, 940.5, },
+					},
+				},
+				MaxRankFilter7 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter8",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask7",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5830, 1072.5, },
+					},
+				},
+				MaxRankFilter6 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter7",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask6",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5940, 1072.5, },
+					},
+				},
+				MaxRankFilter5 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter6",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask5",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 6050, 1072.5, },
+					},
+				},
+				ZeroMask2 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter4",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5830, 940.5, },
+					},
+				},
+				ZeroMask5 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter6",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 6050, 1039.5, },
+					},
+				},
+				MaxRankFilter3 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter4",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5830, 973.5, },
+					},
+				},
+				ZeroMask7 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter8",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5830, 1039.5, },
+					},
+				},
+				ZeroMask6 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter7",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5940, 1039.5, },
+					},
+				},
+				MaxRankFilter2 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter3",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5940, 973.5, },
+					},
+				},
+				ZeroMask3 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 5940, 940.5, },
+					},
+				},
+				MaxRankFilter1 = RankFilter {
+					NameSet = true,
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Rank = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MaxRankFilter2",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ZeroMask4",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 6050, 973.5, },
+					},
+				},
+				ZeroMask4 = Custom {
+					NameSet = true,
+					Inputs = {
+						AlphaExpression = Input {
+							Value = "if(r1==0 & g1==0 & b1==0,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "MaxRankFilter2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 6050, 940.5, },
+					},
+				},
+			},
+		},
+	},
+}

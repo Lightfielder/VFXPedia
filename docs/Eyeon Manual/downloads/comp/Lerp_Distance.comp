@@ -1,0 +1,581 @@
+Composition {
+	CurrentTime = 10,
+	RenderRange = { 1, 30, },
+	GlobalRange = { 1, 1000, },
+	Version = "Fusion 6.0 build 511",
+	SavedOutputs = 0,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 256,
+				},
+				Height = Input {
+					Value = 256,
+				},
+				Size = Input {
+					Value = 0.5,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "start",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -55, -49.5, },
+			},
+		},
+		myEnd = Shape3D {
+			NameSet = true,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 2.42800695360442,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 1.60607133084999,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 2.61855242089323,
+				},
+				MaterialInput = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+				["MtlStdInputs.MaterialID"] = Input {
+					Value = 1,
+				},
+				["SurfaceSphereInputs.Radius"] = Input {
+					Value = 0.1,
+				},
+				["SurfaceSphereInputs.ObjectID.ObjectID"] = Input {
+					Value = 2,
+				},
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+					Value = 1,
+				},
+				pos_1 = Input {
+					Value = 0.25,
+				},
+				pos_2 = Input {
+					Value = 0.5,
+				},
+				pos_3 = Input {
+					Value = 0.75,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, -49.5, },
+			},
+			UserControls = ordered() {
+				pos_1 = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				pos_2 = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				pos_3 = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+			},
+		},
+		Text1_1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 256,
+				},
+				Height = Input {
+					Value = 256,
+				},
+				Size = Input {
+					Value = 0.5,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "end",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -55, 247.5, },
+			},
+		},
+		myStart = Shape3D {
+			NameSet = true,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = -0.347381979700694,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 0.695393418950869,
+				},
+				MaterialInput = Input {
+					SourceOp = "Text1_1",
+					Source = "Output",
+				},
+				["MtlStdInputs.MaterialID"] = Input {
+					Value = 1,
+				},
+				["SurfaceSphereInputs.Radius"] = Input {
+					Value = 0.1,
+				},
+				["SurfaceSphereInputs.ObjectID.ObjectID"] = Input {
+					Value = 2,
+				},
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 247.5, },
+			},
+		},
+		Text1_2 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 256,
+				},
+				Height = Input {
+					Value = 256,
+				},
+				Size = Input {
+					Value = 0.5,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "mid",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Green1 = Input {
+					Value = 0.345150626527484,
+				},
+				Blue1 = Input {
+					Value = 0,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -55, 115.5, },
+			},
+		},
+		myMiddle = Shape3D {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 1.12312259917157,
+					Expression = "myStart.Transform3DOp.Translate.X*(1 - Position) + myEnd.Transform3DOp.Translate.X * Position",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 1.17790454496114,
+					Expression = "myStart.Transform3DOp.Translate.Y * (1 -  Position) + myEnd.Transform3DOp.Translate.Y *  Position",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 1.38740674459453,
+					Expression = "myStart.Transform3DOp.Translate.Z * (1 -  Position) + myEnd.Transform3DOp.Translate.Z * Position",
+				},
+				MaterialInput = Input {
+					SourceOp = "Text1_2",
+					Source = "Output",
+				},
+				["MtlStdInputs.Diffuse.Color.Green"] = Input {
+					Value = 0.240238497464308,
+				},
+				["MtlStdInputs.Diffuse.Color.Blue"] = Input {
+					Value = 0.107377777777778,
+				},
+				["MtlStdInputs.MaterialID"] = Input {
+					Value = 1,
+				},
+				["SurfaceSphereInputs.Radius"] = Input {
+					Value = 0.1,
+				},
+				["SurfaceSphereInputs.ObjectID.ObjectID"] = Input {
+					Value = 2,
+				},
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+					Value = 1,
+				},
+				Position = Input {
+					Value = 0.5298373,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 115.5, },
+			},
+			UserControls = ordered() {
+				Position = {
+					INPID_InputControl = "SliderControl",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 1,
+					INP_Default = 0,
+				},
+			},
+		},
+		Merge3D1 = Merge3D {
+			CtrlWZoom = false,
+			Inputs = {
+				SceneInput1 = Input {
+					SourceOp = "myEnd",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "myStart",
+					Source = "Output",
+				},
+				SceneInput3 = Input {
+					SourceOp = "myMiddle",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 148.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 22,
+			Top = 22,
+			Width = 1280,
+			Height = 712,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							AutoHideNavigator = true,
+							ForceSource = true,
+							GridSnap = true,
+							PipesAlways = true,
+							AutoSnap = true,
+							AspectPics = false,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.929805,
+						Offset = { 301.56, 118.931, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+							"= Loader1.Output[comp.CurrentTime].Metadata.TheCompName",
+							"= Loader1.Output[comp.CurrentTime].Metadata.TheCompName",
+							"= Loader1.Output[TIME_UNDEFINED].Metadata.TheCompName",
+							"= Loader1.Output[Time_Undefined].Metadata.TheCompName",
+							"= Loader1.Output[comp.CurrentTime].Metadata.TheCompName",
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 495, },
+							ScaleX = 0.739004707464694,
+							OffsetX = -48.7743106926698,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.00342465753424658,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.651697127937337,
+					RatioY = 0.0101289134438306,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.475925925925926,
+						{
+							ID = "Left",
+							RatioX = 0.500401606425703,
+							RatioY = 102.799610894942,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.499598393574297,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.474074074074074,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 665,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Splines = {
+				AutoSmoothMeshes = false,
+			},
+			AutoSave = {
+				Delay = 180,
+				OnRender = true,
+			},
+			Memory = {
+				FramesAtOnce = 1,
+			},
+			NumberStyles = {
+				ClipFrame = 1,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+					},
+					ViewLUT = {
+						{
+							Tools = ordered() {
+								FusionViewLUT = ViewOperator {
+									NameSet = true,
+									Inputs = {
+									},
+								},
+							},
+							ID = "FusionViewLUT",
+						},
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 1,
+					},
+					SubView = {
+						Enabled = true,
+						Navigator = false,
+						ID = "GLMetadataViewer",
+						Magnifier = false,
+					},
+					ViewLUT = {
+						{
+							Tools = ordered() {
+								FusionViewLUT1 = ViewOperator {
+									NameSet = true,
+									Inputs = {
+									},
+								},
+							},
+							ID = "FusionViewLUT",
+						},
+					},
+					View3D = {
+						CameraName = "Perspective",
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+						CameraConvergence = 0,
+						CameraSeparation = 0.1,
+					},
+					Vectorccope = {
+						DrawStyles = 1,
+						OneLine = false,
+						Color = false,
+						LoopLines = true,
+						SubSampling = 4,
+						ColorSpace = 0,
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720 Europe",
+				Width = 1280,
+				Height = 720,
+				Rate = 25,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "D:\\Erics\\_Crap\\out\\crap.exr",
+			Unsorted = {
+				GlobalStart = 1,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ScaleLocked = false,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+				ScaleLocked = false,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+				EnableReverseMapping = true,
+			},
+			LastLUTFile = "C:\\Program Files (x86)\\eyeon\\Generation 2.0\\LUTs\\steffen.3dl",
+			FlowView = {
+				ForceSource = true,
+				GridSnap = true,
+				PipesOnTop = true,
+				AspectTilePics = false,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

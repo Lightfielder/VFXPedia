@@ -1,0 +1,1590 @@
+Composition {
+	CurrentTime = 1,
+	RenderRange = { 1, 1, },
+	GlobalRange = { 1, 1000, },
+	CurrentID = 220,
+	HiQ = true,
+	Version = "Fusion x64 6.1 build 644",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		AlphaEdgeCCv = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Finds objects' edges according to the Alpha channel.\r\nUseful as a mask for edge work like blurring and color correcting while keying.\r\nCan also be used for creative purposes (able to create multiple edges with certain curves setups)\r\n\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Blur1",
+					Source = "Input",
+				},
+				PreBlurSize = InstanceInput {
+					SourceOp = "Blur1",
+					Source = "XBlurSize",
+					Name = "Pre-Blur Size",
+					Default = 0,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "ColorCurves2",
+					Source = "Alpha",
+					ControlGroup = 9,
+				},
+				Gain = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Gain",
+					Default = 1,
+				},
+				Gamma = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Gamma",
+					Default = 1,
+				},
+				Contrast = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Contrast",
+					Default = 0,
+				},
+				Low = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Low",
+					ControlGroup = 4,
+					Default = 0,
+				},
+				High = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "High",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				ClipBlack = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "ClipBlack",
+					Default = 1,
+				},
+				ClipWhite = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "ClipWhite",
+					Default = 1,
+				},
+				PostBlurSize = InstanceInput {
+					SourceOp = "MatteControl1",
+					Source = "MatteBlur",
+					Name = "Post-Blur Size",
+					Default = 0,
+				},
+				InvertBrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1",
+					Source = "InvertGarbageMatte",
+					Name = "Invert Brightness Map",
+					Default = 1,
+				},
+				BrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1",
+					Source = "GarbageMatte",
+					Name = "Brightness Map",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1100, 181.5, },
+			},
+			Tools = ordered() {
+				BrightnessContrast1 = BrightnessContrast {
+					CtrlWShown = false,
+					Inputs = {
+						Alpha = Input {
+							Value = 1,
+						},
+						Contrast = Input {
+							Value = 0.5,
+						},
+						High = Input {
+							Value = 0.2418773,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "ColorCurves2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1.505, 74.645, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Blur1 = Blur {
+					CtrlWShown = false,
+					Inputs = {
+						Filter = Input {
+							Value = FuID { "Multi-box", },
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "_CF_CustomTool_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1.505, 10.15, },
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.529411764705882, B = 0.36078431372549, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ColorCurves2 = ColorCurves {
+					PickColor = true,
+					CtrlWShown = false,
+					Inputs = {
+						Red = Input {
+							SourceOp = "ColorCurves2Red",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ColorCurves2Green",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ColorCurves2Blue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ColorCurves2Alpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Blur1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -0.234988, 42.478, },
+					},
+					Tools = {
+						ColorCurves2Red = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 52, Blue = 52, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2Alpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.165, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+						},
+						ColorCurves2Green = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2Blue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 68, Green = 68, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ChannelBooleans1 = ChannelBoolean {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						ToRed = Input {
+							Value = 8,
+						},
+						ToGreen = Input {
+							Value = 8,
+						},
+						ToBlue = Input {
+							Value = 8,
+						},
+						ToAlpha = Input {
+							Value = 8,
+						},
+						Background = Input {
+							SourceOp = "MatteControl1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -0.234988, 108.478, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				MatteControl1 = MatteControl {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						MatteBlur = Input {
+							Value = 1,
+						},
+						InvertGarbageMatte = Input {
+							Value = 1,
+						},
+						Background = Input {
+							SourceOp = "BrightnessContrast1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -0.234988, 141.478, },
+					},
+					Colors = {
+						TileColor = { R = 0.443137254901961, G = 0.356862745098039, B = 0.529411764705882, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.36078431372549, B = 0.533333333333333, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		Polygon_2 = PolylineMask {
+			DrawMode = "InsertAndModify",
+			DrawMode2 = "InsertAndModify",
+			NameSet = true,
+			Inputs = {
+				Filter = Input {
+					Value = FuID { "Multi-box", },
+				},
+				SoftEdge = Input {
+					Value = 0.001,
+				},
+				MaskWidth = Input {
+					Value = 320,
+				},
+				MaskHeight = Input {
+					Value = 240,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				Polyline = Input {
+					Value = Polyline {
+						Closed = true,
+						Points = {
+							{ X = -0.179863555627485, Y = -0.0532407468115842, LX = 0.0185375368144452, LY = -0.0870437002234351, RX = -0.0259961675148747, RY = 0.122065980759627, },
+							{ X = 0.0356521745933139, Y = 0.196759250428941, LX = -0.13661053853669, LY = 0.0143207976052093, RX = 0.118446264976707, RY = -0.0124166481297402, },
+							{ X = 0.181602679972228, Y = -0.0776299134876808, LX = 0.0420585305335291, LY = 0.0998274469367427, RX = -0.0319619701405226, RY = -0.075862894821139, },
+							{ X = 0.000869565923576787, Y = -0.178240752882428, LX = 0.0867021123713402, LY = 0.00317762444040109, RX = -0.0961697761633729, RY = -0.00452590167138973, },
+						},
+					},
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+						Points = {
+						},
+					},
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 82.5, },
+			},
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 1920,
+				},
+				MaskHeight = Input {
+					Value = 1080,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.531720972992525, 0.427215020355688, },
+				},
+				Width = Input {
+					Value = 0.0936266446834155,
+				},
+				Height = Input {
+					Value = 0.0936266446834155,
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon_2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 115.5, },
+			},
+		},
+		Ellipse1_1 = EllipseMask {
+			Inputs = {
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 1920,
+				},
+				MaskHeight = Input {
+					Value = 1080,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.432275339602926, 0.423800085708164, },
+				},
+				Width = Input {
+					Value = 0.064591484819925,
+				},
+				Height = Input {
+					Value = 0.064591484819925,
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 148.5, },
+			},
+		},
+		Background1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 384,
+				},
+				Height = Input {
+					Value = 288,
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				TopLeftRed = Input {
+					Value = 1,
+				},
+				TopLeftGreen = Input {
+					Value = 1,
+				},
+				TopLeftBlue = Input {
+					Value = 1,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 181.5, },
+			},
+		},
+		Polygon1 = PolylineMask {
+			DrawMode = "InsertAndModify",
+			DrawMode2 = "InsertAndModify",
+			PolyLine2Disabled = true,
+			FollowExtMatchPoints2 = false,
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.001,
+				},
+				MaskWidth = Input {
+					Value = 1920,
+				},
+				MaskHeight = Input {
+					Value = 1080,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Polyline = Input {
+					SourceOp = "Polygon1Polyline",
+					Source = "Value",
+				},
+				Polyline2 = Input {
+					SourceOp = "Polygon1Polyline2",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, -49.5, },
+			},
+		},
+		Polygon1Polyline = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+						Closed = true,
+						Points = {
+							{ LockPF = true, LockP = true, X = -0.167006943237677, Y = -0.245729568399208, LX = 0.083285601437394, LY = -0.0954089421842227, RX = -0.0663037758529696, RY = 0.0759551832222391, },
+							{ LockP = true, X = -0.215259852968629, Y = 0.0979511495604286, LX = -0.0637024640715771, LY = -0.149925016485533, RX = 0.0123570874804229, RY = 0.0290826512163473, },
+							{ LockP = true, X = -0.179099886568863, Y = 0.185900846275387, LX = -0.0216333800937382, LY = -0.0151274092657277, RX = 0.00122305781730143, RY = -0.0252688870681612, },
+							{ LockP = true, X = -0.119784575030446, Y = 0.151287435745819, LX = -0.00548419503449932, LY = 0.0278184473238799, RX = 0.00476134138317792, RY = 0.0471840771260122, },
+							{ LockP = true, X = -0.0589842865584673, Y = 0.268904863713116, LX = 0.0160080914670558, LY = -0.0445498136952221, RX = 0.0209463008015625, RY = -0.000569447624519962, },
+							{ LockP = true, X = -0.00766484542204622, Y = 0.191744239571106, LX = -0.00841993638888404, LY = 0.0324916119550391, RX = 0.0123854689002743, RY = 0.0538158036245914, },
+							{ LockP = true, X = 0.0248037563294723, Y = 0.330558269834426, LX = -0.0270953155986744, LY = -0.0605796191808073, RX = -0.00488143144342156, RY = -0.0348196087180882, },
+							{ LockP = true, X = 0.0915404226066606, Y = 0.177714043718327, LX = 0.000706995970555709, LY = 0.0589409199993102, RX = 0.0139537760346139, RY = 0.0528488071494125, },
+							{ LockP = true, X = 0.159605157151477, Y = 0.24809109788923, LX = -0.0348497120818797, LY = -0.00915851874270511, RX = -0.034708718773107, RY = -0.0272793043668518, },
+							{ LockP = true, X = 0.207369085935195, Y = 0.100168433887765, LX = -0.0278985355028958, LY = 0.0418245962803394, RX = 0.0594121992746094, RY = -0.0890688777742359, },
+							{ LockP = true, X = 0.162443961688648, Y = -0.252381455115329, LX = 0.113844018608522, LY = 0.126423238260363, RX = -0.0843734143016511, RY = -0.0936962731066092, },
+						},
+					}, },
+			},
+		},
+		Polygon1Polyline2 = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+						Closed = true,
+						Points = {
+							{ LockPF = true, LockP = true, X = -0.167006943237677, Y = -0.245729568399208, LX = 0.083285601437394, LY = -0.0954089421842227, RX = -0.0663037758529696, RY = 0.0759551832222391, },
+							{ LockP = true, X = -0.215259852968629, Y = 0.0979511495604286, LX = -0.0637024640715771, LY = -0.149925016485533, RX = 0.0276088734432294, RY = 0.0649780328979457, },
+							{ LockP = true, X = -0.162409030255365, Y = 0.310659066778289, LX = -0.0545433174437203, LY = -0.00280618672001491, RX = -0.0163564222787318, RY = -0.0545417693155586, },
+							{ LockP = true, X = -0.119784575030446, Y = 0.151287435745819, LX = -0.0107524944498403, LY = 0.0545417693155586, RX = 0.00836477573076665, RY = 0.0828934939672106, },
+							{ LockP = true, X = -0.104702719069353, Y = 0.401400028123174, LX = 0.0281231871910323, LY = -0.0782655916512434, RX = 0.0500419746421807, RY = -0.00136044468454078, },
+							{ LockP = true, X = -0.00766484542204622, Y = 0.191744239571106, LX = -0.0201157353392862, LY = 0.0776244185997918, RX = 0.0205227489388024, RY = 0.0891729037972003, },
+							{ LockP = true, X = 0.0552827113367292, Y = 0.417598888789939, LX = -0.0831391928603309, LY = -0.0371482016773634, RX = -0.0434399494316824, RY = -0.0513117288086168, },
+							{ LockP = true, X = 0.0915404226066606, Y = 0.177714043718327, LX = 0.000978321750406626, LY = 0.0815608382873498, RX = 0.0425870528555513, RY = 0.161295045716788, },
+							{ LockP = true, X = 0.303291659328545, Y = 0.385421852241261, LX = -0.106361641949116, LY = -0.0279518834763164, RX = -0.0673727896263546, RY = -0.0529516184759095, },
+							{ LockP = true, X = 0.207369085935195, Y = 0.100168433887765, LX = -0.0541536026036298, LY = 0.0811853570517225, RX = 0.0594121992746094, RY = -0.0890688777742359, },
+							{ LockP = true, X = 0.162443961688648, Y = -0.252381455115329, LX = 0.113844018608522, LY = 0.126423238260363, RX = -0.0843734143016511, RY = -0.0936962731066092, },
+						},
+					}, },
+			},
+		},
+		Polygon = PolylineMask {
+			DrawMode = "InsertAndModify",
+			DrawMode2 = "InsertAndModify",
+			NameSet = true,
+			Inputs = {
+				Filter = Input {
+					Value = FuID { "Multi-box", },
+				},
+				SoftEdge = Input {
+					Value = 0.005,
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 320,
+				},
+				MaskHeight = Input {
+					Value = 240,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				Polyline = Input {
+					Value = Polyline {
+						Closed = true,
+						Points = {
+							{ X = -0.11224326848638, Y = -0.116818363896175, LX = 0.0394658296851434, LY = -0.00561754502160347, RX = -0.0281727197385891, RY = 0.00401008981124036, },
+							{ X = -0.164980727391032, Y = -0.0279404382129468, LX = -0.00141436160218349, LY = -0.0581231998324838, RX = 0.000911720792582453, RY = 0.0374671722824565, },
+							{ X = -0.0993239319918809, Y = 0.042634941933319, LX = -0.0328123173478176, LY = 0.00400950199255666, RX = 0.0320716239016599, RY = -0.00391899293716863, },
+							{ X = -0.0434969127836947, Y = -0.0462033298294409, LX = 0.00619745477530726, LY = 0.0460214177583762, RX = -0.0051109313785809, RY = -0.0379530495398257, },
+						},
+					},
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+						Points = {
+						},
+					},
+					Disabled = true,
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, -16.5, },
+			},
+		},
+		Polygon_1 = PolylineMask {
+			DrawMode = "InsertAndModify",
+			DrawMode2 = "InsertAndModify",
+			NameSet = true,
+			Inputs = {
+				Filter = Input {
+					Value = FuID { "Multi-box", },
+				},
+				SoftEdge = Input {
+					Value = 0.005,
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 320,
+				},
+				MaskHeight = Input {
+					Value = 240,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				Polyline = Input {
+					Value = Polyline {
+						Closed = true,
+						Points = {
+							{ X = 0.0647068225347675, Y = -0.124291074536105, LX = 0.0642728229614166, LY = -0.00670093140661102, RX = -0.0436744470310026, RY = 0.00455339380304018, },
+							{ X = -0.0197931796779547, Y = 0.00992426147824552, LX = -0.00356026502543495, LY = -0.0690997661243692, RX = 0.00322024902367059, RY = 0.0625005309459177, },
+							{ X = 0.0891219196564983, Y = 0.1291909198918, LX = -0.0711664168425815, LY = 0.00723962825855099, RX = 0.0570383356634958, RY = -0.00580240463143686, },
+							{ X = 0.174604016469015, Y = -0.0120347648991594, LX = 0.00970420853966167, LY = 0.0591011750571741, RX = -0.00986674450554215, RY = -0.0600910617164857, },
+						},
+					},
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+						Points = {
+						},
+					},
+					Disabled = true,
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 16.5, },
+			},
+		},
+		Background1_1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 384,
+				},
+				Height = Input {
+					Value = 288,
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				TopLeftRed = Input {
+					Value = 0.8,
+				},
+				TopLeftGreen = Input {
+					Value = 0.45,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 82.5, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Background1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 181.5, },
+			},
+		},
+		Polygon_3 = PolylineMask {
+			DrawMode = "ModifyOnly",
+			DrawMode2 = "InsertAndModify",
+			NameSet = true,
+			Inputs = {
+				Filter = Input {
+					Value = FuID { "Multi-box", },
+				},
+				SoftEdge = Input {
+					Value = 0.001,
+				},
+				BorderWidth = Input {
+					Value = 0.009,
+				},
+				Solid = Input {
+					Value = 0,
+				},
+				MaskWidth = Input {
+					Value = 320,
+				},
+				MaskHeight = Input {
+					Value = 240,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				Polyline = Input {
+					Value = Polyline {
+						Points = {
+							{ Linear = true, X = -0.197784807108626, Y = -0.148734180358895, RX = 0.00896624133053711, RY = 0.00773558399932126, },
+							{ Linear = true, X = -0.170886083117014, Y = -0.125527428360931, LX = -0.00896624133053711, LY = -0.00773558399932126, RX = -0.00527425877404112, RY = -0.00457102527682122, },
+							{ Linear = true, X = -0.186708859439138, Y = -0.139240504191395, LX = 0.00527425877404112, LY = 0.00457102527682122, RX = 0.116818158110212, RY = -0.174811614806418, },
+							{ X = 0.20332278594186, Y = -0.102320678532124, LX = -0.100506181433231, LY = -0.178188507463289, RX = -0.0044831245634626, RY = 0.00527426352103553, },
+							{ Linear = true, X = 0.189873412251472, Y = -0.086497887969017, LX = 0.0044831245634626, LY = -0.00527426352103553, RX = 0.00817510730858092, RY = -0.00879043678107309, },
+							{ Linear = true, X = 0.214398726820946, Y = -0.112869195640087, LX = -0.00817510730858092, LY = 0.00879043678107309, },
+						},
+					},
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+						Points = {
+						},
+					},
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 148.5, },
+			},
+		},
+		["_CF_CustomToolLUTIn1_1"] = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		["_CF_CustomToolLUTIn2_1"] = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		["_CF_CustomToolLUTIn3_1"] = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		["_CF_CustomToolLUTIn4_1"] = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		AlphaEdgeCCv_1 = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Finds objects' edges according to the Alpha channel.\r\nUseful as a mask for edge work like blurring and color correcting while keying.\r\nCan also be used for creative purposes (able to create multiple edges with certain curves setups)\r\n\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Blur1_1",
+					Source = "Input",
+				},
+				PreBlurSize = InstanceInput {
+					SourceOp = "Blur1_1",
+					Source = "XBlurSize",
+					Name = "Pre-Blur Size",
+					Default = 0,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "ColorCurves2_1",
+					Source = "Alpha",
+					ControlGroup = 9,
+				},
+				Gain = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "Gain",
+					Default = 1,
+				},
+				Gamma = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "Gamma",
+					Default = 1,
+				},
+				Contrast = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "Contrast",
+					Default = 0,
+				},
+				Low = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "Low",
+					ControlGroup = 4,
+					Default = 0,
+				},
+				High = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "High",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				ClipBlack = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "ClipBlack",
+					Default = 1,
+				},
+				ClipWhite = InstanceInput {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "ClipWhite",
+					Default = 1,
+				},
+				PostBlurSize = InstanceInput {
+					SourceOp = "MatteControl1_1",
+					Source = "MatteBlur",
+					Name = "Post-Blur Size",
+					Default = 0,
+				},
+				InvertBrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1_1",
+					Source = "InvertGarbageMatte",
+					Name = "Invert Brightness Map",
+					Default = 1,
+				},
+				BrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1_1",
+					Source = "GarbageMatte",
+					Name = "Brightness Map",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ChannelBooleans1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1100, 247.5, },
+			},
+			Tools = ordered() {
+				BrightnessContrast1_1 = BrightnessContrast {
+					CtrlWShown = false,
+					Inputs = {
+						Alpha = Input {
+							Value = 1,
+						},
+						Contrast = Input {
+							Value = 1,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "ColorCurves2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1.505, 74.645, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Blur1_1 = Blur {
+					CtrlWShown = false,
+					Inputs = {
+						Filter = Input {
+							Value = FuID { "Multi-box", },
+						},
+						XBlurSize = Input {
+							Value = 12.3028391,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "_CF_CustomTool_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1.505, 10.15, },
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.529411764705882, B = 0.36078431372549, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ColorCurves2_1 = ColorCurves {
+					PickColor = true,
+					CtrlWShown = false,
+					Inputs = {
+						Red = Input {
+							SourceOp = "ColorCurves2_1Red",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ColorCurves2_1Green",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ColorCurves2_1Blue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ColorCurves2_1Alpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Blur1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -0.234988, 42.478, },
+					},
+					Tools = {
+						ColorCurves2_1Green = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2_1Blue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 68, Green = 68, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2_1Alpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.0833333333333335, 0, }, Flags = { Linear = true, }, },
+									[0.25] = { 1, LH = { 0.166666666666667, 1, }, RH = { 0.333333333333333, 1, }, },
+									[0.5] = { 0, LH = { 0.416666666666667, 0, }, RH = { 0.5825, 0, }, },
+									[0.75] = { 1, LH = { 0.6675, 1, }, RH = { 0.833333333333333, 1, }, },
+									[1] = { 0, LH = { 0.916666666666666, 0, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+						},
+						ColorCurves2_1Red = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 52, Blue = 52, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ChannelBooleans1_1 = ChannelBoolean {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						ToRed = Input {
+							Value = 8,
+						},
+						ToGreen = Input {
+							Value = 8,
+						},
+						ToBlue = Input {
+							Value = 8,
+						},
+						ToAlpha = Input {
+							Value = 8,
+						},
+						Background = Input {
+							SourceOp = "MatteControl1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -0.234988, 108.478, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				MatteControl1_1 = MatteControl {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						MatteBlur = Input {
+							Value = 0.5,
+						},
+						InvertGarbageMatte = Input {
+							Value = 1,
+						},
+						Background = Input {
+							SourceOp = "BrightnessContrast1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -0.234988, 141.478, },
+					},
+					Colors = {
+						TileColor = { R = 0.443137254901961, G = 0.356862745098039, B = 0.529411764705882, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.36078431372549, B = 0.533333333333333, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		ColorFill_1 = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Solid Color Fill for Fusion 5.21 and above\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				Input = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Image1",
+					Name = "Input",
+				},
+				ProcessRedClone = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				ProcessGreenClone = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				ProcessBlueClone = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+				ProcessAlphaClone = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				Red = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Red",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				Green = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Green",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				Blue = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Blue",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				Alpha = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Alpha",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				MultiplybyAlpha = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "MultiplybyAlpha",
+				},
+				Blend = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Blend",
+					Page = "Common Controls",
+					Default = 1,
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessWhenBlendIs00",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "ApplyMaskInverted",
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "MultiplyByMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "MaskChannel",
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "MaskHigh",
+					ControlGroup = 4,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "MaskLow",
+					ControlGroup = 4,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "_CF_CustomTool_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 935, 181.5, },
+			},
+			Tools = ordered() {
+				["_CF_CustomTool_1"] = Custom {
+					CtrlWShown = false,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 0.0933333333333334,
+							Expression = "Red",
+						},
+						NumberIn2 = Input {
+							Value = 0.0933333333333334,
+							Expression = "Green",
+						},
+						NumberIn3 = Input {
+							Value = 0.0933333333333334,
+							Expression = "Blue",
+						},
+						NumberIn4 = Input {
+							Value = 1,
+							Expression = "Alpha",
+						},
+						NumberIn5 = Input {
+							Expression = "MultiplybyAlpha",
+						},
+						LUTIn1 = Input {
+							SourceOp = "_CF_CustomToolLUTIn1_1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "_CF_CustomToolLUTIn2_1",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "_CF_CustomToolLUTIn3_1",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "_CF_CustomToolLUTIn4_1",
+							Source = "Value",
+						},
+						RedExpression = Input {
+							Value = "if (n5=1,n1*a1,n1)",
+						},
+						GreenExpression = Input {
+							Value = "if (n5=1,n2*a1,n2)",
+						},
+						BlueExpression = Input {
+							Value = "if (n5=1,n3*a1,n3)",
+						},
+						AlphaExpression = Input {
+							Value = "if (n5=1,n4*a1,n4)",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						Image1 = Input {
+							SourceOp = "Merge1",
+							Source = "Output",
+						},
+						Red = Input {
+							Value = 0.0933333333333334,
+						},
+						Green = Input {
+							Value = 0.0933333333333334,
+						},
+						Blue = Input {
+							Value = 0.0933333333333334,
+						},
+						MultiplybyAlpha = Input {
+							Value = 0,
+						},
+						EffectMask = Input {
+							SourceOp = "Polygon_3",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 10.15, },
+					},
+					UserControls = ordered() {
+						Red = {
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 1,
+							IC_ControlPage = 0,
+							INP_Default = 0,
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							IC_ControlID = 0,
+							IC_ControlGroup = 1,
+							LINKS_Name = "Fill Color",
+						},
+						Green = {
+							IC_ControlGroup = 1,
+							CLRC_ColorSpace = 0,
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							INPID_InputControl = "ColorControl",
+							INP_Default = 0,
+						},
+						Blue = {
+							IC_ControlGroup = 1,
+							IC_ControlID = 2,
+							CLRC_ShowWheel = true,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						Alpha = {
+							IC_ControlGroup = 1,
+							IC_ControlID = 3,
+							CLRC_ShowWheel = true,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						MultiplybyAlpha = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Multiply by Alpha",
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 1,
+						},
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 325,
+			Top = 325,
+			Width = 1595,
+			Height = 723,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							GridSnap = true,
+							PipesAlways = true,
+							AutoSnap = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.494829,
+						Offset = { 352.575, 357.165, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+						ActiveUtility = "LuaScriptConsole",
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 527, },
+							ScaleX = 0.739004707464694,
+							OffsetX = -49.5133154001345,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					Chat = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.780156657963446,
+					RatioY = 95.0908221797323,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.4375,
+						{ ID = "Left", RatioX = 0.465459423205902, RatioY = 98.7994310099573, Pop = true, },
+						{ ID = "Right", RatioX = 0.534540576794098, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.510576923076923, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 419,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Splines = {
+				AutoSmoothMeshes = false,
+			},
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 180,
+			},
+			Memory = {
+				Render = {
+					SimultaneousBranching = true,
+				},
+				Interactive = {
+					SimultaneousBranching = true,
+				},
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						Channel = 4294967295,
+						DoD = {
+							Show = false,
+						},
+						CheckerUnderlay = true,
+						ScaleMode = 1,
+						Smooth = false,
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					Guides = {
+						Show = false,
+						Center = false,
+						SafeImage = false,
+						FrameAspect = "Default",
+						Film = true,
+						SafeTitle = false,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 1,
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					Guides = {
+						Show = true,
+						Center = false,
+						SafeImage = false,
+						Film = true,
+						SafeTitle = false,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+				},
+				Defaults = {
+					View3D = {
+						Options = {
+							ShowTextureMemory = true,
+						},
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 1080",
+				Width = 1920,
+				Height = 1080,
+				PerFeet = 1,
+				GuideY1 = 0.095,
+				GuideY2 = 0.905,
+				GuideRatio = 2.4,
+				DepthFull = 2,
+				DepthPreview = 2,
+				DepthInteractive = 2,
+			},
+			LastFile = "X:\\anon\\shots\\WES_091_050\\final\\v0006\\WES_091_050_comp_v0006.00001.jpg",
+			Unsorted = {
+				GlobalStart = 1,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ScaleLocked = false,
+			},
+			Timeline = {
+				ScaleLocked = false,
+			},
+			Paths = {
+				Map = {
+					["LoaderCache:"] = "Temp:DiskCache",
+				},
+			},
+			DiskCache = {
+				CacheLoaders = {
+					MaxSize = 100,
+				},
+			},
+			LastLUTFile = "C:\\Users\\rony\\Desktop\\Fusion1D_sample.3dl",
+			FlowView = {
+				ForceSource = true,
+				GridSnap = true,
+				ShowNavigator = 1,
+				PipesOnTop = true,
+				FullToolIndicator = true,
+			},
+			Locked = true,
+			Tabasco = {
+				Uncompressed = false,
+				Scale_16_9 = false,
+				ErrorDiffusion = true,
+				DoAlpha = false,
+				DataRateAlpha = 5000,
+				Scale_Type = 1,
+				VideoOut = {
+					Scale = false,
+					SDTI = false,
+				},
+				UncompressedAlpha = false,
+				DataRate = 5000,
+			},
+			Boxx = {
+				ErrorDiffusion = true,
+				VideoOut = {
+					Standard = -1,
+					["10Bit"] = false,
+				},
+			},
+			Bluefish = {
+				ErrorDiffusion = true,
+				VideoOut = {
+					Standard = -1,
+					["10Bit"] = false,
+					YUV = false,
+				},
+			},
+			QuickTime = {
+				DataCheck = false,
+				KeyRate = 15,
+				Compressor = "Cinepak_cvid",
+				Quality = 75,
+				DataRate = 300,
+				KeyCheck = true,
+			},
+		},
+	},
+}
+
+ 

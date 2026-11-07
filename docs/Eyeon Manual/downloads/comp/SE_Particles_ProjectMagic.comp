@@ -1,0 +1,637 @@
+Composition {
+	CurrentTime = 100,
+	RenderRange = { 0, 125, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 100",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 640,
+				},
+				Height = Input {
+					Value = 360,
+				},
+				Center = Input {
+					Value = { 0.5, 0.323728813559322, },
+				},
+				Size = Input {
+					Value = 0.2016575,
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					Value = "Magical\r\nMoments",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Green1 = Input {
+					Value = 0.501751191425934,
+				},
+				Blue1 = Input {
+					Value = 0.1344,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, 16.5, },
+			},
+		},
+		Projector3D1 = LightProjector {
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 0.507052866811045,
+				},
+				ProjectiveImage = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+				Fit = Input {
+					Value = FuID { "Height", },
+				},
+				["ShadowLightInputs3D.Shadows"] = Input {
+					Value = 1,
+				},
+				["ShadowLightInputs3D.ShadowsEnabled"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 16.5, },
+			},
+		},
+		Camera3D1 = Camera3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Camera3D1XOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Camera3D1YOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "Camera3D1ZOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					SourceOp = "Camera3D1XRotation",
+					Source = "Value",
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					SourceOp = "Camera3D1YRotation",
+					Source = "Value",
+				},
+				PerspNearClip = Input {
+					Value = 0.5,
+				},
+				AoV = Input {
+					Value = 44.9999999999999,
+				},
+				FLength = Input {
+					Value = 18.2123442718302,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 49.5, },
+			},
+		},
+		Camera3D1XOffset = BezierSpline {
+			SplineColor = { 0, 1, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1.87261278614856, RH = { 24.3622375082004, 1.15251248267416, }, Flags = { Linear = true, }, },
+				[75] = { 0, LH = { 50.0025004148483, 0, }, RH = { 83.3333333333333, 0, }, },
+				[100] = { 0, LH = { 91.6666666666667, 0, }, Flags = { Linear = true, }, },
+			},
+		},
+		Camera3D1YOffset = BezierSpline {
+			SplineColor = { 1, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { -1.17438720543394, RH = { 25.0373629674077, -1.12589771178962, }, Flags = { Linear = true, }, },
+				[75] = { 0, LH = { 50.0025004148483, 0, }, RH = { 83.3333333333333, 0, }, },
+				[100] = { 0, LH = { 91.6666666666667, 0, }, Flags = { Linear = true, }, },
+			},
+		},
+		Camera3D1ZOffset = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.50150159670746, RH = { 24.9975412189393, 0.417931771885144, }, Flags = { Linear = true, }, },
+				[75] = { 0.507052866811045, LH = { 50.0025004148483, 0.507052866811045, }, RH = { 83.3333333333333, 0.507052866811045, }, },
+				[100] = { 0.507052866811045, LH = { 91.6666666666667, 0.507052866811045, }, RH = { 104.6, 0.5, }, Flags = { Linear = true, }, },
+				[125] = { -8, LH = { 118, -5.14, }, },
+			},
+		},
+		Camera3D1XRotation = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 21.1173184, RH = { 25.0099859572788, 19.4406712836781, }, Flags = { Linear = true, }, },
+				[75] = { 0, LH = { 50, 0, }, },
+			},
+		},
+		Camera3D1YRotation = BezierSpline {
+			SplineColor = { 0.705882352941177, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 31.1731844, RH = { 25, 20.7821229333333, }, Flags = { Linear = true, }, },
+				[75] = { 0, LH = { 50, 0, }, },
+			},
+		},
+		pEmitter1 = pEmitter {
+			CtrlWZoom = false,
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 150,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.2,
+				},
+				AngleVariance = Input {
+					Value = 360,
+				},
+				AngleZVariance = Input {
+					Value = 360,
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleNGon", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Alpha"] = Input {
+					Value = 0,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.2,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleNGon.NGonType"] = Input {
+					Value = 5,
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 1.23082425882057,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.43113313528065,
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					Value = -1.98426701426037,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 5,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, -49.5, },
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { 1, 0, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 10000, RH = { 0.333333333333333, 6670, }, },
+				[1] = { 10, LH = { 0.666666666666667, 3340, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		softclip = pCustom {
+			NameSet = true,
+			Inputs = {
+				NumberIn1 = Input {
+					Value = 0.5,
+					Expression = "Camera3D1.PerspNearClip",
+				},
+				NumberIn2 = Input {
+					Value = 0.5,
+				},
+				["Position1.X"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.X",
+				},
+				["Position1.Y"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.Y",
+				},
+				["Position1.Z"] = Input {
+					Value = 0.507052866811045,
+					Expression = "Camera3D1.Transform3DOp.Translate.Z",
+				},
+				Intermediate1 = Input {
+					Value = "sqrt( (px-p1x)^2 + (py-p1y)^2 + (pz-p1z)^2 )",
+				},
+				Intermediate2 = Input {
+					Value = " min ( 1, (i1-n1) / n2 )",
+				},
+				RedExpression = Input {
+					Value = "r * i2",
+				},
+				GreenExpression = Input {
+					Value = "g* i2",
+				},
+				BlueExpression = Input {
+					Value = "b* i2",
+				},
+				AlphaExpression = Input {
+					Value = "a* i2",
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -49.5, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "softclip",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -49.5, },
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Projector3D1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Camera3D1",
+					Source = "Output",
+				},
+				Data3D3 = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 16.5, },
+			},
+		},
+		Renderer3D1 = Renderer3D {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				Width = Input {
+					Value = 640,
+				},
+				Height = Input {
+					Value = 360,
+				},
+				OutputChannels = Input {
+					Value = 1,
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+				["RendererSoftware.Lighting"] = Input {
+					Value = 1,
+				},
+				["RendererSoftware.LightingEnabled"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 16.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 730,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.91028,
+						Offset = { -136.228, 256.627, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "pEmitter1", Expanded = true, },
+							{ "softclip", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 509, },
+							ScaleX = 0.2,
+							OffsetX = -49.2,
+							OffsetY = 0,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 34.965034965035,
+						OffsetX = -13.8,
+						OffsetY = 0,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 100.142988929889,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.475881261595547,
+						{
+							ID = "Left",
+							RatioX = 0.500309214594929,
+							RatioY = 107,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.499690785405071,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.474025974025974,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Info = {
+				Comments = "Create a flow consisting of:\r\n- ParticleEmitter , ParticleCustom and ParticleRender\r\n- A Camera connected to the Particles via a 3DMerge\r\n- A Text+ or some other imagecreating tool.\r\n\r\nIncrease the PEm's Region to about 5\r\n\r\nRaise the PEm's number to about 10.000, animate it at frame 0\r\nand step back to a number of 10 at frame 1.\r\n\r\nAdjust your camera so that you can see a good portion of the ParticleSystem.\r\n\r\nAdd a Projector and ensure that it lines up perfectly with your camera.\r\nAs an alternative you could copy your camera and use the copy as a projector.\r\n\r\nLet the Projector project your text or image on the particles.\r\n(switch on 'light' in the viewport to see the effect)\r\n\r\nGo to frame 75 and animate the Camera's position and rotation.\r\n\r\nGo back to frame 0 and move the camera around\r\nuntil you have an interesting looking perspective.\r\n\r\nExperiment with the Alpha-value in the color-controls of the PEm's style-tab.\r\n\r\n\r\nHave Phun!\r\n\r\n\r\nEric,\r\n",
+			},
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			Memory = {
+				FramesAtOnce = 3,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						LUTPlugin = "",
+						CheckerUnderlay = false,
+						Channel = 4294967295,
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+						},
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+						},
+						CameraName = "Camera3D1",
+					},
+				},
+			},
+			Preview = {
+				HiQ = true,
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 30,
+				AspectY = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "E:\\Erics\\FusionSupport\\Th_stadiumlight.jpg",
+			Unsorted = {
+				RenderSettings = {
+					Configs = {
+						Preview = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+						Final = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+					},
+					PreviewConfig = "Preview",
+					CurrentConfig = "Final",
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			LastLUTFile = "C:\\Programme\\Fusion51\\Comps\\dvs3.rgb",
+			FlowView = {
+				GridSnap = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

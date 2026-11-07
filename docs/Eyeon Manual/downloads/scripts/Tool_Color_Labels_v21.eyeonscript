@@ -1,0 +1,290 @@
+------------------------------------------------------------------------------
+-- Tool Color Labels, based on eyeon's Tool Color Changer
+-- written by Stefan Ihringer, stefan@bildfehler.de
+-- version 2.1, 2013-07-26
+--     supports multi path maps for Defaults: directory
+-- version 2.0, 2012-11-16
+--     added more buttons for Gringo's default tool colors (see vfxpedia)
+--     "NO_SECOND_COLUMN" option can be used to hide them
+--     "Defaults" button will reset to settings in Defaults directory
+--     "Clear" button will reset to Fusion's internal defaults
+--     added Esc hotkey to cancel window, rewrote dialog positioning code
+--
+-- To configure a handy hotkey, put this into your Fusion.hotkeys file
+-- (adjust path depending on where you put it. It's a comp script but if you
+-- place it into HotkeyScripts for example, it's hidden in the main menu)
+-- Frame = {
+-- 		SHIFT_ALT_C = "@Scripts:/Comp/Tool Color Labels v21.eyeonscript",
+-- },
+
+------------------------------------------------------------------------------
+
+-- uncomment the next line to skip the second column of buttons!
+--NO_SECOND_COLUMN = true
+
+-- List of available colors
+-- you can modify this to your liking. If the option above isn't set, two columns
+-- of buttons will be presented (split is halfway through the list of color schemes)
+ColorSchemes =
+{
+	{title = "Animated",	bg = {R=200, G=255, B=210},	fg = {R=25,  G=25,  B=25}  },
+	{title = "Yellow",		bg = {R=220, G=210, B=54},	fg = {R=0, G=0, B=0}       },
+	{title = "Cached",		bg = {R=254, G=114, B=0},	fg = {R=255, G=255, B=255} },
+	{title = "To Do",		bg = {R=205, G=28,  B=34},	fg = {R=0,   G=0,   B=0}   },
+	{title = "Pink",		bg = {R=205, G=28,  B=180},	fg = {R=255, G=255, B=255} },
+	{title = "Reference",	bg = {R=60,  G=120, B=180},	fg = {R=255, G=255, B=255} },
+	{title = "Approved",	bg = {R=116, G=202, B=46},	fg = {R=0,   G=0,   B=0}   },
+	-- second column
+	{title = "Blurs",		bg = {R=108, G=139, B=96},	fg = {R=220, G=220, B=220} },		
+	{title = "Filters",		bg = {R=125, G=143, B=79},	fg = {R=220, G=220, B=220} },
+	{title = "Film",		bg = {R=139, G=120, B=96},	fg = {R=220, G=220, B=220} },
+	{title = "Colors",		bg = {R=170, G=129, B=60},	fg = {R=220, G=220, B=220} },		
+	{title = "Transforms",	bg = {R=142, G=92,  B=97},	fg = {R=220, G=220, B=220} },		
+	{title = "Warps",		bg = {R=139, G=96, B=136},	fg = {R=220, G=220, B=220} },		
+	{title = "Keying",		bg = {R=113, G=94, B=138},	fg = {R=220, G=220, B=220} },
+}
+-- Underlay colors (only work on Underlay tools, even if other nodes are included in selection)
+UnderlaySchemes =
+{
+	{bg = {R=102, G=71, B=71}},
+	{bg = {R=71, G=102, B=71}},
+	{bg = {R=71, G=102, B=102}},
+	{bg = {R=92, G=71, B=102}},
+}
+
+------------------------------------------------------------------------------
+-- SETUP ---------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+if composition == nil then
+	print("This is a composition script, it should be run from within the Digital Fusion interface.")
+	exit()
+end
+
+-- global callback function for all button presses. Receives button index.
+function SetColorScheme(n)
+	c = ColorSchemes[n]
+	-- normalize color values
+	for i,j in pairs(c.bg) do
+		c.bg[i] = j / 255
+	end
+	for i,j in pairs(c.fg) do
+		c.fg[i] = j / 255
+	end
+	-- Get all selected tools...
+	toollist = comp:GetToolList(true)
+	-- set colors
+	for i,tool in pairs(toollist) do
+		tool.TileColor = c.bg
+		tool.TextColor = c.fg
+	end
+	-- clean up and quit
+	globals.SetColorScheme = nil
+	globals.SetUnderlayScheme = nil
+	dlg:hide()
+end
+
+-- callback function for Underlay button presses. Receives button index.
+-- (ignores other tools and doesn't have a foreground color)
+function SetUnderlayScheme(n)
+	c = UnderlaySchemes[n]
+	-- normalize color values
+	for i,j in pairs(c.bg) do
+		c.bg[i] = j / 255
+	end
+	-- Get all selected underlays...
+	toollist = comp:GetToolList(true, "Underlay")
+	-- set colors
+	for i,tool in pairs(toollist) do
+		tool.TileColor = c.bg
+	end
+	-- clean up and quit
+	globals.SetColorScheme = nil
+	globals.SetUnderlayScheme = nil
+	dlg:hide()
+end
+
+
+-- register callback functions in global space so it can be called by IUP when a button is pressed
+globals.SetColorScheme = SetColorScheme
+globals.SetUnderlayScheme = SetUnderlayScheme
+
+-- create reset buttons
+btn_reset = iup.button {title = "Clear Colors",     FGCOLOR = "180 180 180", BGCOLOR = "100 100 100", SIZE = "80x20" }
+btn_default = iup.button {title = "Use Defaults", FGCOLOR = "180 180 180", BGCOLOR = "100 100 100", SIZE = "80x20" }
+-- hidden cencel button for ESC hotkey
+btn_cancel = iup.button{title = "Cancel", VISIBLE = "NO"}
+
+-- callback for reset button
+function btn_reset:action()
+	-- Get all selected tools...
+	toollist = comp:GetToolList(true)
+	for i,tool in pairs(toollist) do
+		tool.TileColor = nil
+		tool.TextColor = nil
+	end
+	globals.SetColorScheme = nil
+	globals.SetUnderlayScheme = nil
+	return iup.CLOSE
+end
+
+-- callback for default button (resets to colors in Defaults: directory)
+-- if a tool doesn't have a default setting file with a color definition,
+-- it will not be modified.
+function btn_default:action()
+	-- table to save default tile colors, indexed by IDs
+	-- if a default color scheme has already been loaded, the entry will be a bg/fg subtable.
+	-- if a tool ID doesn't have a valid default settings file, "n/a" will be saved to prevenet
+	-- re-parsing the defaults directory over and over.
+	local defaults = {}
+	local dirnames = comp:MapPathSegments("Defaults:")
+
+	-- Get all selected tools...
+	toollist = comp:GetToolList(true)
+	for i, tool in pairs(toollist) do
+		local regid = tool.ID
+		if type(defaults[regid]) == "table" then
+			-- default color for this tool ID has already been loaded: apply it
+			tool.TileColor = defaults[regid].bg
+			tool.TextColor = defaults[regid].fg
+		elseif defaults[regid] == nil then
+			-- default not found yet: try to load the default .setting file
+			defaults[regid] = "n/a"
+			local regname = fu:GetRegAttrs(regid).REGS_Name:gsub("[^%w%s]", "_")
+			local setting = nil
+			-- parse all Defaults: directories. First one that has a matching setting file wins.
+			for _,dirname in ipairs(dirnames) do
+				setting = eyeon.readfile(dirname .. regid .. "_" .. regname .. ".setting")
+				if setting ~= nil then break end
+			end
+			if setting ~= nil then
+				for _,t in setting["Tools"] do
+					colors = t["Colors"]
+					-- some extra checks to make sure that this .setting file contains information on the
+					-- desired tool ID (you could actually put any macro or other setting into the Defaults
+					-- directory...)
+					if t.__ctor and t.__ctor == regid and colors ~= nil then
+						-- setting file actually belongs to this regid and it has a "Colors" section. yay.
+						defaults[regid] = {bg = colors.TileColor, fg = colors.TextColor}
+						tool.TileColor = defaults[regid].bg
+						tool.TextColor = defaults[regid].fg
+						break
+					end
+				end
+			end
+		end
+	end
+	globals.SetColorScheme = nil
+	globals.SetUnderlayScheme = nil
+	return iup.CLOSE
+end
+
+function btn_cancel:action()
+	return iup.CLOSE
+end
+
+
+-- create the vboxes (left and right column of buttons)
+vbox1 = iup.vbox
+{
+	ALIGNMENT = "ACENTER",
+}
+vbox2 = iup.vbox
+{
+	ALIGNMENT = "ACENTER",
+}
+hbox1 = iup.hbox
+{
+	iup.fill{},
+	ALIGNMENT = "ACENTER",
+	MARGIN = "0x8",
+	SIZE = "160",
+}
+
+
+------------------------------------------------------------------------------
+-- MAIN ----------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+-- inserts all defined buttons into the vbox
+for i,c in ColorSchemes do
+	local bg = ""..c.bg.R.." "..c.bg.G.." "..c.bg.B
+	local fg = ""..c.fg.R.." "..c.fg.G.." "..c.fg.B
+	local tmp_button = iup.button {title = ColorSchemes[i].title, FGCOLOR = fg, BGCOLOR = bg, SIZE = (NO_SECOND_COLUMN and "160x20" or "80x20")}
+	tmp_button.action = "SetColorScheme("..i..")"
+	if i <= math.ceil(#ColorSchemes / 2) then
+		vbox1:append(tmp_button)
+	elseif not NO_SECOND_COLUMN then
+		vbox2:append(tmp_button)
+	end
+end
+-- inserts backdrop colors
+for i,c in UnderlaySchemes do
+	local bg = ""..c.bg.R.." "..c.bg.G.." "..c.bg.B
+	local tmp_button = iup.button {title = "  ", BGCOLOR = bg, SIZE = "29x20"}
+	tmp_button.action = "SetUnderlayScheme("..i..")"
+	hbox1:append(tmp_button)
+end
+hbox1:append(iup.fill{})
+
+-- creates main dialog
+dlg = iup.dialog
+{
+	iup.vbox
+	{
+		iup.hbox
+		{
+			vbox1,
+			vbox2,
+			ALIGNMENT = "ATOP",
+			MARGIN = "0x0",
+			GAP = "0",
+		},
+		hbox1,
+		iup.hbox
+		{
+			btn_reset,
+			btn_default,
+			ALIGNMENT = "ACENTER",
+			MARGIN = "0x0",
+			GAP = "0",
+		},
+	},
+	DEFAULTESC = btn_cancel,
+	FOREGROUND = "YES",
+	MARGIN = "4x4",
+	TITLE = "Pick a Label Color",
+	RESIZE = "NO",
+	BGCOLOR = "60 60 60",
+	FGCOLOR = "200 200 200",
+	MAXBOX = "NO",
+	MINBOX = "NO",
+}
+
+iup.SetAttribute(dlg, "NATIVEPARENT", touserdata(fu:GetMainWindow()))
+
+dlg:map()
+
+-- window pops up at a convenient place, centered on the mouse cursor
+dlgsize = iup.GetAttribute(dlg, "RASTERSIZE")
+dlgsize = { w = tonumber(string.match(dlgsize, "(%d+)x")), h = tonumber(string.match(dlgsize, "x(%d+)")) + 40}
+screensize = iup.GetGlobal("SCREENSIZE")
+screensize = { w = tonumber(string.match(screensize, "(%d+)x")), h = tonumber(string.match(screensize, "x(%d+)"))}
+pos = iup.GetGlobal("CURSORPOS")
+pos = {
+	x = tonumber(string.match(pos, "(%d+)x")) - dlgsize.w / 2 + (NO_SECOND_COLUMN and 0 or 40),
+	y = tonumber(string.match(pos, "x(%d+)")) - dlgsize.h / 2
+}
+-- make sure dialog is fully visible on screen
+pos.x = math.max(5, math.min(screensize.w - dlgsize.w - 8, pos.x))
+pos.y = math.max(5, math.min(screensize.h - dlgsize.h, pos.y))
+
+dlg:showxy(pos.x, pos.y)
+status,err = pcall(iup.MainLoop)
+dlg:destroy()
+
+if not status then
+	print(err)
+end
+
+

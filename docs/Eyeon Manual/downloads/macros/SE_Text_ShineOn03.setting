@@ -1,0 +1,390 @@
+{
+	Tools = ordered() {
+		Text1 = TextPlus {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				CenterZ = Input {
+					SourceOp = "Text1CenterZ",
+					Source = "Value",
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					SourceOp = "Follower1",
+					Source = "StyledText",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				SelectElement = Input {
+					Value = 2,
+				},
+				Select = Input {
+					Value = 2,
+				},
+				Name1 = Input {
+					Value = "Main Text",
+				},
+				Red1 = Input {
+					Value = 0.584711111111111,
+				},
+				Green1 = Input {
+					Value = 0.830811619653176,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness1 = Input {
+					Value = 1,
+				},
+				Name2 = Input {
+					Value = "Y-Scale text",
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				ElementShape2 = Input {
+					Value = 0,
+				},
+				Red2 = Input {
+					Value = 0.809955555555556,
+				},
+				Green2 = Input {
+					Value = 0.925791784851707,
+				},
+				Blue2 = Input {
+					Value = 1,
+				},
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				Pivot2 = Input {
+					Value = { 0, 0.18, },
+				},
+				Name4 = Input {
+					Value = "Underscore",
+				},
+				Enabled4 = Input {
+					Value = 1,
+				},
+				Opacity4 = Input {
+					SourceOp = "Text1Opacity",
+					Source = "Value",
+				},
+				Level4 = Input {
+					Value = 0,
+				},
+				ExtendHorizontal4 = Input {
+					SourceOp = "Text1Extendhorizontal",
+					Source = "Value",
+				},
+				ExtendVertical4 = Input {
+					Value = -0.28,
+				},
+				Red4 = Input {
+					Value = 0.584313750267029,
+				},
+				Green4 = Input {
+					Value = 0.831372559070587,
+				},
+				ShadingGradient4 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform4 = Input {
+					Value = 1,
+				},
+				Offset4 = Input {
+					Value = { 0, -0.04, },
+				},
+				Name5 = Input {
+					Value = "X-Scale text",
+				},
+				Enabled5 = Input {
+					Value = 1,
+				},
+				Opacity5 = Input {
+					SourceOp = "Text1Opacity1",
+					Source = "Value",
+				},
+				Red5 = Input {
+					Value = 0.584711111111111,
+				},
+				Green5 = Input {
+					Value = 0.830811619653176,
+				},
+				ShadingGradient5 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness5 = Input {
+					Value = 1,
+				},
+				SoftnessX5 = Input {
+					SourceOp = "Text1SoftnessX",
+					Source = "Value",
+				},
+				SoftnessBlend5 = Input {
+					SourceOp = "Text1Softnessblend",
+					Source = "Value",
+				},
+				Comments = Input {
+					Value = "1.) set up your shader 1 to suit your needs\r\n2.) Using the SE_TextPlusPlus-script,\r\ncopy your settings from shader 1 \r\nto shader 2,3,4 and 5\r\n3.) Add follower\r\n(read comments in follower, please)\r\n\r\n7.) Back in the Text+, animate the CenterZ to go from 0 to -0.19 over 100 frames and down to -1.02 from 100-110.\r\n\r\n8.) In Shader4 animate the Opacity from 0 at frame 20 to 1 at Frame 35\r\nAnimate 'extend horizontal' from -2.1 at frame 20 to  3 at frame 100\r\n\r\n9.) In Shader 5 animate (Value @ Frame)\r\nOpacity:\r\n0 @ 49, 1 @ 50, 1 @ 90, 0 @ 91\r\nSoftnessX:\r\n0 @ 50, 300 @ 80\r\nSoftness Blend:\r\n1 @ 50, 0 @ 90\r\nwith a *very* strong ease-in, so you get apx.\r\n0.97 @ 70, 0.83 @ 80, 0.5 @ 86\r\n\r\nDisable shader 3...we don't need it....LOL...;-)))\r\n",
+				},
+				Red3 = Input {
+					Value = 1,
+				},
+				Green3 = Input {
+					Value = 0.912334371125308,
+				},
+				Blue3 = Input {
+					Value = 0.796444444444444,
+				},
+				ShadingGradient3 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness3 = Input {
+					Value = 1,
+				},
+				SoftnessX3 = Input {
+					Value = 0,
+				},
+				SoftnessY3 = Input {
+					Value = 0,
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				Offset3 = Input {
+					Value = { 0, 0, },
+				},
+				Pivot3 = Input {
+					Value = { 0, 0.18, },
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 148.5, },
+			},
+		},
+		Text1CenterZ = BezierSpline {
+			SplineColor = { 1, 0, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 33.3333333333333, -0.0633333333333333, }, },
+				[100] = { -0.19, LH = { 66.6666666666667, -0.126666666666667, }, RH = { 103.264226935897, -0.220330585387678, }, Flags = { Linear = true, }, },
+				[110] = { -1.0220994, LH = { 106.666666666667, -0.745856333333314, }, },
+			},
+		},
+		Follower1 = StyledTextFollower {
+			CtrlWZoom = false,
+			Inputs = {
+				DelayType = Input {
+					Value = 2,
+				},
+				Delay = Input {
+					Value = 40,
+				},
+				Text = Input {
+					Value = "Ama Hayes",
+				},
+				SelectElement = Input {
+					Value = 1,
+				},
+				Name1 = Input {
+					Value = "Main Text",
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				SizeY1 = Input {
+					SourceOp = "Follower1SizeY",
+					Source = "Value",
+				},
+				Name2 = Input {
+					Value = "Y-Scale text",
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				Opacity2 = Input {
+					SourceOp = "Follower1Opacity",
+					Source = "Value",
+				},
+				Softness2 = Input {
+					Value = 1,
+				},
+				SoftnessX2 = Input {
+					SourceOp = "Follower1SoftnessX",
+					Source = "Value",
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				SizeY2 = Input {
+					SourceOp = "Follower1SizeY1",
+					Source = "Value",
+				},
+				ElementShape3 = Input {
+					Value = 1,
+				},
+				Color3 = Input {
+					Value = 0,
+				},
+				Red3 = Input {
+					Value = 1,
+				},
+				Softness3 = Input {
+					Value = 1,
+				},
+				SoftnessX3 = Input {
+					Value = 0,
+				},
+				SoftnessY3 = Input {
+					Value = 0,
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				Offset3 = Input {
+					Value = { 0, 0, },
+				},
+				SizeX3 = Input {
+					Value = 0,
+				},
+				SizeY3 = Input {
+					Value = 0,
+				},
+				Name4 = Input {
+					Value = "Underscore",
+				},
+				Name5 = Input {
+					Value = "X-Scale text",
+				},
+				Transform5 = Input {
+					Value = 1,
+				},
+				Comments = Input {
+					Value = "4) set timing to 'all characters' and 40 frames.\r\nSo...no matter how long your text is, it will allways take 40 frames to reveal.\r\n\r\n5)In follower's shading1 animate Size Y to go from 0 to 1 over 3 frames, starting at frame 0\r\n\r\n6)In follower's shading2 animate Size Y to go from 0 to 10 \r\nand the Softness X to go from 3 to 20 \r\nover 18 frames, starting at frame 0.\r\n\r\nAlso animate the opacity to go from 1 to 0 over 20 frames, starting at frame 0.\r\n\r\n\r\n",
+				},
+			},
+		},
+		Follower1SizeY = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 1, 0.333333333333333, }, },
+				[3] = { 1, LH = { 2, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Follower1Opacity = BezierSpline {
+			SplineColor = { 0.705882352941177, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1, RH = { 6.66666666666667, 0.666666666666667, }, },
+				[20] = { 0, LH = { 13.3333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Follower1SoftnessX = BezierSpline {
+			SplineColor = { 0, 0.705882352941177, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 3, RH = { 6, 8.66666666666667, }, },
+				[18] = { 20, LH = { 12, 14.3333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Follower1SizeY1 = BezierSpline {
+			SplineColor = { 0.705882352941177, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 6, 3.33333333333333, }, },
+				[18] = { 10, LH = { 12, 6.66666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1Opacity = BezierSpline {
+			SplineColor = { 0, 0.498039215686275, 0.741176470588235, },
+			NameSet = true,
+			KeyFrames = {
+				[20] = { 0, RH = { 25, 0.333333333333333, }, },
+				[35] = { 1, LH = { 30, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1Extendhorizontal = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[20] = { -2.1, RH = { 46.6666666666667, -0.4, }, },
+				[100] = { 3, LH = { 73.3333333333333, 1.3, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1Opacity1 = BezierSpline {
+			SplineColor = { 1, 0, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[49] = { 0, RH = { 49.3333, 0.333333333333333, }, Flags = { Linear = true, }, },
+				[50] = { 1, LH = { 49.6667, 0.666666666666667, }, RH = { 63.3333333333333, 1, }, Flags = { Linear = true, }, },
+				[90] = { 1, LH = { 76.6666666666667, 1, }, RH = { 90.3333, 0.666666666666667, }, Flags = { Linear = true, }, },
+				[91] = { 0, LH = { 90.6667, 0.333333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1SoftnessX = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0.741176470588235, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 0, RH = { 60, 100, }, },
+				[80] = { 300, LH = { 70, 200, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1Softnessblend = BezierSpline {
+			SplineColor = { 0, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 1, RH = { 80.7599999999999, 1, }, },
+				[90] = { 0, LH = { 83.4783178450696, 0.947918917867781, }, },
+			},
+		},
+	},
+}

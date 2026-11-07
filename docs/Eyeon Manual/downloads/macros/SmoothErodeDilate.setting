@@ -1,0 +1,101 @@
+{
+	Tools = ordered() {
+		SmoothErodeDilate = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "ErDl_Main",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "ErDl_Main",
+					Source = "Red",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "ErDl_Main",
+					Source = "Green",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "ErDl_Main",
+					Source = "Blue",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "ErDl_Main",
+					Source = "Alpha",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "ErDL_Dummy",
+					Source = "Contrast",
+					Name = "Amount",
+					MinScale = -0.01,
+					MaxScale = 0.01,
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ErDL_Edge",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "Smooth ErodeDilate",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				ErDl_Main = ErodeDilate {
+					NameSet = true,
+					Inputs = {
+						Amount = Input {
+							Value = 0.0,
+							Expression = "math.floor(ErDL_Dummy.Contrast * Input.Width) / Input.Width",
+						},
+						YAmount = Input {
+							Disabled = true,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 238, 132, },
+					},
+				},
+				ErDL_Edge = ErodeDilate {
+					NameSet = true,
+					SourceOp = "ErDl_Main",
+					Inputs = {
+						Blend = Input {
+							Value = 0.0,
+							Expression = "(ErDL_Dummy.Contrast - ErDl_Main.Amount) * Input.Width",
+						},
+						Amount = Input {
+							Value = 0.0,
+							Expression = "1.0/Input.Width",
+						},
+						YAmount = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "ErDl_Main",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 372, 132, },
+					},
+				},
+				ErDL_Dummy = BrightnessContrast {
+					PassThrough = true,
+					NameSet = true,
+					ViewInfo = OperatorInfo {
+						Pos = { 239, 175, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SmoothErodeDilate",
+	Name = "SmoothErodeDilate",
+	IsMacro = true,
+}

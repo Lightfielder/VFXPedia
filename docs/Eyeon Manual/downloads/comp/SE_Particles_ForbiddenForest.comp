@@ -1,0 +1,1010 @@
+Composition {
+	CurrentTime = 100,
+	RenderRange = { 100, 200, },
+	GlobalRange = { 0, 1000, },
+	Version = "Fusion 5.3 build 60",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Background1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 640,
+				},
+				Height = Input {
+					Value = 360,
+				},
+				TopLeftRed = Input {
+					Value = 1,
+				},
+				TopLeftGreen = Input {
+					Value = 1,
+				},
+				TopLeftBlue = Input {
+					Value = 1,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1540, 643.5, },
+			},
+		},
+		pEmitter1 = pEmitter {
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 500,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.25,
+				},
+				Angle = Input {
+					Value = 90,
+				},
+				Set1 = Input {
+					Value = 1,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				Region = Input {
+					Value = FuID { "CubeRgn", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.025,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["RectRgn.Width"] = Input {
+					Value = 1,
+				},
+				["RectRgn.Height"] = Input {
+					Value = 0.558011,
+				},
+				["CubeRgn.Width"] = Input {
+					Value = 5,
+				},
+				["CubeRgn.Depth"] = Input {
+					Value = 5,
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 2,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Background2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 605, 445.5, },
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 2, Flags = { Linear = true, }, },
+				[101] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pSpawn1 = pSpawn {
+			Inputs = {
+				Number = Input {
+					SourceOp = "pSpawn1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 500,
+				},
+				Color = Input {
+					Value = 1,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				VelocityTransfer = Input {
+					Value = 0,
+				},
+				NewSet2 = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.025,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pSpawn1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pSpawn1BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 2,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Background2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 770, 445.5, },
+			},
+		},
+		pSpawn1Number = BezierSpline {
+			SplineColor = { Red = 0, Green = 128, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 1, Flags = { Linear = true, }, },
+				[101] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pSpawn1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pSpawn1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.02,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, 313.5, },
+			},
+		},
+		Background2 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 64,
+				},
+				Height = Input {
+					Value = 64,
+				},
+				TopLeftRed = Input {
+					SourceOp = "Background2TopLeftRed",
+					Source = "Value",
+				},
+				TopLeftGreen = Input {
+					SourceOp = "Background2TopLeftGreen",
+					Source = "Value",
+				},
+				TopLeftBlue = Input {
+					SourceOp = "Background2TopLeftBlue",
+					Source = "Value",
+				},
+				TopLeftAlpha = Input {
+					SourceOp = "Background2TopLeftAlpha",
+					Source = "Value",
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, 346.5, },
+			},
+		},
+		Background2TopLeftRed = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.213333333333333, Flags = { Linear = true, }, },
+				[75] = { 0.173333333333333, Flags = { Linear = true, }, },
+				[100] = { 0.0956586666666666, Flags = { Linear = true, }, },
+			},
+		},
+		Background2TopLeftGreen = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.152422682504382, Flags = { Linear = true, }, },
+				[75] = { 0.123843429534811, Flags = { Linear = true, }, },
+				[100] = { 0.253333333333333, Flags = { Linear = true, }, },
+			},
+		},
+		Background2TopLeftBlue = BezierSpline {
+			SplineColor = { Red = 128, Green = 128, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.0925392592592592, Flags = { Linear = true, }, },
+				[75] = { 0.0751881481481481, Flags = { Linear = true, }, },
+				[100] = { 0.0968820773332365, Flags = { Linear = true, }, },
+			},
+		},
+		Background2TopLeftAlpha = BezierSpline {
+			SplineColor = { Red = 255, Green = 255, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1, Flags = { Linear = true, }, },
+			},
+		},
+		pSpawn2 = pSpawn {
+			Inputs = {
+				Number = Input {
+					SourceOp = "pSpawn2Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 500,
+				},
+				Color = Input {
+					Value = 1,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				VelocityTransfer = Input {
+					Value = 0.6,
+				},
+				NewSet3 = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pSpawn1",
+					Source = "Output",
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				Probability = Input {
+					Value = 0.3,
+				},
+				SetMode = Input {
+					Value = FuID { "Affect", },
+				},
+				Set2 = Input {
+					Value = 0,
+				},
+				Set3 = Input {
+					Value = 0,
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.025,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pSpawn2SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pSpawn2BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 2,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Background2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 445.5, },
+			},
+		},
+		pSpawn2Number = BezierSpline {
+			SplineColor = { Red = 255, Green = 255, Blue = 64, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.5, Flags = { Linear = true, }, },
+				[101] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pSpawn2SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pSpawn2BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pTurbulence1 = pTurbulence {
+			Inputs = {
+				XStrength = Input {
+					SourceOp = "pTurbulence1XStrength",
+					Source = "Value",
+				},
+				YStrength = Input {
+					SourceOp = "pTurbulence1YStrength",
+					Source = "Value",
+				},
+				ZStrength = Input {
+					SourceOp = "pTurbulence1XStrength",
+					Source = "Value",
+				},
+				StrengthOverLifeLUT = Input {
+					SourceOp = "pTurbulence1StrengthoverLifeLUT",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pSpawn2",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.6,
+				},
+				SetMode = Input {
+					Value = FuID { "Affect", },
+				},
+				Set2 = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 445.5, },
+			},
+		},
+		pTurbulence1YStrength = BezierSpline {
+			SplineColor = { Red = 255, Green = 180, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 1, Flags = { Linear = true, }, },
+				[101] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pTurbulence1XStrength = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 1, Flags = { Linear = true, }, },
+				[101] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pTurbulence1StrengthoverLifeLUT = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pFriction1 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					SourceOp = "pFriction1VelocityFriction",
+					Source = "Value",
+				},
+				SpinFriction = Input {
+					SourceOp = "pFriction1SpinFriction",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pTurbulence1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1155, 445.5, },
+			},
+		},
+		pFriction1VelocityFriction = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0, Flags = { Linear = true, }, },
+				[101] = { 1, Flags = { Linear = true, }, },
+			},
+		},
+		pFriction1SpinFriction = BezierSpline {
+			SplineColor = { Red = 180, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0, Flags = { Linear = true, }, },
+				[101] = { 1, Flags = { Linear = true, }, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pFriction1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1265, 445.5, },
+			},
+		},
+		Duplicate3D1 = Duplicate3D {
+			Inputs = {
+				["Translate.Z"] = Input {
+					Value = -5,
+				},
+				ScaleLock = Input {
+					Value = 0,
+				},
+				["Scale.X"] = Input {
+					Value = 1.8719708,
+				},
+				["JitterScale.Y"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Z"] = Input {
+					Disabled = true,
+				},
+				Data3D = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1430, 445.5, },
+			},
+		},
+		Camera3D1 = Camera3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Camera3D1XOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Camera3D1YOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "Camera3D1ZOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = 4.39999866485596,
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					Value = 3.59999990463257,
+				},
+				AoV = Input {
+					Value = 45,
+				},
+				FLength = Input {
+					Value = 18.2123442718302,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1320, 544.5, },
+			},
+		},
+		Camera3D1XOffset = BezierSpline {
+			SplineColor = { Red = 180, Green = 255, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.2346369, Flags = { Linear = true, }, },
+			},
+		},
+		Camera3D1YOffset = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.279350545243133, Flags = { Linear = true, }, },
+			},
+		},
+		Camera3D1ZOffset = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 2.53921145298745, Flags = { Linear = true, }, },
+				[200] = { 0.3910615, Flags = { Linear = true, }, },
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				Size = Input {
+					Value = 0.1298343,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "Dancing\r\nTalent\r\ngoes\r\nhere",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Red1 = Input {
+					Value = 0.486666666666667,
+				},
+				Green1 = Input {
+					Value = 0.486666666666667,
+				},
+				Blue1 = Input {
+					Value = 0.486666666666667,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input {
+					Disabled = true,
+				},
+				DPTType = Input {
+					Disabled = true,
+				},
+				DPTResolution = Input {
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 770, 610.5, },
+			},
+		},
+		ColorCorrector1 = ColorCorrector {
+			Inputs = {
+				WheelTintAngle1 = Input {
+					Value = 1.64219059989789,
+				},
+				WheelTintLength1 = Input {
+					Value = 0.619555555555556,
+				},
+				ReleaseMatch = Input {
+					Disabled = true,
+				},
+				ColorRanges = Input {
+					Value = ColorCurves {
+						Curves = {
+							{
+								Points = {
+									{ 0, 1, },
+									{ 0.4, 0.2, },
+									{ 0.6, 0, },
+									{ 1, 0, },
+								},
+							},
+							{
+								Points = {
+									{ 0, 0, },
+									{ 0.4, 0, },
+									{ 0.6, 0.2, },
+									{ 1, 1, },
+								},
+							},
+						},
+					},
+				},
+				PreDividePostMultiply = Input {
+					Value = 1,
+				},
+				ProcessOrder = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 990, 610.5, },
+			},
+		},
+		ImagePlane3D1 = ImagePlane3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 0.177060350586075,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 0.3463687,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = -0.6813341846648,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 1.3749942,
+				},
+				Input = Input {
+					SourceOp = "ColorCorrector1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1155, 610.5, },
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Duplicate3D1",
+					Source = "Data3D",
+				},
+				Data3D2 = Input {
+					SourceOp = "Camera3D1",
+					Source = "Output",
+				},
+				Data3D3 = Input {
+					SourceOp = "ImagePlane3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, 544.5, },
+			},
+		},
+		Renderer3D1 = Renderer3D {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 640,
+				},
+				Height = Input {
+					Value = 360,
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1705, 544.5, },
+			},
+		},
+		Merge1 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Renderer3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1705, 643.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1456,
+			Height = 634,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.00147,
+						Offset = { -230.312, -161.497, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 315, },
+							ScaleX = 0.88638195004029,
+							OffsetX = -49.6373892022562,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.106288751107174,
+						ScaleY = 0.00415849515905947,
+						OffsetX = -9.9911426040744,
+						OffsetY = 0.0831699031811897,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "Background2TopLeftRed", "Background2TopLeftGreen", "Background2TopLeftBlue", "Background2TopLeftAlpha", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 405, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.823880597014925,
+					RatioY = 0.00971922246220302,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.596739130434783,
+						{
+							ID = "Left",
+							RatioX = 1,
+							RatioY = 109.799635701275,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = -2,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.344565217391304,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+					Viewer = {
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						ScaleMode = 0,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						SortMethod = "ZBuffer",
+						CameraName = "Camera3D1",
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 25,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "C:\\erics\\F53\\popcorn\\PopSeq\\PopSeq001.tga",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,347 @@
+{
+	Tools = ordered() {
+		RefBlur = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Applies motion blur based on the Center, Pivot, and Angle animation. Turn up Edge Bleed to kill motion blur that wraps from the other side of the image. Note: Edge Bleed value will increase render time, use conservatively.",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Expression1",
+					Source = "p1",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Expression2",
+					Source = "p1",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "XF_AddMB",
+					Source = "Angle",
+					Default = 0,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "XF_AddMB",
+					Source = "MotionBlur",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "XF_AddMB",
+					Source = "Quality",
+					Default = 2,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "XF_AddMB",
+					Source = "ShutterAngle",
+					Default = 180,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "XF_AddMB",
+					Source = "CenterBias",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "XF_AddMB",
+					Source = "SampleSpread",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Control",
+					Source = "Speed",
+					Name = "Remove Edge Bleed",
+					Default = 0,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Crp_InverseCrop",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Crp_Crop",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "RefBlur",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Control = CameraShake {
+					PassThrough = true,
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XDeviation = Input {
+							Value = 0,
+						},
+						Speed = Input {
+							Value = 0,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045.76, 49.5, },
+					},
+				},
+				Crp_InverseCrop = Crop {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XSize = Input {
+							Value = 1920,
+							Expression = "Input.OriginalWidth*(Control.Speed+1)",
+						},
+						YSize = Input {
+							Value = 1080,
+							Expression = "Input.OriginalHeight*(Control.Speed+1)",
+						},
+						KeepAspect = Input {
+							Value = 1,
+						},
+						KeepCentered = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1048.04, 81.7404, },
+					},
+				},
+				XF_AddMB = Transform {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						MotionBlur = Input {
+							Value = 1,
+						},
+						Edges = Input {
+							Value = 1,
+						},
+						Center = Input {
+							SourceOp = "Expression1",
+							Source = "PointResult",
+						},
+						Pivot = Input {
+							SourceOp = "Expression2",
+							Source = "PointResult",
+						},
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Crp_InverseCrop",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1158.04, 82.5, },
+					},
+				},
+				Expression1 = Expression {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						n1 = Input {
+							Value = 1,
+							Expression = "Control.Speed+1",
+						},
+						PointExpressionX = Input {
+							Value = "((p1x-0.5)/n1)+0.5",
+						},
+						PointExpressionY = Input {
+							Value = "((p1y-0.5)/n1)+0.5",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowNumber9 = Input {
+							Value = 0,
+						},
+						NameforPoint1 = Input {
+							Value = "Center",
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						ShowPoint5 = Input {
+							Value = 0,
+						},
+						ShowPoint6 = Input {
+							Value = 0,
+						},
+						ShowPoint7 = Input {
+							Value = 0,
+						},
+						ShowPoint8 = Input {
+							Value = 0,
+						},
+						ShowPoint9 = Input {
+							Value = 0,
+						},
+					},
+				},
+				Expression2 = Expression {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						n1 = Input {
+							Value = 1,
+							Expression = "Control.Speed+1",
+						},
+						PointExpressionX = Input {
+							Value = "((p1x-0.5)/n1)+0.5",
+						},
+						PointExpressionY = Input {
+							Value = "((p1y-0.5)/n1)+0.5",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowNumber9 = Input {
+							Value = 0,
+						},
+						PointControls = Input {
+							Value = 1,
+						},
+						NameforPoint1 = Input {
+							Value = "Pivot",
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						ShowPoint5 = Input {
+							Value = 0,
+						},
+						ShowPoint6 = Input {
+							Value = 0,
+						},
+						ShowPoint7 = Input {
+							Value = 0,
+						},
+						ShowPoint8 = Input {
+							Value = 0,
+						},
+						ShowPoint9 = Input {
+							Value = 0,
+						},
+					},
+				},
+				XF_Stabilize = Transform {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						Center = Input {
+							Expression = "XF_AddMB.Center",
+						},
+						Pivot = Input {
+							Expression = "XF_AddMB.Pivot",
+						},
+						Angle = Input {
+							Value = 3.98575340498483,
+							Expression = "XF_AddMB.Angle",
+						},
+						InvertTransform = Input {
+							Value = 1,
+						},
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "XF_AddMB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1265, 82.5, },
+					},
+				},
+				Crp_Crop = Crop {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XOffset = Input {
+							Value = 615,
+							Expression = "-Crp_InverseCrop.XOffset",
+						},
+						YOffset = Input {
+							Value = 346,
+							Expression = "-Crp_InverseCrop.YOffset",
+						},
+						XSize = Input {
+							Value = 1920,
+							Expression = "Crp_InverseCrop.Input.OriginalWidth",
+						},
+						YSize = Input {
+							Value = 1080,
+							Expression = "Crp_InverseCrop.Input.OriginalHeight",
+						},
+						Input = Input {
+							SourceOp = "XF_Stabilize",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1377.28, 82.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "RefBlur",
+}

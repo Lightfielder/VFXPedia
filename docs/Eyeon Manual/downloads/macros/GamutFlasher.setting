@@ -1,0 +1,113 @@
+{
+	Tools = ordered() {
+		GamutFlasher = GroupOperator {
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "GF_Source",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "GF_Bol",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 227.75, -27.2, },
+				Size = { 330.5, 130.3, },
+				Offset = { -227.75, 27.2, },
+			},
+			Tools = ordered() {
+				GF_Source = PipeRouter {
+					NameSet = true,
+					ViewInfo = PipeRouterInfo {
+						Pos = { 90, -16.5, },
+					},
+				},
+				GF_Bol = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 2,
+							Expression = "tonumber(Comments.Value) % 2",
+						},
+						Operation = Input {
+							Value = 10,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "GF_Source",
+							Source = "Output",
+						},
+						Comments = Input {
+							SourceOp = "TextTimer2",
+							Source = "Time",
+						},
+						EffectMask = Input {
+							SourceOp = "GF_DKy",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 330, -16.5, },
+					},
+				},
+				GF_BC = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						ClipBlack = Input {
+							Value = 1,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "GF_Source",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 165, 49.5, },
+					},
+				},
+				GF_DKy = DifferenceKeyer {
+					NameSet = true,
+					Inputs = {
+						MatteContrast = Input {
+							Value = 100,
+						},
+						Background = Input {
+							SourceOp = "GF_Source",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "GF_BC",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 275, 49.5, },
+					},
+				},
+			},
+		},
+		TextTimer2 = TextTimer {
+			CtrlWZoom = false,
+			Inputs = {
+				Mode = Input {
+					Value = 2,
+				},
+				HoursOn = Input {
+					Value = 0,
+				},
+				MinsOn = Input {
+					Value = 0,
+				},
+			},
+		},
+	},
+}

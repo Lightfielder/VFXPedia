@@ -1,0 +1,768 @@
+Composition {
+	CurrentTime = 300,
+	RenderRange = { 0, 300, },
+	GlobalRange = { 0, 300, },
+	Version = "Fusion 5.31 build 74",
+	SavedOutputs = 0,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+		"D:\\+Private Work Libraries\\Compositing Projects\\Particles\\pGFAttractor.mov",
+	},
+	Tools = {
+		pEmitter1 = pEmitter {
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 500,
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				RotationMode = Input {
+					Value = 1,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleLine", },
+				},
+				Region = Input {
+					Value = FuID { "AllRgn", },
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.5,
+				},
+				["ParticleStyle.SizeToVelocity"] = Input {
+					Value = 0.5,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 250.071, 33.3467, },
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { Red = 255, Green = 255, Blue = 64, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 50000, Flags = { Linear = true, }, },
+				[1] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		ChannelBooleans = ChannelBoolean {
+			NameSet = true,
+			CustomData = {
+				Settings = {
+					[1] = {
+						Tools = {
+							ChannelBooleans = ChannelBoolean {
+								ViewInfo = OperatorInfo {
+									Pos = {
+										55,
+										17.05,
+									},
+								},
+								CtrlWZoom = false,
+								NameSet = true,
+								Colors = {
+									TileColor = {
+										R = 0.666666666666667,
+										G = 0.509803921568627,
+										B = 0.235294117647059,
+									},
+									TextColor = {
+										R = 0.862745098039216,
+										G = 0.862745098039216,
+										B = 0.862745098039216,
+									},
+								},
+								Name = "ChannelBooleans",
+								Inputs = {
+									ToRed = Input {
+										Value = 4,
+									},
+									ToGreen = Input {
+										Value = 4,
+									},
+									ToBlue = Input {
+										Value = 4,
+									},
+									ToAlpha = Input {
+										Value = 4,
+									},
+								},
+								CustomData = {
+								},
+								CurrentSettings = 2,
+							},
+						},
+					},
+					[2] = {
+						Tools = {
+							ChannelBooleans = ChannelBoolean {
+								ViewInfo = OperatorInfo {
+									Pos = {
+										55,
+										17.05,
+									},
+								},
+								Inputs = {
+									ToRed = Input {
+										Value = 3,
+									},
+									Operation = Input {
+										Value = 7,
+									},
+									ToGreen = Input {
+										Value = 3,
+									},
+									ToBlue = Input {
+										Value = 3,
+									},
+									ToAlpha = Input {
+										Value = 4,
+									},
+								},
+								Colors = {
+									TileColor = {
+										R = 0.666666666666667,
+										G = 0.509803921568627,
+										B = 0.235294117647059,
+									},
+									TextColor = {
+										R = 0.862745098039216,
+										G = 0.862745098039216,
+										B = 0.862745098039216,
+									},
+								},
+								CtrlWZoom = false,
+								NameSet = true,
+								CurrentSettings = 3,
+								CustomData = {
+								},
+							},
+						},
+					},
+					[3] = {
+						Tools = ordered() {
+							ChannelBooleans = ChannelBoolean {
+								Inputs = {
+									Operation = Input {
+										Value = 1,
+									},
+								},
+								Colors = {
+									TextColor = { B = 0.862745098039216, G = 0.862745098039216, R = 0.862745098039216, },
+									TileColor = { B = 0.235294117647059, G = 0.505882352941176, R = 0.666666666666667, },
+								},
+								CtrlWZoom = false,
+								NameSet = true,
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								CustomData = {
+								},
+							},
+						},
+					},
+				},
+			},
+			Inputs = {
+				Operation = Input {
+					Value = 10,
+				},
+				ToRed = Input {
+					Value = 4,
+				},
+				ToGreen = Input {
+					Value = 4,
+				},
+				ToBlue = Input {
+					Value = 4,
+				},
+				ToAlpha = Input {
+					Value = 8,
+				},
+				Background = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 355.293, -61.5504, },
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		Blur = Blur {
+			NameSet = true,
+			Inputs = {
+				XBlurSize = Input {
+					SourceOp = "BlurBlurSize",
+					Source = "Value",
+				},
+				YBlurSize = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "ChannelBooleans",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 351.193, -7.34782, },
+			},
+			Colors = {
+				TileColor = { R = 0.423529411764706, G = 0.545098039215686, B = 0.376470588235294, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		BlurBlurSize = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 100, Flags = { Linear = true, }, },
+				[150] = { 25, Flags = { Linear = true, }, },
+				[190] = { 200, Flags = { Linear = true, }, },
+				[240] = { 0, Flags = { Linear = true, }, },
+				[255] = { 50, Flags = { Linear = true, }, },
+				[270] = { 0, Flags = { Linear = true, }, },
+				[280] = { 30, Flags = { Linear = true, }, },
+				[290] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pGradientForce1 = pGradientForce {
+			Inputs = {
+				Strength = Input {
+					Value = 5,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Image = Input {
+					SourceOp = "Blur",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Attractor",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 360.071, 35.0462, },
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				GlobalOut = Input {
+					Value = 300,
+				},
+				Width = Input {
+					Value = 360,
+				},
+				Height = Input {
+					Value = 288,
+				},
+				PixelAspect = Input {
+					Value = { 1.06666666666667, 1, },
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				Size = Input {
+					Value = 0.15,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "COME HERE!",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input {
+					Disabled = true,
+				},
+				DPTType = Input {
+					Disabled = true,
+				},
+				DPTResolution = Input {
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 356.709, -159.918, },
+			},
+		},
+		pFriction1 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					Value = 1,
+				},
+				SpinFriction = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "pGradientForce1",
+					Source = "Output",
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "BitmapRgn", },
+				},
+				["BitmapRgn.Bitmap"] = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 470.071, 35.0462, },
+			},
+		},
+		pFriction2 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					Value = 0.1,
+				},
+				Input = Input {
+					SourceOp = "pFriction1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 580.071, 35.0462, },
+			},
+		},
+		pCustom1 = pCustom {
+			Inputs = {
+				KillExpressionKillIf10 = Input {
+					Value = "(abs(vy)+abs(vy)+abs(vz))*10",
+				},
+				Input = Input {
+					SourceOp = "pFriction2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Kills too fast particles",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 689.137, 35.0462, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				GlobalOut = Input {
+					Value = 300,
+				},
+				UseFrameFormatSettings = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 360,
+				},
+				Height = Input {
+					Value = 288,
+				},
+				PixelAspect = Input {
+					Value = { 1.06666666666667, 1, },
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pCustom1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 799.094, 35.0306, },
+			},
+		},
+		Saver = Saver {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				["DPXFormat.BypassConversion"] = Input {
+					Value = 1,
+				},
+				Clip = Input {
+					Value = Clip {
+						Filename = "D:\\+Private Work Libraries\\Compositing Projects\\Particles\\pGFAttractor.mov",
+						FormatID = "QuickTimeMovies",
+						StartFrame = 0,
+						Length = 0,
+						Multiframe = true,
+						Saving = true,
+						LengthSetManually = false,
+						TrimIn = 4294967295,
+						TrimOut = 4294967295,
+						ExtendFirst = 4294967295,
+						ExtendLast = 4294967295,
+						Loop = 4294967295,
+						Reverse = false,
+						ImportMode = 0,
+						PullOffset = 0,
+						AspectMode = 0,
+						Depth = 0,
+						GlobalStart = -1000000000,
+						GlobalEnd = -1000000000,
+					},
+				},
+				OutputFormat = Input {
+					Value = FuID { "QuickTimeMovies", },
+				},
+				SequenceStartFrame = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				["QuickTimeMovies.Compression"] = Input {
+					Value = FuID { "Motion JPEG A_mjpa", },
+				},
+				["QuickTimeMovies.AttemptToSaveAlpha"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 909.094, 46.015, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 22,
+			Top = 22,
+			Width = 1568,
+			Height = 710,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							AutoSnap = true,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.02362,
+						Offset = { 321.184, 207.018, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "Blur", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 367, },
+							ScaleX = 0.162666671854288,
+							OffsetX = 110.938670204624,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.565685424949238,
+						ScaleY = 0.988960533128038,
+						OffsetX = -272.094689400583,
+						OffsetY = -118.675263975365,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "BlurBlurSize", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 300, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.771279373368146,
+					RatioY = 0.010377358490566,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.598671726755218,
+						{
+							ID = "Left",
+							RatioX = 0.305970149253731,
+							RatioY = 0.00998003992015968,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.694029850746269,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.350094876660342,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 436,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Info = {
+				Comments = "Custom Turbulence by Gregory Chalenko.\r\nBased on Theodor Groeneboom's technic",
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						EnableLUTs = false,
+						CheckerUnderlay = false,
+						Normalise = false,
+						Channel = 4294967295,
+					},
+					SideB = {
+						Viewer = {
+							Normalise = false,
+							ScaleMode = 0,
+							Channel = 1,
+						},
+						ViewLUT = {
+						},
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						ScaleMode = 0,
+					},
+					View3D = {
+						CameraName = "Perspective",
+					},
+					ViewLUT = {
+					},
+					SideB = {
+						Viewer = {
+							ScaleMode = 0,
+						},
+						ViewLUT = {
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "PAL (D1)",
+				Width = 360,
+				Height = 288,
+				Rate = 25,
+				AspectX = 1.06666666666667,
+				PerFeet = 1,
+				GuideRatio = 1.33333333333333,
+			},
+			LastFile = "L:\\WANTED-2\\RESULTS\\Dailies\\Indian_City_of_the_Dead\\Animatics\\Wes_wake_up(IWW)\\2009.03.10\\Timer_Separate_Sec.mov",
+			Unsorted = {
+				GlobalEnd = 300,
+				RenderSettings = {
+					Configs = {
+						Preview = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 240,
+							ShowSlaves = false,
+							CustomWidth = 320,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = false,
+						},
+						Final = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 240,
+							ShowSlaves = false,
+							CustomWidth = 320,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+					},
+					PreviewConfig = "Preview",
+					CurrentConfig = "Final",
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

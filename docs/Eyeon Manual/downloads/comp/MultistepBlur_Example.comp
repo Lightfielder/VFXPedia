@@ -1,0 +1,533 @@
+Composition {
+	CurrentTime = 10,
+	RenderRange = { 1, 226, },
+	GlobalRange = { 1, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.3 build 55",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Loader1 = Loader {
+			Clips = {
+				Clip {
+					ID = "Clip1",
+					Filename = "Comp:\\Lighting.jpg",
+					FormatID = "JpegFormat",
+					StartFrame = -1,
+					Length = 1,
+					Multiframe = false,
+					Saving = false,
+					LengthSetManually = true,
+					TrimIn = 0,
+					TrimOut = 0,
+					ExtendFirst = 0,
+					ExtendLast = 0,
+					Loop = 0,
+					Reverse = false,
+					ImportMode = 0,
+					PullOffset = 0,
+					AspectMode = 0,
+					Depth = 0,
+					TimeCode = 0,
+					KeyCode = "",
+					GlobalStart = 1,
+					GlobalEnd = 1,
+				},
+			},
+			Inputs = {
+				EnableClipList = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 388.967, 8.54608, },
+			},
+		},
+		Glow = Glow {
+			NameSet = true,
+			Inputs = {
+				Blend = Input {
+					Value = 0.2,
+				},
+				XGlowSize = Input {
+					Value = 200,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Glow = Input {
+					Value = 0.98,
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				ColorScale = Input {
+					Value = 1,
+				},
+				RedScale = Input {
+					Value = 0.9,
+				},
+				BlueScale = Input {
+					Value = 1.5,
+				},
+				Input = Input {
+					SourceOp = "ChangeDepth1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 383.079, 261.426, },
+			},
+			Colors = {
+				TileColor = { R = 0.423529411764706, G = 0.537254901960784, B = 0.368627450980392, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		MultistepBlur1 = Fuse.MultistepBlur {
+			Inputs = {
+				XMaximumBlur = Input {
+					Value = 200,
+				},
+				XMinimumBlur = Input {
+					Value = 5,
+				},
+				XMinimumBlurSize = Input {
+					Value = 5,
+				},
+				XMaximumBlurSize = Input {
+					Value = 200,
+				},
+				Steps = Input {
+					Value = 16,
+				},
+				Input = Input {
+					SourceOp = "ChangeDepth1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 601, 143, },
+			},
+		},
+		ColorCorrector = ColorCorrector {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				ReleaseMatch = Input {
+					Disabled = true,
+				},
+				MasterRGBGain = Input {
+					Value = 15,
+				},
+				MasterRedGain = Input {
+					Value = 0.9,
+				},
+				MasterBlueGain = Input {
+					Value = 1.5,
+				},
+				ColorRanges = Input {
+					Value = ColorCurves {
+						Curves = {
+							{
+								Points = {
+									{ 0, 1, },
+									{ 0.4, 0.2, },
+									{ 0.6, 0, },
+									{ 1, 0, },
+								},
+							},
+							{
+								Points = {
+									{ 0, 0, },
+									{ 0.4, 0, },
+									{ 0.6, 0.2, },
+									{ 1, 1, },
+								},
+							},
+						},
+					},
+				},
+				Input = Input {
+					SourceOp = "MultistepBlur1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 601, 180, },
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Gain = Input {
+					Value = 0,
+				},
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "ChangeDepth1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "ColorCorrector",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 601, 221, },
+			},
+		},
+		Scale = Scale {
+			NameSet = true,
+			CustomData = {
+				Settings = {
+					[1] = {
+						Tools = ordered() {
+							Scale = Scale {
+								CustomData = {
+								},
+								Inputs = {
+									YSize = Input {
+										Disabled = true,
+									},
+									FilterMethod = Input {
+										Value = 5,
+									},
+								},
+								Name = "Scale",
+								CtrlWZoom = false,
+								NameSet = true,
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								CurrentSettings = 2,
+							},
+						},
+					},
+					[2] = {
+						Tools = ordered() {
+							Scale = Scale {
+								Inputs = {
+									YSize = Input {
+										Disabled = true,
+									},
+								},
+								CtrlWZoom = false,
+								NameSet = true,
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								CustomData = {
+								},
+							},
+						},
+					},
+				},
+			},
+			Inputs = {
+				XSize = Input {
+					Value = 0.5,
+				},
+				YSize = Input {
+					Disabled = true,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				FilterMethod = Input {
+					Value = 5,
+				},
+				Input = Input {
+					SourceOp = "Loader1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 388.967, 104.546, },
+			},
+			Colors = {
+				TileColor = { R = 0.556862745098039, G = 0.36078431372549, B = 0.380392156862745, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		ChangeDepth1 = ChangeDepth {
+			Inputs = {
+				Depth = Input {
+					Value = 4,
+				},
+				Input = Input {
+					SourceOp = "Scale",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 388.967, 137.546, },
+			},
+		},
+		Glow_1 = Glow {
+			NameSet = true,
+			Inputs = {
+				Blend = Input {
+					Value = 0.2,
+				},
+				XGlowSize = Input {
+					Value = 20,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Glow = Input {
+					Value = 0.95,
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				ColorScale = Input {
+					Value = 1,
+				},
+				RedScale = Input {
+					Value = 0.9,
+				},
+				BlueScale = Input {
+					Value = 1.5,
+				},
+				Input = Input {
+					SourceOp = "ChangeDepth1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 167, 199, },
+			},
+			Colors = {
+				TileColor = { R = 0.423529411764706, G = 0.537254901960784, B = 0.368627450980392, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 110,
+			Top = 110,
+			Width = 1568,
+			Height = 710,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Vertical",
+						PipeStyle = "Direct",
+						Scale = 0.708411,
+						Offset = { 673.975, 100.148, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 362, },
+							ScaleX = 0.741998649561107,
+							OffsetX = -48.9719108710331,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.815047021943574,
+					RatioY = 0.010377358490566,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.603415559772296,
+						{
+							ID = "Left",
+							RatioX = 0.38550501156515,
+							RatioY = 0.00943396226415094,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.61449498843485,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.345351043643264,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+						Normalise = false,
+						ScaleMode = 0,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						Normalise = false,
+						ScaleMode = 0,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.31619537275064,
+			},
+			LastFile = "L:\\Darkest_Hour\\RnD\\interaction\\shimmer\\Render_2D\\Spook_Movement_Shield.exr\\Spook_Movement_Shield.001.exr",
+			Unsorted = {
+				GlobalStart = 1,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Cluster = {
+				SideFrames = 0,
+			},
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				Direction = 1,
+				AutoSnap = false,
+				FullToolIndicator = true,
+			},
+			SoftDPS = {
+				AdaptiveContour = true,
+			},
+			QuickTime = {
+			},
+			Tabasco = {
+				AdaptiveContour = true,
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,1256 @@
+Composition {
+	CurrentTime = 109,
+	RenderRange = { 0, 300, },
+	GlobalRange = { 0, 300, },
+	CurrentID = 735,
+	HiQ = true,
+	Version = "Fusion 6.4 build 1118",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Rectangle1 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input { Value = 0.0230366, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Center = Input { Value = { 0.493562231759657, 0.177376364963188, }, },
+				Width = Input { Value = 1.14377682403433, },
+				Height = Input { Value = 0.0126587281102228, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 5187.98, -559.503, }, },
+		},
+		Background3 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5186.97, -527.514, }, },
+		},
+		Note1_1_1_1_2 = Note {
+			Inputs = {
+				Comments = Input { Value = "You can use the Layout Rotation>> Angle Y to  Rotate the whole scene when setting it up.", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 4000.86, -359.321, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 353.189, 144.384, },
+			},
+			Colors = {
+				TileColor = { R = 0.250980392156863, G = 0, B = 0.501960784313725, },
+				TextColor = { R = 1, G = 1, B = 1, },
+			},
+		},
+		Note1 = Note {
+			Inputs = {
+				Comments = Input { Value = "FLOOR\r\nSHADER SLOT 8", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 3083.83, -421.895, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 165.686, 57.0353, },
+			},
+		},
+		Note1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "WALL\r\nSHADER SLOT 6", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 3083.17, -206.393, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 240.844, 73.737, },
+			},
+		},
+		Note1_1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "TOP GLOW LINE - SHADER SLOT 1\r\nFENCE1_LINE  - SHADER SLOT 2\r\nFENCE1 - SHADER SLOT 3\r\nFENCE2 - SHADER SLOT 4\r\nFENCE2_LINE - SHADER SLOT 5\r\nWALL -  SHADER SLOT 6\r\nSKY -  SHADER SLOT 7\r\nFLOOR -  SHADER SLOT 8", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 3679.55, -355.684, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 287.107, 134.154, },
+			},
+		},
+		Note1_1_1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "FENCE2\r\nSHADER SLOT 4", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 3786.32, -529.998, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 240.844, 67.0563, },
+			},
+		},
+		Note1_1_1_1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "SKY\r\nSHADER SLOT 7", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 3242.06, -606.826, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 240.844, 78.7476, },
+			},
+		},
+		Background7_1 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 100, },
+				Height = Input { Value = 100, },
+				TopLeftRed = Input { Value = 0.290196090936661, },
+				TopLeftGreen = Input { Value = 0.14509804546833, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3932.81, -573.982, }, },
+		},
+		Rectangle3_1 = RectangleMask {
+			Inputs = {
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.1, },
+				Height = Input { Value = 1.56666666666667, },
+				Angle = Input { Value = -45, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 3829.88, -764.271, }, },
+		},
+		Rectangle3 = RectangleMask {
+			Inputs = {
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.1, },
+				Height = Input { Value = 1.56666666666667, },
+				Angle = Input { Value = 45, },
+				EffectMask = Input {
+					SourceOp = "Rectangle3_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3828.44, -730.092, }, },
+		},
+		Ellipse4 = EllipseMask {
+			Inputs = {
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.3246073, },
+				Height = Input {
+					Value = 0.3246073,
+					Expression = "Width",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle3",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3828.44, -684.593, }, },
+		},
+		Background7 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 100, },
+				Height = Input { Value = 100, },
+				TopLeftRed = Input { Value = 1, },
+				TopLeftGreen = Input { Value = 0.858333333333333, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse4",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3828.63, -634.305, }, },
+		},
+		Merge21 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Background7_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Background7",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3774.11, -573.065, }, },
+		},
+		WALL = Background {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Type = Input { Value = FuID { "Vertical", }, },
+				TopLeftRed = Input { Value = 0.0662601481481482, },
+				TopLeftGreen = Input { Value = 0.246666666666667, },
+				TopLeftBlue = Input { Value = 0.153565608063226, },
+				BottomLeftRed = Input { Value = 1, },
+				BottomLeftGreen = Input { Value = 1, },
+				BottomLeftBlue = Input { Value = 1, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3102.39, -279.46, }, },
+		},
+		Text4 = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				LayoutRotation = Input { Value = 1, },
+				Size = Input { Value = 0.3036649, },
+				Font = Input { Value = "Arial Black", },
+				StyledText = Input { Value = "A...B...C...D...", },
+				Style = Input { Value = "Regular", },
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				CharacterSpacing = Input { Value = 0.8376963, },
+				Red1 = Input { Value = 0.580392181873322, },
+				Green1 = Input { Value = 0.658823549747467, },
+				Blue1 = Input { Value = 0.619607865810394, },
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input { Disabled = true, },
+				DPTType = Input { Disabled = true, },
+				DPTResolution = Input { Disabled = true, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 3266.72, -224.113, }, },
+		},
+		WALL_Merge = Merge {
+			NameSet = true,
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "WALL",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Text4",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3268.53, -279.088, }, },
+		},
+		SKY = Background {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Type = Input { Value = FuID { "Vertical", }, },
+				TopLeftRed = Input { Value = 0.214222222222222, },
+				TopLeftGreen = Input { Value = 0.909488521878255, },
+				TopLeftBlue = Input { Value = 1, },
+				BottomLeftGreen = Input { Value = 0.341666666666667, },
+				BottomLeftBlue = Input { Value = 0.516666666666667, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3502.09, -607.643, }, },
+		},
+		FLOOR = Background {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Type = Input { Value = FuID { "Gradient", }, },
+				TopLeftRed = Input { Value = 0.958333333333333, },
+				Start = Input { Value = { 0.987915407854985, 0.978494623655914, }, },
+				End = Input { Value = { 0.226586102719033, -0.043010752688172, }, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0.290196090936661, 0.14509804546833, 0, 1, },
+							[1] = { 1, 0.76975434697704, 0, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3086.4, -446.552, }, },
+		},
+		Text1 = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Center = Input {
+					SourceOp = "Path1",
+					Source = "Position",
+				},
+				CenterZ = Input { Value = -0.1052632, },
+				LayoutRotation = Input { Value = 1, },
+				AngleX = Input { Value = 90, },
+				LayoutWidth = Input { Value = 2, },
+				Perspective = Input { Value = 1.9633508, },
+				PositionOnPath = Input { Value = 1.1507937, },
+				Alpha = Input { Value = 1, },
+				Path = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Font = Input { Value = "Arial", },
+				StyledText = Input { Value = ".................................................", },
+				Style = Input { Value = "Bold", },
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				LineSpacing = Input { Value = 4.7120419, },
+				LineRotation = Input { Value = 1, },
+				WordRotation = Input { Value = 1, },
+				CharacterSpacing = Input { Value = 1.6, },
+				CharacterRotation = Input { Value = 1, },
+				CharacterAngleZ = Input { Value = 90, },
+				SelectElement = Input { Value = 6, },
+				Select = Input { Value = 2, },
+				Name1 = Input { Value = "TOP GLOW LINE", },
+				Opacity1 = Input { Value = 0.7696335, },
+				PriorityBack1 = Input { Value = 20.0276243, },
+				ElementShape1 = Input { Value = 2, },
+				ExtendHorizontal1 = Input { Value = 3.6043956, },
+				ExtendVertical1 = Input { Value = 2, },
+				Round1 = Input { Value = 0.0773481, },
+				Blue1 = Input { Value = 0, },
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness1 = Input { Value = 1, },
+				SoftnessX1 = Input { Value = 12.1546961, },
+				SoftnessY1 = Input {
+					Value = 12.1546961,
+					Expression = "SoftnessX1",
+				},
+				SoftnessOnFillColorToo1 = Input { Value = 1, },
+				SoftnessGlow1 = Input { Value = 0.2430939, },
+				SoftnessBlend1 = Input { Value = 0.9005525, },
+				Transform1 = Input { Value = 1, },
+				Offset1 = Input { Value = { 1, 0, }, },
+				OffsetZ1 = Input { Value = -3.0666667, },
+				Name2 = Input { Value = "FENCE1_LINE", },
+				Enabled2 = Input { Value = 1, },
+				Name3 = Input { Value = "FENCE1", },
+				Enabled3 = Input { Value = 1, },
+				Name4 = Input { Value = "FENCE2", },
+				Enabled4 = Input { Value = 1, },
+				ExtendHorizontal4 = Input { Value = 8, },
+				Type4 = Input { Value = 1, },
+				Red4 = Input { Value = 0.0363636363636364, },
+				Green4 = Input { Value = 0.0727272727272727, },
+				Blue4 = Input { Value = 0.136363636363636, },
+				ColorImage4 = Input {
+					SourceOp = "Merge21",
+					Source = "Output",
+				},
+				ColorBrush4 = Input {
+					Value = 15,
+					UserString1 = "flake_3_b",
+				},
+				ShadingGradient4 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				ShadingMappingSize4 = Input { Value = 0.4751457, },
+				Transform4 = Input { Value = 1, },
+				OffsetZ4 = Input { Value = -0.5, },
+				AngleX4 = Input { Value = -90, },
+				AngleZ4 = Input { Value = 90, },
+				Name5 = Input { Value = "FENCE2_LINE", },
+				Enabled5 = Input { Value = 1, },
+				PriorityBack5 = Input { Value = 3.038674, },
+				Overlap5 = Input { Value = 0, },
+				ElementShape5 = Input { Value = 2, },
+				ExtendHorizontal5 = Input { Value = 2, },
+				ExtendVertical5 = Input { Value = 2, },
+				Green5 = Input { Value = 0.858823597431183, },
+				Blue5 = Input { Value = 0, },
+				ShadingGradient5 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness5 = Input { Value = 1, },
+				SoftnessX5 = Input { Value = 8.2872928, },
+				SoftnessY5 = Input { Value = 1.4364641, },
+				SoftnessOnFillColorToo5 = Input { Value = 1, },
+				SoftnessGlow5 = Input { Value = 0.3756906, },
+				Transform5 = Input { Value = 1, },
+				Offset5 = Input { Value = { 1, 0, }, },
+				OffsetZ5 = Input { Value = -0.0277778, },
+				Name6 = Input { Value = "WALL", },
+				Enabled6 = Input { Value = 1, },
+				PriorityBack6 = Input { Value = 0, },
+				Overlap6 = Input { Value = 0, },
+				ElementShape6 = Input { Value = 2, },
+				ExtendHorizontal6 = Input { Value = 31.6483516, },
+				ExtendVertical6 = Input { Value = 11.956044, },
+				Type6 = Input { Value = 1, },
+				ColorImage6 = Input {
+					SourceOp = "WALL_Merge",
+					Source = "Output",
+				},
+				ShadingGradient6 = Input {
+					Value = Gradient {
+						Colors = {
+							[0.0979591836734694] = { 0.290196090936661, 0.14509804546833, 0, 1, },
+							[0.889795918367347] = { 1, 1, 1, 1, },
+							[1] = { 1, 1, 0, 1, },
+						},
+					},
+				},
+				ShadingMappingAngle6 = Input { Value = -677.2625698, },
+				ShadingMappingSize6 = Input { Value = 5.3922685, },
+				ShadingMappingAspect6 = Input { Value = 0.9944831, },
+				Transform6 = Input { Value = 1, },
+				Offset6 = Input { Value = { 1.75, 0, }, },
+				OffsetZ6 = Input { Value = -1.0666667, },
+				AngleY6 = Input { Value = 90, },
+				SizeX6 = Input { Value = 1.2154696, },
+				SizeY6 = Input {
+					Value = 1.2154696,
+					Expression = "SizeX6",
+				},
+				Name7 = Input { Value = "SKY", },
+				Enabled7 = Input { Value = 1, },
+				PriorityBack7 = Input { Value = 7.5966851, },
+				Overlap7 = Input { Value = 0, },
+				ElementShape7 = Input { Value = 2, },
+				ExtendHorizontal7 = Input { Value = 20, },
+				ExtendVertical7 = Input { Value = 20, },
+				Type7 = Input { Value = 1, },
+				ColorImage7 = Input {
+					SourceOp = "SKY",
+					Source = "Output",
+				},
+				ShadingGradient7 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				ShadingMappingAngle7 = Input { Value = 45, },
+				ShadingMappingSize7 = Input { Value = 4.5966893, },
+				OffsetZ7 = Input { Value = -3.2, },
+				Name8 = Input { Value = "FLOOR", },
+				Enabled8 = Input { Value = 1, },
+				Overlap8 = Input { Value = 0, },
+				ElementShape8 = Input { Value = 2, },
+				ExtendHorizontal8 = Input { Value = 40, },
+				ExtendVertical8 = Input { Value = 20, },
+				Type8 = Input { Value = 1, },
+				ColorImage8 = Input {
+					SourceOp = "FLOOR",
+					Source = "Output",
+				},
+				ShadingGradient8 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				ShadingMappingSize8 = Input { Value = 4.5, },
+				PivotZ8 = Input { Value = 0.021978, },
+				RenderToDPTFile = Input { Disabled = true, },
+				DPTType = Input { Disabled = true, },
+				DPTResolution = Input { Disabled = true, },
+				ElementShape3 = Input { Value = 2, },
+				ExtendHorizontal3 = Input { Value = 0.1318681, },
+				ExtendVertical3 = Input { Value = 2.0659341, },
+				Round3 = Input { Value = 0.8839779, },
+				Red3 = Input { Value = 0.290196078431373, },
+				Green3 = Input { Value = 0.145098039215686, },
+				ColorBrush3 = Input {
+					Value = 23,
+					UserString1 = "gull_c",
+				},
+				ShadingGradient3 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				ShadingMappingSize3 = Input { Value = 1.1933787, },
+				SoftnessX3 = Input { Value = 0, },
+				SoftnessY3 = Input { Value = 0, },
+				Transform3 = Input { Value = 1, },
+				Offset3 = Input { Value = { -1, 0, }, },
+				OffsetZ3 = Input { Value = 0.7, },
+				AngleX3 = Input { Value = -90, },
+				AngleZ3 = Input { Value = 90, },
+				SizeY3 = Input { Expression = "SizeX3", },
+				PriorityBack2 = Input { Value = 25, },
+				ElementShape2 = Input { Value = 2, },
+				ExtendHorizontal2 = Input { Value = 2, },
+				ExtendVertical2 = Input { Value = 1.4945055, },
+				Round2 = Input { Value = 1, },
+				Red2 = Input { Value = 0.290196090936661, },
+				Green2 = Input { Value = 0.14509804546833, },
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform2 = Input { Value = 1, },
+				OffsetZ2 = Input {
+					Value = 0.7,
+					Expression = "OffsetZ3",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 3516.36, -440.088, }, },
+			Colors = {
+				TileColor = { R = 0.501960784313725, G = 0, B = 1, },
+				TextColor = { R = 1, G = 1, B = 1, },
+			},
+		},
+		Path1 = PolyPath {
+			DrawMode = "Done",
+			CtrlWZoom = false,
+			Inputs = {
+				Displacement = Input {
+					SourceOp = "Path1Displacement",
+					Source = "Value",
+				},
+				PolyLine = Input {
+					Value = Polyline {
+						Points = {
+							{ Linear = true, LockY = true, X = 2.31892464010357, Y = -0.22662907727571, RX = -1.54074074074074, RY = 0, },
+							{ Linear = true, LockY = true, X = -2.30329758211866, Y = -0.22662907727571, LX = 1.54074074074074, LY = 0, },
+						},
+					},
+				},
+			},
+		},
+		Publish1 = PublishPolyLine {
+			CtrlWZoom = false,
+			Inputs = {
+				Value = Input {
+					Value = Polyline {
+						Points = {
+							{ X = 0.87226347161932, Y = -0.584136731345734, RX = -0.0951450865496875, RY = 0.208657756123864, },
+							{ X = 0.661649603734192, Y = 0.129439283578689, LX = 0.185053395905711, LY = -0.114718986150739, RX = -0.191289967640608, RY = 0.118585184784825, },
+							{ X = 0.10254435567903, Y = -0.292702263605456, LX = 0.196069245013664, LY = 0.292367957483732, RX = -0.175908942984891, RY = -0.262305994803165, },
+							{ X = -0.584617827845847, Y = -0.381732724022494, LX = 0.135733899944857, LY = -0.294579491661982, RX = -0.101790459873805, RY = 0.220912991801214, },
+							{ X = -0.531356496579998, Y = 0.469723396352146, LX = -0.148445544826413, LY = -0.194316757291888, RX = 0.17411184302823, RY = 0.227914207751555, },
+							{ X = 0.110564480495973, Y = 0.304694178723988, LX = -0.186881409002573, LY = 0.24539519049624, RX = 0.237049191157516, RY = -0.311270830691761, },
+							{ X = 0.268396465463807, Y = -0.732180221756067, LX = -0.174057104014735, LY = 0.195439346464945, RX = 0.0770951425379647, RY = -0.0865659828050798, },
+							{ X = 0.556105954776674, Y = -0.759033652139675, LX = -0.0794289699521568, LY = -0.079479629604417, RX = 0.182114129868035, RY = 0.182230281928125, },
+							{ X = 1.16718067069885, Y = -0.510978025292352, LX = -0.161825905563053, LY = 0.208635488606454, },
+						},
+					},
+				},
+			},
+		},
+		Path1Displacement = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[3] = { 0, RH = { 54.979797979798, 0.444343434343434, }, Flags = { Linear = true, LockedY = true, }, },
+				[252] = { 1, LH = { 192.055555555556, 0.555656565656566, }, Flags = { LockedY = true, }, },
+			},
+		},
+		Text2_1 = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Center = Input { Value = { 0.0847751879787446, 0.5, }, },
+				Size = Input { Value = 0.4, },
+				Font = Input { Value = "Arial", },
+				StyledText = Input { Value = "B", },
+				Style = Input { Value = "Bold", },
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input { Disabled = true, },
+				DPTType = Input { Disabled = true, },
+				DPTResolution = Input { Disabled = true, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 5262.94, -766.61, }, },
+		},
+		Ellipse1_1 = EllipseMask {
+			Inputs = {
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Center = Input { Value = { 0.194072657743786, 0.411864406779661, }, },
+				Width = Input { Value = 0.0768715731051733, },
+				Height = Input { Value = 0.0768715731051733, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 5423.77, -748.507, }, },
+		},
+		Background2_1 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				TopLeftRed = Input { Value = 1, },
+				TopLeftGreen = Input { Value = 1, },
+				TopLeftBlue = Input { Value = 1, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5421, -713.704, }, },
+		},
+		Merge5 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Text2_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Background2_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5309.65, -716.991, }, },
+		},
+		Transform1 = Transform {
+			Inputs = {
+				FlipHoriz = Input { Value = 1, },
+				Center = Input { Value = { 0.736196319018405, 0.401639344262295, }, },
+				UseSizeAndAspect = Input { Value = 0, },
+				Size = Input { Value = 1.14270876299981, },
+				XSize = Input { Value = 1.16564417177914, },
+				YSize = Input { Value = 0.6736842, },
+				Input = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 4869.64, -716.358, }, },
+		},
+		Merge3 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Merge5",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5108.61, -715.699, }, },
+		},
+		Polygon1_1 = PolylineMask {
+			DrawMode = "ModifyOnly",
+			DrawMode2 = "InsertAndModify",
+			Inputs = {
+				BorderWidth = Input { Value = 0.0083333, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Center = Input { Value = { 0.411042944785276, 0.5, }, },
+				ZRotation = Input { Value = -2.53286704348227, },
+				Polyline = Input {
+					SourceOp = "Polygon1_1Polyline",
+					Source = "Value",
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+					},
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 4510.14, -716.61, }, },
+		},
+		Polygon1_1Polyline = BezierSpline {
+			SplineColor = { Red = 173, Green = 255, Blue = 47, },
+			NameSet = true,
+			KeyFrames = {
+				[57] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+						Points = {
+							{ X = -0.22392638027668, Y = 0.0519125685095787, RX = 0.062713135658187, RY = -0.164276519975144, },
+							{ X = -0.0061349694337125, Y = -0.25409836082877, LX = -0.134773972410208, LY = 0.0908165319913849, RX = 0.0582664861008105, RY = -0.0392624785362419, },
+							{ X = 0.180981584121844, Y = -0.259562836644428, LX = -0.0482159518402421, LY = -0.0174218579783979, RX = 0.204484162472134, RY = 0.0738862119579227, },
+							{ X = 0.641104269978459, Y = 0.0846994516383755, LX = -0.027667313980151, LY = 0.0447028919173577, },
+						},
+					}, },
+			},
+		},
+		Polygon1 = PolylineMask {
+			DrawMode = "ModifyOnly",
+			DrawMode2 = "InsertAndModify",
+			Inputs = {
+				BorderWidth = Input { Value = 0.0145833, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Center = Input { Value = { 0.404907975460123, 0.5, }, },
+				Polyline = Input {
+					SourceOp = "Polygon1Polyline",
+					Source = "Value",
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+					},
+					Disabled = true,
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 4617.19, -716.04, }, },
+		},
+		Polygon1Polyline = BezierSpline {
+			SplineColor = { Red = 96, Green = 255, Blue = 47, },
+			NameSet = true,
+			KeyFrames = {
+				[57] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+						Points = {
+							{ X = -0.22392638027668, Y = 0.0519125685095787, RX = 0.05342606284205, RY = -0.12910491175038, },
+							{ X = -0.0429447853846327, Y = -0.18306010946265, LX = -0.108810958216571, LY = 0.0733215300489283, RX = 0.067187637938286, RY = -0.0452739365110961, },
+							{ X = 0.171779130134114, Y = -0.221311470524209, LX = -0.0561797517693072, LY = -0.014046917912713, RX = 0.208860496947092, RY = 0.0522224852091121, },
+							{ X = 0.625766846665575, Y = 0.11202185600996, LX = -0.0270570671140575, LY = 0.0443074303532706, },
+						},
+					}, },
+			},
+		},
+		Background1 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				TopLeftRed = Input { Value = 1, },
+				TopLeftGreen = Input { Value = 1, },
+				TopLeftBlue = Input { Value = 1, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 4742.19, -714.794, }, },
+		},
+		Text2 = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Center = Input { Value = { 0.150664523924034, 0.5, }, },
+				Size = Input { Value = 0.4, },
+				Font = Input { Value = "Arial", },
+				StyledText = Input { Value = "A", },
+				Style = Input { Value = "Bold", },
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input { Disabled = true, },
+				DPTType = Input { Disabled = true, },
+				DPTResolution = Input { Disabled = true, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 4672.92, -798.101, }, },
+		},
+		Merge2 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Text2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 4795.23, -797.277, }, },
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Center = Input { Value = { 0.0372848948374761, 0.306779661016949, }, },
+				Width = Input { Value = 0.0747564206583725, },
+				Height = Input { Value = 0.0747564206583725, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 5047.43, -890.866, }, },
+		},
+		Background2 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				TopLeftRed = Input { Value = 1, },
+				TopLeftGreen = Input { Value = 1, },
+				TopLeftBlue = Input { Value = 1, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5044.73, -855.162, }, },
+		},
+		Merge4 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Background2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5055.32, -794.864, }, },
+		},
+		Push1 = KomkomDoorn.KD_Push {
+			Inputs = {
+				PushX = Input {
+					SourceOp = "WaveModifier1",
+					Source = "Result",
+				},
+				Deformationmap = Input {
+					SourceOp = "Merge3",
+					Source = "Output",
+				},
+				Image = Input {
+					SourceOp = "Merge4",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5056.51, -620.091, }, },
+			Colors = {
+				TileColor = { R = 0.250980392156863, G = 0, B = 0.250980392156863, },
+				TextColor = { R = 1, G = 0, B = 0.501960784313725, },
+			},
+		},
+		WaveModifier1 = Fuse.WaveModifier {
+			CtrlWZoom = false,
+			Inputs = {
+				Wave = Input { Value = FuID { "Line", }, },
+				Period = Input { Value = 50, },
+				Strength = Input { Value = 0.8631579, },
+				Limit = Input { Value = 0, },
+			},
+		},
+		Merge6 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Background3",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Push1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5059.18, -524.83, }, },
+		},
+		Merge1 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Merge6",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5057.02, -436.169, }, },
+		},
+		Background4 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 4925.97, -385.316, }, },
+		},
+		Merge7 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Background4",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 5148.11, -385.316, }, },
+		},
+		Note2 = Note {
+			Inputs = {
+				Comments = Input { Value = "The Awesome Push Tool! ", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 5166.6, -639.205, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 344.561, 44.0584, },
+			},
+			Colors = {
+				TileColor = { R = 0.250980392156863, G = 0, B = 0.250980392156863, },
+				TextColor = { R = 1, G = 0, B = 0.501960784313725, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1591,
+			Height = 719,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							AutoHideNavigator = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.55671,
+						Offset = { -3728.04, 745.092, },
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 223, },
+							ScaleX = 0.219321889801787,
+							OffsetX = 210.768336099517,
+							OffsetY = 5,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.706235531617596,
+						ScaleY = 0.00870376060004874,
+						OffsetX = -120.060040374991,
+						OffsetY = 0.0783338454004385,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ToolStates = {
+							Current = {
+								Editable = { "Path1Displacement", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView { Active = "Tools", },
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.807942708333333,
+					RatioY = 97,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.533661740558292,
+						{ ID = "Left", RatioX = 0.287252865605047, RatioY = 101, Pop = true, },
+						{ ID = "Right", RatioX = 0.712747134394953, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.377668308702792, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Scale = 2,
+				},
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						DoD = {
+							Show = false,
+						},
+						Channel = 4294967295,
+						ScaleMode = 0,
+						Smooth = false,
+						ShowControls = true,
+					},
+				},
+				Left = {
+					Viewer = {
+						Channel = 4294967295,
+						Region = {
+							Top = 1,
+							Bottom = 0,
+							Enable = false,
+							Right = 1,
+							Left = 0,
+						},
+						DoD = {
+							Show = false,
+						},
+						CheckerUnderlay = true,
+						ScaleMode = 0,
+						Smooth = true,
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 30,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "E:\\___FUSION\\__FU_2012\\Creatures\\intro_render\\__Temp\\__intro_temp_render.png",
+			Unsorted = {
+				GlobalEnd = 300,
+				RenderSettings = {
+					Configs = {
+						Final = {
+							Quality = true,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							SizeType = 1,
+							CustomWidth = 200,
+							CustomHeight = 160,
+							CustomAspect = true,
+							StepRender = false,
+							StepSize = 5,
+							PriorityClasses = "all",
+							ShowSlaves = false,
+						},
+						Preview = {
+							Quality = true,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							SizeType = 2,
+							CustomWidth = 200,
+							CustomHeight = 160,
+							CustomAspect = true,
+							StepRender = false,
+							StepSize = 5,
+							PriorityClasses = "all",
+							ShowSlaves = false,
+						},
+					},
+					CurrentConfig = "Preview",
+					PreviewConfig = "Preview",
+				},
+			},
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

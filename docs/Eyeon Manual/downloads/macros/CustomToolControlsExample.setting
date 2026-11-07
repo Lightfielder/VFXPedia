@@ -1,0 +1,120 @@
+{
+	Tools = ordered() {
+		CustomTool1 = Custom {
+			CtrlWZoom = false,
+			Inputs = {
+				PointIn1 = Input {
+					Value = { 0.577160493827161, 0.5, },
+				},
+				NumberIn1 = Input {
+					Value = 0.347136,
+					Expression = "Red",
+				},
+				NumberIn2 = Input {
+					Value = 0.554582646637683,
+					Expression = "Green",
+				},
+				NumberIn3 = Input {
+					Value = 0.753333333333333,
+					Expression = "Blue",
+				},
+				RedExpression = Input {
+					Value = "n1",
+				},
+				GreenExpression = Input {
+					Value = "n2",
+				},
+				BlueExpression = Input {
+					Value = "n3",
+				},
+				NumberControls = Input {
+					Value = 1,
+				},
+				NameforNumber1 = Input {
+					Value = "Red Slider",
+				},
+				NameforNumber2 = Input {
+					Value = "Green Slider",
+				},
+				NameforNumber3 = Input {
+					Value = "Blue Slider",
+				},
+				ShowNumber4 = Input {
+					Value = 0,
+				},
+				ShowNumber5 = Input {
+					Value = 0,
+				},
+				ShowNumber6 = Input {
+					Value = 0,
+				},
+				ShowNumber7 = Input {
+					Value = 0,
+				},
+				ShowNumber8 = Input {
+					Value = 0,
+				},
+				ShowPoint1 = Input {
+					Value = 0,
+				},
+				ShowPoint2 = Input {
+					Value = 0,
+				},
+				ShowPoint3 = Input {
+					Value = 0,
+				},
+				ShowPoint4 = Input {
+					Value = 0,
+				},
+				Image1 = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Red = Input {
+					Value = 0.347136,
+				},
+				Green = Input {
+					Value = 0.554582646637683,
+				},
+				Blue = Input {
+					Value = 0.753333333333333,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 164, 17.05, },
+			},
+			UserControls = ordered() {
+				Red = {
+					INP_Default = 0,
+					LINKID_DataType = "Number",
+					CLRC_ShowWheel = true,
+					INPID_InputControl = "ColorControl",
+					IC_ControlID = 0,
+					IC_ControlPage = 0,
+					CLRC_ColorSpace = 0,
+					IC_ControlGroup = 1,
+				},
+				Green = {
+					IC_ControlGroup = 1,
+					IC_ControlID = 1,
+					CLRC_ShowWheel = true,
+					INPID_InputControl = "ColorControl",
+					CLRC_ColorSpace = 0,
+					IC_ControlPage = 0,
+					LINKID_DataType = "Number",
+					INP_Default = 0,
+				},
+				Blue = {
+					INPID_InputControl = "ColorControl",
+					CLRC_ColorSpace = 0,
+					IC_ControlPage = 0,
+					INP_Default = 0,
+					CLRC_ShowWheel = true,
+					LINKID_DataType = "Number",
+					IC_ControlID = 2,
+					IC_ControlGroup = 1,
+				},
+			},
+		},
+	},
+}

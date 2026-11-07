@@ -1,0 +1,172 @@
+------------------------------------------------------------------------------
+-- Create Projection from Adobe Photoshop CS3 VPE files
+--
+-- This script creates a litte comp with a Projector3D, a image for the projector
+-- and a FBXMesh3D
+-- Projector3D uses information coming from Photoshop CS3 function "Vanishing Point"
+--
+-- Position, Angle and Target of the Projector3D will be taken from the provided
+-- .vpe file (coming from Photoshop CS3
+-- 3DS file is also the one that Photoshop exports
+-- Image should of course be the one which was used to create the .vpe file
+--
+-- $Revision: 0.1 $
+--
+--
+-- written by : Michael Vorberg (october 2007)
+--
+--
+------------------------------------------------------------------------------
+
+fusion = Fusion()
+composition = fusion:GetCurrentComp()
+SetActiveComp(composition)
+check = 0
+
+-----------------------------------------------------------
+-- user dialog
+-----------------------------------------------------------
+
+ret = comp:AskUser("FileBrowser", {
+	{"SearchIMG", Name="image", "FileBrowse"},
+	{"Search", Name=".vpe-File", "FileBrowse"},
+	{"Search3DS", Name=".3ds-File", "FileBrowse"},
+	})
+if ret == nil then print("cancelled") return end
+
+if fileexists(ret.SearchIMG) == true then
+	composition:Lock()
+	LD = Loader({Clip = ret.SearchIMG})
+	composition:Unlock()
+	check = check + 1
+else
+	print ("you forgot a image")
+	return
+end
+
+
+
+--------------------------------------------------------
+-- Create the Projector3D with all arguments from .vpe
+--------------------------------------------------------
+
+if fileexists(ret.Search) == true then
+	fh, errormessage = io.open(ret.Search,"a+")
+	src = fh:read("*a")
+
+	composition:Lock()
+
+	i1, j1 = string.find(src, "<location>")
+	i2, j2 = string.find(src, "</location>", j1)
+
+	coord = string.sub(src, j1+1, i2-1)
+	--print( coord )
+
+	i3, j3 = string.find(coord, ",")
+
+	coordx = string.sub(coord, 1, j3-1)
+	print( coordx)
+
+
+	i4, j4 = string.find(coord, ",", j3+1)
+
+	coordy = string.sub(coord, j3+1, j4-1)
+	print( coordy)
+
+
+	coordz = string.sub(coord, j4+1, string.len(coord))
+	print( coordz )
+
+
+	i6, j6 = string.find(src, "<pointOfInterest>")
+	i7, j7 = string.find(src, "</pointOfInterest>", j6)
+
+	t_coord = string.sub(src, j6+1, i7-1)
+	--print( coord )
+
+	i8, j8 = string.find(t_coord, ",")
+
+	t_coordx = string.sub(t_coord, 1, j8-1)
+	print( t_coordx)
+
+
+	i9, j9 = string.find(t_coord, ",", j8+1)
+
+	t_coordy = string.sub(t_coord, j8+1, j9-1)
+	print( t_coordy)
+
+
+	t_coordz = string.sub(t_coord, j9+1, string.len(t_coord))
+	print( t_coordz )
+
+	i10, j10 = string.find(src, "<angleOfView>")
+	i11, j11 = string.find(src, "</angleOfView>", j10)
+
+	angle = string.sub(src, j10+1, i11-1)
+
+
+	x = 0
+	x = x+coordx
+
+	y = 0
+	y = -1*(y+coordy)
+
+	z = 0
+	z = -1*(z+coordz)
+
+	t_x = 0
+	t_x = t_x + t_coordx
+
+	t_y = 0
+	t_y = -1*(t_y + t_coordy)
+
+	t_z = 0
+	t_z = -1*(t_z + t_coordz)
+
+	ang = 0
+	ang = ang + angle
+
+
+	projector = LightProjector({})
+	projector.Transform3DOp.Translate.X = x
+	projector.Transform3DOp.Translate.Y = y
+	projector.Transform3DOp.Translate.Z = z
+	projector.Transform3DOp.UseTarget = 1
+	projector.Transform3DOp.Target.X = t_x
+	projector.Transform3DOp.Target.Y = t_y
+	projector.Transform3DOp.Target.Z = t_z
+	projector.Angle = ang
+	projector.ProjectiveImage = LD.Output
+	projector.ProjectAmbientLight = 1
+	
+	check = check + 1
+else
+	print ("you forgot a .vpe file")
+	return
+
+end
+----------------------------------------------
+-- create the Mesh
+----------------------------------------------
+if fileexists(ret.SearchIMG) == true then
+	geo = SurfaceFBXMesh({})
+	geo.ImportFile = ret.Search3DS
+	geo.Transform3DOp.Rotate.X = -90
+	
+	check = check + 1
+else
+	print ("you forgot a .3ds file")
+	return
+
+end
+
+--------------------------------------------------
+-- Create the Merge3D
+--------------------------------------------------
+if check == 3 then 
+	mrg = Merge3D({})
+	mrg.Data3D1 = geo.Output
+	mrg.Data3D2 = projector.Output
+end
+
+composition:Unlock()

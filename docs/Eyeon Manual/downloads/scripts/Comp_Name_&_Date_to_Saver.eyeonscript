@@ -1,0 +1,23 @@
+if (tool==nil) then
+ print("it's tool script. please select a Saver tool before run this script")
+ return
+end
+
+if tool:GetAttrs().TOOLS_RegID~="Saver" then
+ print("it's tool script. please select a Saver tool before run this script")
+ return 
+end 
+
+compName=string.gsub(comp:GetAttrs().COMPS_Name, "%.comp", "")
+
+dt=""
+string.gsub(os.date(), "^(%S+)", function (arg) dt=string.gsub(arg, "/", ".") dt="20"..string.sub(dt, 7,8).."."..string.sub(dt, 1,2).."."..string.sub(dt, 4,5) end, 1)
+fName=compName.. "_" .. dt
+
+cName=tool.Clip[TIME_UNDEFINED]
+
+ext="."
+string.gsub(cName, "%.(%w+)$", function (arg) ext=ext .. arg end, 1)
+newName = eyeon.getfilepath(cName) .. fName .. ext
+
+tool.Clip[TIME_UNDEFINED]=newName

@@ -1,0 +1,1268 @@
+Composition {
+	CurrentTime = 41,
+	RenderRange = { 20, 78, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion Ultimate Edition",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Background2 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1920,
+				},
+				Height = Input {
+					Value = 1080,
+				},
+				Type = Input {
+					Value = FuID { "Vertical", },
+				},
+				TopLeftRed = Input {
+					Value = 0.466666666666667,
+				},
+				TopLeftGreen = Input {
+					Value = 0.358333333333333,
+				},
+				TopLeftBlue = Input {
+					Value = 1,
+				},
+				BottomLeftRed = Input {
+					Value = 0.741666666666667,
+				},
+				BottomLeftGreen = Input {
+					Value = 0.491666666666667,
+				},
+				BottomLeftBlue = Input {
+					Value = 0.616666666666667,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, -181.5, },
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				Gain = Input {
+					Value = 0.0888889,
+				},
+				Input = Input {
+					SourceOp = "Background2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, -115.5, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Blend = Input {
+					Value = 0.9558011,
+				},
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Renderer3D1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 770, 49.5, },
+			},
+		},
+		SoftGlow1 = SoftGlow {
+			CtrlWZoom = false,
+			Inputs = {
+				Threshold = Input {
+					Value = 0.2707182,
+				},
+				Gain = Input {
+					Value = 0.801105,
+				},
+				XGlowSize = Input {
+					Value = 34.2541436,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 990, 49.5, },
+			},
+		},
+		Crop1 = Crop {
+			Inputs = {
+				XOffset = Input {
+					Value = 559,
+				},
+				YOffset = Input {
+					Value = 468,
+				},
+				XSize = Input {
+					Value = 180,
+				},
+				YSize = Input {
+					Value = 169,
+				},
+				Input = Input {
+					SourceOp = "SoftGlow1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 990, 214.5, },
+			},
+		},
+		Resize1 = BetterResize {
+			Inputs = {
+				Width = Input {
+					Value = 50,
+				},
+				Height = Input {
+					Value = 50,
+				},
+				PixelAspect = Input {
+					Value = { 0.9, 1, },
+				},
+				Input = Input {
+					SourceOp = "Crop1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1100, 214.5, },
+			},
+		},
+		Shape3D1 = Shape3D {
+			Inputs = {
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = -0.445994489344419,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 1.35732682803496,
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = 26,
+				},
+				["Transform3DOp.ScaleLock"] = Input {
+					Value = 0,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 0.9072515,
+				},
+				["Transform3DOp.Scale.Y"] = Input {
+					Value = 0.8195497,
+				},
+				["Transform3DOp.Scale.Z"] = Input {
+					Value = 1.784269,
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceSphereInputs", },
+				},
+				["MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.283333333333333,
+				},
+				["MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.241666666666667,
+				},
+				["MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0.183333333333333,
+				},
+				["MtlStdInputs.SpecularIntensity"] = Input {
+					Value = 0.6629834,
+				},
+				["SurfaceSphereInputs.Radius"] = Input {
+					Value = 1.2707182,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelBase"] = Input {
+					Value = 4,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelHeight"] = Input {
+					Value = 3,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -723.459, -1.41239, },
+			},
+		},
+		Shape3D1_1 = Shape3D {
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = -0.367346931923831,
+				},
+				["Transform3DOp.ScaleLock"] = Input {
+					Value = 0,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 1.1411228,
+				},
+				["Transform3DOp.Scale.Y"] = Input {
+					Value = 1.2580585,
+				},
+				["Transform3DOp.Scale.Z"] = Input {
+					Value = 1.5211637,
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceSphereInputs", },
+				},
+				["MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.0784313725490196,
+				},
+				["MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.0784313725490196,
+				},
+				["MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0.0784313725490196,
+				},
+				["MtlStdInputs.SpecularIntensity"] = Input {
+					Value = 0.6850829,
+				},
+				["SurfaceSphereInputs.Radius"] = Input {
+					Value = 0.8839779,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelBase"] = Input {
+					Value = 4,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelHeight"] = Input {
+					Value = 4,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -726.288, 58.458, },
+			},
+		},
+		Shape3D1_1_1 = Shape3D {
+			Inputs = {
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = -0.263289449105782,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = -2.04669999635201,
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = -14,
+				},
+				["Transform3DOp.ScaleLock"] = Input {
+					Value = 0,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 1.4042281,
+				},
+				["Transform3DOp.Scale.Y"] = Input {
+					Value = 0.85079483753986,
+				},
+				["Transform3DOp.Scale.Z"] = Input {
+					Value = 0.675854037254902,
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceSphereInputs", },
+				},
+				["MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.241666666666667,
+				},
+				["MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.0784313725490196,
+				},
+				["MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0.0784313725490196,
+				},
+				["MtlStdInputs.SpecularRed"] = Input {
+					Value = 0.95,
+				},
+				["MtlStdInputs.SpecularGreen"] = Input {
+					Value = 0.625,
+				},
+				["MtlStdInputs.SpecularBlue"] = Input {
+					Value = 0.616666666666667,
+				},
+				["MtlStdInputs.SpecularIntensity"] = Input {
+					Value = 0.839779,
+				},
+				["SurfaceSphereInputs.Radius"] = Input {
+					Value = 0.8839779,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelBase"] = Input {
+					Value = 6,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelHeight"] = Input {
+					Value = 3,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -724.874, 115.967, },
+			},
+		},
+		Merge3D3 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Shape3D1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Shape3D1_1",
+					Source = "Output",
+				},
+				Data3D3 = Input {
+					SourceOp = "Shape3D1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -532.849, 54.215, },
+			},
+		},
+		Shape3D2 = Shape3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = -1.6608018152281,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 0.244897959183674,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = -0.369833604238976,
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = 25.1396648,
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					Value = 11.0614525,
+				},
+				["Transform3DOp.Rotate.Z"] = Input {
+					SourceOp = "Expression3",
+					Source = "NumberResult",
+				},
+				["Transform3DOp.PivotNest"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Pivot.X"] = Input {
+					Value = 0.9497207,
+				},
+				["Transform3DOp.ScaleLock"] = Input {
+					Value = 0,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 2.4566491,
+				},
+				["Transform3DOp.Scale.Y"] = Input {
+					Value = 0.1471696,
+				},
+				["Transform3DOp.Scale.Z"] = Input {
+					Value = 0.7903158,
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceSphereInputs", },
+				},
+				["MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.341666666666667,
+				},
+				["MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.3,
+				},
+				["MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0.241666666666667,
+				},
+				["MtlStdInputs.SpecularRed"] = Input {
+					Value = 0.85,
+				},
+				["MtlStdInputs.SpecularGreen"] = Input {
+					Value = 0.908333333333333,
+				},
+				["MtlStdInputs.SpecularBlue"] = Input {
+					Value = 0.941666666666667,
+				},
+				["MtlStdInputs.SpecularIntensity"] = Input {
+					Value = 3,
+				},
+				["MtlStdInputs.Opacity"] = Input {
+					Value = 0.2259669,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelBase"] = Input {
+					Value = 6,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelHeight"] = Input {
+					Value = 3,
+				},
+				["SurfaceSphereInputs.Visibility"] = Input {
+					Value = 1,
+				},
+				["SurfaceSphereInputs.Lighting"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -671.134, 172.536, },
+			},
+		},
+		Expression3 = Expression {
+			CtrlWZoom = false,
+			Inputs = {
+				NumberExpression = Input {
+					Value = "sin(time*18000)*45\r\n",
+				},
+			},
+		},
+		Duplicate3D2 = Duplicate3D {
+			Inputs = {
+				ScaleLock = Input {
+					Value = 0,
+				},
+				["Scale.X"] = Input {
+					Value = -1,
+				},
+				["JitterScale.Y"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Z"] = Input {
+					Disabled = true,
+				},
+				Data3D = Input {
+					SourceOp = "Shape3D2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -473.144, 172.536, },
+			},
+		},
+		Merge3D3_1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Merge3D3",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Duplicate3D2",
+					Source = "Data3D",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -356.381, 51.387, },
+			},
+		},
+		Transform3D2 = Transform3D {
+			CtrlWZoom = false,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Shake1_1",
+					Source = "X",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Shake2_1",
+					Source = "X",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "Shake3_1",
+					Source = "X",
+				},
+				["Transform3DOp.PivotNest"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 0.1235,
+				},
+				["Transform3DOp.UseTarget"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Target.X"] = Input {
+					SourceOp = "Calculation1_1",
+					Source = "Result",
+				},
+				["Transform3DOp.Target.Y"] = Input {
+					SourceOp = "Calculation2_1",
+					Source = "Result",
+				},
+				["Transform3DOp.Target.Z"] = Input {
+					SourceOp = "Calculation3_1",
+					Source = "Result",
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D3_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -220, 49.5, },
+			},
+		},
+		Calculation1_1 = Calculation {
+			CtrlWZoom = false,
+			Inputs = {
+				FirstOperand = Input {
+					SourceOp = "Shake1_1",
+					Source = "X",
+				},
+				FirstOperandTimeOffset = Input {
+					Value = -0.1,
+				},
+			},
+		},
+		Calculation2_1 = Calculation {
+			CtrlWZoom = false,
+			Inputs = {
+				FirstOperand = Input {
+					SourceOp = "Shake2_1",
+					Source = "X",
+				},
+				FirstOperandTimeOffset = Input {
+					Value = -0.1,
+				},
+			},
+		},
+		Calculation3_1 = Calculation {
+			CtrlWZoom = false,
+			Inputs = {
+				FirstOperand = Input {
+					SourceOp = "Shake3_1",
+					Source = "X",
+				},
+				FirstOperandTimeOffset = Input {
+					Value = -0.1,
+				},
+			},
+		},
+		Shake3_1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 25969,
+				},
+				Smoothness = Input {
+					Value = 5,
+				},
+				XMaximum = Input {
+					Value = 20,
+				},
+			},
+		},
+		Shake2_1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 28170,
+				},
+				Smoothness = Input {
+					Value = 5,
+				},
+				XMinimum = Input {
+					Value = 5,
+				},
+				XMaximum = Input {
+					Value = 15,
+				},
+			},
+		},
+		Shake1_1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				Smoothness = Input {
+					Value = 5,
+				},
+				XMaximum = Input {
+					Value = 25,
+				},
+			},
+		},
+		Duplicate3D1_1 = Duplicate3D {
+			Inputs = {
+				Copies = Input {
+					Value = 26,
+				},
+				TimeOffset = Input {
+					Value = 100,
+				},
+				["Translate.X"] = Input {
+					Value = -0.122905,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.1005587,
+				},
+				["Translate.Z"] = Input {
+					Value = 0.5,
+				},
+				["Scale.Y"] = Input {
+					Disabled = true,
+				},
+				["Scale.Z"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Y"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Z"] = Input {
+					Disabled = true,
+				},
+				Data3D = Input {
+					SourceOp = "Transform3D2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Make more flies with this",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -81.6906, 49.4998, },
+			},
+		},
+		Transform3D1 = Transform3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = -8.99542569477355,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = -12.3629149487414,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = -15.9959625176067,
+				},
+				Data3D = Input {
+					SourceOp = "Duplicate3D1_1",
+					Source = "Data3D",
+				},
+				Comments = Input {
+					Value = "Move whole swarm with this",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 72.3556, 48.8621, },
+			},
+		},
+		DirectionalLight1 = LightDirectional {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 0.300165025956807,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 0.827414248124369,
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = -9.0502793,
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					Value = 30,
+				},
+				Blue = Input {
+					Value = 0.483333333333333,
+				},
+				Intensity = Input {
+					Value = 3.6022099,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 85.188, -113.134, },
+			},
+		},
+		AmbientLight1 = LightAmbient {
+			Inputs = {
+				Red = Input {
+					Value = 0.725,
+				},
+				Green = Input {
+					Value = 0.766666666666667,
+				},
+				Intensity = Input {
+					Value = 0.141989,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 222.367, -113.134, },
+			},
+		},
+		Camera3D1_1_1 = Camera3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Expression1_1",
+					Source = "NumberResult",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Expression2_1",
+					Source = "NumberResult",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 32.2346369,
+				},
+				["Transform3DOp.UseTarget"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Target.Z"] = Input {
+					Value = -3.9664804,
+				},
+				AoV = Input {
+					Value = 23.3850057,
+				},
+				FLength = Input {
+					Value = 36.4516514423528,
+				},
+				Comments = Input {
+					Value = "Use the aperature and jitter to control the DOF and bokeh",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 68.2178, 197.052, },
+			},
+		},
+		Expression1_1 = Expression {
+			CtrlWZoom = false,
+			Inputs = {
+				n1 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				n2 = Input {
+					SourceOp = "Publish2",
+					Source = "Value",
+				},
+				NumberExpression = Input {
+					Value = "(sin(time*7200)*n1)+rand(-n2,n2)",
+				},
+				RandomSeed = Input {
+					Value = 10052,
+				},
+				NumberControls = Input {
+					Value = 1,
+				},
+				NameforNumber1 = Input {
+					Value = "Aperature",
+				},
+				NameforNumber2 = Input {
+					Value = "Jitter",
+				},
+				ShowNumber3 = Input {
+					Value = 0,
+				},
+				ShowNumber4 = Input {
+					Value = 0,
+				},
+				ShowNumber5 = Input {
+					Value = 0,
+				},
+				ShowNumber6 = Input {
+					Value = 0,
+				},
+				ShowNumber7 = Input {
+					Value = 0,
+				},
+				ShowNumber8 = Input {
+					Value = 0,
+				},
+				ShowNumber9 = Input {
+					Value = 0,
+				},
+				ShowPoint1 = Input {
+					Value = 0,
+				},
+				ShowPoint2 = Input {
+					Value = 0,
+				},
+				ShowPoint3 = Input {
+					Value = 0,
+				},
+				ShowPoint4 = Input {
+					Value = 0,
+				},
+				ShowPoint5 = Input {
+					Value = 0,
+				},
+				ShowPoint6 = Input {
+					Value = 0,
+				},
+				ShowPoint7 = Input {
+					Value = 0,
+				},
+				ShowPoint8 = Input {
+					Value = 0,
+				},
+				ShowPoint9 = Input {
+					Value = 0,
+				},
+			},
+		},
+		Expression2_1 = Expression {
+			CtrlWZoom = false,
+			Inputs = {
+				n1 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				n2 = Input {
+					SourceOp = "Publish2",
+					Source = "Value",
+				},
+				NumberExpression = Input {
+					Value = "(cos(time*7200)*n1)+rand(-n2,n2)",
+				},
+				RandomSeed = Input {
+					Value = 29532,
+				},
+				NameforNumber1 = Input {
+					Value = "Aperature",
+				},
+				NameforNumber2 = Input {
+					Value = "Jitter",
+				},
+				ShowNumber3 = Input {
+					Value = 0,
+				},
+				ShowNumber4 = Input {
+					Value = 0,
+				},
+				ShowNumber5 = Input {
+					Value = 0,
+				},
+				ShowNumber6 = Input {
+					Value = 0,
+				},
+				ShowNumber7 = Input {
+					Value = 0,
+				},
+				ShowNumber8 = Input {
+					Value = 0,
+				},
+				ShowNumber9 = Input {
+					Value = 0,
+				},
+				ShowPoint1 = Input {
+					Value = 0,
+				},
+				ShowPoint2 = Input {
+					Value = 0,
+				},
+				ShowPoint3 = Input {
+					Value = 0,
+				},
+				ShowPoint4 = Input {
+					Value = 0,
+				},
+				ShowPoint5 = Input {
+					Value = 0,
+				},
+				ShowPoint6 = Input {
+					Value = 0,
+				},
+				ShowPoint7 = Input {
+					Value = 0,
+				},
+				ShowPoint8 = Input {
+					Value = 0,
+				},
+				ShowPoint9 = Input {
+					Value = 0,
+				},
+			},
+		},
+		Publish1 = PublishNumber {
+			Inputs = {
+				Value = Input {
+					Value = 0.3862434,
+				},
+			},
+		},
+		Publish2 = PublishNumber {
+			Inputs = {
+				Value = Input {
+					Value = 0.2,
+				},
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Transform3D1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "DirectionalLight1",
+					Source = "Output",
+				},
+				Data3D4 = Input {
+					SourceOp = "AmbientLight1",
+					Source = "Output",
+				},
+				Data3D5 = Input {
+					SourceOp = "Camera3D1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 219.711, 49.5145, },
+			},
+		},
+		Renderer3D1_1_1 = Renderer3D {
+			ExtentSet = false,
+			Inputs = {
+				["RendererSoftware.LightingEnabled"] = Input {
+					Value = 1,
+				},
+				MotionBlur = Input {
+					Value = 1,
+				},
+				Quality = Input {
+					Value = 35,
+				},
+				ShutterAngle = Input {
+					Value = 72,
+				},
+				Width = Input {
+					Value = 1920,
+				},
+				Height = Input {
+					Value = 1080,
+				},
+				Depth = Input {
+					Value = 1,
+				},
+				Camera = Input {
+					Value = FuID { "Camera3D1_1_1", },
+				},
+				RendererType = Input {
+					Value = FuID { "RendererOpenGL", },
+				},
+				OutputChannels = Input {
+					Value = 1,
+				},
+				Z = Input {
+					Value = 1,
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+				["RendererOpenGL.LightingEnabled"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 49.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 990,
+			Height = 622,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.707107,
+						Offset = { 355.416, 248.435, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 410, },
+							ScaleX = 1.01638149375537,
+							OffsetX = -100.621767881782,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -10.8,
+						OffsetY = -0.461538461538462,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.831974921630094,
+					RatioY = 98.7274401473296,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.568518518518519,
+						{
+							ID = "Left",
+							RatioX = 0.261329305135952,
+							RatioY = 0.00977198697068404,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.738670694864048,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.381481481481481,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 266,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Info = {
+				Comments = "Sander's swarming boxes based on Stu's blog post.  Chad added made flies and tried out a modified, simplified DOF technique.",
+			},
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 180,
+			},
+			Memory = {
+				Interactive = {
+					SimultaneousBranching = true,
+				},
+				Margin = 30000,
+			},
+			NumberStyles = {
+				Color = 1,
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						Channel = 4294967295,
+						One2One = false,
+						CheckerUnderlay = false,
+						ScaleMode = 0,
+						Smooth = false,
+						Normalise = false,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+							Shadows = false,
+							ShowMatteObjects = false,
+							Grid = false,
+						},
+						CameraName = "Camera3D1_1_1",
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					OpToolbar = {
+						Style = 2,
+						Size = 0,
+					},
+					SideB = {
+						Viewer = {
+							ScaleMode = 0,
+						},
+						ViewLUT = {
+						},
+					},
+				},
+				Left = {
+					Viewer = {
+						ShowControls = false,
+						ScaleMode = 1,
+						Channel = 4294967295,
+						One2One = false,
+						CheckerUnderlay = false,
+						Normalise = false,
+						Smooth = true,
+					},
+					ViewLUT = {
+					},
+					View1 = {
+						View3D = {
+							CameraName = "Top",
+						},
+					},
+					View3D = {
+						Options = {
+							Shadows = false,
+							Lighting = true,
+							ShowMatteObjects = true,
+							Wireframe = false,
+							Grid = true,
+						},
+						CameraName = "Perspective",
+					},
+					View3 = {
+						View3D = {
+							CameraName = "Right",
+						},
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					OpToolbar = {
+						Style = 2,
+						Size = 0,
+					},
+					View2 = {
+						View3D = {
+							CameraName = "Front",
+						},
+					},
+					QuadView = false,
+				},
+			},
+			Preview = {
+				HiQ = true,
+				OutputDevice = "Float",
+			},
+			FrameFormat = {
+				Name = "NTSC (D1)",
+				Width = 720,
+				Height = 486,
+				Rate = 29.97,
+				AspectX = 0.9,
+				PerFeet = 1,
+				GuideRatio = 1.33333333333333,
+			},
+			LastFile = "E:\\Gedownload_spul\\FusionPlugins\\ing\\wire_removal_0001.sgi",
+			Unsorted = {
+				RenderSettings = {
+					Configs = {
+						Preview = {
+							StepRender = false,
+							PriorityClasses = "all",
+							SizeType = 1,
+							MotionBlur = true,
+							CustomAspect = true,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							StepSize = 5,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+						Final = {
+							StepRender = false,
+							PriorityClasses = "all",
+							SizeType = 1,
+							MotionBlur = true,
+							CustomAspect = true,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							StepSize = 5,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+					},
+					PreviewConfig = "Preview",
+					CurrentConfig = "Final",
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+				Compressor = "_cvid",
+			},
+		},
+	},
+}
+
+ 

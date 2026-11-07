@@ -1,0 +1,203 @@
+{
+	Tools = ordered() {
+		SelectColorRange = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "This is a kind of bitmap mask which selects a color range according to Hue, Saturation, Lightness or R, G, B, A values.\nby Gregory Chalenko\nwww.compositing.ru",
+				},
+				Level = InstanceInput {
+					SourceOp = "Bmp_From",
+					Source = "Level",
+					Default = 1,
+				},
+				Filter = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "Filter",
+				},
+				SoftEdge = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "SoftEdge",
+				},
+				Passes = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "Passes",
+				},
+				PaintMode = InstanceInput {
+					SourceOp = "Bmp_Combine",
+					Source = "PaintMode",
+				},
+				Invert = InstanceInput {
+					SourceOp = "Bmp_From",
+					Source = "Invert",
+				},
+				Channel = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "Channel",
+				},
+				RangeHigh = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "RangeHigh",
+					ControlGroup = 4,
+				},
+				RangeLow = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "RangeLow",
+					ControlGroup = 4,
+				},
+				LowDecay = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "LowDecay",
+				},
+				HighDecay = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "HighDecay",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "Bmp_Combine",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Bmp_Combine",
+					Source = "Mask",
+				},
+			},
+			Tools = ordered() {
+				Bmp_From = BitmapMask {
+					NameSet = true,
+					Inputs = {
+						FromHigh = Input {
+							Value = 0.25,
+						},
+						FromLow = Input {
+							Value = 0.1,
+						},
+						Filter = Input {
+							Expression = "Bmp_To.Filter",
+						},
+						SoftEdge = Input {
+							Expression = "Bmp_To.SoftEdge",
+						},
+						Passes = Input {
+							Expression = "Bmp_To.Passes",
+						},
+						Image = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Hue", },
+							Expression = "Bmp_To.Channel",
+						},
+						High = Input {
+							Expression = "Bmp_To.RangeLow",
+						},
+						Low = Input {
+							Expression = "Bmp_To.RangeLow-Bmp_To.LowDecay",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -10, 9.87812, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					CtrlWShown = false,
+					ViewInfo = PipeRouterInfo {
+						Pos = { -81, 33.8781, },
+					},
+				},
+				Bmp_Combine = BitmapMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Image = Input {
+							SourceOp = "Bmp_To",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 182, 27, },
+					},
+				},
+				Bmp_To = BitmapMask {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Level = Input {
+							Expression = "Bmp_From.Level",
+						},
+						PaintMode = Input {
+							Value = FuID { "Subtract", },
+							Expression = "(Bmp_From.Invert == 0) and \"Subtract\" or \"Add\"",
+						},
+						Image = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Hue", },
+						},
+						High = Input {
+							Value = 0.4,
+							Expression = "RangeHigh+HighDecay",
+						},
+						Low = Input {
+							Value = 0.3,
+							Expression = "RangeHigh",
+						},
+						RangeHigh = Input {
+							Value = 0.3,
+						},
+						RangeLow = Input {
+							Value = 0.1,
+						},
+						EffectMask = Input {
+							SourceOp = "Bmp_From",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 81, 26.8781, },
+					},
+					UserControls = ordered() {
+						RangeHigh = {
+							IC_ControlGroup = 3,
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Range High",
+						},
+						RangeLow = {
+							LINKS_Name = "Range Low",
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							IC_ControlGroup = 3,
+						},
+						LowDecay = {
+							LINKID_DataType = "Number",
+							INP_Default = 0.05,
+							IC_ControlPage = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "Low Decay",
+						},
+						HighDecay = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "High Decay",
+							IC_ControlPage = 0,
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.05,
+						},
+					},
+				},
+			},
+		},
+	},
+}

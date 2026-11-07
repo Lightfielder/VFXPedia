@@ -1,0 +1,500 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 49, },
+	GlobalRange = { 0, 49, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 89",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		pEmitter1 = pEmitter {
+			NameSet = true,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 27668,
+				},
+				Number = Input {
+					Value = 1,
+				},
+				Lifespan = Input {
+					Value = 50,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.2807018,
+				},
+				VelocityVariance = Input {
+					Value = 0.128655,
+				},
+				AngleZ = Input {
+					Value = 90,
+				},
+				AlwaysFaceCamera = Input {
+					Value = 0,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleNGon", },
+				},
+				Region = Input {
+					Value = FuID { "CubeRgn", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorVariance"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.RedLow"] = Input {
+					Value = -1,
+				},
+				["ParticleStyle.GreenLow"] = Input {
+					Value = -1,
+				},
+				["ParticleStyle.BlueLow"] = Input {
+					Value = -1,
+				},
+				["ParticleStyle.LockColorVariance"] = Input {
+					Value = 0,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter2SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeIn"] = Input {
+					Value = 0.05,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter2BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleNGon.NGonType"] = Input {
+					Value = 2,
+				},
+				["CubeRgn.Width"] = Input {
+					Value = 0.2,
+				},
+				["CubeRgn.Height"] = Input {
+					Value = 0.2,
+				},
+				["CubeRgn.Depth"] = Input {
+					Value = 0.2,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 82.5, },
+			},
+		},
+		pEmitter2SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter2BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pClip = pCustom {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				NumberIn1 = Input {
+					Value = 0.1,
+					Expression = "Camera3D1.PerspNearClip",
+				},
+				NumberIn2 = Input {
+					Value = 0.2,
+				},
+				["Position1.X"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.X",
+				},
+				["Position1.Y"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.Y",
+				},
+				["Position1.Z"] = Input {
+					Value = 0.859496959911853,
+					Expression = "Camera3D1.Transform3DOp.Translate.Z",
+				},
+				Intermediate1 = Input {
+					Value = "sqrt( (px-p1x)^2 + (py-p1y)^2 + (pz-p1z)^2 ) ",
+				},
+				Intermediate2 = Input {
+					Value = "min ( 1, (i1-n1) / n2 )",
+				},
+				RedExpression = Input {
+					Value = "r * i2",
+				},
+				GreenExpression = Input {
+					Value = "g * i2",
+				},
+				BlueExpression = Input {
+					Value = "r * i2",
+				},
+				AlphaExpression = Input {
+					Value = "a * i2",
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "pClip - this is a pCustom tool that calculates the distance between each particle and the Camera 3D (p1) tools clipping plane (n1). \r\nIf the particle is between the clipping plane and a soft threshold (n2) then its RGBA channels are faded out to avoid hard clipping by the camera. ",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 82.5, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				GlobalOut = Input {
+					Value = 49,
+				},
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pClip",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 82.5, },
+			},
+		},
+		Camera3D1 = Camera3D {
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 0.859496959911853,
+				},
+				["Transform3DOp.Rotation"] = Input {
+					Value = 0,
+				},
+				AoV = Input {
+					Value = 24.3265863475745,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 49.5, },
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Camera3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 82.5, },
+			},
+		},
+		Renderer3D1 = Renderer3D {
+			ExtentSet = false,
+			Inputs = {
+				GlobalOut = Input {
+					Value = 49,
+				},
+				Width = Input {
+					Value = 300,
+				},
+				Height = Input {
+					Value = 300,
+				},
+				Depth = Input {
+					Value = 1,
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 605, 82.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 88,
+			Top = 116,
+			Width = 1180,
+			Height = 634,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { -65, 56, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "pClip", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = true,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 429, },
+							ScaleX = 0.2,
+							OffsetX = -49,
+							OffsetY = 0,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 194,
+						ScaleX = 0.2,
+						ScaleY = 0.00350877192982456,
+						OffsetX = -8.8,
+						OffsetY = -1.11022302462516e-016,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 49, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.747215081405313,
+					RatioY = 0.0100334448160535,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.665246598106227,
+						{
+							ID = "Left",
+							RatioX = 0.996473277365931,
+							RatioY = 0.0111524163568773,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.0035267226340695,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.243537185677557,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Paths = {
+			},
+			LastFile = "C:\\eyeon\\Documents\\tips\\cloud_thumb.jpg",
+			FrameFormat = {
+				GuideRatio = 1.33333333333333,
+			},
+			Unsorted = {
+				GlobalEnd = 49,
+				RenderSettings = {
+					Configs = {
+						Final = {
+							Quality = true,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							SizeType = 1,
+							CustomWidth = 200,
+							CustomHeight = 160,
+							CustomAspect = true,
+							StepRender = false,
+							StepSize = 5,
+							PriorityClasses = "all",
+							ShowSlaves = false,
+						},
+						Preview = {
+							Quality = false,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							SizeType = 1,
+							CustomWidth = 200,
+							CustomHeight = 160,
+							CustomAspect = true,
+							StepRender = false,
+							StepSize = 5,
+							PriorityClasses = "all",
+							ShowSlaves = false,
+						},
+					},
+					CurrentConfig = "Final",
+					PreviewConfig = "Preview",
+				},
+			},
+			FilterModeName = "Show All",
+			Timeline = {
+				ViewFilterMode = 16,
+			},
+			Views = {
+				Right = {
+				},
+				View1 = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					View3D = {
+						CameraName = "Camera3D1",
+						Options = {
+							Shadows = false,
+						},
+						SortMethod = "BSP",
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						Channel = 4294967295,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						CameraName = "Perspective",
+						SortMethod = "BSP",
+						Options = {
+							RenderPath = 1,
+							Lighting = false,
+							Shadows = false,
+						},
+					},
+				},
+			},
+			Info = {
+				Comments = "From VFXPedia\r\n\r\nhttp://www.vfxpedia.com/index.php?title=Tips_and_Techniques/Particles/Soft_Clipping",
+			},
+			QuickTime = {
+			},
+			LastLUTFile = "User:\\My Documents\\hgf",
+			SplineEditor = {
+				ShowKeyMarkers = true,
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+		},
+	},
+}
+
+ 

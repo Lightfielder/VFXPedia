@@ -1,0 +1,380 @@
+{
+	Tools = ordered() {
+		VoLight0711 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "Publish1",
+					Source = "Value",
+					Name = "Quality",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "a_Transform1",
+					Source = "Input",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "b_BrightnessContrast1",
+					Source = "Gain",
+					Name = "Threshold",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "b_BrightnessContrast1",
+					Source = "Contrast",
+					Name = "Threshold Clamp",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "b_BrightnessContrast1",
+					Source = "Saturation",
+					Name = "Original Colours",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "c_dirblur",
+					Source = "Center",
+					Name = "Light Center",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "c_dirblur",
+					Source = "Length",
+					Name = "Light Length",
+					Default = 1,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "c_dirblur",
+					Source = "Angle",
+					Name = "Light Angle",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "c_dirblur",
+					Source = "Glow",
+					Name = "Light Glow",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "e_postblur",
+					Source = "XBlurSize",
+					Name = "Post Blur",
+					MaxScale = 10,
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "f_smoke_mergesize_blend",
+					Source = "Size",
+					Name = "Smoke Precomp Size",
+					Default = 1.4,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "f_smoke_mergesize_blend",
+					Source = "Blend",
+					Name = "Smoke Blend ",
+					Default = 0,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "f_smokenoise",
+					Source = "Detail",
+					Name = "Smoke Detail",
+					Default = 2,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "f_smokenoise",
+					Source = "Contrast",
+					Name = "Smoke Contrast",
+					Default = 2,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "f_smokenoise",
+					Source = "XScale",
+					Name = "Smoke Scale",
+					Default = 5,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "f_smokenoise",
+					Source = "SeetheRate",
+					Name = "Smoke Evolution",
+					Default = 0,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "g_mrgslutn",
+					Source = "Blend",
+					Name = "VoLight Blend",
+					Default = 1,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "RemoveOriginal",
+					Source = "Blend",
+					Name = "Remove original",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "g_mrgslutn",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "VoLight071",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Publish1 = PublishNumber {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Value = Input {
+							Value = 0.1,
+						},
+					},
+				},
+				Scale1_1 = Scale {
+					CtrlWShown = false,
+					Inputs = {
+						XSize = Input {
+							SourceOp = "a_CalculationonScale1_1Size",
+							Source = "Result",
+						},
+						YSize = Input {
+							Disabled = true,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						FilterMethod = Input {
+							Value = 5,
+						},
+						Input = Input {
+							SourceOp = "c_dirblur",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 512.925, 83.0075, },
+					},
+				},
+				a_CalculationonScale1_1Size = Calculation {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						FirstOperand = Input {
+							SourceOp = "Publish1",
+							Source = "Value",
+						},
+						Operator = Input {
+							Value = 4,
+						},
+						SecondOperand = Input {
+							Value = 1,
+						},
+					},
+				},
+				a_Transform1 = Transform {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					ViewInfo = OperatorInfo {
+						Pos = { 163.816, 158.369, },
+					},
+				},
+				a_sizeor = Scale {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XSize = Input {
+							SourceOp = "Publish1",
+							Source = "Value",
+						},
+						YSize = Input {
+							Disabled = true,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						FilterMethod = Input {
+							Value = 5,
+						},
+						Input = Input {
+							SourceOp = "a_Transform1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 231.242, 77.3114, },
+					},
+				},
+				b_BrightnessContrast1 = BrightnessContrast {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Contrast = Input {
+							Value = 1,
+						},
+						Saturation = Input {
+							Value = 0,
+						},
+						Input = Input {
+							SourceOp = "a_sizeor",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 331.277, 32.6453, },
+					},
+				},
+				c_dirblur = DirectionalBlur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Type = Input {
+							Value = 3,
+						},
+						Length = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "b_BrightnessContrast1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 548.478, -2.92289, },
+					},
+				},
+				e_postblur = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Scale1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 510.026, 133.87, },
+					},
+				},
+				f_smoke_mergesize_blend = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+						},
+						Size = Input {
+							Value = 1.4,
+						},
+						ApplyMode = Input {
+							Value = FuID { "Overlay", },
+						},
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 2048,
+						},
+						Height = Input {
+							Value = 872,
+						},
+						Background = Input {
+							SourceOp = "e_postblur",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "f_smokenoise",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 510.591, 165.819, },
+					},
+				},
+				f_smokenoise = FastNoise {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						GlobalOut = Input {
+							Value = 500,
+						},
+						Width = Input {
+							Value = 512,
+						},
+						Height = Input {
+							Value = 512,
+						},
+						PixelAspect = Input {
+							Value = { 1.2, 1, },
+						},
+						Contrast = Input {
+							Value = 2,
+						},
+						XScale = Input {
+							Value = 5,
+						},
+						YScale = Input {
+							Disabled = true,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 659.648, 159.256, },
+					},
+				},
+				RemoveOriginal = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Operation = Input { Value = 12, },
+						Background = Input {
+							SourceOp = "a_Transform1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -110, 181.5, }, },
+				},
+				g_mrgslutn = Merge {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMode = Input {
+							Value = FuID { "Screen", },
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "RemoveOriginal",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "f_smoke_mergesize_blend",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 522.47, 227.027, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "VoLight0711",
+}

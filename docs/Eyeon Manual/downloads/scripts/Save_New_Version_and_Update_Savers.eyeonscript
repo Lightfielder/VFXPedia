@@ -1,0 +1,179 @@
+------------------------------------------------------------
+-- Save New Version and Update Savers -- Revision: 2.4
+--
+-- This is a modification of the 'Save New Version' script in Fusion 5
+-- that also updates clip names in savers. Use it if you intend to keep different
+-- version renders for comparison or other purposes.
+-- It will only update savers matching the composition name, so you have to explicitly
+-- enable 'versioning' of your savers:
+-- if your comp name is 'Comp_v001' 
+-- saver 'Comp:\Comp_v001.0000.tga' will become 'Comp:\Comp_v002.0000.tga'
+-- saver 'Comp:\Comp_v001_alpha.0000.tga' will become 'Comp:\Comp_v0002_alpha.0000.tga'
+-- saver 'Comp:\Comp_v001\grain.0000.tga' will become 'Comp:\Comp_v0002\grain.0000.tga' 
+--        attemting to create the directory
+-- saver 'Comp:\Comp_v001_temp\0000.tga' will become 'Comp:\Comp_v0002_temp\0000.tga' 
+--        attempting to create the directory
+-- BUT
+-- saver 'Comp:\Temp_out.0000.tga' will stay untouched
+-- saver 'Comp:\Comp.0000.tga' will stay untouched
+-- saver 'Comp:\Comp_alpha_v001.0000.tga' will stay untouched
+-- saver 'Comp:\Comp_out_v001\alpha.0000.tga' will stay untouched
+-- this way temporary savers will overwrite previous renders, while 'finals' will get updated.
+--
+-- It has only been tested in Windows (the os.execute is needed in case of subdirectories) and with
+-- non-UNC paths (mapped drives work)
+--
+-- 13 feb 07   Marco Aliano   aliano@lowrez.net
+--
+--
+-- this is a composition type script, and must be run from the 
+-- scripts/composition directory of fusion
+--
+-- written by Isaac Guenard (izyk@eyeonline.com)
+-- edited by Sean Konrad (sean@eyeonline.com)
+-- edited by Daniel Koch (daniel@eyeonline.com)
+-- edited by Axel Mertes
+-- edited by Marco Aliano (aliano@lowrez.net) to update savers
+-- written : Nov 11th, 2002
+-- updated : Sept 27, 2005
+-- changes : updated for 5
+-- updated : April 5, 2006 (actually works now)
+-- updated : April 5, 2006 (forces first save to be enumerated with default 3 digits padding,
+--           fixed first save dialog path issues)
+-- updated : April 6, 2006 (reports failures, won't clobber existing comps)
+-- updated : February 13, 2007 (updates savers)
+------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- MAIN BODY
+--
+print "================================================================="
+print " "
+
+doSavers = true
+
+
+fa = composition:GetAttrs()
+if fa.COMPS_FileName == "" then
+
+	-- don't try to update savers, since there's nothing to match against
+	doSavers = false  
+	
+    -- add the default composition name provided by Fusion
+	composition_dir = composition:MapPath("comps:") .. fa.COMPS_Name..".comp"
+	
+	ret = composition:AskUser("Unsaved Comp", {
+        {"Filename", "FileBrowse", Save=true, Default=composition_dir} 
+        })
+	
+	if ret == nil then
+		print("Save Cancelled!")
+		return
+	end
+	
+    pf = eyeon.parseFilename(MapPath(ret.Filename))
+	if pf.Number == nil then
+		pf.Number =  1
+	end
+else
+	pf = eyeon.parseFilename(MapPath(fa.COMPS_FileName))
+	
+	saverclip_old = pf.Name -- getting our match string for savers
+	
+	if pf.Number == nil then
+	
+		-- don't try to update savers, versioning must be explicitly stated beforehand
+		doSavers = false
+	
+		pf.Number =  1
+	else
+		pf.Number = pf.Number + 1
+	end
+end	
+	
+-- default to 3 digits padding if no padding is given by the user
+if pf.Padding then
+else
+	print("\nThe basic filename does not contain version numbers, set to default '001'")
+	pf.Padding =  3
+	doSavers = false -- just doublechecking
+end
+
+composition_new = pf.Path .. pf.CleanName..string.format("%0"..pf.Padding.."d", pf.Number)..".comp"
+saverclip_new = pf.CleanName..string.format("%0"..pf.Padding.."d", pf.Number)
+
+if fileexists(composition_new) then
+	ret = composition:AskUser("File Exists!", {
+		{"Description", "Text", 
+		Default = composition_new.."\n\n"..
+		"Do you want to overwrite the existing file?", 
+		ReadOnly = true, Wrap=true} 
+		} )
+	if ret == nil then
+		doSavers = false  -- again, just doublechecking, this time quite overdone
+		return
+	end
+end
+
+-- is the filename provided even valid?
+-- we find out by trying to open the file for writing.
+-- if we can't we display a message with the windows error
+-- (use a temporary name to avoid stomping on any existing comps)
+
+composition_tmp = pf.Path .. pf.CleanName..string.format("%0"..pf.Padding.."d", pf.Number)..".tmp"
+file, errorMsg = io.open(composition_tmp, "w")
+if file == nil then
+	composition:AskUser("File Save Error!", {
+		{"Description", "Text", 
+		Default = "Invalid Filename : The Windows error was :\n"..errorMsg, 
+		ReadOnly = true, Wrap=true} 
+		} )
+	doSavers = false -- guess what? doublechecking!	
+	return
+end
+file:close()
+
+  
+if composition:Save( composition_new ) == true then
+
+	if (doSavers and saverclip_old and saverclip_new) then
+		savers = GetSavers(composition)
+
+		for i=1, table.getn(savers) do
+			clipname = savers[i]:GetAttrs().TOOLST_Clip_Name[1]
+			clipdir = eyeon.parseFilename(clipname).Path
+			srdir, founddir = string.gsub(clipdir, saverclip_old, saverclip_new)
+			if founddir == 1 then -- don't recurse too much :)
+				-- we're dealing with a subdirectory, try to create the new one
+				makedir = (os.execute("mkdir "..MapPath(srdir)))
+				if (makedir == 0) then
+					print ("Saver "..clipname..": CREATED DIR "..MapPath(srdir))
+				else
+					print ("WARNING! Saver "..clipname..": ERROR CREATING DIR "..MapPath(srdir))
+					print ("WARNING! Updating the saver anyway. If the directory doesn't exist render will fail")
+				end
+			end
+			sr, found = string.gsub(clipname, saverclip_old, saverclip_new)
+			if found > 0 then
+				savers[i].Clip = sr
+				print ("Saver " .. clipname ..": UPDATED TO  ".. sr.."\n")
+			else
+				print ("Saver " ..clipname.. ": SKIPPED\n")
+			end
+		end
+		composition:Save(composition_new) -- resaves the composition with updated savers
+	else
+		print "Won't attempt to update savers\n"
+	end
+    print("\nThis composition has been saved as:\n"..composition_new.."\n")
+else
+    print("\nWARNING: could not save at :\n"..composition_new.."\n")
+    return
+end
+
+print "================================================================="
+print " "
+
+--------------------------------------------------------------------------
+-- SCRIPT ENDS
+

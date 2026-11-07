@@ -1,0 +1,245 @@
+{
+	Tools = ordered() {
+		ColorFill = MacroOperator {
+			CustomData = {
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/ColorFill_Description",
+			},
+			Inputs = ordered() {
+				Comments = Input { Value = "Solid Color Fill for Fusion 5.21 and above\n\nIn v_03-0:\nApply modes, optimized pre-divide/post-multiply\n\nby Gregory Chalenko\r\nwww.compositing.ru", },
+				Input = InstanceInput {
+					SourceOp = "AlphaDivide1",
+					Source = "Input",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "EffectMask",
+				},
+				ProcessRedClone = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				ProcessGreenClone = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				ProcessBlueClone = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+				ProcessAlphaClone = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				Red = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "Red",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Green = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "Green",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Blue = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "Blue",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Alpha = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "Alpha",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				ApplyMode = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ApplyMode",
+				},
+				PreDividePostMultiply = InstanceInput {
+					SourceOp = "AlphaDivide1",
+					Source = "ProcessWhenBlendIs00",
+					Name = "Pre-Divide / Post-Multiply by Alpha",
+				},
+				Blend = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessWhenBlendIs00",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "ApplyMaskInverted",
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "MultiplyByMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "MaskChannel",
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "MaskHigh",
+					ControlGroup = 4,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "CT_Operation",
+					Source = "MaskLow",
+					ControlGroup = 4,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "ColorFillMacro",
+					Source = "Output",
+				},
+			},
+			Tools = ordered() {
+				["CT_Operation"] = Custom {
+					Inputs = {
+						Image1 = Input {
+							SourceOp = "AlphaDivide1",
+							Source = "Output",
+						},
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						NumberIn1 = Input {
+							Expression = "Red",
+						},
+						NumberIn2 = Input {
+							Expression = "Green",
+						},
+						NumberIn3 = Input {
+							Expression = "Blue",
+						},
+						NumberIn4 = Input {
+							Expression = "Alpha",
+						},
+						RedExpression = Input {
+							Expression = "Text(iif(ApplyMode==0,\"n1\",iif(ApplyMode==1,\"c1+n1\",iif(ApplyMode==2,\"min(c1,n1)\",\"max(c1,n1)\"))))",
+						},
+						GreenExpression = Input {
+							Expression = "Text(iif(ApplyMode==0,\"n2\",iif(ApplyMode==1,\"c1+n2\",iif(ApplyMode==2,\"min(c1,n2)\",\"max(c1,n2)\"))))",
+						},
+						BlueExpression = Input {
+							Expression = "Text(iif(ApplyMode==0,\"n3\",iif(ApplyMode==1,\"c1+n3\",iif(ApplyMode==2,\"min(c1,n3)\",\"max(c1,n3)\"))))",
+						},
+						AlphaExpression = Input {
+							Value = "n4",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+					},
+					UserControls = ordered() {
+						Red = {
+							INPID_InputControl = "ColorControl",
+							LINKID_DataType = "Number",
+							CLRC_ShowWheel = true,
+							CLRC_ColorSpace = 1,
+							LINKS_Name = "Fill Color",
+							IC_ControlPage = 0,
+							IC_ControlID = 0,
+							IC_ControlGroup = 1,
+							INP_Default = 1,
+						},
+						Green = {
+							IC_ControlGroup = 1,
+							CLRC_ColorSpace = 0,
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							INPID_InputControl = "ColorControl",
+							INP_Default = 1,
+						},
+						Blue = {
+							IC_ControlGroup = 1,
+							IC_ControlID = 2,
+							CLRC_ShowWheel = true,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						Alpha = {
+							IC_ControlGroup = 1,
+							IC_ControlID = 3,
+							CLRC_ShowWheel = true,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						ApplyMode = {
+							{ MBTNC_AddButton = "Normal", },
+							{ MBTNC_AddButton = "Add", },
+							{ MBTNC_AddButton = "Minimum", },
+							{ MBTNC_AddButton = "Maximum", },
+							LINKS_Name = "Apply Mode",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							IC_ControlPage = 0,
+							INPID_InputControl = "MultiButtonControl",
+							INP_Default = 0,
+						},
+					},
+				},
+				ColorFillMacro = AlphaMultiply {
+					Inputs = {
+						Input = Input {
+							SourceOp = "CT_Operation",
+							Source = "Output",
+						},
+						Blend = Input { Expression = "AlphaDivide1.ProcessWhenBlendIs00", },
+					},
+				},
+				AlphaDivide1 = AlphaDivide {
+					Inputs = {
+						ProcessWhenBlendIs00 = Input { Value = 1, },
+						Blend = Input { Expression = "ProcessWhenBlendIs00", },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

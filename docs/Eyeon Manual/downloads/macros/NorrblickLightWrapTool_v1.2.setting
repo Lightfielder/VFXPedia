@@ -1,0 +1,672 @@
+{
+	Tools = ordered() {
+		NorrblickLightWrapTool_v12 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "InputBG",
+					Source = "Input",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "InputFG",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Merge_BGFG",
+					Source = "InvertTransform",
+					Name = "Norrblick 2009",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Merge_BGFG",
+					Source = "FlattenTransform",
+					Name = "www.norrblick.se",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Blur_FG",
+					Source = "XBlurSize",
+					Name = "Light Wrap Amount",
+					Default = 0,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Blur_BG_3",
+					Source = "XBlurSize",
+					Name = "Light Wrap Blur",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Merge_glow",
+					Source = "BlendClone",
+					Name = "Glow ON/OFF",
+					Default = 0,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Glow",
+					Source = "XGlowSize",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Glow",
+					Source = "Glow",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Highlight",
+					Source = "XGlowSize",
+					Name = "Highlight Glow Size",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Highlight",
+					Source = "Glow",
+					Name = "Highlight Glow",
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Gamma",
+					Default = 1,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Contrast",
+					Default = 0,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Brightness",
+					Default = 0,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Saturation",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Merge_Lum_Output",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				InputBG = PipeRouter {
+					CtrlWShown = false,
+					NameSet = true,
+					ViewInfo = PipeRouterInfo {
+						Pos = { -1705, -346.5, },
+					},
+				},
+				InputFG = PipeRouter {
+					CtrlWShown = false,
+					NameSet = true,
+					ViewInfo = PipeRouterInfo {
+						Pos = { -1705, -643.5, },
+					},
+				},
+				Merge_BGFG = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "InputBG",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "BrightnessContrast1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1540, -247.5, },
+					},
+				},
+				Blur_FG = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "ChaBol_Divide",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1265, -610.5, },
+					},
+				},
+				Blur_BG_3 = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "InputBG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1265, -544.5, },
+					},
+				},
+				Merge_glow = Merge {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Value = 0.23,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Merge_LW",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Glow",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1210, -247.5, },
+					},
+				},
+				Glow = Glow {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XGlowSize = Input {
+							Value = 0,
+						},
+						YGlowSize = Input {
+							Disabled = true,
+						},
+						Glow = Input {
+							Value = 0,
+						},
+						Low = Input {
+							Disabled = true,
+						},
+						High = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Merge2_LightWrap_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1210, -313.5, },
+					},
+				},
+				Highlight = Glow {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XGlowSize = Input {
+							Value = 0,
+						},
+						YGlowSize = Input {
+							Disabled = true,
+						},
+						Glow = Input {
+							Value = 0,
+						},
+						Low = Input {
+							Disabled = true,
+						},
+						High = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Merge_glow",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "BGMaskLuminance_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1045, -247.5, },
+					},
+				},
+				Merge_Lum_Output = Merge {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Highlight",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Luminance_merge2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -825, -247.5, },
+					},
+				},
+				BrightnessContrast1 = BrightnessContrast {
+					CtrlWShown = false,
+					Inputs = {
+						PreDividePostMultiply = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "InputFG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1540, -313.5, },
+					},
+				},
+				Merge_LW = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMode = Input {
+							Value = FuID { "Lighten", },
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Merge_BGFG",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Merge2_LightWrap_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1430, -247.5, },
+					},
+				},
+				Background_3 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						TopLeftAlpha = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -715, -346.5, },
+					},
+				},
+				Luminance_merge2 = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMaskInverted = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Background_3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Luminance_merge1",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "BGMaskLuminance_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -825, -346.5, },
+					},
+				},
+				Luminance_merge1 = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Background_2",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Blur_BG_3",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Blur_FG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -825, -412.5, },
+					},
+				},
+				Background_2 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						TopLeftAlpha = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -715, -412.5, },
+					},
+				},
+				Background_1 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						TopLeftAlpha = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -935, -544.5, },
+					},
+				},
+				Merge2_LightWrap_3 = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMaskInverted = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Background_1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Blur_BG_3",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Merge1_LightWrap",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1155, -544.5, },
+					},
+				},
+				Merge1_LightWrap = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "BGMask3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Blur_FG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1155, -610.5, },
+					},
+				},
+				BGMask3 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMaskInverted = Input {
+							Value = 1,
+						},
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "ChaBol_Divide",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1155, -676.5, },
+					},
+				},
+				BGMaskLuminance_3 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						MaskChannel = Input {
+							Value = 5,
+						},
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "InputFG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1045, -841.5, },
+					},
+				},
+				BGMask1 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "InputFG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1595, -610.5, },
+					},
+				},
+				ChaBol_Divide = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Operation = Input {
+							Value = 7,
+						},
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+						ToAlpha = Input {
+							Value = 8,
+						},
+						Background = Input {
+							SourceOp = "BGMask1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "BGMask2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1430, -610.5, },
+					},
+				},
+				BGMask2 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMaskInverted = Input {
+							Value = 1,
+						},
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1280,
+						},
+						Height = Input {
+							Value = 720,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "InputFG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -1595, -676.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "NorrblickLightWrapTool_v12",
+}

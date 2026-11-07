@@ -1,0 +1,179 @@
+{
+	Tools = ordered() {
+		SE_DarkGlow1 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Background",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Filter",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Red",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Green",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Blue",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Alpha",
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Threshold",
+					Default = 0.718232,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Gain",
+					Default = 0.9392265,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "LockXY",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "XGlowSize",
+					Default = 34.25414,
+				},
+				Input10 = InstanceInput {
+					Disabled = true,
+					SourceOp = "SoftGlow1",
+					Source = "YGlowSize",
+					Default = 10,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Passes",
+					Default = 4,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "Blend",
+					Default = 1,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "RedScale",
+					Default = 1,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "GreenScale",
+					Default = 1,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "BlueScale",
+					Default = 1,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "AlphaScale",
+					Default = 1,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input18 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				Input19 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "MaskHigh",
+					ControlGroup = 20,
+					Default = 1,
+				},
+				Input20 = InstanceInput {
+					SourceOp = "SoftGlow1",
+					Source = "MaskLow",
+					ControlGroup = 20,
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ChannelBooleans1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "SE_DarkGlow",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				ChannelBooleans1 = ChannelBoolean {
+					CtrlWShown = false,
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 165, 16.5, },
+					},
+				},
+				SoftGlow1 = SoftGlow {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Threshold = Input {
+							Value = 0.718232,
+						},
+						Gain = Input {
+							Value = 0.9392265,
+						},
+						XGlowSize = Input {
+							Value = 34.25414,
+						},
+						YGlowSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "ChannelBooleans1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 275, 16.5, },
+					},
+				},
+				ChannelBooleans1_1 = ChannelBoolean {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "SoftGlow1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 385, 16.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SE_DarkGlow1",
+}

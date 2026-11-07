@@ -1,0 +1,30 @@
+{
+	Tools = ordered() {
+		Polygon = PolylineMask {
+			DrawMode = "ClickAppend",
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				Filter = Input {
+					Value = FuID { "Multi-box", },
+				},
+				SoftEdge = Input {
+					Value = 0.001,
+				},
+				XRotation = Input {
+					Expression = "math.acos(Aspect)*180/math.pi",
+				},
+			},
+			UserControls = ordered() {
+				Aspect = {
+					INP_MaxAllowed = 1,
+					INPID_InputControl = "SliderControl",
+					IC_ControlPage = 0,
+					INP_Default = 1,
+					INP_MinAllowed = 0,
+					LINKID_DataType = "Number",
+				},
+			},
+		},
+	},
+}

@@ -1,0 +1,65 @@
+__TITLE__ = "Matrix Transform"
+-- ----------------
+-- Author: Blazej Floch
+-- Version:
+__VERSION__ = "0.1"
+--      0.1: May 3rd, 2012 - Initial release
+-- Description:
+--      Creates ColorMatrixTransforms for each selected 3D Node that has a Transform3DOp ChildGroup.
+--      The Inputs will be conntected via Exressions.
+-- Requirements: 
+--      ColorMatrixTransform Fuse by Anatomical Travel
+--      http://research.anatomicaltravel.com/2009/10/color-matrix-transform/
+
+local toollist = comp:GetToolList(true)
+local rot_order_template = 'iif(%TARGET%.Transform3DOp.Rotate.RotOrder.Value == "XYZ", 0, iif(%TARGET%.Transform3DOp.Rotate.RotOrder.Value == "XZY", 1, iif(%TARGET%.Transform3DOp.Rotate.RotOrder.Value == "YXZ", 2, iif(%TARGET%.Transform3DOp.Rotate.RotOrder.Value == "YZX", 3, iif(%TARGET%.Transform3DOp.Rotate.RotOrder.Value == "ZXY", 4, 5)))))'
+local scale_y_template = 'iif(%TARGET%.Transform3DOp.ScaleLock==1, %TARGET%.Transform3DOp.Scale.X, %TARGET%.Transform3DOp.Scale.Y)'
+local scale_z_template = 'iif(%TARGET%.Transform3DOp.ScaleLock==1, %TARGET%.Transform3DOp.Scale.X, %TARGET%.Transform3DOp.Scale.Z)'
+
+print ("\n" .. __TITLE__ .. " v" .. __VERSION__)
+print ("-------------------------------------------------------------------------------")
+
+comp:StartUndo("Script Matrix Transform")
+comp:Lock()
+for i, tool in toollist do
+    -- Only tools with Transform3DOp are valid
+    if tool.Transform3DOp ~= nil then
+        local mat = comp:AddTool("Fuse.ColorMatrixTransform")
+        if mat ~= nil then
+            mat:SetAttrs({TOOLS_Name= tool.Name .. "_Transform"})
+
+            -- Translation
+            mat.R_Offset:SetExpression(tool.Name .. ".Transform3DOp.Translate.X")
+            mat.G_Offset:SetExpression(tool.Name .. ".Transform3DOp.Translate.Y")
+            mat.B_Offset:SetExpression(tool.Name .. ".Transform3DOp.Translate.Z")
+             
+            -- Rotation
+            -- Rotation Order has to be converted from FuID to Int
+            mat.RotOrder:SetExpression(rot_order_template:gsub("%%TARGET%%", tool.Name))
+            mat.R_Rotation:SetExpression(tool.Name .. ".Transform3DOp.Rotate.X")
+            mat.G_Rotation:SetExpression(tool.Name .. ".Transform3DOp.Rotate.Y")
+            mat.B_Rotation:SetExpression(tool.Name .. ".Transform3DOp.Rotate.Z")
+
+            -- Scale
+            -- Not all tools have Scale, like Cameras but they are actually only hidden
+            -- Needs to check if ScaleLock was set. If yes use Scale.X
+            mat.R_Scale:SetExpression(tool.Name .. ".Transform3DOp.Scale.X")
+            mat.G_Scale:SetExpression(scale_y_template:gsub("%%TARGET%%", tool.Name))
+            mat.B_Scale:SetExpression(scale_z_template:gsub("%%TARGET%%", tool.Name))
+
+            -- Targets are not supported
+            if tool.Transform3DOp.UseTarget[comp.CurrentTime] ~= 0 then
+                print ("WARNING: " .. tool.Name .. " has UseTarget set. Targets are not supported.")
+            end
+
+        else
+            print ("ERROR: ColorMatrixTransform not available.")
+            break
+        end
+    end
+end
+comp:Unlock()
+comp:EndUndo()
+
+print ("-------------------------------------------------------------------------------")
+print (__TITLE__ .. " done.\n")

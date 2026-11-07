@@ -1,0 +1,500 @@
+Composition {
+	CurrentTime = 140,
+	RenderRange = { 1, 150, },
+	GlobalRange = { 1, 150, },
+	Version = "Fusion 6.0 build 476",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		pEmitter1 = pEmitter {
+			Inputs = {
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 1,
+				},
+				Angle = Input {
+					Value = 140.454347197432,
+					Expression = "SphereRgn.Rotate.Z",
+				},
+				AngleZ = Input {
+					Value = 32.7654714165255,
+					Expression = "-SphereRgn.Rotate.Y",
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Rotate.X"] = Input {
+					Value = 140.213190702721,
+				},
+				["SphereRgn.Rotate.Y"] = Input {
+					Value = -32.7654714165255,
+				},
+				["SphereRgn.Rotate.Z"] = Input {
+					Value = 140.454347197432,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 176, 37.05, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				GlobalOut = Input {
+					Value = 150,
+				},
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1556,
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 290, 38.05, },
+			},
+		},
+		Transform3D1 = Transform3D {
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = 27.9994176807813,
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					Value = 46.6170555339195,
+				},
+				["Transform3DOp.Rotate.Z"] = Input {
+					Value = 71.6235629115254,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 404, 38.05, },
+			},
+		},
+		pEm_Inherit = pEmitter {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				VelocityControls = Input {
+					Value = 1,
+				},
+				InheritVelocity = Input {
+					SourceOp = "pEmitter2InheritVelocity",
+					Source = "Value",
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEm_InheritSizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEm_InheritBluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Translate.X"] = Input {
+					SourceOp = "pEmitter2XOffset",
+					Source = "Value",
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					SourceOp = "pEmitter2YOffset",
+					Source = "Value",
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					SourceOp = "pEmitter2ZOffset",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 179.306, 212.087, },
+			},
+		},
+		pEm_InheritSizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+		},
+		pEm_InheritBluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 255, Green = 0, Blue = 255, },
+			NameSet = true,
+		},
+		pEmitter2XOffset = BezierSpline {
+			SplineColor = { Red = 255, Green = 180, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 4, 0, }, Flags = { Extrapolate = true, }, },
+				[10] = { 0.698702794981809, LH = { 7.22985063972014, 0.452759135882099, }, RH = { 12.4144224074038, 0.913063756886485, }, },
+				[20] = { 1.13361745191123, LH = { 16.6670000553131, 1.12464771157554, }, RH = { 23.3329999446869, 1.14258719224692, }, },
+				[30] = { 0.752526620271626, LH = { 26.9849994801394, 0.91274155507798, }, RH = { 32.887345447873, 0.599095183146768, }, },
+				[40] = { 0.44586759069931, LH = { 36.6670000553131, 0.434028124227028, }, RH = { 43.3329999446869, 0.457707057171592, }, },
+				[50] = { 0.823570524674656, LH = { 46.7469748842931, 0.734385265036214, }, RH = { 56.8, 1.01, }, },
+				[70] = { 0.313449736821446, LH = { 63.3340001106262, 0.320201841808814, }, RH = { 76.6659998893738, 0.306697631834077, }, },
+				[90] = { 0.783053842409887, LH = { 83.3333333333333, 0.783053842409887, }, },
+				[130] = { 0.783053842409887, Flags = { Linear = true, }, },
+				[150] = { 0.529778740775815, Flags = { Linear = true, Extrapolate = true, }, },
+			},
+		},
+		pEmitter2YOffset = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 4, 0, }, Flags = { Extrapolate = true, }, },
+				[10] = { -0.330157680184399, LH = { 7.0003000497818, -0.370808188825322, }, RH = { 13.3329999446869, -0.284990448361152, }, },
+				[20] = { 0.257478973562454, LH = { 16.813908010988, 0.0503927936646068, }, RH = { 22.6837479989822, 0.431914339155921, }, },
+				[30] = { 0.585809193025699, LH = { 26.6670000553131, 0.581678547760119, }, RH = { 33.3329999446869, 0.589939838291279, }, },
+				[40] = { 0.2822653242023, LH = { 36.9345030918519, 0.417619006287002, }, RH = { 42.9923173339985, 0.150142806627409, }, },
+				[50] = { 0.0263179057570213, LH = { 46.7895209380121, -0.0850763172245562, }, RH = { 52.7, 0.12, }, },
+				[60] = { 0.433038449418362, LH = { 56.6670000553131, 0.431484986911876, }, RH = { 66.6659998893738, 0.436145374431332, }, },
+				[80] = { 0.0403004668035182, LH = { 73.3340001106262, 0.0470395389968269, }, RH = { 86.6659998893738, 0.0335613946102095, }, },
+				[100] = { 0.392599971739708, LH = { 93.4, 0.27, }, },
+				[130] = { 0.8, Flags = { Linear = true, }, },
+				[150] = { 0.8, Flags = { Linear = true, Extrapolate = true, }, },
+			},
+		},
+		pEmitter2ZOffset = BezierSpline {
+			SplineColor = { Red = 180, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter2InheritVelocity = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { -0.5, Flags = { Linear = true, }, },
+				[130] = { -1, Flags = { Linear = true, }, },
+			},
+		},
+		pRender2 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				GlobalOut = Input {
+					Value = 150,
+				},
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1556,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 10,
+				},
+				Input = Input {
+					SourceOp = "pEm_Inherit",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 289.306, 213.087, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1244,
+			Height = 706,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.920188,
+						Offset = { 281.727, 54.9898, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 495, },
+							ScaleX = 0.941645244215938,
+							OffsetX = -51.7904884318766,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.169478672985782,
+						ScaleY = 0.00423327379320907,
+						OffsetX = 35.4210426540285,
+						OffsetY = -0.148164582762317,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "pEmitter2XOffset", "pEmitter2YOffset", "pEmitter2ZOffset", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 150, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.815047021943574,
+					RatioY = 0.010377358490566,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.475332068311195,
+						{
+							ID = "Left",
+							RatioX = 0.740169622205089,
+							RatioY = 0.00998003992015968,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.259830377794911,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.473434535104364,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			Memory = {
+				Render = {
+					SimultaneousBranching = true,
+				},
+				Interactive = {
+					SimultaneousBranching = true,
+				},
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					View3D = {
+						CameraName = "Perspective",
+					},
+				},
+				Left = {
+					Viewer = {
+					},
+					View3D = {
+						CameraName = "Perspective",
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+					Viewer = {
+						EnableLUTs = true,
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "2K 2.35/1.77 25fps",
+				Rate = 25,
+				PerFeet = 1,
+				GuideY1 = 0.125,
+				GuideY2 = 0.875,
+				GuideRatio = 2.35,
+			},
+			LastFile = "D:\\=Bazelevs\\Black_Lightning\\DE1\\Res\\DE1-0035\\DE1-0035_Comp_v22_091120_Logo.jpg",
+			Unsorted = {
+				GlobalStart = 1,
+				GlobalEnd = 150,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+				ScaleLocked = false,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+				ScaleLocked = false,
+			},
+			FilterModeName = "Show All",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				ShowNavigator = 1,
+				AutoSnap = false,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

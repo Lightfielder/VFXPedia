@@ -1,0 +1,110 @@
+{
+	Tools = ordered() {
+		Clipper = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Clipper_BC1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Clipper_BC1",
+					Source = "Red",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Clipper_BC1",
+					Source = "Green",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Clipper_BC1",
+					Source = "Blue",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Clipper_BC1",
+					Source = "Alpha",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Clipper_BC1",
+					Source = "Blend",
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Clipper_Controls",
+					Source = "Low",
+					ControlGroup = 7,
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Clipper_Controls",
+					Source = "High",
+					ControlGroup = 7,
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Clipper_BC2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Clipper_BC1 = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Gain = Input {
+							Expression = "1/(Clipper_Controls.High-Clipper_Controls.Low)",
+						},
+						Brightness = Input {
+							Expression = "-Clipper_Controls.Low/Clipper_BC2.Gain",
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 100, 50, },
+					},
+				},
+				Clipper_Controls = BrightnessContrast {
+					NameSet = true,
+					ViewInfo = OperatorInfo {
+						Pos = { 100, 100, },
+					},
+				},
+				Clipper_BC2 = BrightnessContrast {
+					NameSet = true,
+					SourceOp = "Clipper_BC1",
+					Inputs = {
+						Gain = Input {
+							Expression = "Clipper_Controls.High-Clipper_Controls.Low",
+						},
+						Brightness = Input {
+							Expression = "Clipper_Controls.Low",
+						},
+						ClipBlack = Input {
+						},
+						ClipWhite = Input {
+						},
+						Input = Input {
+							SourceOp = "Clipper_BC1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 200, 50, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "Clipper",
+}

@@ -1,0 +1,403 @@
+Composition {
+	CurrentTime = 100,
+	RenderRange = { 0, 1000, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.2 build 54",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = true,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		pEmitter1 = pEmitter {
+			Inputs = {
+				Number = Input {
+					Value = 20,
+				},
+				Lifespan = Input {
+					Value = 75,
+				},
+				LifespanVariance = Input {
+					Value = 50,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.182589050145526,
+					Expression = "abs(sin(time/5))/5",
+				},
+				AngleVariance = Input {
+					Value = 360,
+				},
+				AngleZVariance = Input {
+					Value = 360,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBlob", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0.00425531914893617] = { 0.813333333333333, 0.261831068128833, 0.217467259259259, 0.099009900990099, },
+							[0.165957446808511] = { 1, 0.54511258455451, 0.371022222222222, 0.574257425742574, },
+							[0.234042553191489] = { 0.62, 0.309944888888889, 0.321112451236255, 0.623762376237624, },
+							[0.646808510638298] = { 0.0516666666666667, 0.0258287407407407, 0.0267593709363546, 0.405940594059406, },
+							[0.791489361702128] = { 0.856855345911949, 0.523547251035336, 0.146998294898672, 1, },
+							[0.876595744680851] = { 1, 0.999644444444444, 0.998577777777778, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.0438596,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.0204678,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeIn"] = Input {
+					Value = 0.106383,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.7234043,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 605, 115.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 5, RH = { 0.044, 3.46666666666667, }, Flags = { Linear = true, }, },
+					[0.132] = { 0.4, LH = { 0.0785582669329814, 0.450896888635256, }, RH = { 0.153, 0.38, }, },
+					[0.78076183795929] = { 0.0490427054464817, LH = { 0.564507891972862, 0.166028470297654, }, RH = { 0.785841226577759, 0.106355952719847, }, },
+					[0.796000003814697] = { 0.220982447266579, LH = { 0.790920615196228, 0.163669199993213, }, RH = { 0.796333332856496, 0.158584789683421, }, Flags = { Linear = true, }, },
+					[0.796999990940094] = { 0.033789474517107, LH = { 0.796666661898295, 0.0961871321002642, }, RH = { 0.803333322207133, 0.0530877187848091, }, Flags = { Linear = true, }, },
+					[0.815999984741211] = { 0.0916842073202133, LH = { 0.809666653474172, 0.0723859630525112, }, RH = { 0.819999992847443, 0.0704561385015647, }, Flags = { Linear = true, }, },
+					[0.828000009059906] = { 0.0280000008642673, LH = { 0.824000000953674, 0.049228069682916, }, RH = { 0.830333332220713, 0.174666655560335, }, Flags = { Linear = true, }, },
+					[0.834999978542328] = { 0.467999964952469, LH = { 0.832666655381521, 0.321333310256402, }, RH = { 0.841666658719381, 0.331625706205765, }, Flags = { Linear = true, }, },
+					[0.855000019073486] = { 0.0588771887123585, LH = { 0.848333338896433, 0.195251447459062, }, RH = { 0.860000014305115, 0.147005838652452, }, Flags = { Linear = true, }, },
+					[0.870000004768372] = { 0.323263138532639, LH = { 0.865000009536743, 0.235134488592545, }, RH = { 0.872666676839193, 0.234491214156151, }, Flags = { Linear = true, }, },
+					[0.878000020980835] = { 0.0569473654031754, LH = { 0.875333348910014, 0.145719289779663, }, RH = { 0.885333339373271, 0.172736833492915, }, Flags = { Linear = true, }, },
+					[0.899999976158142] = { 0.404315769672394, LH = { 0.892666657765706, 0.288526301582654, }, RH = { 0.906666656335195, 0.291099401811759, }, Flags = { Linear = true, }, },
+					[0.920000016689301] = { 0.0646666660904884, LH = { 0.913333336512248, 0.177883033951124, }, RH = { 0.925666670004527, 0.19589472313722, }, Flags = { Linear = true, }, },
+					[0.936999976634979] = { 0.458350837230682, LH = { 0.931333323319753, 0.327122780183951, }, RH = { 0.94733331600825, 0.326479504505793, }, Flags = { Linear = true, }, },
+					[0.967999994754791] = { 0.062736839056015, LH = { 0.957666655381521, 0.194608171780904, }, RH = { 0.967999994754791, 0.159228056669235, }, Flags = { Linear = true, }, },
+					[0.967999994754792] = { 0.352210491895676, LH = { 0.967999994754791, 0.255719274282455, }, RH = { 0.973999996980031, 0.247999977320433, }, Flags = { Linear = true, }, },
+					[0.986000001430511] = { 0.0395789481699467, LH = { 0.979999999205271, 0.14378946274519, }, RH = { 0.990666667620341, 0.0391735509037972, }, Flags = { Linear = true, }, },
+					[1] = { 0.0383627563714981, LH = { 0.995333333810171, 0.0387681536376476, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1556,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 115.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 176,
+			Top = 176,
+			Width = 1564,
+			Height = 760,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { 26, 29, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "pEmitter1", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 524, },
+							ScaleX = 0.742741390952059,
+							OffsetX = -49.763673193788,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.000876552227903579,
+						ScaleY = 0.00792533333102862,
+						OffsetX = -0.0999269539810079,
+						OffsetY = -0.266818920179975,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 104.428186714542,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.476534296028881,
+						{
+							ID = "Left",
+							RatioX = 0.54421768707483,
+							RatioY = 112,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.45578231292517,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.474729241877256,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						SmoothThreshold = 1000000,
+						AlphaOverlay = false,
+						LUTSelected = "",
+						FollowActive = false,
+						CheckerUnderlay = true,
+						Normalise = false,
+						One2One = false,
+						OverlayOpacity = 100,
+						ScaleMode = 0,
+						PixelGrid = false,
+						Channel = -1,
+						ID = "GLImageViewer",
+						OverlayColor = 7,
+						ShowControls = true,
+						Smooth = true,
+					},
+					Controls = {
+						Hiding = 0,
+						Autofade = false,
+						Opacity = 100,
+						FadeDelay = 2000,
+						FadeSpeed = 1,
+					},
+					["3DHistogram"] = {
+						Proxy = 4,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					Guides = {
+						Show = false,
+						Center = true,
+						SafeTitle = true,
+						SafeImage = true,
+						Film = false,
+						FrameAspect = "Default",
+					},
+					QuadView = false,
+					Histogram = {
+						DrawStyles = 0,
+						Channels = 7,
+					},
+					SubView = {
+						Enabled = false,
+						Navigator = false,
+						Magnifier = false,
+						ID = "GLHistogramViewer",
+						MagnifierScale = 8,
+					},
+					FullScreen = false,
+					Toolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					CtrlWheelZoom = true,
+					QuadLayoutName = "4-Way",
+					AlwaysOnTop = false,
+					View3D = {
+						CameraName = "Perspective",
+						Options = {
+							Shadows = false,
+							Lighting = false,
+							Grid = true,
+							ShowVertexNormals = false,
+							DefaultLight = true,
+							Culling = false,
+							Wireframe = false,
+							RenderPath = 1,
+							ShowMatteObjects = false,
+						},
+						SortMethod = "BSP",
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.31619537275064,
+			},
+			LastFile = "S:\\__WORK\\Fusion\\Comps\\Particles_Simple_Emitters\\SeM_Emitter_08_001.jpg",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			FlowView = {
+				GridSnap = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

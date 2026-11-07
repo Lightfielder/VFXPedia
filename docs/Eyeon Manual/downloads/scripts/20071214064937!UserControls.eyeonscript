@@ -1,0 +1,1568 @@
+----------------------------------------------------
+-- UserControl manipulation script
+-- Written: 1 Dec 2007 Daniel Koch
+----------------------------------------------------
+
+
+--------------------------------------------------------------
+-- global fields
+--------------------------------------------------------------
+
+inp_ids = ordered() {}
+
+num_def = iup.text{value = "0.0", size="47x", expand="HORIZONTAL"}
+num_min = iup.text{value = "-1000000.0", expand="HORIZONTAL"}
+num_max = iup.text{value = "1000000.0", expand="HORIZONTAL"}
+num_min_scale = iup.text{value = "0.0", expand="HORIZONTAL"}
+num_max_scale = iup.text{value = "1.0", expand="HORIZONTAL"}
+
+pt_def_x = iup.text{value = "0.5", expand="HORIZONTAL"}
+pt_def_y = iup.text{value = "0.5", expand="HORIZONTAL"}
+
+text_def = iup.multiline{value = "Default text", expand="YES"}
+
+-- TODO: fuid_def = iup.list{ }
+
+-- name & id
+edit_name = iup.text{	--list{
+	value = "New control",
+	dropdown="YES",
+	editbox="YES",
+	nc="50",
+	size="80x",
+	expand="HORIZONTAL"
+}
+edit_id = iup.text{value = "Newcontrol", nc="50", size="80x", expand="HORIZONTAL"}
+userchangedid = false
+last_id = nil
+
+-- type list
+list_type = iup.list{ value="1", expand="HORIZONTAL", }
+
+list_page = iup.list{expand="YES"}
+
+check_anim = iup.toggle{title="Animatable", value="ON", expand="HORIZONTAL"}
+check_pasv = iup.toggle{title="Passive", value="OFF", expand="HORIZONTAL"}
+check_int  = iup.toggle{title="Integer", value="OFF", expand="HORIZONTAL"}
+
+--edit_status = iup.text{value="", expand="YES"}
+
+-- InputControls
+list_num_ic  = iup.list{ value="2", expand="YES", size="x40" }
+list_pt_ic   = iup.list{ value="2", expand="YES", size="x40" }
+list_text_ic = iup.list{ value="2", expand="YES", size="x40" }
+
+-- PreviewControls
+list_num_pc  = iup.list{ value="1", expand="YES", size="x40" }
+list_pt_pc   = iup.list{ value="2", expand="YES", size="x40" }
+list_text_pc = iup.list{ value="1", expand="YES", size="x40" }
+
+-- control params
+list_rng_group   = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_clr_group   = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_lev_group   = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_levout_group= iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_rct_group   = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_elp_group   = iup.list{dropdown="YES", expand="HORIZONTAL"}
+
+list_rng_groupid = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_clr_groupid = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_lev_groupid = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_levout_groupid = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_rct_groupid = iup.list{dropdown="YES", expand="HORIZONTAL"}
+list_elp_groupid = iup.list{dropdown="YES", expand="HORIZONTAL"}
+                         
+edit_steps      = iup.text{expand="HORIZONTAL"}
+edit_hiname     = iup.text{expand="HORIZONTAL"}
+edit_centre     = iup.text{expand="HORIZONTAL"}
+edit_btnwidth   = iup.text{value="1.0", expand="HORIZONTAL"}
+edit_chkwidth   = iup.text{value="1.0", expand="HORIZONTAL"}
+edit_scalex     = iup.text{value="1.0", expand="HORIZONTAL"}
+edit_scaley     = iup.text{value="1.0", expand="HORIZONTAL"}
+edit_ccwidth    = iup.text{value="1.0", expand="HORIZONTAL"}
+edit_mbbtnwidth = iup.text{value="26.0", expand="HORIZONTAL"}
+edit_mbbtnheight= iup.text{value="26.0", expand="HORIZONTAL"}
+
+check_tristate  = iup.toggle{title="Tristate",     value="OFF", expand="HORIZONTAL"}
+check_wheel  	= iup.toggle{title="Show Wheel",   value="OFF", expand="HORIZONTAL"}
+check_labelpos	= iup.toggle{title="Vertical Label", value="OFF", expand="HORIZONTAL"}
+check_showbasic	= iup.toggle{title="Show Button",  value="ON",  expand="HORIZONTAL"}
+check_showtip  	= iup.toggle{title="Show ToolTip", value="ON",  expand="HORIZONTAL"}
+check_showname	= iup.toggle{title="Show Name",    value="ON",  expand="HORIZONTAL"}
+check_stretchfit= iup.toggle{title="Stretch fit",  value="ON",  expand="HORIZONTAL"}
+
+list_combo		= iup.list{ editbox="YES", expand="YES", size="x40" }
+list_multibutton= iup.list{ editbox="YES", expand="YES", size="x40" }
+list_ang_center = iup.list{ value="1", expand="YES", size="x40" }
+list_ang_radius = iup.list{ value="1", expand="YES", size="x40" }
+list_elp_center = iup.list{ value="1", expand="YES", size="x40" }
+list_elp_angle  = iup.list{ value="1", expand="YES", size="x40" }
+list_rct_center = iup.list{ value="1", expand="YES", size="x40" }
+list_rct_angle  = iup.list{ value="1", expand="YES", size="x40" }
+list_pt_prevpt  = iup.list{ value="1", expand="YES", size="x40" }
+
+list_labelpos   = iup.list{ dropdown="YES", expand="HORIZONTAL" }
+list_colorspc   = iup.list{ dropdown="YES", expand="HORIZONTAL"}
+list_style      = iup.list{ dropdown="YES", expand="HORIZONTAL" }
+
+list_combo_lastsel = 0
+list_multibutton_lastsel = 0
+
+-- action buttons
+btn_ccadd = iup.button{title = "Add", size="30x"}
+btn_ccdel = iup.button{title = "Del", size="30x", active="NO"}
+btn_ccup  = iup.button{title = "Up", size="30x", active="NO"}
+btn_ccdn  = iup.button{title = "Down", size="30x", active="NO"}
+btn_mbadd = iup.button{title = "Add", size="30x"}
+btn_mbdel = iup.button{title = "Del", size="30x", active="NO"}
+btn_mbup  = iup.button{title = "Up", size="30x", active="NO"}
+btn_mbdn  = iup.button{title = "Down", size="30x", active="NO"}
+
+btn_ok = iup.button{title = "OK", size="70x"}
+btn_cancel = iup.button{title = "Cancel", size="70x"}
+
+
+--------------------------------------------------------------
+-- functions
+--------------------------------------------------------------
+
+function RefreshTool()
+	local out = tool:FindMainOutput(1)
+	local views = {}
+
+	-- remember views
+	if out then
+		views = out:GetConnectedInputs()
+	end
+
+	-- kludge to force tool to show its new inputs
+--	tool = tool.Refresh()	-- doesn't work :-(
+	comp:StartUndo("Refresh tool")
+	tool:Delete()
+	comp:EndUndo(true)
+	
+	comp:Undo()
+	comp:SetActiveTool(tool)
+
+	-- reconnect views
+	for i,v in pairs(views) do
+		local o = v:GetConnectedOutput()
+		if o == nil then
+			ok = v:ViewOn(tool)	-- ConnectTo() works, but asserts
+		end
+	end
+end
+
+-- Validate the string as an ID
+-- returns true/false, and a valid ID
+function ValidID(id)
+	local n1,n2
+
+	if type(id) == "string" then
+		id, n1 = string.gsub(id, "^[^%a]+", "")	-- no leading characters other than letters
+		id, n2 = string.gsub(id, "[^%w_]", "")	-- no characters other than alphanums and _
+	else
+		id = "unknown"
+		n1 = 1
+	end
+	
+	return n1+n2 == 0, id
+end
+
+-- Add a new UserControl
+function AddControl(name, id, settings)
+	local ctrls = tool.UserControls
+	local valid
+
+	-- make sure it's an ordered table
+	if type(ctrls) ~= "table" or pairs({})(ctrls) == nil then
+		ctrls = ordered() {}
+	end
+
+	valid, id = ValidID(id)
+
+	ctrls[id] = settings
+			
+	if name ~= id then
+		ctrls[id].LINKS_Name = name
+	end
+
+	tool.UserControls = ctrls
+
+	return id
+end
+
+-- Remove/hide an existing control
+function RemoveControl(id)
+	if tool.UserControls[id] then
+		local ctrls = tool.UserControls
+		ctrls[id] = nil
+		tool.UserControls = ctrls
+	end
+	if tool[id] then		-- input exists?
+		if tool[id]:WindowControlsVisible() then
+			tool[id]:HideWindowControls()
+		end
+		if tool[id]:ViewControlsVisible() then
+			tool[id]:HideViewControls()
+		end
+	end
+end
+
+-- Adds the table of items to list
+function FillList(list, tbl)
+	for i,item in pairs(tbl) do
+		list[i] = item
+	end
+	list.value = 1
+end 
+
+-- Adds all inputs of a specified dtype to list
+function FillInputList(list, dtype)
+	local n = 1
+	local id, attrs
+	
+	for id, attrs in pairs(inp_ids) do
+		if not dtype or attrs.LINKID_DataType == dtype then
+			list[n] = id
+			n = n + 1
+		end
+	end
+end
+
+-- Fills the list with names of inputs with unique IC/PC_ControlGroups
+function FillGroupList(list, tag)
+	local n, id, attrs
+	local maxn = 0
+	local found = false
+	
+	for id, attrs in pairs(inp_ids) do
+		local cgroup = attrs[tag]
+		if cgroup and cgroup > 0 and cgroup < 65536 and list[cgroup] == nil then
+			list[cgroup] = id
+			maxn = math.max(cgroup, maxn)
+		end
+	end
+	for n = 1, maxn do
+		if list[n] == nil then
+			list[n] = "<New Group>"
+			found = true
+		end
+	end
+	if not found then
+		list[maxn + 1] = "<New Group>"
+	end
+end
+
+function FillGroupIDList(list, tbl)
+	local i = 1
+	for i = 1, 30 do
+		list[i] = tbl[i]
+	end
+end
+
+-- Returns the next available IC_ControlGroupID
+function GetNextICGroupID(cgroup)
+	local id, attrs
+	local maxid = -1
+	
+	for id, attrs in pairs(inp_ids) do
+		if attrs.INPI_IC_ControlGroup == cgroup then
+			if attrs.INPI_IC_ControlID then
+				maxid = math.max(attrs.INPI_IC_ControlID, maxid)
+			else
+				maxid = 0
+			end
+		end
+	end
+	return maxid + 1
+end
+function GetNextPCGroupID(cgroup)
+	local id, attrs
+	local maxid = -1
+	
+	for id, attrs in pairs(inp_ids) do
+		if attrs.INPI_PC_ControlGroup == cgroup then
+			if attrs.INPI_PC_ControlID then
+				maxid = math.max(attrs.INPI_PC_ControlID, maxid)
+			else
+				maxid = 0
+			end
+		end
+	end
+	return maxid + 1
+end
+
+-- Deletes/hides a control completely
+function DeleteControl(id)
+	local attrs = tool.UserControls
+	
+--	if inp_ids[id] ~= nil and attrs[id] == nil then
+		attrs[id] = { INPID_InputControl = "", INPID_PreviewControl = "", IC_ControlPage = 0 }
+--	else
+--		attrs[id] = nil		-- works for new tools, but not the current tool
+--	end
+	tool.UserControls = attrs
+
+	refresh = true
+end
+
+-- Sets up the UI from an existing input
+function SetSettings(id)
+	local attrs = tool.UserControls
+	
+	if attrs and type(attrs[id]) == "table" then
+		attrs = attrs[id]
+	else
+		return false
+	end
+
+	local dt = attrs.LINKID_DataType
+	
+	if dt then
+		edit_name.value = attrs.LINKS_Name
+		list_type.value = SetID(list_type, dt)
+		
+		SetupTagSettings(attrs, dt)
+		zbox_type.value = type_groups[dt][1]
+
+		if attrs.INPID_InputControl then
+			type_ic_list[dt].value = SetID(type_ic_list[dt], attrs.INPID_InputControl)
+			SelectParams(ctrl_groups, zbox_ic, attrs.INPID_InputControl, 1)
+
+			SetupTagSettings(attrs, attrs.INPID_InputControl)
+		else
+			type_ic_list[dt].value = "1"
+		end	
+
+		if attrs.INPID_PreviewControl then
+			type_pc_list[dt].value = SetID(type_pc_list[dt], attrs.INPID_PreviewControl)
+			SelectParams(ctrl_groups, zbox_pc, attrs.INPID_PreviewControl, 1)
+
+			SetupTagSettings(attrs, attrs.INPID_PreviewControl)
+		else
+			type_pc_list[dt].value = "1"
+		end
+	end
+
+	return true
+end
+
+-- Event functions
+
+function edit_name:action(c, after)
+	if not userchangedid then
+		local valid, id = ValidID(after)
+		edit_id.value = id
+	end
+end
+
+function ask_edit(id)
+	return iup.Alarm(
+		"Edit or Delete Input?",
+		'The user Input "'..inp_ids[id].INPS_Name..'" already has the ID of "'..id..'".\n\nDo you want to edit or delete that Input?',
+		"Edit", "Delete", "Change ID")
+end
+function ask_replace(id)
+	return iup.Alarm(
+		"Replace Input?",
+		'The built-in Input "'..inp_ids[id].INPS_Name..'" already has the ID of "'..id..'".\n\nDo you want to replace or hide that Input?',
+		"Replace", "Hide", "Change ID")
+end
+
+function edit_name:killfocus_cb()
+	if edit_id.value ~= last_id then
+		local id, attrs
+
+		last_id = edit_id.value
+
+		-- check for an existing ID
+		for id, attrs in pairs(inp_ids) do
+			if edit_id.value == id then
+				if type(tool.UserControls) == "table" and tool.UserControls[id] then
+					local ret = ask_edit(id);
+					if ret == 1 then
+						SetSettings(id)
+					elseif ret == 2 then
+						DeleteControl(id)
+						dlg:hide()
+					elseif ret == 3 then
+						edit_id.selection = "1:" .. #edit_id.value+1
+						iup.SetFocus(edit_id)
+						last_id = nil
+					end
+					return
+				else
+					local ret = ask_replace(id);
+					if ret == 1 then
+						SetSettings(id)
+					elseif ret == 2 then
+						DeleteControl(id)
+						dlg:hide()
+					elseif ret == 3 then
+						edit_id.selection = "1:" .. #edit_id.value+1
+						iup.SetFocus(edit_id)
+						last_id = nil
+					end
+					return
+				end
+			end
+		end
+	end
+end
+
+function edit_id:action(c, after)
+	userchangedid = true	-- don't auto-generate IDs anymore
+	
+	local valid = ValidID(after)
+	if not valid then
+		return iup.IGNORE
+	else
+		return iup.DEFAULT
+	end
+end
+
+function edit_id:killfocus_cb()
+	edit_name:killfocus_cb()
+end
+
+function list_rng_group:action(t, i)
+	list_rng_groupid.value = GetNextICGroupID(i)
+end
+function list_clr_group:action(t, i)
+	list_clr_groupid.value = GetNextICGroupID(i)
+end
+function list_lev_group:action(t, i)
+	list_lev_groupid.value = GetNextICGroupID(i)
+end
+function list_levout_group:action(t, i)
+	list_levout_groupid.value = GetNextICGroupID(i)
+end
+function list_rct_group:action(t, i)
+	list_rct_groupid.value = GetNextPCGroupID(i)
+end
+function list_elp_group:action(t, i)
+	list_elp_groupid.value = GetNextPCGroupID(i)
+end
+ 
+   
+
+   
+   
+
+-- ComboControl functions
+function list_combo:action(t, i)
+	list_combo_lastsel = i
+	if i >= 1 and self[i] then
+		btn_ccdel.active = "YES"
+		
+		if i == 1 then
+			btn_ccup.active = "NO"
+		else
+			btn_ccup.active = "YES"
+		end
+		if self[i+1] == nil then
+			btn_ccdn.active = "NO"
+		else
+			btn_ccdn.active = "YES"
+		end
+	else
+		btn_ccdel.active = "NO"
+		btn_ccup.active = "NO"
+		btn_ccdn.active = "NO"
+	end
+end
+
+function btn_ccadd:action()
+	local i = 1
+	local val = list_combo.value
+	
+	if val and #val > 0 then
+		while list_combo[i] ~= nil do
+			i = i + 1
+		end
+		list_combo[i] = val
+		list_combo.value = val
+	end
+end
+
+function btn_ccdel:action()
+	local num = list_combo_lastsel
+	if num > 0 and list_combo[num] then
+		while list_combo[num + 1] do
+			list_combo[num] = list_combo[num + 1]
+			num = num + 1
+		end
+		list_combo[num] = nil
+	end
+end
+
+function btn_ccup:action()
+	local num = list_combo_lastsel
+	if num >= 2 and list_combo[num] then
+		local t = list_combo[num - 1]
+		list_combo[num - 1] = list_combo[num]
+		list_combo[num] = t
+		
+		list_combo_lastsel = num - 1
+		list_combo.value = list_combo[num - 1]
+	end
+end
+
+function btn_ccdn:action()
+	local num = list_combo_lastsel
+	if num >= 1 and list_combo[num + 1] then
+		local t = list_combo[num + 1]
+		list_combo[num + 1] = list_combo[num]
+		list_combo[num] = t
+		
+		list_combo_lastsel = num + 1
+		list_combo.value = list_combo[num - 1]
+	end
+end
+
+-- MultiButtonControl functions
+function list_multibutton:action(t, i)
+	list_multibutton_lastsel = i
+	if i >= 1 and self[i] then
+		btn_mbdel.active = "YES"
+		
+		if i == 1 then
+			btn_mbup.active = "NO"
+		else
+			btn_mbup.active = "YES"
+		end
+		if self[i+1] == nil then
+			btn_mbdn.active = "NO"
+		else
+			btn_mbdn.active = "YES"
+		end
+	else
+		btn_mbdel.active = "NO"
+		btn_mbup.active = "NO"
+		btn_mbdn.active = "NO"
+	end
+end
+
+function btn_mbadd:action()
+	local i = 1
+	local val = list_multibutton.value
+	
+	if val and #val > 0 then
+		while list_multibutton[i] ~= nil do
+			i = i + 1
+		end
+		list_multibutton[i] = val
+		list_multibutton.value = val
+	end
+end
+
+function btn_mbdel:action()
+	if list_multibutton_lastsel > 0 and list_multibutton[list_multibutton_lastsel] then
+		local num = list_multibutton_lastsel
+		while list_multibutton[num + 1] do
+			list_multibutton[num] = list_multibutton[num + 1]
+			num = num + 1
+		end
+		list_multibutton[num] = nil
+	end
+end
+
+function btn_mbup:action()
+	local num = list_multibutton_lastsel
+	if num >= 2 and list_multibutton[num] then
+		local t = list_multibutton[num - 1]
+		list_multibutton[num - 1] = list_multibutton[num]
+		list_multibutton[num] = t
+		
+		list_multibutton_lastsel = num - 1
+		list_multibutton.value = list_multibutton[num - 1]
+	end
+end
+
+function btn_mbdn:action()
+	local num = list_multibutton_lastsel
+	if num >= 1 and list_multibutton[num + 1] then
+		local t = list_multibutton[num + 1]
+		list_multibutton[num + 1] = list_multibutton[num]
+		list_multibutton[num] = t
+		
+		list_multibutton_lastsel = num + 1
+		list_multibutton.value = list_multibutton[num - 1]
+	end
+end
+
+function btn_ok:action()
+	local settings = GetAllSettings()
+
+	AddControl(edit_name.value, edit_id.value, settings)
+	refresh = true
+
+	dlg:hide()
+end
+
+function btn_cancel:action()
+	dlg:hide()
+end
+
+
+-- assorted Get functions
+function GetNum(ctrl, def)
+	if ctrl.value ~= def then
+		return tonumber(ctrl.value)
+	end
+end
+function GetEnum(ctrl, def)
+	if ctrl.value ~= def then
+		return tonumber(ctrl.value) - 1
+	end
+end
+function GetBool(ctrl, def)
+	if ctrl.value ~= def then
+		return (ctrl.value == "ON")
+	end
+end
+function GetID(list, def)
+	if list.value ~= def then
+		return list[list.value]
+	end
+end
+function GetTable(list)
+	local i = 1
+	local tbl = {}
+	while list[i] do
+		tbl[i] = list[i]
+		i = i + 1
+	end
+	return tbl
+end
+
+-- assorted Set functions
+function SetNum(val, def)
+	if val ~= def then
+		return tostring(val)
+	else
+		return ""
+	end
+end
+function SetEnum(val, def)
+	if val ~= def then
+		return tostring(val) + 1
+	else
+		return ""
+	end
+end
+function SetBool(val, def)
+	if val ~= nil then
+		if val == true then
+			return "ON"
+		else
+			return "OFF"
+		end
+	else
+		return def
+	end
+end
+function SetID(list, val, def)
+	if val == nil then
+		val = def
+	end
+
+	local i = 1
+	while list[tostring(i)] do
+		if list[tostring(i)] == val then
+			return i
+		end
+		i = i + 1
+	end
+end
+function SetTable(list, attrs, tag)
+	local i, tbl
+	local num = 1
+	for i, tbl in ipairs(attrs) do
+		if type(tbl) == "table" and tbl[tag] then
+			list[num] = tbl[tag]
+			num = num + 1
+		end
+	end
+end
+
+
+-- Get tag parameters
+function GetTagSettings(tbl, t)
+	local tag, tagdata
+	
+	if t and tag_table[t] then
+		for tag, tagdata in pairs(tag_table[t]) do
+			if tagdata[1] == GetTable then
+				tagtable = GetTable(tagdata[2])
+
+				for i = 1, #tagtable do
+					local subtbl = {}
+					subtbl.__flags = SVF_SaveCompact
+					
+					subtbl[tag] = tagtable[i]
+					tbl[i] = subtbl			-- put it in a subtable
+				end
+			else
+				tbl[tag] = tagdata[1](tagdata[2], tagdata[3])	-- getfunc(edit ctrl, default str)
+			end
+		end
+	end
+end
+
+-- This calls the function associated with a control
+-- to retrieve its settings
+function GetParamSettings(tbl, groups, id)
+	if type(groups[id][2]) == "function" then
+		groups[id][2](tbl)
+	end
+end
+
+-- table flags
+SVF_SaveCompact         = 2^8
+SVTF_SaveNoImplicitKeys = 2^20
+SVTF_SaveOrdered        = 2^21
+
+-- Get settings from all controls into a table
+function GetAllSettings()
+	local tbl = {}
+	local dt = list_type[list_type.value]
+	
+	tbl.__flags = 0				-- don't want the default SVTF_SaveNoImplicitKeys
+	tbl.LINKID_DataType = dt
+	
+	GetTagSettings(tbl, tbl.LINKID_DataType)
+
+	-- get control-specific parameters
+	tbl.INPID_InputControl   = type_ic_list[dt][type_ic_list[dt].value]
+	tbl.INPID_PreviewControl = type_pc_list[dt][type_pc_list[dt].value]
+
+	if tbl.INPID_InputControl == "None" then
+		tbl.INPID_InputControl = nil
+	else
+		GetTagSettings(tbl, tbl.INPID_InputControl)
+	end
+	
+	if tbl.INPID_PreviewControl == "None " then		-- needs trailing space in "None "
+		tbl.INPID_PreviewControl = nil
+	else
+		GetTagSettings(tbl, tbl.INPID_PreviewControl)
+	end
+
+	if list_page[list_page.value] == "User" then
+		tbl.IC_ControlPage = nil
+	end
+--	if check_anim.value == "OFF" then
+--		tbl.INP_External = false
+--	end
+--	if check_pasv.value == "ON" then
+--		tbl.INP_Passive = true
+--	end
+
+--	if edit_status ~= "" then
+--		tbl.INPS_StatusText = edit_status.value
+--	end
+
+	return tbl
+end
+
+-- Sets up the Types list
+function SetupTypes(groups, list, zbox)
+	local dt, grp
+	local i = 1
+
+	for dt, grp in pairs(groups) do
+		list[i] = dt
+		i = i + 1
+
+		local ctrl = iup.GetNextChild(zbox, nil)
+		while ctrl and ctrl ~= grp[1] do
+			ctrl = iup.GetNextChild(zbox, ctrl)
+		end
+		if ctrl == nil then
+			iup.Append(zbox, grp[1])	-- iup group
+		end
+	end
+end
+
+-- Sets up the Controls lists
+function SetupParams(ctrls, list, zbox)
+	local i, name
+	local n = 1
+
+	for i, name in pairs(ctrls) do
+		list[n] = name
+		n = n + 1
+
+		local grp = iup.GetNextChild(zbox, nil)
+		while grp and grp ~= ctrl_groups[name][1] do
+			grp = iup.GetNextChild(zbox, grp)
+		end
+
+		if grp == nil then							-- not already added?
+			iup.Append(zbox, ctrl_groups[name][1])	-- append iup group to zbox
+		end
+	end
+end
+
+-- Set up tag parameters in the UI
+function SetupTagSettings(attrs, id)
+	local tag, tagdata
+
+	-- setup the ctrl for each tag listed in tag_table[id]
+	if tag_table[id] then
+		for tag, tagdata in pairs(tag_table[id]) do
+			if tagdata[1] == GetBool then
+				tagdata[2].value = SetBool(attrs[tag], tagdata[3])
+			elseif tagdata[1] == GetID then
+				tagdata[2].value = SetID(tagdata[2], attrs[tag], tagdata[3])
+			elseif tagdata[1] == GetTable then
+				SetTable(tagdata[2], attrs, tag)
+			elseif tagdata[1] == GetEnum then
+				tagdata[2].value = SetEnum(attrs[tag], tagdata[3])
+			elseif attrs[tag] then
+				tagdata[2].value = tostring(attrs[tag])
+			elseif tagdata[3] then
+				tagdata[2].value = tagdata[3]	-- use the default
+			else
+				tagdata[2].value = ""
+			end
+		end
+	end
+end
+
+----------------------------------------------------
+-- Dialogue code
+----------------------------------------------------
+
+function ShowDialogue()
+
+	-- InputControl params
+	local grp_empty = iup.fill{};
+
+	local grp_slider = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Center:", size="40x"},
+			edit_centre
+		},
+		iup.hbox
+		{
+			iup.label{title="Steps:", size="40x"},
+			edit_steps
+		},
+	}
+--	local grp_screw  -- use grp_slider
+	local grp_range = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Group:", size="40x"},
+			list_rng_group,
+		},
+		iup.hbox
+		{
+			iup.label{title="ID:", size="40x"},
+			list_rng_groupid
+		}
+	}
+	local grp_check = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Width:", size="40x"},
+			edit_chkwidth,
+		},
+		iup.hbox
+		{
+			iup.fill{size="40x"},
+			check_tristate,
+		}
+	}
+	local grp_button = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Width:", size="40x"},
+			edit_btnwidth,
+		}
+	}
+	local grp_combo = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.vbox
+			{
+				iup.label{title="Items:", size="40x"},
+				btn_ccadd,
+				btn_ccdel,
+				btn_ccup,
+				btn_ccdn
+			},
+			list_combo
+		},
+		iup.hbox
+		{
+			iup.label{title="Label:", size="40x"},
+			list_labelpos,
+		},
+		iup.hbox
+		{
+			iup.label{title="Width:", size="40x"},
+			edit_ccwidth,
+		},
+	}
+	local grp_mbbutton = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.vbox
+			{
+				iup.label{title="Buttons:", size="40x"},
+				btn_mbadd,
+				btn_mbdel,
+				btn_mbup,
+				btn_mbdn
+			},
+			list_multibutton
+		},
+		iup.hbox
+		{
+			check_showbasic,
+			check_showtip
+		},
+		iup.hbox
+		{
+			check_showname,
+			check_stretchfit
+		},
+		iup.hbox
+		{
+			iup.label{title="Size W:", size="40x"},
+			edit_mbbtnwidth, 
+			iup.label{title="H:"},
+			edit_mbbtnheight;
+			gap="4"
+		}
+	}
+
+	local grp_colour = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Group:", size="40x"},
+			list_clr_group,
+		},
+		iup.hbox
+		{
+			iup.label{title="ID:", size="40x"},
+			list_clr_groupid
+		},
+		iup.hbox
+		{
+			iup.label{title="Clr Space:", size="40x"},
+			list_colorspc,
+		},
+		iup.hbox
+		{
+			iup.fill{size="40x"},
+			check_wheel,
+		},
+	}
+
+	local grp_levels = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Group:", size="40x"},
+			list_lev_group,
+		},
+		iup.hbox
+		{
+			iup.label{title="ID:", size="40x"},
+			list_lev_groupid
+		},
+	}
+	local grp_levelsout = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Group:", size="40x"},
+			list_levout_group,
+		},
+		iup.hbox
+		{
+			iup.label{title="ID:", size="40x"},
+			list_levout_groupid
+		},
+	}
+
+	local grp_offset = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="DispScale:", size="40x"},
+			edit_scalex,
+			edit_scaley ;
+			gap = "4";
+		},
+	}
+
+	-- PreviewControl params
+	local grppc_empty = iup.fill{}
+
+	local grp_ang = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Center:", size="40x"},
+			list_ang_center
+		},
+		iup.hbox
+		{
+			iup.label{title="Radius:", size="40x"},
+			list_ang_radius
+		}
+	}
+	local grp_ellipse = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Group:", size="40x"},
+			list_elp_group,
+		},
+		iup.hbox
+		{
+			iup.label{title="ID:", size="40x"},
+			list_elp_groupid
+		},
+		iup.hbox
+		{
+			iup.label{title="Center:", size="40x"},
+			list_elp_center
+		},
+		iup.hbox
+		{
+			iup.label{title="Angle:", size="40x"},
+			list_elp_angle
+		}
+	}
+	local grp_rect = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Group:", size="40x"},
+			list_rct_group,
+		},
+		iup.hbox
+		{
+			iup.label{title="ID:", size="40x"},
+			list_rct_groupid
+		},
+		iup.hbox
+		{
+			iup.label{title="Center:", size="40x"},
+			list_rct_center
+		},
+		iup.hbox
+		{
+			iup.label{title="Angle:", size="40x"},
+			list_rct_angle
+		}
+	}
+	local grp_cross = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Style:", size="40x"},
+			list_style,
+		},
+	}
+	local grp_point = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Line To:", size="40x"},
+			list_pt_prevpt
+		},
+	}
+
+	-- Master tag table
+	tag_table = 
+	{
+		-- types
+		Number = {
+			INP_Default		= { GetNum, num_def, "0" },
+			INP_MinAllowed 	= { GetNum, num_min, "-1000000.0" },
+			INP_MaxAllowed	= { GetNum, num_max, "1000000.0" },
+			INP_MinScale	= { GetNum, num_min_scale, "0.0" },
+			INP_MaxScale	= { GetNum, num_max_scale, "1.0" },
+			INP_Integer		= { GetBool, check_int, "OFF" },
+
+			IC_ControlPage  = { GetEnum, list_page, },
+			INP_External	= { GetBool, check_anim, "ON" },
+			INP_Passive		= { GetBool, check_pasv, "OFF" },
+		},
+		Point = {
+			INP_DefaultX	= { GetNum, pt_def_x, "0.5" },
+			INP_DefaultY	= { GetNum, pt_def_y, "0.5" },
+
+			IC_ControlPage  = { GetEnum, list_page, },
+			INP_External	= { GetBool, check_anim, "ON" },
+			INP_Passive		= { GetBool, check_pasv, "OFF" },
+		},
+		Text = {
+			INPS_DefaultText= { GetText, text_def, "" },
+
+			IC_ControlPage  = { GetEnum, list_page, },
+			INP_External	= { GetBool, check_anim, "ON" },
+			INP_Passive		= { GetBool, check_pasv, "OFF" },
+		},
+
+		-- InputControls
+		SliderControl = {
+			IC_Steps		= { GetNum, edit_steps, "" },
+			ICD_Center		= { GetNum, edit_centre, "" },
+		},
+		ScrewControl = {
+			IC_Steps		= { GetNum, edit_steps, "" },
+			ICD_Center		= { GetNum, edit_centre, "" },
+		},
+		RangeControl = {
+			IC_ControlGroup = { GetNum, list_rng_group, },
+			IC_ControlID 	= { GetEnum, list_rng_groupid, },
+		},
+		CheckboxControl = {
+			ICD_Width 		= { GetNum, edit_chkwidth, "1.0" },
+			CBC_TriState 	= { GetBool, check_tristate, "OFF" },
+		},
+		ButtonControl = {
+			ICD_Width 		= { GetNum, edit_btnwidth, "1.0" },
+		},
+		ComboControl = {
+			CCS_AddString	= { GetTable, list_combo, },
+			CC_LabelPosition= { GetID, list_labelpos, "1" },
+			ICD_Width 		= { GetNum, edit_ccwidth, "1.0" },
+		},
+		MultiButtonControl = {
+			MBTNC_AddButton 	= { GetTable, list_multibutton, },
+			MBTNC_ShowBasicButton={ GetBool, check_showbasic, "ON" },
+			MBTNC_ShowToolTip 	= { GetBool, check_showtip, "ON" },
+			MBTNC_ShowName 		= { GetBool, check_showname, "ON" },
+			MBTNC_ButtonWidth 	= { GetNum, edit_mbbtnwidth, "26.0" },
+			MBTNC_ButtonHeight	= { GetNum, edit_mbbtnheight, "26.0" },
+			MBTNC_StretchToFit	= { GetBool, check_stretchfit, "OFF" },
+		},
+		ColorControl = {
+			IC_ControlGroup = { GetNum, list_clr_group, },
+			IC_ControlID 	= { GetEnum, list_clr_groupid, },
+			CLRC_ColorSpace = { GetEnum, list_colorspc, "0", },
+			CLRC_ShowWheel  = { GetBool, check_wheel, "OFF" },
+		},
+		LevelsControl = {
+			IC_ControlGroup = { GetNum, list_lev_group, },
+			IC_ControlID 	= { GetEnum, list_lev_groupid, },
+		},
+		LevelsOutputControl = {
+			IC_ControlGroup = { GetNum, list_levout_group, },
+			IC_ControlID 	= { GetEnum, list_levout_groupid, },
+		},
+--		ListControl,
+
+		OffsetControl = {
+			OFCD_DisplayXScale = { GetNum, edit_scalex, "1.0" },
+			OFCD_DisplayYScale = { GetNum, edit_scaley, "1.0" },
+		},
+
+--		TextControl,
+--		FileControl,
+--		FontControl,
+
+		-- PreviewControls
+		AngleControl = {
+			ACID_Center 	= { GetID, list_ang_center, },
+			ACID_Radius 	= { GetID, list_ang_radius, },
+		},
+		EllipseControl = {
+			PC_ControlGroup = { GetNum, list_elp_group, },
+			PC_ControlID 	= { GetEnum, list_elp_groupid, },
+			ECID_Center 	= { GetID, list_elp_center, },
+			ECID_Angle 		= { GetID, list_elp_angle, },
+		},
+		RectangleControl = {
+			PC_ControlGroup = { GetNum, list_rct_group, },
+			PC_ControlID 	= { GetEnum, list_rct_groupid, },
+			RCID_Center 	= { GetID, list_rct_center, },
+			RCID_Angle 		= { GetID(list_rct_angle), },
+		},
+
+		CrosshairControl = {
+			CHC_Style 		= { GetEnum, list_style, "0" },
+		},
+		PointControl = {
+			PCID_PrevPoint 	= { GetID, list_pt_prevpt, },
+		},
+
+--		PreviewControlStyledText
+	}
+
+	ctrl_groups = ordered()
+	{
+		None 			= { grp_empty, },
+		["None "]		= { grppc_empty, },		-- trailing space is a hack to differentiate
+
+		SliderControl	= { grp_slider, },
+		ScrewControl	= { grp_slider, },
+		RangeControl	= { grp_range, function() FillGroupList(list_rng_group, "INPI_IC_ControlGroup") FillGroupIDList(list_rng_groupid, {"Low","High"}) end },
+		CheckboxControl = { grp_check, },
+		ButtonControl   = { grp_button, }, 
+		ComboControl 	= { grp_combo, function() FillList(list_labelpos, {"Horizontal", "Vertical"}) end }, 
+		MultiButtonControl = { grp_mbbutton, }, 
+		ColorControl    = { grp_colour, function() FillGroupList(list_clr_group, "INPI_IC_ControlGroup") FillGroupIDList(list_clr_groupid, {"Red","Green","Blue","Alpha","BgRed","BgGreen","BgBlue","BgAlpha","Unclamped Red","Unclamped Green","Unclamped Blue", "Unclamped Alpha", "Z Depth", "U Coord", "V Coord", "Coverage", "Object", "Material", "X Normal", "Y Normal", "Z Normal", "X Vector", "Y Vector", "X Back Vector", "Y Back Vector"}) FillList(list_colorspc, {"HSV", "HLS", "YUV"}) end },
+		LevelsControl   = { grp_levels, function() FillGroupList(list_lev_group, "INPI_IC_ControlGroup") FillGroupIDList(list_lev_groupid, {"Low","Med","High"}) end },
+		LevelsOutputControl = { grp_levelsout, function() FillGroupList(list_levout_group, "INPI_IC_ControlGroup") FillGroupIDList(list_levout_groupid, {"Low","High"}) end },
+
+		OffsetControl 	= { grp_offset, },
+
+		TextControl 	= { grp_empty, },
+		FileControl 	= { grp_empty, },
+		FontControl 	= { grp_empty, },
+
+		AngleControl    = { grp_ang, 	 function() FillInputList(list_ang_center, "Point") FillInputList(list_ang_radius, "Number") end, },
+		EllipseControl  = { grp_ellipse, function() FillGroupList(list_elp_group, "INPI_PC_ControlGroup") FillGroupIDList(list_elp_groupid, {"Width","Height"}) FillInputList(list_elp_center, "Point") FillInputList(list_elp_angle, "Number") end, },
+		RectangleControl= { grp_rect, 	 function() FillGroupList(list_rct_group, "INPI_PC_ControlGroup") FillGroupIDList(list_rct_groupid, {"Width","Height"}) FillInputList(list_rct_center, "Point") FillInputList(list_rct_angle, "Number") end, },
+
+		CrosshairControl= { grp_cross, function() FillList(list_style, {"Normal", "Diagonal", "Rectangle", "Circle" }) end},
+		PointControl    = { grp_point,	 function() FillInputList(list_pt_prevpt, "Point") end, },
+
+--		PreviewControlStyledText = { grp_slider,  nil },
+	}
+
+	type_ic_table =
+	{
+		Number = ordered() { "None", "SliderControl", "ScrewControl", "RangeControl", "CheckboxControl", "ButtonControl", "ComboControl", "MultiButtonControl", "ColorControl", "LevelsControl", "LevelsOutputControl" },
+		Point  = ordered() { "None", "OffsetControl", },
+		Text   = ordered() { "None", "TextControl", "FileControl", "FontControl", },
+	}                                                        
+	type_pc_table =			-- needs trailing space in "None "
+	{
+		Number = ordered() { "None ", "AngleControl", "EllipseControl", "RectangleControl", },
+		Point  = ordered() { "None ", "CrosshairControl", "PointControl", },
+		Text   = ordered() { "None ", },
+	}        
+
+	-- InputControl params zbox
+	zbox_ic = iup.zbox
+	{
+		alignment = "ATOP",
+		value = grp_slider
+	}
+
+	-- Called whenever an IC or PC is selected
+	function SelectParams(groups, zbox, id, selected)
+		if selected == 1 and groups[id] then
+			if groups[id][2] then
+				groups[id][2]()					-- call setup func
+			end
+			zbox.value = groups[id][1]
+		end
+		return iup.DEFAULT
+	end
+	
+	function list_num_ic:action (t, o, sel)
+		return SelectParams(ctrl_groups, zbox_ic, t, sel)
+	end
+	function list_pt_ic:action (t, o, sel)
+		return SelectParams(ctrl_groups, zbox_ic, t, sel)
+	end
+	function list_text_ic:action (t, o, sel)
+		return SelectParams(ctrl_groups, zbox_ic, t, sel)
+	end
+
+	local grp_ic = iup.vbox
+	{
+		iup.frame
+		{
+			zbox_ic ;
+			title = "Input Ctrl Attributes:",
+			size = "140x",
+			gap = "4",
+		}
+	}
+
+	-- PreviewControl params zbox
+	zbox_pc = iup.zbox
+	{
+		alignment = "ATOP",
+		value = grppc_empty
+	}
+
+	function list_num_pc:action (t, o, sel)
+		return SelectParams(ctrl_groups, zbox_pc, t, sel)
+	end
+	function list_pt_pc:action (t, o, sel)
+		return SelectParams(ctrl_groups, zbox_pc, t, sel)
+	end
+	function list_text_pc:action (t, o, sel)
+		return SelectParams(ctrl_groups, zbox_pc, t, sel)
+	end
+
+	local grp_pc = iup.vbox
+	{
+		iup.frame
+		{
+			zbox_pc ;
+			title = "View Ctrl Attributes:",
+			size = "140x",
+			gap = "4",
+		}
+	}
+
+	-- Number params layout
+	local grp_num_def = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Default:", size="40x"},
+			num_def,
+			iup.fill{size="10x"},
+			check_int ;
+		},
+		iup.hbox
+		{
+			iup.label{title="Range:", size="40x"},
+			num_min_scale,
+			iup.label{title="to:"},
+			num_max_scale ;
+			gap="4"
+		},
+		iup.hbox
+		{
+			iup.label{title="Allowed:", size="40x"},
+			num_min,
+			iup.label{title="to:"},
+			num_max ;
+			gap="4"
+		},
+		iup.hbox
+		{
+			iup.label{title="Input Ctrl:", size="40x"},
+			list_num_ic
+		},
+		iup.hbox
+		{
+			iup.label{title="View Ctrl:", size="40x"},
+			list_num_pc
+		}
+	}
+
+	-- Point params layout
+	local grp_pt_def = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Default:", size="40x"},
+			pt_def_x,
+			pt_def_y
+		},
+		iup.hbox
+		{
+			iup.label{title="Input Ctrl:", size="40x"},
+			list_pt_ic
+		},
+		iup.hbox
+		{
+			iup.label{title="View Ctrl:", size="40x"},
+			list_pt_pc
+		}
+	}
+
+	-- Text params layout
+	local grp_text_def = iup.vbox
+	{
+		iup.hbox
+		{
+			iup.label{title="Default:", size="40x"},
+			text_def
+		},
+		iup.hbox
+		{
+			iup.label{title="Input Ctrl:", size="40x"},
+			list_text_ic
+		},
+		iup.hbox
+		{
+			iup.label{title="View Ctrl:", size="40x"},
+			list_text_pc
+		}
+	}
+
+	local grp_fuid_def = iup.vbox{}
+
+	-- Input params layout
+	local grp_inp = iup.vbox
+	{
+		iup.frame
+		{
+			iup.vbox
+			{
+				iup.hbox
+				{
+					iup.label { title = "Name:", size="25x" },
+					edit_name,
+				},
+				iup.hbox
+				{
+					iup.label { title = "ID:", size="25x" },
+					edit_id,
+				},
+				iup.hbox
+				{
+					iup.label { title = "Type:", size="25x" },
+					list_type,
+				},
+				iup.hbox
+				{
+					iup.label { title = "Page:", size="25x" },
+					list_page,
+				},
+				iup.hbox
+				{
+					check_anim,
+					check_pasv
+				},
+			} ;
+			title = "Input Attributes:",
+			gap = "4",
+		}
+	}
+
+	-- Datatype tables
+	type_groups = ordered()
+	{
+		Number = { grp_num_def, },
+		Point  = { grp_pt_def, },
+		Text   = { grp_text_def, },
+--		FuID   = { grp_fuid_def, },
+	}
+	type_ic_list =
+	{
+		Number = list_num_ic, 
+		Point  = list_pt_ic,  
+		Text   = list_text_ic,
+	}
+	type_pc_list =
+	{
+		Number = list_num_pc,
+		Point  = list_pt_pc, 
+		Text   = list_text_pc,
+	}                                                        
+	
+	zbox_type = iup.zbox
+	{
+		alignment = "ATOP",
+		value = grp_num_def
+	}
+
+	function list_type:action (dt, o, selected)
+		if selected == 1 then
+			zbox_type.value = type_groups[dt][1]
+
+			SelectParams(ctrl_groups, zbox_ic, type_ic_list[dt][type_ic_list[dt].value], selected)
+			SelectParams(ctrl_groups, zbox_pc, type_pc_list[dt][type_pc_list[dt].value], selected)
+		end
+		return iup.DEFAULT
+	end
+
+	local grp_type = iup.vbox
+	{
+		iup.frame
+		{
+			zbox_type ;
+			title = "Type Attributes:",
+			gap = "4",
+		}
+	}
+
+	-- The dialogue itself
+	dlg = iup.dialog	-- not local
+	{
+	  iup.vbox
+	  {
+		iup.hbox
+		{
+			grp_inp,
+			grp_type,
+			grp_ic,
+			grp_pc,
+		},
+		iup.hbox
+		{
+			iup.fill{ expand="HORIZONTAL" },
+			btn_ok,
+			btn_cancel ;
+			gap = "5"
+		}
+	  } ;
+	  title = "Add Control",
+	  margin = "2x2"
+	}
+
+	SetupTypes(type_groups, list_type, zbox_type)
+
+	-- Set up control params
+	local dt,i
+	for dt,i in pairs(type_groups) do
+		SetupParams(type_ic_table[dt], type_ic_list[dt], zbox_ic)
+		SetupParams(type_pc_table[dt], type_pc_list[dt], zbox_pc)
+	end
+	
+	iup.SetFocus(edit_name)
+	
+	-- Show it
+	dlg:show()
+	
+	iup:MainLoop()
+end
+
+
+----------------------------------------------------------------
+-- Main
+----------------------------------------------------------------
+
+refresh = false
+
+-- get local list of inputs & attrs, since that's slow
+local inps = tool:GetInputList()
+local key, val
+for key, val in pairs(inps) do
+	local attrs = val:GetAttrs()
+	inp_ids[attrs.INPS_ID] = attrs
+end
+
+-- set up Pages list
+local pages = tool:GetControlPageNames()
+local found = false
+for key, val in pairs(pages) do
+	list_page[key + 1] = val
+	if val == "User" then
+		found = true
+	end
+end
+if not found then
+	for key = 1,20 do
+		if list_page[key] == nil then
+			list_page[key] = "User"
+			break
+		end
+	end
+end
+
+ShowDialogue()
+		
+if refresh then
+	RefreshTool()
+end
+

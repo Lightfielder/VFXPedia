@@ -1,0 +1,996 @@
+-- NOTE:  string.find is unable to understand any string with the pattern (letterletter"-"letter).  Must remove to compare
+--			This script is run from within Fusion.
+--			All print functions removed so that this tool can be run from utilities
+
+
+--  Log Manager
+
+--  Required Actions:
+--  1.  Splash screen - select which tool
+
+--  Split Logs
+--  2.  file browser - select the file
+--  3.  open the source file
+--  4.  look for first occurance of date format = ../.../.. (ignore entries before not in format)
+--  5.  set current date 
+--  6.  open source file
+--  7.  write all text into file until next date is found
+--  8.  next date found, close target file
+--  9.  repeat 5 through 9 until end of file
+-- 10.  close source file
+-- 11.  end tool OR if delete logs is selected, delete source file
+-- 12.  rename last target to source file
+-- 13.  end tool
+
+--  Log Analyzer
+-- 14.  file browser - select the file
+-- 15.  open the source file
+-- 16.  parse file  -  build jobList table and machineList table
+-- 17.  if unexpected entry try reverse look up with machineList else unexpectedLogEntry
+-- 18.  display entries - verbose, errors, general
+-- 19.  if Printable Logs
+-- 20.  open target file
+-- 21.  add general info, errors, verbose
+-- 22.  close target file
+
+
+--  Data Structures:
+--  jobList{ job, requester, start time, end time, render time, {machine Table}, {error Table}, {verbose Table} }
+--  machineList{machine, job}  -- reverse look up
+
+
+
+--print("****************************************************************************************************\n")
+--						DEBUG  TOOLS
+
+--theTool = a tool
+function showInputs(theTool)
+	inputList=theTool:GetInputList()
+	count=table.getn(inputList)
+	for i=1, count do
+		print(i.."  "..inputList[i]:GetAttrs().INPS_Name.."  "..inputList[i]:GetAttrs().INPS_ID)
+	end
+end
+
+
+function showAttributes(theTool)
+	table.foreach(theTool:GetAttrs(),print)
+end
+
+
+function showAttributesFull(theTool)  -- shows all attributes of the tool
+	theAttrs=theTool:GetAttrs()
+	for iterator, key in pairs(theAttrs) do
+		if(type(key)=="table") then
+			print(iterator)
+			print("****************************")
+			dump(key)
+			print("****************************")
+		else
+			print(iterator.."\t"..tostring(key))
+		end
+	end
+end
+
+
+function showAttributeValue(theTool, attrName)  -- shows the value of a specific attribute
+	consoleString = attrName.." does not exist."
+	attrList = theTool:GetAttrs()
+	print(theTool:GetAttrs()[6])
+	print(theTool:GetAttrs().TOOLI_ImageWidth)
+	dump(attrList)
+	count = table.getn(attrList)
+	print (count)
+	for i = 1, count do
+	print(attrList[i])
+		if attrList[i] == attrName then
+			consoleString = tostring(attrName) .." is "..attrList[i]
+		end
+	end
+	print(consoleString)
+end
+
+
+function printJobVerbose()
+	for i=1, table.getn(jobList) do
+		print(jobList[i].job)
+		for j=1, table.getn(jobList[i].verbose) do
+			print("\t"..jobList[i].verbose[j])
+		end
+		print("\n")
+	end
+	return
+end
+
+
+function printJobList(isVerbose) -- true prints out all elements of the table
+	if isVerbose then
+		for i=1, table.getn(jobList) do
+			print(jobList[i].job)
+			print("\tRequested:\t"..jobList[i].requester)
+			print("\tSTATUS:\t"..jobList[i].status)
+			print("\tStart Time:\t"..jobList[i].start)
+			print("\tEnd Time:\t"..jobList[i].ending)
+			print("\tRender Time:\t"..jobList[i].total)
+			print("\tMachines Assigned:")
+			for j=1, table.getn(jobList[i].machines) do
+				print("\t\t"..jobList[i].machines[j])
+			end
+
+			print("\n")
+		end
+	else
+		for i=1, table.getn(jobList) do
+			print(jobList[i].job)
+		end
+	end
+	return
+end
+
+
+--						DEBUG  TOOLS
+--****************************************************************************************************
+--						SCRIPT  TOOLS
+
+-- returns all characters before or after specified delimitor
+function stripPath(thePath, theDelimitor, path) -- path is a boolean if true return all before
+-- find the last \ in the path
+	for i=string.len(thePath), 1, -1 do
+		if string.byte(thePath, i) == string.byte(theDelimitor,1) then
+			if path then
+				return(string.sub(thePath,1,i)) --return the path
+			else
+				return(string.sub(thePath,i+1))  --return the file
+			end
+		end
+	end
+	return(false)
+end
+
+
+-- creates a job structure
+function createTableStructure(tableString)
+	--break up the string into useable components
+	startName = string.find(tableString,"\"")
+	endName = string.find(tableString,"\"", startName+1)
+	jobName = string.sub(tableString, startName+1, endName-1)
+	theRequest = string.sub(tableString, string.find(tableString," queued by ")+11)
+	startTime  = string.sub(tableString, 1, 19)
+	endTime = "incomplete"
+	renderTime = "incomplete"
+	renderStatus = "incomplete"
+	theMachines = {}
+	theErrors = {}
+	theVerbose = {}
+	returnTable = {job=jobName, requester=theRequest, start=startTime, ending=endTime, total=renderTime, status=renderStatus,  machines=theMachines, errors=theErrors, verbose=theVerbose}
+	return(returnTable)
+end
+
+
+-- find job related to machine
+function jobForMachine(aString)
+	for i=1, table.getn(machineLookUp) do
+		if string.find(aString, machineLookUp[i].machine)~=nil then
+			return(machineLookUp[i].job)
+		end
+	end
+	return("UNKNOWN")
+end
+
+
+-- update machine with current job
+function updateMachineLookUp(aMachine, aJob)
+	for i=1,table.getn(machineLookUp) do
+		if aMachine == machineLookUp[i].machine then
+			machineLookUp[i].job=aJob
+			return
+		end
+	end
+	newListing = {machine=aMachine, job=aJob}
+	table.insert(machineLookUp, newListing)
+	return
+end
+
+
+-- parse string for machine
+function setMachineToJob(currentString)
+	theJob = string.sub(currentString, string.find(currentString," assigned to ")+13)
+	theMachine = string.sub(currentString, string.find(currentString,"- ")+2, string.find(currentString," assigned to "))
+	for i=1, table.getn(jobList) do
+		if theJob == jobList[i].job then
+			if (jobList[i].total == "incomplete") then
+				table.insert(jobList[i].verbose, currentString)  -- verbose entry
+				for j=1, table.getn(jobList[i].machines) do
+					if jobList[i].machines[j] == theMachine then
+						updateMachineLookUp(theMachine, theJob)
+						return -- already in list
+					end
+				end
+				table.insert(jobList[i].machines, theMachine)
+				updateMachineLookUp(theMachine, theJob)
+				return  -- new machine found for job
+			end
+		end
+	end
+-- no job assiociate for this machine.  Create a new job.
+	foundJob = {job=theJob, requester="UNKOWN", start="UNKNOWN", ending="incomplete", total="incomplete", status="incomplete",  machines={}, errors={}, verbose={}}
+	table.insert(jobList,foundJob)
+	table.insert(jobList[table.getn(jobList)].machines, theMachine)
+	table.insert(jobList[table.getn(jobList)].verbose, currentString)  -- insert at the location just created
+	updateMachineLookUp(theMachine, theJob)
+	return
+end
+
+
+-- parse string for render status
+function setRenderStatus(currentString)
+	theJob = string.sub(currentString, string.find(currentString,"All frames of ")+14, string.find(currentString,"rendered ")-2)
+	for i=1, table.getn(jobList) do
+		if theJob == jobList[i].job then
+			if jobList[i].status == "incomplete" then
+				jobList[i].ending = string.sub(currentString, 1, 19)
+				jobList[i].status = string.sub(currentString, string.find(currentString,"rendered ")+9)
+				table.insert(jobList[i].verbose, currentString)
+				return
+			end
+		end
+	end
+-- no job assiociate for this machine.  Create a new job.
+	foundJob = {job=theJob, requester="UNKOWN", start="UNKNOWN", ending="incomplete", total="incomplete", status=string.sub(currentString, string.find(currentString,"rendered ")+9),  machines={}, errors={}, verbose={}}
+	table.insert(jobList,foundJob)
+	table.insert(jobList[table.getn(jobList)].machines, theMachine)
+	table.insert(jobList[table.getn(jobList)].verbose, currentString)  -- insert at the location just created
+	return
+end
+
+
+-- parse string for total render time
+function setRenderTime(currentString)
+	theJob = string.sub(currentString, 21, string.find(currentString,"rendered ")-3)
+	for i=1, table.getn(jobList) do
+		if theJob == jobList[i].job then
+			if jobList[i].ending ~= "incomplete" then
+				jobList[i].total = string.sub(currentString, string.find(currentString,"rendered ")+9)
+				table.insert(jobList[i].verbose, currentString)
+				return
+			end
+		end
+	end
+-- no job assiociate for this machine.  Create a new job.
+	foundJob = {job=theJob, requester="UNKOWN", start="UNKNOWN", ending="UNKNOWN", total=string.sub(currentString, string.find(currentString,"rendered ")+9), status="UNKOWN",  machines={}, errors={}, verbose={}}
+	table.insert(jobList,foundJob)
+	table.insert(jobList[table.getn(jobList)].machines, theMachine)
+	table.insert(jobList[table.getn(jobList)].verbose, currentString)  -- insert at the location just created
+	return
+end
+
+
+-- verify file exists
+function validateFile(aFile)
+	if fileexists(aFile) then
+		return(true)
+	else
+		return(false)
+	end
+end
+
+
+--  Set data for data miner
+function prepareDataMinerData()
+	foundDate = false -- variable used to break out of loop when no more entries found.
+	sourceFile = io.open(theFile,"r")
+	if sourceFile==nil then
+		txtInforBox.value="Failed to open file."
+	else
+		io.input(sourceFile)
+-- 4.  Look for default date and begin working with those entries
+		readString = "start string" -- create instance of readString
+		while (readString) do
+			readString=io.read("*l")
+			-- verify that read line is in proper format.  Look for date at beginning
+			if(readString==nil) then
+				break
+			end
+			if (string.find(string.sub(readString, 1, 10), "../.../..")~=nil) then
+				if (string.find(readString, defaultDate)) then  -- found required date
+					foundDate = true
+					if (string.find(readString, " queued by ")) then	-- new job
+						table.insert(jobList,createTableStructure(readString))
+						table.insert(jobList[table.getn(jobList)].verbose, readString)  -- insert at the location just created
+					elseif (string.find(readString, " assigned to ")) then	-- machine assigned to job
+						setMachineToJob(readString)
+					elseif (string.find(readString, "All frames of")) then	-- job render status
+						setRenderStatus(readString)
+					elseif (string.find(readString, "rendered ")) then	-- job total render time
+						setRenderTime(readString)
+					elseif (string.find(readString, "has been reassigned")) then	-- machine re-assigned
+						theJob=jobForMachine(readString)
+						if theJob~=""then
+							for i=1, table.getn(jobList) do
+								tempString=theJob  -- required because of error encounter with "-" in strings
+								tempJob=jobList[i].job --required because of error encounter with "-" in strings
+								if(tempString==tempJob) then
+									table.insert(jobList[i].verbose, readString)
+									break
+								end
+							end
+						else -- not available in the reverse look up, unexpected log entry
+							table.insert(unexpectedLogEntry, readString)
+						end
+					else  -- catch all for verbose logs
+						noJobAssociation = true  
+						for i=1, table.getn(jobList) do  -- Does the string have a job embedded?
+							tempString=readString  -- required because of error encounter with "-" in strings
+							tempJob=jobList[i].job --required because of error encounter with "-" in strings
+							if (string.find(string.gsub(tempString,"-","X"), string.gsub(tempJob,"-","X"))) then
+								table.insert(jobList[i].verbose, readString)
+								noJobAssociation = false
+								break
+							end
+						end
+						if noJobAssociation then  -- no job, reverse look up
+							theJob=jobForMachine(readString)
+							if theJob~=""then
+								for i=1, table.getn(jobList) do
+									tempString=theJob  -- required because of error encounter with "-" in strings
+									tempJob=jobList[i].job --required because of error encounter with "-" in strings
+									if(tempString==tempJob) then
+										table.insert(jobList[i].errors, readString)
+										table.insert(jobList[i].verbose, readString)
+										break
+									end
+								end
+							else -- not available in the reverse look up, unexpected log entry
+								table.insert(unexpectedLogEntry, readString)
+							end
+						end
+					end
+-- Too many imperfections in the log file to be able to break out of loop
+				else
+					if foundDate then  -- no more entries for specified date, break out
+						break
+					end
+				end
+			else -- does not have the expected date format, corrupted entry
+				if (readString ~= "") then -- remove blank lines
+					table.insert(unexpectedLogEntry, readString)
+				end
+			end
+		end
+		io.close(sourceFile)
+		txtInfoBox.value="File closed"
+	end
+	return(foundDate)
+end
+
+
+-- create daily logs
+function prepareLogs()
+	foundDate = false
+	sourceFile = io.open(theFile,"r")
+	if sourceFile==nil then
+		txtManagerInfoBox.value = "Failed to open file."
+		iup.Flush()
+--		print("Failed to open file.")
+	else
+		io.input(sourceFile)
+-- 4.  Look for default date and begin working with those entries
+		readString = "start string" -- create instance of readString
+		while (readString) do
+			readString=io.read("*l")
+			-- verify that read line is in proper format.  Look for date at beginning
+			if(readString==nil) then
+				break
+			end
+			if (string.find(string.sub(readString, 1, 10), "../.../..")~=nil) then  -- look for the first date
+				foundDate=true
+				currentDate=string.sub(readString, 1, 10)
+				break
+			end
+		end
+		while (readString) do
+			aLogFile=stripPath(theFile,"\\",true)..string.gsub(currentDate,"/","-").."Render.log"
+			txtManagerInfoBox.value = "Building "..stripPath(aLogFile,"\\",false)
+			iup.Flush();
+			targetFile = io.open(aLogFile,"w")
+			io.output(targetFile)
+			io.write(readString.."\n")
+			while (readString) do
+				readString=io.read("*l")
+				if(readString==nil) then
+					break
+				end
+				if (string.find(string.sub(readString, 1, 10), "../.../..")~=nil) then
+					checkDate=string.sub(readString, 1, 10)
+					if checkDate == currentDate then
+						io.write(readString.."\n")
+					else
+						currentDate=checkDate
+						break
+					end
+				else
+					io.write(readString.."\n")  -- if no date in the string write it in todays log
+				end
+			end
+			io.close(targetFile)
+		end
+	end
+	io.close(sourceFile)
+	return foundDate
+end
+
+
+-- create the displayed listing
+function generateMinerJobList()
+	showJobs = {}
+	for i=1, table.getn(jobList) do
+		if jobList[i].start~="UNKNOWN" then
+			startString=string.sub(jobList[i].start,11)
+		else
+			startString=jobList[i].start
+		end
+		showJobs[i] = startString.."   "..stripPath(jobList[i].job,"\\", false)
+	end
+	populateListBox(listJobs, showJobs)
+end
+
+
+--  populate the logs into the viewable area based on selected radio button
+function populateViewArea(whichJob)
+	if whichJob == 0 then  -- nothing selected, show first entry
+		whichJob = 1
+	end
+	if rdbtnGeneral.value=="ON" then
+		txtShowArea.value = ""
+		txtShowArea.APPEND=jobList[whichJob].job
+		txtShowArea.APPEND="Requester:\t"..jobList[whichJob].requester
+		txtShowArea.APPEND=""
+		txtShowArea.APPEND="Render Status:\t"..jobList[whichJob].status
+		txtShowArea.APPEND="Start Time:\t"..jobList[whichJob].start
+		txtShowArea.APPEND="End Time:\t\t"..jobList[whichJob].ending
+		txtShowArea.APPEND="Render Time:\t"..jobList[whichJob].total
+		txtShowArea.APPEND=""
+		txtShowArea.APPEND="Machines Assigned:"
+		for i=1, table.getn(jobList[whichJob].machines) do
+			txtShowArea.APPEND=jobList[whichJob].machines[i]
+		end
+	elseif rdbtnVerbose.value=="ON" then
+		txtShowArea.value = ""
+		for i=1, table.getn(jobList[whichJob].verbose) do
+			txtShowArea.APPEND=jobList[whichJob].verbose[i]
+		end
+	elseif rdbtnErrors.value=="ON" then
+		txtShowArea.value = ""
+		for i=1, table.getn(jobList[whichJob].errors) do
+			txtShowArea.APPEND=jobList[whichJob].errors[i]
+		end
+	end
+	iup.Flush()
+end
+
+
+-- populate list box (fresh populate)
+function populateListBox(theListBox, theDataTable)
+	for i=1, table.getn(theDataTable) do
+		theListBox[tostring(i)]=theDataTable[i]
+	end
+end
+
+
+-- populate list box (fresh populate)
+function clearListBox(theListBox)
+	counter = 1
+	while theListBox[counter]~=nil do
+		theListBox[counter]=nil
+		counter=counter+1
+	end
+	iup.Flush()
+end
+
+
+-- find all dates for user selection
+function findDates(aFile)
+	allDates = {}
+	foundDate = false
+	sourceFile = io.open(aFile,"r")
+	if sourceFile==nil then
+		txtInfoBox.value = "Failed to open file."
+		iup.Flush()
+	else
+		io.input(sourceFile)
+		readString = "start string" -- create instance of readString
+		txtInfoBox.value = "Searching for first date."
+		iup.Flush()
+		while (readString) do
+			readString=io.read("*l")
+			-- verify that read line is in proper format.  Look for date at beginning
+			if(readString==nil) then
+				break
+			end
+			if (string.find(string.sub(readString, 1, 10), "../.../..")~=nil) then  -- look for the first date
+				foundDate=true
+				currentDate=string.sub(readString, 1, 10)
+				table.insert(allDates, currentDate)
+				txtInfoBox.value = "First available date:  "..currentDate
+				iup.Flush()
+				break
+			end
+		end
+		while (readString) do
+			readString=io.read("*l")
+			if(readString==nil) then
+				break
+			end
+			if (string.find(string.sub(readString, 1, 10), "../.../..")~=nil) then
+				checkDate=string.sub(readString, 1, 10)
+				if checkDate ~= currentDate then
+					currentDate=checkDate
+					txtInfoBox.value = "Loading available date:  "..currentDate
+					iup.Flush()
+					table.insert(allDates, currentDate)
+				end
+			end
+		end
+	end
+	io.close(sourceFile)
+	txtInfoBox.value = "Select a date from the dropdown listbox."
+	iup.Flush()
+	return allDates
+end
+
+
+-- File and Date Selection GUI
+function fileSelector()
+	iup.SetLanguage("ENGLISH")
+	f, err = iup.GetFile("*.log")
+
+	if err == 0 then 
+		return (f)	    
+	elseif err == -1 then 
+		return(false)
+	end
+end
+
+
+--						SCRIPT  TOOLS
+--****************************************************************************************************
+--						GUI  TOOLS
+
+GREEN = "0 200 00"
+RED = "200 0 0"
+DARKGRAY = "50 50 50"
+LIGHTGRAY = "200 200 200"
+
+--************************  SPLASH screen and PROGRAM SELECTOR  *********************************
+btnLogManager = iup.button{title = "Split Render Log", size = "100"}
+btnLogMiner = iup.button{title = "Log Analyzer", size = "100"}
+btnCancelProgramSelect = iup.button{title = "Cancel", size = "60"}
+
+
+function buildSplash()
+	vboxLoad = iup.vbox{
+		iup.label{title = "  Script:\t\t\tLog Manager\n  Version:\t\t1.0\n  Written:\t\tBrian Sinasac\n  Date:\t\t\tDecember 13, 2006\n  Requested by:\t\tEric Westphal, eyeon Software", SIZE = 280},
+		iup.fill{},
+		iup.label{title = "  Running the Split Render Log tool will save the Render Manager render log as"},
+		iup.label{title = "  managable daily logs."},
+		iup.fill{},
+		iup.label{title = "  Running the Log Analyzer tool will display the log entries of the specified"},
+		iup.label{title = "  date, based on jobs submitted to the Render Manager."},
+		iup.fill{},
+		iup.hbox{
+			iup.fill{}, btnLogManager, btnLogMiner, btnCancelProgramSelect, GAP= "10", MARGIN = "0"
+		}
+	}
+
+	dlg_programSelect=iup.dialog{
+		vboxLoad
+		;title="Log Manager and Data Miner", menu=mnu, SIZE="350x150", BGCOLOR=DARKGRAY, FGCOLOR = LIGHTGRAY, TOPMOST = "NO", FONT = "ARIAL::", RESIZE = "NO", MAXBOX = "NO", MARGIN = "10x10"
+	}
+	showSplash()
+end
+
+function showSplash()
+	dlg_programSelect:showxy(iup.CENTER, iup.CENTER)
+	iup.MainLoop()
+end
+
+
+function btnLogMiner:action()
+	iup.Hide(dlg_programSelect)
+	buildDateFile()
+	if not actionCancelled then
+		buildDataMiner()
+	end
+end
+
+
+function btnLogManager:action()
+	iup.Hide(dlg_programSelect)
+	buildManager()
+	if not actionCancelled then
+		buildDataMiner()
+	end
+end
+
+
+function btnCancelProgramSelect:action()
+	actionCancelled = true
+	iup.Hide(dlg_programSelect)
+end
+
+
+--************************  LOG MANAGER  *********************************
+-- LOG MANAGER GUI Definition
+txtManagerName = iup.text{SIZE = "210", READONLY = "YES"}
+txtManagerInfoBox = iup.text{SIZE = "275", READONLY = "YES", FGCOLOR = GREEN}
+
+rdbtnDeleteOldLogs = iup.toggle{title = "Remove old log entries"}
+
+btnParseLogs = iup.button{title = "Create Logs", size = "100"}
+btnCancelManager = iup.button{title = "Done", size = "60"}
+btnLoadOther = iup.button{title = "New File", size = "60"}
+
+
+function buildManager()
+	vboxLoad = iup.vbox{
+		iup.label{title = "Selected file"},
+		iup.hbox{
+			txtManagerName, btnLoadOther, GAP= "10", MARGIN = "0"
+		},
+		iup.fill{},
+		iup.hbox{
+			rdbtnDeleteOldLogs, btnParseLogs, btnCancelManager, GAP= "10", MARGIN = "0"
+		},
+		iup.fill{},
+		txtManagerInfoBox
+	}
+	dlg_logManager=iup.dialog{
+		vboxLoad
+		;title="Log Manager - Split Log Tool", menu=mnu, SIZE="290x70", BGCOLOR=DARKGRAY, FGCOLOR = LIGHTGRAY, TOPMOST = "NO", FONT = "ARIAL::", RESIZE = "NO", MAXBOX = "NO", MARGIN = "10x10"
+	}
+	txtManagerName.value=fileSelector()
+	theFile=txtManagerName.value
+	if theFile then
+		showManager()
+	else
+		actionCancelled = true
+	end
+end
+
+
+function showManager()
+	dlg_logManager:showxy(iup.CENTER, iup.CENTER)
+	iup.MainLoop()
+end
+
+
+function btnParseLogs:action()
+	if txtManagerName.value == "" then
+		txtManagerInfoBox.value = "WARNING!  You must enter a valid file name."
+		return
+	else
+		txtManagerInfoBox.value = "Opening the file."
+		iup.Flush()
+		theFile =string.gsub(txtManagerName.value, "\\", "\\\\")
+		if validateFile(theFile) then
+-- prepare data for DATA MINE GUI
+			txtManagerInfoBox.value = "Building daily logs.  This may take a moment."
+			iup.Flush()  -- update gui before continuing
+			if not prepareLogs() then
+				txtManagerInfoBox.value = "Specified file does not contain the proper data."
+				iup.Flush()
+				return
+			else
+-- rename the last file created as Render.log
+				txtManagerInfoBox.value = "Logs created."
+				if rdbtnDeleteOldLogs.value == "ON" then
+					if not os.remove(theFile) then
+						txtManagerInfoBox.value = errormsg
+					end
+					if not os.rename(aLogFile,theFile) then
+						txtManagerInfoBox.value = errormsg
+					end
+				end
+				iup.Flush()
+				return
+			end
+		else
+			txtManagerInfoBox.value = "WARNING!  The selected file does not exist."
+			return
+		end
+	end
+end
+
+
+function btnCancelManager:action()
+	actionCancelled = true
+	iup.Hide(dlg_logManager)
+end
+
+
+function btnLoadOther:action()
+	iup.Hide(dlg_logManager)
+	txtManagerName.value=fileSelector()
+	theFile = txtManagerName.value
+	if theFile then
+		showManager()
+	else
+		actionCancelled = true
+	end
+end
+
+
+function rdbtnDeleteOldLogs:action(state)
+	if state==1 then  -- state 1 is on, state 0 is off
+		iup.Message("Remove Entries", "All entries except the latest date in the log file will removed!")
+	end
+end
+
+--************************  DATA MINER  *********************************
+-- SELECTION GUI Definition
+txtFileName = iup.text{SIZE = "210", READONLY="YES"}
+txtInfoBox = iup.text{SIZE = "275", READONLY = "YES", FGCOLOR = GREEN}
+
+listDay = iup.list{size = "275", dropdown="YES", visible_items=3}
+
+btnDateLoad = iup.button{title = "Load", size = "60"}
+btnCancelLoad = iup.button{title = "Cancel", size = "60"}
+btnFileLoad = iup.button{title = "New File", size = "60"}
+
+
+
+-- DateFile allows user to select the date to view
+function buildDateFile(startFile)
+-- generate the GUI
+	vboxLoad = iup.vbox{
+		iup.label{title = "File Name"},
+		iup.hbox{
+			txtFileName, btnFileLoad, GAP= "10", MARGIN = "0"
+		},
+--		iup.fill{size="5"},
+		iup.label{title = "Select a Date"},
+		listDay,
+		iup.hbox{
+			iup.fill{},
+			iup.hbox{btnDateLoad, btnCancelLoad, GAP= "10", MARGIN = "0"}
+		},
+		txtInfoBox
+	}
+	dlg_dateSelect=iup.dialog{
+		vboxLoad
+		;title="Date and File Selection", menu=mnu, SIZE="300x100", BGCOLOR=DARKGRAY, FGCOLOR = LIGHTGRAY, TOPMOST = "NO", FONT = "ARIAL::", RESIZE = "NO", MAXBOX = "NO", MARGIN = "10x10"
+	}
+	txtFileName.value=fileSelector()
+	theFile = txtFileName.value
+	if txtFileName.value then
+		showDateFile()
+	else
+		actionCancelled = true
+	end
+end
+
+
+function showDateFile()
+	dlg_dateSelect:showxy(iup.CENTER, iup.CENTER)
+	tableAvailableDates = findDates(theFile)
+	populateListBox(listDay, tableAvailableDates)
+	iup.MainLoop()
+end
+
+
+function btnCancelLoad:action()
+	actionCancelled = true
+	iup.Hide(dlg_dateSelect)
+end
+
+function btnFileLoad:action()
+	iup.Hide(dlg_dateSelect)
+	clearListBox(listDay)
+	txtFileName.value=fileSelector()
+	theFile = txtFileName.value
+	if txtFileName.value then
+		showDateFile()
+	else
+		actionCancelled = true
+	end
+end
+
+function btnDateLoad:action()
+	if txtFileName.value == "" then
+		txtInfoBox.value = "WARNING!  You must enter a valid file name."
+		return
+	else
+		theFile =string.gsub(txtFileName.value, "\\", "\\\\")
+		defaultDate = tableAvailableDates[tonumber(listDay.value)]
+		if validateFile(theFile) then
+-- prepare data for DATA MINE GUI
+			txtInfoBox.value = "Collecting Data.  This may take a moment."
+			iup.Flush()  -- update gui before continuing
+			if not prepareDataMinerData() then
+				txtInfoBox.value = "Selected date lies outside of file range."
+				iup.Flush()
+				return
+			end
+			iup.Hide(dlg_dateSelect)
+		else
+			txtInfoBox.value = "WARNING!  The selected file does not exist."
+			return
+		end
+	end
+end
+
+
+--  DATA MINER GUI Definition
+listJobs = iup.list{size = "200x195"}
+txtShowArea = iup.multiline{SIZE="500x195"}
+txtMinerInfoBox = iup.text{SIZE = "705", READONLY = "YES", FGCOLOR = GREEN}
+
+btnPrint = iup.button{title = "Printable Logs", size = "200"}
+btnNewDateFile = iup.button{title = "Reload", size = "60"}
+btnDone = iup.button{title = "Done", size = "60"}
+
+rdbtnGeneral = iup.toggle{title="General"}
+rdbtnErrors = iup.toggle{title="Errors"}
+rdbtnVerbose = iup.toggle{title="Verbose"}
+
+
+-- generate the Data miner GUI
+function buildDataMiner()
+	vboxMiner = iup.vbox{
+		iup.hbox{
+			iup.label{title = "Start Time          Job Name", MARGIN = "0"},
+			iup.fill{},
+			iup.radio{
+				iup.hbox{rdbtnGeneral, rdbtnErrors, rdbtnVerbose, GAP= "10", MARGIN = "0"},
+				value = rdbtnGeneral
+			},
+		GAP= "10", MARGIN = "0"},
+		iup.hbox{
+			listJobs, txtShowArea, GAP= "10", MARGIN = "0"
+		},
+		iup.fill{},
+		iup.hbox{
+			btnPrint, iup.fill{}, btnNewDateFile, btnDone, GAP= "10", MARGIN = "0"
+		},
+		iup.fill{},
+		txtMinerInfoBox
+	}
+	dlg_Miner=iup.dialog{
+		vboxMiner
+		;title="Log Manager - Log Analyzer", menu=mnu, SIZE="720x260", BGCOLOR=DARKGRAY, FGCOLOR = LIGHTGRAY, TOPMOST = "NO", FONT = "ARIAL::", RESIZE = "NO", MAXBOX = "NO", MARGIN = "10x10"
+	}
+	showDataMiner()
+end
+
+
+function showDataMiner()
+	generateMinerJobList()
+	populateViewArea(1)
+	txtMinerInfoBox.value="Loaded entries for:  "..defaultDate
+	dlg_Miner:showxy(iup.CENTER, iup.CENTER)
+	iup.MainLoop()
+end
+
+
+function btnDone:action()
+	iup.Hide(dlg_Miner)
+end
+
+
+function btnPrint:action()
+--  create printable logs for that day
+	newLogFile = stripPath(theFile, "\\", true)..string.gsub(defaultDate,"/","-").."Manager.log"
+	targetFile = io.open(newLogFile,"w")
+	if targetFile==nil then
+		txtMinerInfoBox.value = "Failed to create new daily log file."
+		iup.Flush()
+	else
+		io.output(targetFile)
+		io.write("****************************************************************************\n")
+		for i=1, table.getn(jobList) do
+			io.write("JOB:\t\t"..jobList[i].job.."\n")
+			io.write("REQUESTER:\t"..jobList[i].requester.."\n")
+			io.write("STATUS:\t"..jobList[i].status.."\n")
+			io.write("START TIME:\t"..jobList[i].start.."\n")
+			io.write("END TIME:\t"..jobList[i].ending.."\n")
+			io.write("RENDER TIME:\t"..jobList[i].total.."\n")
+			io.write("\n")
+			io.write("MACHINES:\n")
+			for j=1, table.getn(jobList[i].machines) do
+				io.write(jobList[i].machines[j].."\n")
+			end
+			io.write("\n")
+			io.write("ERRORS:\n")
+			for j=1, table.getn(jobList[i].errors) do
+				io.write(jobList[i].errors[j].."\n")
+			end
+			io.write("\n")
+			io.write("VERBOSE:\n")
+			for j=1, table.getn(jobList[i].verbose) do
+				io.write(jobList[i].verbose[j].."\n")
+			end
+			io.write("****************************************************************************\n")
+		end
+		if table.getn(unexpectedLogEntry)>0 then
+			io.write("UNEXPECTED OR CORRUPTED LOG ENTRIES:\n")
+			for j=1, table.getn(unexpectedLogEntry) do
+				io.write(unexpectedLogEntry[j].."\n")
+			end
+		end
+		io.close(targetFile)
+		txtMinerInfoBox.value = "File created:  "..stripPath(newLogFile, "\\", false)
+		iup.Flush()
+	end
+
+end
+
+
+function btnNewDateFile:action()
+	iup.Hide(dlg_Miner)
+	jobList = {} -- clear the old job List
+	unexpectedLogEntry = {}  -- clear old unexpected log entry
+	machineLookUp = {}  -- clear old machines
+	
+	txtInfoBox.value = "New File Selection"
+	dlg_dateSelect:showxy(iup.CENTER, iup.CENTER)
+	iup.MainLoop()
+	if not actionCancelled then
+		clearListBox(listJobs)
+		showDataMiner()
+	else
+--		print("Script cancelled.")
+	end
+end
+
+
+function rdbtnGeneral:action(state)
+	if state==1 then  -- state 1 is on, state 0 is off
+		populateViewArea(tonumber(listJobs.value))
+	end
+end
+
+
+function rdbtnVerbose:action(state)
+	if state==1 then  -- state 1 is on, state 0 is off
+		populateViewArea(tonumber(listJobs.value))
+	end
+end
+
+
+function rdbtnErrors:action(state)
+	if state==1 then  -- state 1 is on, state 0 is off
+		populateViewArea(tonumber(listJobs.value))
+	end
+end
+
+
+function listJobs:action(character, integer, state)
+	if state==1 then  -- state 1 is on, state 0 is off
+		populateViewArea(tonumber(listJobs.value))
+	end
+end
+
+--						GUI  TOOLS
+--****************************************************************************************************
+
+--  required variables
+jobList = {}  -- create a list of all the jobs available
+unexpectedLogEntry = {}  -- maintains list of unexpected log entries
+machineLookUp = {}  -- many entries associated with machine rather than job.  Relate machine to job.
+
+actionCancelled = false
+
+--  temp testing data
+defaultDate = "01/Dec/00"
+defaultPath = "D:"
+defaultFile = "Render.log"
+theFile = defaultPath..defaultFile
+--  temp testing data
+
+-- Create and populate the LOAD GUI
+buildSplash()
+
+
+
+
+

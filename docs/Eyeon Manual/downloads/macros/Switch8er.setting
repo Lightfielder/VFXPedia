@@ -1,0 +1,220 @@
+{
+	Tools = ordered() {
+		Switch8er1 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "_Switcher1",
+					Source = "Background",
+					Name = "Layer0",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "_Switcher1",
+					Source = "Foreground",
+					Name = "Layer1",
+				},
+				MainInput3 = InstanceInput {
+					SourceOp = "_Switcher2",
+					Source = "Background",
+					Name = "Layer2",
+				},
+				MainInput4 = InstanceInput {
+					SourceOp = "_Switcher2",
+					Source = "Foreground",
+					Name = "Layer3",
+				},
+				MainInput5 = InstanceInput {
+					SourceOp = "_Switcher3",
+					Source = "Background",
+					Name = "Layer4",
+				},
+				MainInput6 = InstanceInput {
+					SourceOp = "_Switcher3",
+					Source = "Foreground",
+					Name = "Layer5",
+				},
+				MainInput7 = InstanceInput {
+					SourceOp = "_Switcher4",
+					Source = "Background",
+					Name = "Layer6",
+				},
+				MainInput8 = InstanceInput {
+					SourceOp = "_Switcher4",
+					Source = "Foreground",
+					Name = "Layer7",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "_SwitcherSwitch",
+					Source = "Power",
+					Name = "Layer",
+					MaxAllowed = 65536,
+					MaxScale = 7,
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "_Switcher14",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "Switch8er",
+				Pos = { 0, 0, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+			Tools = ordered() {
+				_Switcher1 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 55, 16.5, },
+					},
+				},
+				_Switcher12 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power-1",
+						},
+						Background = Input {
+							SourceOp = "_Switcher1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "_Switcher2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 110, 49.5, },
+					},
+				},
+				_Switcher14 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power-3",
+						},
+						Background = Input {
+							SourceOp = "_Switcher12",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "_Switcher34",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, 82.5, },
+					},
+				},
+				_Switcher2 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power-2",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 165, 16.5, },
+					},
+				},
+				_Switcher3 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power-4",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 275, 16.5, },
+					},
+				},
+				_Switcher34 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power-5",
+						},
+						Background = Input {
+							SourceOp = "_Switcher3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "_Switcher4",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 330, 49.5, },
+					},
+				},
+				_Switcher4 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "_SwitcherSwitch.Power-6",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 385, 16.5, },
+					},
+				},
+				_SwitcherSwitch = Filter {
+					PassThrough = true,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, 115.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "Switch8er1",
+	Name = "Switch8er1",
+	IsMacro = true,
+}

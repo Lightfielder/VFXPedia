@@ -1,0 +1,122 @@
+{
+	Tools = ordered() {
+		CopyAuxLight = MacroOperator {
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Background",
+				},
+				Channel = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Channel",
+                    Name = "Aux Channel",
+					Default = 0,
+				},
+				Blend = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Blend",
+					Default = 1,
+                    Page = "Common Controls",
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "ProcessAlpha",
+					Name = "Alpha",
+					Default = 1,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				ChannelBooleans1 = ChannelBoolean {
+					CtrlWZoom = false,
+					Inputs = {
+						ToRed = Input {
+							Expression = "iif(Channel==0, 0, iif(Channel==1, 27, iif(Channel==2, 18, iif(Channel==3, 22, iif(Channel==4, 19, iif(Channel==5, 20, iif(Channel==6, 21, iif(Channel==7, 24, iif(Channel==8, 31, iif(Channel==9, 33, iif(Channel==10, 35, iif(Channel==11, 38, iif(Channel==12, 15, iif(Channel==13, 16,17))))))))))))))",
+						},
+						ToGreen = Input {
+							Expression = "iif(Channel==0, 1, iif(Channel==1, 28, iif(Channel==2, 18, iif(Channel==3, 23, iif(Channel==4, 19, iif(Channel==5, 20, iif(Channel==6, 21, iif(Channel==7, 25, iif(Channel==8, 32, iif(Channel==9, 34, iif(Channel==10, 36, iif(Channel==11, 39, iif(Channel==12, 15, iif(Channel==13, 16,17))))))))))))))",
+						},
+						ToBlue = Input { 
+                            Expression = "iif(Channel==0, 2, iif(Channel==1, 29, iif(Channel==2, 18, iif(Channel==3, 15, iif(Channel==4, 19, iif(Channel==5, 20, iif(Channel==6, 21, iif(Channel==7, 26, iif(Channel==8, 15, iif(Channel==9, 15, iif(Channel==10, 37, iif(Channel==11, 15, iif(Channel==12, 15, iif(Channel==13, 16,17))))))))))))))", 
+                        },
+						ToAlpha = Input { 
+                            Expression = "iif(Channel==0, 4, 16)",  
+                        },
+					},
+					ViewInfo = OperatorInfo { Pos = { 2444.62, 33.1787, }, },
+					UserControls = ordered() {
+						Channel = {
+							{ CCS_AddString = "Color", },
+							{ CCS_AddString = "Background Color", },
+							{ CCS_AddString = "Z", },
+							{ CCS_AddString = "Texture", },
+							{ CCS_AddString = "Coverage", },
+							{ CCS_AddString = "Object ID", },
+							{ CCS_AddString = "Material ID", },
+							{ CCS_AddString = "Normal", },
+							{ CCS_AddString = "Vector", },
+							{ CCS_AddString = "Back Vector", },
+							{ CCS_AddString = "World Position", },
+							{ CCS_AddString = "Disparity", },
+							{ CCS_AddString = "Black", },
+							{ CCS_AddString = "White", },
+							{ CCS_AddString = "Grey", },
+							INP_MaxAllowed = 14,
+							INP_Integer = true,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "ComboControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 14,
+							INP_Default = 0,
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "Channel",
+}

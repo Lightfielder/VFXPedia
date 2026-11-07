@@ -1,0 +1,44 @@
+--[[	Subtractively merged checker underlay ViewShader fuse		]]--
+
+-- Here's the Cg shader itself:
+shader = 
+[[
+struct SubCheckerVSFuse : ViewShader
+{
+	ViewShader source;									// need this line
+
+	void ShadePixel(inout FuPixel f)
+	{
+		source.ShadePixel(f);							// get source pixel
+
+		float2 coord = sign(frac(f.TexCoord2 / 60.0f) - 0.5f);
+		float4 checker = abs(coord.x + coord.y) * 0.05f + 0.25f;			// checker pattern
+
+		f.Color.rgb = lerp(f.Color.rgb, checker.rgb, 1.0f-f.Color.a);		// subtractively merge source over checker
+	}
+};
+]]
+
+-- regnode
+FuRegisterClass("SubCheckerVSFuse", CT_ViewLUTPlugin, {		-- ID must be unique
+	REGS_Name = "Subtractive Checker ViewShader",
+	})
+	
+-- Called on creation. Add any controls here.
+function Create()
+end
+
+-- This is called when the shader is created
+-- img may be nil
+function SetupShader(req, img)
+	local vs = ViewShader("SubCheckerVSFuse", shader);	-- pass struct name and shader string
+	return vs;
+end
+
+-- This is called every display refresh
+-- img may be nil
+function SetupParams(req, vs, img)
+	return true;
+end
+
+

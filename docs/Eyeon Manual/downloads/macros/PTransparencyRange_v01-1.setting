@@ -1,0 +1,212 @@
+{
+	Tools = ordered() {
+		pTransparencyRange = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.pigsfly.com/forums/index.php?showtopic=8179",
+			},
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Makes particles visible only within a distance range from the camera\n\nIn v01-1: conceal mode corrections\n\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				Input = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Input",
+				},
+				Camera = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Camera",
+				},
+				Mode = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Mode",
+				},
+				RangeNear = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "RangeNear",
+					ControlGroup = 2,
+				},
+				RangeFar = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "RangeFar",
+					ControlGroup = 2,
+				},
+				DecayNear = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "DecayNear",
+					Default = 0.2,
+				},
+				DecayFar = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "DecayFar",
+					Default = 0.2,
+				},
+				Red = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Red",
+					ControlGroup = 1,
+				},
+				Green = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Green",
+					ControlGroup = 1,
+				},
+				Blue = InstanceInput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Blue",
+					ControlGroup = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "pCu_TransparencyRange",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				pCu_TransparencyRange = pCustom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Expression = "RangeNear",
+						},
+						NumberIn2 = Input {
+							Expression = "RangeFar",
+						},
+						NumberIn3 = Input {
+							Expression = "DecayNear",
+						},
+						NumberIn4 = Input {
+							Expression = "DecayFar",
+						},
+						["Position1.X"] = Input {
+							Expression = "self:GetSourceTool(\"Camera\").Transform3DOp.Translate.X",
+						},
+						["Position1.Y"] = Input {
+							Expression = "self:GetSourceTool(\"Camera\").Transform3DOp.Translate.Y",
+						},
+						["Position1.Z"] = Input {
+							Expression = "self:GetSourceTool(\"Camera\").Transform3DOp.Translate.Z",
+						},
+						["Position3.X"] = Input {
+							Expression = "Red",
+						},
+						["Position3.Y"] = Input {
+							Expression = "Green",
+						},
+						["Position3.Z"] = Input {
+							Expression = "Blue",
+						},
+						Intermediate1 = Input {
+							Value = "dist3d(p1x,p1y,p1z,px,py,pz)",
+						},
+						Intermediate2 = Input {
+							Expression = "Text(iif(Mode==0,\"if(i1<n1,max(0,(i1-(n1-n3))/n3),if(i1>n2,max(0,(n2+n4-i1))/n4,1))\",\"if(i1<n1,min(1,(n1-n3-i1)/n3),if(i1>n2,min(1,(i1-(n2+n4))/n4),0))\"))",
+						},
+						RedExpression = Input {
+							Value = "p3x*i2",
+						},
+						GreenExpression = Input {
+							Value = "p3y*i2",
+						},
+						BlueExpression = Input {
+							Value = "p3z*i2",
+						},
+						AlphaExpression = Input {
+							Value = "1*i2",
+						},
+						Comments = Input {
+							Value = "n1 = Near Range\nn2 = Far Range\nn3 = Near Decay\nn4 = Far Decay\ni1 = Distance to Camera\ni3 = Opacity (multiplier for the color )\np1 = Camera position\np3 = Particle color",
+						},
+					},
+					UserControls = ordered() {
+						Camera = {
+							LINKID_DataType = "DataType3D",
+							LINKS_Name = "Camera",
+							IC_ControlPage = 1,
+							INPID_InputControl = "ImageControl",
+							INP_Default = 0,
+						},
+						Red = {
+							LINKS_Name = "Particle Color",
+							INP_Default = 1,
+							INPID_InputControl = "ColorControl",
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 1,
+							IC_ControlPage = 0,
+							IC_ControlID = 0,
+							IC_ControlGroup = 1,
+						},
+						Green = {
+							IC_ControlGroup = 1,
+							CLRC_ColorSpace = 0,
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							INPID_InputControl = "ColorControl",
+							INP_Default = 1,
+						},
+						Blue = {
+							IC_ControlGroup = 1,
+							IC_ControlID = 2,
+							CLRC_ShowWheel = true,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						RangeNear = {
+							LINKS_Name = "From",
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							IC_ControlGroup = 2,
+							INP_Default = 1,
+						},
+						RangeFar = {
+							IC_ControlGroup = 2,
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "To",
+							INP_MaxScale = 3,
+							INP_Default = 2,
+						},
+						DecayNear = {
+							LINKID_DataType = "Number",
+							INP_Default = 0.2,
+							IC_ControlPage = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "Near Decay",
+						},
+						DecayFar = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Far Decay",
+							IC_ControlPage = 0,
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.2,
+						},
+						Mode = {
+							{ MBTNC_AddButton = "Show within Range", },
+							{ MBTNC_AddButton = "Conceal within Range", },
+							INP_Default = 0,
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							IC_ControlPage = 3,
+							LINKS_Name = "Focusing Mode",
+						},
+					},
+				},
+			},
+		},
+	},
+}

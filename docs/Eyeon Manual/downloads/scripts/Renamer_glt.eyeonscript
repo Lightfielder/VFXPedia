@@ -1,0 +1,116 @@
+----------------------------------------------------------------------------------
+-- Renamer_glt, Revision: 1.02 
+--
+-- comp script
+--
+-- This script renames the selected tools (or all if nothing is selected). Similar to the renamer of 
+-- Total Commander, to insert the old name use {N}, to insert a counter use {C} in the first text input line.
+-- You can search and replace strings  (2. and 3. input), so if want to erase a string simply leave blank 
+-- the replace field. There is a checkbox called remove digits which does exactly that, but if you would 
+-- have tools with the same names setting this on (and not using counter) Fusion will automatically renumber 
+-- these tools. There is option to set the start frame (useful to set to integer :) and the number of digits 
+-- for using the counter. The script lists the renamed tools in the consol. 
+-- There is an option to insert an abbreviation of the tool type with the {S} string (stands for "short"), for  
+-- example "mrg" for the merges, "CCv" for colorcurves etc. The script doesn't contains all the abbreviations 
+-- of all tools, just a few, but one can complete this list, by modifying the list below with a text editor: 
+-- in line 58, search for "toolTypeShortTable" and append the tool type first, and then the desired abbreviation
+-- to the end of this list. The exact type of tools can be listed by pasting this line to the console in fusion,
+-- while the tools are selected:
+-- " toollist = composition:GetToolList(true) for i, tool in pairs(toollist) do x= tool:GetAttrs().TOOLS_RegID print(x) end "   
+-- 
+-- To do: 
+--	- option to set the step of counter (if needed)
+-- 	
+--
+-- written by : Gabor L. Toth (gltoth@gmail.com)
+-- written    : Aug. 28, 2006
+-- updated	  : Sept. 23, 2006
+-- updated	  : March 31, 2007
+-- This script is freeware, can be freely used and modified, with proper credits.  
+-- If you use this script, and have any comments or issues feel free to contact me
+-- on the above email adress.
+--
+----------------------------------------------------------------------------------
+
+
+szoveg = composition:AskUser("Renamer", {
+			{"renameMask", Name = "Rename mask: ", "Text" ,Lines = 1, Default = "{N}"},
+			{"replSource", Name = "Search for: ",  "Text", Lines = 1, Default = ""},
+			{"replTarget", Name = "Replace with: ",  "Text", Lines = 1, Default = ""},
+			{"remDigits", Name = "Remove existing digits ",  "Checkbox", Default = 0},
+			{"countStart", Name = "Counter starts at: ", "Screw", Default = 0 },
+			{"countDigit", Name = "Counter digits: ", "Dropdown", Options = {"1", "2", "3", "4"}, Default = 3 },
+			
+			})
+			
+if szoveg == nil then return end
+
+toollist = composition:GetToolList(true)
+if not toollist[1] then 
+	toollist = composition:GetToolList(false)
+end
+
+realToolCounter = 0
+for i, tool in pairs(toollist) do
+	oldName = tool:GetAttrs().TOOLS_Name
+	isTool = tool:GetAttrs().TOOLB_Visible						-- checking that the tool is not animation or modifier
+	toolType = tool:GetAttrs().TOOLS_RegID
+	toolTypeShortTable = {"BrightnessContrast", "BC", "Background", "BG", "FastNoise", "FN", "ChannelBoolean", "Bol", "ColorCorrector", "CC",  
+						 "ColorCurves", "CCv", "ColorGain", "Clr", "ColorSpace", "CS", "Merge", "Mrg"}  -- This is the table you have to complete with other abbreviations if you want
+		
+	if  isTool == true then										-- testing if it is normal tool or animation spline/modifier
+		str = szoveg.renameMask
+		repl_s = szoveg.replSource
+		repl_t = szoveg.replTarget
+		cStart = szoveg.countStart
+		cDigit = szoveg.countDigit
+		newName = oldName
+		newName = string.gsub(str, "{N}", oldName)				-- replacing {N} with the tool's name
+		
+		if szoveg.remDigits == 1 then 							-- erasing all digits (Fusion automatically renumbers in case of same names)
+			newName = string.gsub(newName, "(%d)", "")
+		end
+		
+		if repl_s then
+			newName = string.gsub(newName, repl_s, repl_t)			-- searching and replacing the source strings with target strings
+		end
+		
+		counter = cStart+realToolCounter
+		for k = 0,  cDigit - string.len(counter) do				-- inserting zeros according to number of digits
+			counter = ("0"..counter)
+		end
+		newName = string.gsub(newName, "{C}", counter)			-- inserting counter {C} 
+
+		foundToolType = false
+		if string.find(str, "{S}") then							-- replacing tool type with the abbrevation of the type
+			for j, elem in toolTypeShortTable do
+				if elem == toolType then
+					toolTypeShort = toolTypeShortTable[j+1]
+					foundToolType = true
+					break
+				end
+			end
+			if foundToolType == false then 
+				print("The tool "..oldName.." has no abbreviation set yet!")
+				newName = string.gsub(newName, "{S}", oldName)
+			else
+				newName = string.gsub(newName, "{S}", toolTypeShort)
+			end
+		end
+		
+		if newName == oldName then									-- checking that the tool was renamed or not
+			print("Tool "..oldName.." was skipped!\n")
+		else
+			print ("Tool "..oldName.." was renamed to --> "..newName.."\n")
+		end
+		tool:SetAttrs({TOOLS_Name= newName})					-- setting the new name
+		
+
+		realToolCounter = realToolCounter+1
+	else
+		print ("Tool "..oldName.." was skipped because it is animation or modifier")
+	end
+end
+
+
+	

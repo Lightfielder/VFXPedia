@@ -1,0 +1,25 @@
+{
+	Tools = ordered() {
+		CT_LinearLight = Custom {
+			CtrlWZoom = false,
+			CustomData = {
+				Settings = {
+				},
+			},
+			Inputs = {
+				RedExpression = Input {
+					Value = "c1+a2*(2* if(a2>0,c2/a2,0) -1)",
+				},
+				GreenExpression = Input {
+					Value = "c1+a2*(2* if(a2>0,c2/a2,0) -1)",
+				},
+				BlueExpression = Input {
+					Value = "c1+a2*(2* if(a2>0,c2/a2,0) -1)",
+				},
+				AlphaExpression = Input {
+					Value = "1-(1-a1)*(1-a2)",
+				},
+			}			
+		},
+	},
+}

@@ -1,0 +1,42 @@
+-- Activate the current tool's target 
+-- and set it's position to a camera in the comp at the current time
+-- todo: Extend to handle multiple selected Locs at the same time
+-- written by SirEdric (eric@eyeonline.com)
+
+-- define some stuff
+myCams={}
+myNames={}
+myTool=tool
+
+-- Look for cameras in the comp
+for i, v in composition:GetToolList() do
+	id = v:GetAttrs().TOOLS_RegID
+	if id == "Camera3D" then
+		-- get the camera's name for display in the dropdown
+		tName=v:GetAttrs().TOOLS_Name
+		-- put the actual camera object in a table
+		table.insert(myCams, v)
+		-- put the Camera's name in another table for display in the dialog
+		table.insert(myNames, tName)
+	end
+end
+
+-- build dialog
+ret = AskUser("SirEdric's TargetToCam", {	
+	{"CamCon",Name="Connect to Camera",  "Dropdown", Options = myNames},
+})
+
+-- Actually do something
+if ret then
+	composition:StartUndo("TargetFromCam")
+	myCam=myCams[ret.CamCon+1]
+	myTool.Transform3DOp.UseTarget=1
+	myTool.Transform3DOp.Target.X = myCam.Transform3DOp.Translate.X[CurrentTime]
+	myTool.Transform3DOp.Target.Y = myCam.Transform3DOp.Translate.Y[CurrentTime]
+	myTool.Transform3DOp.Target.Z = myCam.Transform3DOp.Translate.Z[CurrentTime]
+	composition:EndUndo(true)
+else
+	print("Oh. You cancelled my dialog. Would you like to clean the elevator shaft instead?")
+end
+
+

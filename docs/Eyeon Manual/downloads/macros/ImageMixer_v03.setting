@@ -1,0 +1,259 @@
+{
+	Tools = ordered() {
+		ImageMixer1 = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/ImageMixer_Description",
+			}, 
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Image1",
+					Name = "Input",
+				},
+				MixImage = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Image2",
+					Name = "Mix Image",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EffectMask",
+				},
+				Comments = Input {
+					Value = "Mix a foreground image into a background using curves. A value of 1 will indicate 100% mix image, 0 means 100% background image.\r\n\r\n",
+				},
+				EditRed = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EditLUTIn1",
+					Name = "Edit Red",
+					Default = 1,
+				},
+				EditGreen = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EditLUTIn2",
+					Name = "Edit Green",
+					Default = 1,
+				},
+				EditBlue = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EditLUTIn3",
+					Name = "Edit Blue",
+					Default = 1,
+				},
+				Red = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "LUTIn1",
+					ControlGroup = 7,
+				},
+				Green = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "LUTIn2",
+					ControlGroup = 7,
+				},
+				Blue = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "LUTIn3",
+					ControlGroup = 7,
+				},
+				Blend = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Blend",
+					Default = 1,
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+					Page = "Common Controls",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MaskHigh",
+					ControlGroup = 16,
+					Default = 1,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MaskLow",
+					ControlGroup = 16,
+					Default = 0,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "ImageMixer",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				["__CT_ImageMixer"] = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						LUTControlsNest = Input {
+							Value = 1,
+						},
+						LUTIn1 = Input {
+							SourceOp = "__CT_ImageMixerRed",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "__CT_ImageMixerGreen",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "__CT_ImageMixerBlue",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "ImageMixerLUTIn4",
+							Source = "Value",
+						},
+						RedExpression = Input {
+							Value = "c2 * getlut1(c1) + c1 * (1 - getlut1(c1))",
+						},
+						GreenExpression = Input {
+							Value = "c2 * getlut2(c1) + c1 * (1 - getlut2(c1))",
+						},
+						BlueExpression = Input {
+							Value = "c2 * getlut3(c1) + c1 * (1 - getlut3(c1))",
+						},
+						ShowNumber1 = Input {
+							Value = 0,
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						NameforLUT1 = Input {
+							Value = "Red",
+						},
+						NameforLUT2 = Input {
+							Value = "Green",
+						},
+						NameforLUT3 = Input {
+							Value = "Blue",
+						},
+						ShowLUT4 = Input {
+							Value = 0,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 550, 115.5, },
+					},
+				},
+				["__CT_ImageMixerRed"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+					NameSet = true,
+				},
+				["__CT_ImageMixerGreen"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+					NameSet = true,
+				},
+				["__CT_ImageMixerBlue"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+					NameSet = true,
+				},
+				ImageMixerLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+			},
+		},
+	},
+	ActiveTool = "ImageMixer1",
+}

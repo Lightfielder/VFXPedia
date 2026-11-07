@@ -1,0 +1,94 @@
+--[[ 
+
+written by: Bartos P. - info[at]talmai[dot]de
+created:	August 2009
+version:	1.1
+
+install: 	Fusion 5: Fusion:/Scripts/Comp
+			Fusion 6: "Shared Documents"/eyeon/Fusion/Scripts/Comp
+
+usage: 		select tracking node an execute the script. use the "Track forward" or "Track reverse" button to
+			track only one frame forward or reverse relative to your current time
+
+changelog:	1.1 - "always on top" fixed
+
+]]--
+
+toollist = comp:GetToolList(true)
+compattrs = comp:GetAttrs()
+
+-- iup button setup
+btn_fwd = iup.button{title = ">> Track forward ", size="100x20", fgcolor = "200 200 200", bgcolor = "64 64 64"}
+btn_rev = iup.button{title = "Track reverse <<", size="100x20", fgcolor = "200 200 200", bgcolor = "64 64 64"}
+
+-- iup button function
+function btn_fwd:action()
+	comp:Lock()													-- lock comp, this will stop the "render complete" msg.
+	local from_orig = compattrs.COMPN_RenderStart				-- get the original render range
+	local to_orig = compattrs.COMPN_RenderEnd
+	local current = CurrentTime
+	local to_new = current + 1
+	comp:SetAttrs({COMPN_RenderStart = current})				-- set new render range relative to current time
+	comp:SetAttrs({COMPN_RenderEnd = to_new})
+	toollist[1].TrackForwardFromCurrentTime[current] = 1		-- track
+	while comp:IsRendering() == true do							-- wait for tracker to complete
+		wait(0.5)
+	end
+	comp:SetAttrs({COMPN_CurrentTime = to_new})	
+	local intrack = toollist[1].TrackerList[1] + 1				-- pattern center won't update while comp is locked
+	pcenter = "PatternCenter"..intrack .."[1]"					-- fixing here ...
+	tcenter = "TrackedCenter"..intrack .."[1]"					-- ... here ...
+	toollist[1].pcenter = toollist[1].tcenter					-- ... and here
+	comp:SetAttrs({COMPN_RenderStart = from_orig})				-- set render range back to original state
+	comp:SetAttrs({COMPN_RenderEnd = to_orig})
+	comp:Unlock()												-- unlock comp
+end	
+
+function btn_rev:action()										-- same as fwd, only rev :-)
+	comp:Lock()
+	local from_orig = compattrs.COMPN_RenderStart
+	local to_orig = compattrs.COMPN_RenderEnd
+	local current = CurrentTime
+	local to_new = current - 1
+	comp:SetAttrs({COMPN_RenderStart = current})
+	comp:SetAttrs({COMPN_RenderEnd = to_new})
+	toollist[1].TrackReverseFromCurrentTime[current] = 1
+	while comp:IsRendering() == true do
+		wait(0.5)
+	end
+	comp:SetAttrs({COMPN_CurrentTime = to_new})
+	local intrack = toollist[1].TrackerList[1] + 1
+	pcenter = "PatternCenter"..intrack .."[1]"
+	tcenter = "TrackedCenter"..intrack .."[1]"
+	toollist[1].pcenter = toollist[1].tcenter
+	comp:SetAttrs({COMPN_RenderStart = from_orig})
+	comp:SetAttrs({COMPN_RenderEnd = to_orig})
+	comp:Unlock()
+end
+
+-- checking some req.
+if toollist[1] ~= nil then
+	if toollist[1]:GetAttrs().TOOLS_RegID == "Tracker" then
+	
+	-- iup msg box setup
+	buttons = iup.hbox{btn_rev, btn_fwd; gap=20}
+	dlg = iup.dialog{
+		iup.vbox{
+			buttons
+		};
+		title = "track one frame", margin = "20x20", topmost = "yes", resize = "no", fgcolor = "200 200 200", bgcolor = "64 64 64"
+	}
+	dlg:showxy(iup.CENTER, iup.CENTER)
+	if (not iup.MainLoopLevel or iup.MainLoopLevel()==0) then
+		iup.MainLoop()
+	end
+	
+	-- checking more req.
+	else
+		d = {"Msg", Name = "Warning", "Text", ReadOnly = true, Lines = 5, Wrap = true, Default = msg} 
+		comp:AskUser("This is not a Tracker", d)
+	end
+else
+	d = {"Msg", Name = "Warning", "Text", ReadOnly = true, Lines = 5, Wrap = true, Default = msg} 
+	comp:AskUser("Plese select a Tracker", d)
+end

@@ -1,0 +1,79 @@
+------------------------------------------------------------------------------
+-- List Footage, Revision: 2.0 
+--
+-- comp script
+--
+-- This script outputs a list of all footage used in the flow (Loaders and Savers)
+--
+-- written by : Isaac Guenard (izyk@eyeonline.com)
+-- written    : Sept. 05, 2003
+-- updated : Sept 27, 2005
+-- changes : updated for 5
+------------------------------------------------------------------------------
+
+
+--[[ For Utility scripts ]]---------
+ if not fusion then
+   fusion = Fusion("localhost")
+   fu = fusion
+ end
+ldofile(fusion:MapPath("Scripts:\\eyeon.scriptlib"))
+
+-- Reads a file 
+file = "S:\\Production\\Projects\\Prosolia\\DESI_Works\\5_post-production\\comps\\filelist.txt"
+
+	print()
+	print("Footage used by loaders in List.")
+	print("----------------------------------------------")
+	print()
+
+if fileexists(file) == true then
+	fh, errormessage = io.input(file,"a+")
+--	src = fh:read("*a")
+--else
+--	print("Not Found")
+end
+print("Source File:",file)
+print()
+
+-- Need to get text on each line --
+for line in fh:lines() do 
+--	print("Current File:")
+--	print(line)
+--	print()
+	--[[ Add this for Comp scripts ]]---------
+	
+	if fusion and not comp then
+	  composition = fusion:GetCurrentComp()
+	  --comp = composition
+	  comp = line
+	end
+	
+	lds = composition:GetToolList(false, "Loader")
+
+	if table.getn(lds) > 0 then
+		for i, tool in lds do
+			for i, clip in tool:GetAttrs().TOOLST_Clip_Name do
+				print(clip)
+			end
+		end
+	else
+		print("No Loaders")
+	end
+
+
+	--print()
+	--print("Show footage used by savers in this flow.")
+	--print("----------------------------------------------")
+	--print()
+
+	--svs = composition:GetToolList(false, "Saver")
+	--if table.getn(svs) > 0 then 
+	--	for i, tool in svs do
+	--		print(tool.Clip[TIME_UNDEFINED])
+	--	end
+	--else
+	--	print("No Savers")
+	--end
+end -- end of loop for files
+

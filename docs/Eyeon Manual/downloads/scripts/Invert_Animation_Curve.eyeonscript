@@ -1,0 +1,84 @@
+------------------------------------------------------------------------------
+-- Invert Animation Curve
+-- This script inverts a bezier spline by swapping time and value of each
+-- key frame. So for example a key at 10 with a value of 44 will end up as
+-- a key at frame 44 with a value of 10.
+-- It's your task to make sure that a spline is strictly monotonic so it can
+-- actually be inverted. Also, bezier handles won't be converted.
+-- Just the time/value pairs of keyframes.
+--
+-- This is a tool script!
+-- written by Stefan Ihringer, stefan@bildfehler.de
+--
+-- Version 1.0 - 2011-10-23
+------------------------------------------------------------------------------
+
+if not tool then
+	tool = composition:GetAttrs().COMPH_ActiveTool
+	if not tool then
+		print("This is a tool script, you must select a tool in the flow to run this script")
+		composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+		exit()
+	end
+end
+
+controlNames = {}   -- saves the names of animated number inputs
+
+for key,inp in tool:GetInputList() do
+	local attrs = inp:GetAttrs()
+	if attrs.INPB_Connected then
+		if inp:GetConnectedOutput():GetTool().ID == "BezierSpline" then
+			table.insert(controlNames, attrs.INPS_ID)
+		end
+	end
+end
+
+if table.getn(controlNames) == 0 then
+	print("No input of this tool is animated with a BezierSpline :-(")
+	return
+end
+
+-- display user dialog
+ret = composition:AskUser("Invert this bezier spline:", {
+	{ "input", "Dropdown", Name = "Input", Options = controlNames },
+})
+
+------------------------------------------------------------------------------
+-- MAIN ----------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+if ret then
+	inpname = controlNames[ret.input+1]
+	inp = tool[inpname]
+
+	comp:StartUndo("Invert Animation on "..tool.Name..":"..inpname)
+	comp:Lock()
+	
+	-- get key frames of BezierSpline object (not from the input object)
+	keys = inp:GetConnectedOutput():GetTool():GetKeyFrames()
+
+	-- connect fresh spline
+	tool[inpname] = BezierSpline()
+	
+	-- remember current time because a default keyframe has already been
+	-- created on the spline and we need to remove it later
+	currenttime = comp.CurrentTime
+
+	-- iterate over keyframe table
+	for f, k in keys do
+		local value = k[1]
+		inp[value] = f
+		-- once the first new key has been set, delete the one that came
+		-- with our BezierSpline object
+		if currenttime ~= nil then
+			if currenttime ~= value then
+				inp[currenttime] = nil
+			end
+			currenttime = nil
+		end
+	end	
+
+	comp:Unlock()
+	comp:EndUndo(true)
+end
+

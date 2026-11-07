@@ -1,0 +1,242 @@
+{
+	Tools = ordered() {
+		SE_SpaceGlow = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "ColorSpace1",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "ColorSpace1",
+					Source = "ColorType",
+					Name = "Glow in which space?",
+					Default = 4,
+				},
+				Input2 = InstanceInput {
+					Disabled = true,
+					SourceOp = "ColorSpace1",
+					Source = "BWRed",
+					Default = 0.299,
+				},
+				Input3 = InstanceInput {
+					Disabled = true,
+					SourceOp = "ColorSpace1",
+					Source = "BWGreen",
+					Default = 0.587,
+				},
+				Input4 = InstanceInput {
+					Disabled = true,
+					SourceOp = "ColorSpace1",
+					Source = "BWBlue",
+					Default = 0.114,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Filter",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Red",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Green",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Blue",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Alpha",
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Threshold",
+					Default = 0.0883978,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Gain",
+					Default = 2.375691,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "LockXY",
+					Default = 1,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "XGlowSize",
+					Default = 9.944752,
+				},
+				Input14 = InstanceInput {
+					Disabled = true,
+					SourceOp = "SoftGlow2",
+					Source = "YGlowSize",
+					Default = 10,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Passes",
+					Default = 4,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "Blend",
+					Default = 1,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "RedScale",
+					Default = 1,
+				},
+				Input18 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "GreenScale",
+					Default = 1,
+				},
+				Input19 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "BlueScale",
+					Default = 1,
+				},
+				Input20 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "AlphaScale",
+					Default = 1,
+				},
+				Input21 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input22 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				Input23 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				Input24 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "MaskHigh",
+					ControlGroup = 25,
+					Default = 1,
+				},
+				Input25 = InstanceInput {
+					SourceOp = "SoftGlow2",
+					Source = "MaskLow",
+					ControlGroup = 25,
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ColorSpace1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				ColorSpace1 = ColorSpace {
+					CtrlWZoom = false,
+					Inputs = {
+						ColorSpaceConversion = Input {
+							Value = 1,
+						},
+						ColorType = Input {
+							Value = 4,
+						},
+						BWRed = Input {
+							Disabled = true,
+						},
+						BWGreen = Input {
+							Disabled = true,
+						},
+						BWBlue = Input {
+							Disabled = true,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, 115.5, },
+					},
+				},
+				SoftGlow2 = SoftGlow {
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Alpha = Input {
+							Value = 0,
+						},
+						Threshold = Input {
+							Value = 0.0883978,
+						},
+						Gain = Input {
+							Value = 2.375691,
+						},
+						XGlowSize = Input {
+							Value = 9.944752,
+						},
+						YGlowSize = Input {
+							Disabled = true,
+						},
+						ColorScale = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "ColorSpace1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 330, 115.5, },
+					},
+				},
+				ColorSpace1_1 = ColorSpace {
+					CtrlWZoom = false,
+					Inputs = {
+						ColorSpaceConversion = Input {
+							Value = 2,
+						},
+						ColorType = Input {
+							Value = 4,
+							Expression = "ColorSpace1.ColorType",
+						},
+						BWRed = Input {
+							Disabled = true,
+						},
+						BWGreen = Input {
+							Disabled = true,
+						},
+						BWBlue = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "SoftGlow2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 440, 115.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SE_SpaceGlow",
+}

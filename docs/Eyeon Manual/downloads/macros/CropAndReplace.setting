@@ -1,0 +1,220 @@
+{
+	Tools = ordered() {
+		CropAndReplaceG = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "CropMacroBCnull",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "CropMacroBCnull",
+					Source = "ClipBlack",
+					Name = "Replace",
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CropMacroBCnull",
+					Source = "ClipWhite",
+					Name = "Solid Fg Alpha",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "CropMacroBCnull",
+					Source = "PreDividePostMultiply",
+					Name = "Size Divided By 8",
+					Default = 1,
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "CropMacroFGAlpha",
+					Source = "Background",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "CropMacroXf",
+					Source = "Center",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "CropMacroXf",
+					Source = "XSize",
+					Default = 0.25,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "CropMacroXf",
+					Source = "YSize",
+					Default = 0.25,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "CropMacroDX_Switch",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				CropMacroBCnull = BrightnessContrast {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+						},
+						ProcessRed = Input {
+							Value = 0,
+						},
+						ProcessGreen = Input {
+							Value = 0,
+						},
+						ProcessBlue = Input {
+							Value = 0,
+						},
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Red = Input {
+							Value = 0,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+						PreDividePostMultiply = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, -148.5, },
+					},
+				},
+				CropMacroCrp = Crop {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						XOffset = Input {
+							Value = 268,
+							Expression = "math.floor((CropMacroXf.Center.X*Input.Width) - ((CropMacroXf.XSize*Input.Width+ (CropMacroBCnull.PreDividePostMultiply*(8-math.mod(CropMacroXf.XSize*Input.Width, 8))))/2))",
+						},
+						YOffset = Input {
+							Value = 212,
+							Expression = "math.floor((CropMacroXf.Center.Y*Input.Height) - ((CropMacroXf.YSize*Input.Height+ (CropMacroBCnull.PreDividePostMultiply*(8-math.mod(CropMacroXf.YSize*Input.Height, 8))))/2))",
+						},
+						XSize = Input {
+							Value = 184,
+							Expression = "CropMacroXf.XSize*Input.Width + CropMacroBCnull.PreDividePostMultiply*(8-math.mod(CropMacroXf.XSize*Input.Width, 8))",
+						},
+						YSize = Input {
+							Value = 144,
+							Expression = "CropMacroXf.YSize*Input.Height + CropMacroBCnull.PreDividePostMultiply*(8-math.mod(CropMacroXf.YSize*Input.Height, 8))",
+						},
+						Input = Input {
+							SourceOp = "CropMacroBCnull",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 275, -148.5, },
+					},
+				},
+				CropMacroDX_Switch = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "CropMacroBCnull.ClipBlack",
+						},
+						Background = Input {
+							SourceOp = "CropMacroCrp",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "CropMacroMrg",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 275, -247.5, },
+					},
+				},
+				CropMacroFGAlpha = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 16,
+							Expression = "4+CropMacroBCnull.ClipWhite*12",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, -247.5, },
+					},
+				},
+				CropMacroMrg = Merge {
+					NameSet = true,
+					Inputs = {
+						Center = Input {
+							Expression = "Point(math.floor(CropMacroXf.Center.X*Background.Width)/Background.Width, math.floor(CropMacroXf.Center.Y*Background.Height)/Background.Height)",
+						},
+						Background = Input {
+							SourceOp = "CropMacroBCnull",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "CropMacroFGAlpha",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 55, -247.5, },
+					},
+				},
+				CropMacroXf = Transform {
+					NameSet = true,
+					CustomData = {
+						rsWasPassed = "",
+					},
+					Inputs = {
+						UseSizeAndAspect = Input {
+							Value = 0,
+						},
+						Size = Input {
+							Value = 0.3055555555556,
+						},
+						XSize = Input {
+							Value = 0.25,
+						},
+						YSize = Input {
+							Value = 0.25,
+						},
+						Input = Input {
+							SourceOp = "CropMacroBCnull",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 275, -82.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "CropAndReplaceG",
+	Name = "CropAndReplaceG",
+	IsMacro = true,
+}

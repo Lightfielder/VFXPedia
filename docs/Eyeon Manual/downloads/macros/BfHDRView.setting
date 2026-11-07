@@ -1,0 +1,568 @@
+{
+	Tools = ordered() {
+		bfHDRView = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Bol_WhichChannel",
+					Source = "Background",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Bol_WhichChannel",
+					Source = "ToRed",
+					Name = "Which Channel",
+					Default = 10,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "BC_Output",
+					Source = "ProcessRed",
+					Name = "Map/High",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "BC_Output",
+					Source = "ProcessGreen",
+					Name = "High/Low",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "BC_Output",
+					Source = "Comments",
+					Name = "Usage:",
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "Probe1",
+					Source = "Red",
+				},
+				Output2 = InstanceOutput {
+					SourceOp = "Probe1",
+					Source = "Green",
+				},
+				Output3 = InstanceOutput {
+					SourceOp = "Probe1",
+					Source = "Blue",
+				},
+				Output4 = InstanceOutput {
+					SourceOp = "Probe1",
+					Source = "Alpha",
+				},
+				Output5 = InstanceOutput {
+					SourceOp = "Probe1_1",
+					Source = "Red",
+				},
+				Output6 = InstanceOutput {
+					SourceOp = "Probe1_1",
+					Source = "Green",
+				},
+				Output7 = InstanceOutput {
+					SourceOp = "Probe1_1",
+					Source = "Blue",
+				},
+				Output8 = InstanceOutput {
+					SourceOp = "Probe1_1",
+					Source = "Alpha",
+				},
+				MainOutput1 = InstanceOutput {
+					SourceOp = "BC_Output",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				PipeRouter1 = PipeRouter {
+					Inputs = {
+						Input = Input {
+							SourceOp = "Bol_WhichChannel",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { 825, -82.5, },
+					},
+				},
+				PipeRouter2 = PipeRouter {
+					Inputs = {
+						Input = Input {
+							SourceOp = "Bol_WhichChannel",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { 825, -16.5, },
+					},
+				},
+				Bol_Inv_Darks = ChannelBoolean {
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "Bol_WhichChannel",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 880, 49.5, },
+					},
+				},
+				BC_Norm2 = BrightnessContrast {
+					Inputs = {
+						Brightness = Input {
+							Value = -1,
+						},
+						High = Input {
+							Value = 0.001,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "PipeRouter2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 990, -16.5, },
+					},
+				},
+				BC_Norm3 = BrightnessContrast {
+					Inputs = {
+						Brightness = Input {
+							Value = -1,
+						},
+						High = Input {
+							Value = 0.001,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Bol_Inv_Darks",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 990, 49.5, },
+					},
+				},
+				BC_LooseLow = BrightnessContrast {
+					Inputs = {
+						Brightness = Input {
+							Value = -1,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Bol_WhichChannel",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 880, 181.5, },
+					},
+				},
+				BC_Norm = BrightnessContrast {
+					Inputs = {
+						Gain = Input {
+							SourceOp = "Calculation1",
+							Source = "Result",
+						},
+						Input = Input {
+							SourceOp = "BC_LooseLow",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 990, 181.5, },
+					},
+				},
+				Calculation1 = Calculation {
+					CtrlWZoom = false,
+					Inputs = {
+						FirstOperand = Input {
+							Value = 1,
+						},
+						Operator = Input {
+							Value = 3,
+						},
+						SecondOperand = Input {
+							SourceOp = "Probe1",
+							Source = "Result",
+						},
+					},
+				},
+				Probe1 = Probe {
+					CtrlWZoom = false,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "BC_LooseLow",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = 4,
+						},
+						ProbeRectangle = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 1,
+						},
+						Evaluation = Input {
+							Value = 2,
+						},
+					},
+				},
+				Bol_WhichChannel = ChannelBoolean {
+					Inputs = {
+						ToRed = Input {
+							Value = 10,
+						},
+						ToGreen = Input {
+							Value = 10,
+							Expression = "ToRed",
+						},
+						ToBlue = Input {
+							Value = 10,
+							Expression = "ToRed",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 495, 181.5, },
+					},
+				},
+				ChannelBooleans2_1 = ChannelBoolean {
+					Inputs = {
+						ToAlpha = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "BC_Norm3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1100, 49.5, },
+					},
+				},
+				ChannelBooleans2 = ChannelBoolean {
+					Inputs = {
+						ToAlpha = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "BC_Norm2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1100, -16.5, },
+					},
+				},
+				BC_LooseHigh = BrightnessContrast {
+					Inputs = {
+						Brightness = Input {
+							Value = -1,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Bol_Inv",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 880, 247.5, },
+					},
+				},
+				Bol_Inv = ChannelBoolean {
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "Bol_WhichChannel",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 770, 247.5, },
+					},
+				},
+				ChannelBooleans3 = ChannelBoolean {
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "ChannelBooleans2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1210, 49.5, },
+					},
+				},
+				BC_Norm1 = BrightnessContrast {
+					Inputs = {
+						Gain = Input {
+							SourceOp = "Calculation1_1",
+							Source = "Result",
+						},
+						Input = Input {
+							SourceOp = "BC_LooseHigh",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 990, 247.5, },
+					},
+				},
+				Calculation1_1 = Calculation {
+					CtrlWZoom = false,
+					Inputs = {
+						FirstOperand = Input {
+							Value = 1,
+						},
+						Operator = Input {
+							Value = 3,
+						},
+						SecondOperand = Input {
+							SourceOp = "Probe1_1",
+							Source = "Result",
+						},
+					},
+				},
+				Probe1_1 = Probe {
+					CtrlWZoom = false,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "BC_LooseHigh",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = 4,
+						},
+						ProbeRectangle = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 1,
+						},
+						Evaluation = Input {
+							Value = 2,
+						},
+					},
+				},
+				Bol_BorW = ChannelBoolean {
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "BC_Norm1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1100, 247.5, },
+					},
+				},
+				MatteControl1 = MatteControl {
+					Inputs = {
+						PostMultiplyImage = Input {
+							Value = 1,
+						},
+						Background = Input {
+							SourceOp = "ChannelBooleans3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1320, 49.5, },
+					},
+				},
+				Merge2 = Merge {
+					Inputs = {
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Bol_Mid_0to1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "ChannelBooleans2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1430, -16.5, },
+					},
+				},
+				Merge3 = Merge {
+					Inputs = {
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Merge2",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "MatteControl1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1430, 49.5, },
+					},
+				},
+				Bol_Mid_0to1 = ChannelBoolean {
+					Inputs = {
+						ToRed = Input {
+							Value = 17,
+						},
+						ToGreen = Input {
+							Value = 17,
+						},
+						ToBlue = Input {
+							Value = 17,
+						},
+						ToAlpha = Input {
+							Value = 16,
+						},
+						Background = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1430, -82.5, },
+					},
+				},
+				DX_MapVis = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "BC_Output.ProcessRed",
+						},
+						Background = Input {
+							SourceOp = "DX_LowHigh",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Merge3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1650, 49.5, },
+					},
+				},
+				BC_Clip = BrightnessContrast {
+					Inputs = {
+						ClipBlack = Input {
+							Value = 1,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "DX_MapVis",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1760, 49.5, },
+					},
+				},
+				DX_LowHigh = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					Inputs = {
+						Mix = Input {
+							Expression = "BC_Output.ProcessGreen",
+						},
+						Background = Input {
+							SourceOp = "Bol_BorW",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "BC_Norm",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1650, 181.5, },
+					},
+				},
+				Bol_WhiteA = ChannelBoolean {
+					Inputs = {
+						ToAlpha = Input {
+							Value = 16,
+						},
+						Background = Input {
+							SourceOp = "BC_Clip",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1925, 49.5, },
+					},
+				},
+				BC_Output = BrightnessContrast {
+					CtrlWZoom = false,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+						},
+						ProcessBlue = Input {
+							Value = 0,
+						},
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Red = Input {
+							Value = 0,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Input = Input {
+							SourceOp = "Bol_WhiteA",
+							Source = "Output",
+						},
+						Comments = Input {
+							Value = "bfHDRView 0.9 by Blazej Floch\r\nWhich channel:\r\nSelect which Channel to analyze.\r\nLuminance, Red, Green, or Blue.\r\n\r\nVisualize modes:\r\nMap or Hight mode?\r\nIn High mode: Highs or Lows?\r\n\r\nMap Mode:\r\nValues over 1 = white\r\nValues from 0-1 = grey\r\nValues below 0 = black\r\n\r\nHigh mode:\r\nMaps values over 1 to 0-1\r\n\r\nLow mode:\r\nMaps values below 0 to 1-0\r\n\r\nFeedback and questions:\r\nsupport at bfloch com\r\nGNU LGPL 2008 by Blazej Floch",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 2035, 49.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "bfHDRView",
+}

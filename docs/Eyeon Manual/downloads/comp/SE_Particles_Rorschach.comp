@@ -1,0 +1,830 @@
+Composition {
+	CurrentTime = 178,
+	RenderRange = { 0, 250, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 104",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 1,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Background1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				TopLeftRed = Input {
+					Value = 0.9,
+				},
+				TopLeftGreen = Input {
+					Value = 0.9,
+				},
+				TopLeftBlue = Input {
+					Value = 0.9,
+				},
+				TopLeftAlpha = Input {
+					Value = 0,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1100, 280.5, },
+			},
+		},
+		Camera3D1 = Camera3D {
+			Inputs = {
+				AoV = Input {
+					Value = 45,
+				},
+				FLength = Input {
+					Value = 18.2123442718302,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1100, 214.5, },
+			},
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0685083,
+				},
+				Invert = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 0.668768484302368,
+				},
+				Height = Input {
+					Value = 0.668768484302368,
+					Expression = "Width",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -49.5, },
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "An ellipitical mask is cutting away the outer parts of the image. This however looks boring, so we feed it into the displace further down.",
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -16.5, },
+			},
+		},
+		FastNoise1 = FastNoise {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				Discontinuous = Input {
+					Value = 1,
+				},
+				Detail = Input {
+					Value = 4.0883978,
+				},
+				XScale = Input {
+					Value = 2.4309392,
+				},
+				YScale = Input {
+					Disabled = true,
+				},
+				Seethe = Input {
+					Value = 0.6084656,
+				},
+				SeetheRate = Input {
+					Value = 0.21,
+				},
+				Type = Input {
+					Value = 1,
+				},
+				Color1Alpha = Input {
+					Value = 1,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0.274509803921569] = { 0, 0, 0, 1, },
+							[0.654901960784314] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input {
+					Value = "Our basic particle generator which will be refined further downstream. \r\nA seethrate of 2.1 generates alternating images.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 0, 16.5, },
+			},
+		},
+		Transform1 = Transform {
+			Inputs = {
+				FlipHoriz = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "FastNoise1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Simply flipping the image horizontally",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, -16.5, },
+			},
+		},
+		Rectangle1 = RectangleMask {
+			Inputs = {
+				Center = Input {
+					Value = { 1, 0.5, },
+				},
+				Width = Input {
+					Value = 1,
+				},
+				Height = Input {
+					Value = 1.12844036697248,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, 82.5, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "FastNoise1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Combining the flipped with the original image to create that 'Rorschach'-look.",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, 49.5, },
+			},
+		},
+		Displace1 = Displace {
+			Inputs = {
+				XChannel = Input {
+					Disabled = true,
+				},
+				XRefraction = Input {
+					Disabled = true,
+				},
+				YChannel = Input {
+					Disabled = true,
+				},
+				YRefraction = Input {
+					Disabled = true,
+				},
+				RefractionStrength = Input {
+					Value = -2,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "The circular cutaway is displace with the Luma of the original image",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 49.5, },
+			},
+		},
+		Bitmap1 = BitmapMask {
+			Inputs = {
+				Invert = Input {
+					Value = 1,
+				},
+				Image = Input {
+					SourceOp = "Displace1",
+					Source = "Output",
+				},
+				Channel = Input {
+					Value = FuID { "Luminance", },
+				},
+				Comments = Input {
+					Value = "Using the Displace's Luminance as a bitmap mask...",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 82.5, },
+			},
+		},
+		BrightnessContrast2 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Now we finally cut away parts of our image, based on a masked and displaced version of itself. Compare with  Merge1 to see the difference",
+				},
+				EffectMask = Input {
+					SourceOp = "Bitmap1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 115.5, },
+			},
+		},
+		Filter1 = Filter {
+			Inputs = {
+				FilterType = Input {
+					Value = 3,
+				},
+				Power = Input {
+					Disabled = true,
+				},
+				Angle = Input {
+					Disabled = true,
+				},
+				Randomize = Input {
+					Disabled = true,
+				},
+				Seed = Input {
+					Disabled = true,
+				},
+				Animated = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Some Sobel-Filtering on the Alphachannel.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 82.5, },
+			},
+		},
+		ChannelBooleans2 = ChannelBoolean {
+			Inputs = {
+				Operation = Input {
+					Value = 1,
+				},
+				Background = Input {
+					SourceOp = "BrightnessContrast2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Filter1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Now we add the RGBA-channels to our image",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 148.5, },
+			},
+		},
+		Rectangle2 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0552486,
+				},
+				Invert = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 0.85,
+				},
+				Height = Input {
+					Value = 0.85,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 825, 82.5, },
+			},
+		},
+		BrightnessContrast3 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "ChannelBooleans2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "With a rectangular mask we make sure that no content touches the outer edge of the image, because that would give disturbing edges.",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 825, 148.5, },
+			},
+		},
+		ChannelBooleans1 = ChannelBoolean {
+			PassThrough = true,
+			Inputs = {
+				ToRed = Input {
+					Value = 4,
+				},
+				ToGreen = Input {
+					Value = 4,
+				},
+				ToBlue = Input {
+					Value = 4,
+				},
+				ToAlpha = Input {
+					Value = 5,
+				},
+				Background = Input {
+					SourceOp = "BrightnessContrast3",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Copying the red channel into alpha gives a different reslut. Watch the final Merge (Merge2) and switch this tool to active/passthrough to see the difference.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 148.5, },
+			},
+		},
+		pEmitter1 = pEmitter {
+			Inputs = {
+				Number = Input {
+					Value = 0.1,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.4,
+				},
+				AngleZ = Input {
+					Value = 90,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				Comments = Input {
+					Value = "Emitting one particle every 10 frames and setting the actual color of the particles. Adjust 'Number' in the Controls-Tab to get more or less particles.\r\nThe Style is also set to 'Particle Birth Time', so the particle will keep the actual image it was fed with when it was created. Set this to other options to get different effects.\r\n",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Red"] = Input {
+					Value = 0.221547851851852,
+				},
+				["ParticleStyle.Green"] = Input {
+					Value = 0.234988523188485,
+				},
+				["ParticleStyle.Blue"] = Input {
+					Value = 0.353333333333333,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeIn"] = Input {
+					Value = 0.25,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					Value = -4,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 0.01,
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 2,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "ChannelBooleans1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1100, 148.5, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		softclip = pCustom {
+			NameSet = true,
+			Inputs = {
+				NumberIn1 = Input {
+					Value = 0.1,
+					Expression = "Camera3D1.PerspNearClip",
+				},
+				NumberIn2 = Input {
+					Value = 0.2,
+				},
+				["Position1.X"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.X",
+				},
+				["Position1.Y"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.Y",
+				},
+				["Position1.Z"] = Input {
+					Expression = "Camera3D1.Transform3DOp.Translate.Z",
+				},
+				Intermediate1 = Input {
+					Value = "sqrt( (px-p1x)^2 + (py-p1y)^2 + (pz-p1z)^2 )",
+				},
+				Intermediate2 = Input {
+					Value = " min ( 1, (i1-n1) / n2 )",
+				},
+				RedExpression = Input {
+					Value = "r * i2",
+				},
+				GreenExpression = Input {
+					Value = "g* i2",
+				},
+				BlueExpression = Input {
+					Value = "b* i2",
+				},
+				AlphaExpression = Input {
+					Value = "a* i2",
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Softclipping the particles as they approach the camera.\r\nFor a closer description on how this tool works have a look at:\r\nhttp://www.vfxpedia.com/index.php?title=Tips_and_Techniques/Particles/Soft_Clipping",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1210, 148.5, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "softclip",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1320, 148.5, },
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Camera3D1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1320, 214.5, },
+			},
+		},
+		Renderer3D1 = Renderer3D {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1430, 214.5, },
+			},
+		},
+		Merge2 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Renderer3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1430, 280.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 732,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							PipesAlways = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.81433,
+						Offset = { -686.611, 145.322, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "softclip", Expanded = true, },
+							{ "Ellipse1", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 510, },
+							ScaleX = 0.2,
+							OffsetX = -49.2,
+							OffsetY = 0,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 205,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -13.8,
+						OffsetY = 2.22044604925031e-016,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.809800128949065,
+					RatioY = 0.00995732574679943,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.461979913916786,
+						{
+							ID = "Left",
+							RatioX = 0.500399042298484,
+							RatioY = 0.0093167701863354,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.499600957701516,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.460545193687231,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Paths = {
+			},
+			FlowView = {
+				PipesOnTop = true,
+				GridSnap = true,
+			},
+			LastFile = "F:\\Content\\_Crap\\BillSeq0000.cin",
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.33333333333333,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Views = {
+				Right = {
+				},
+				Left = {
+					Viewer = {
+						Channel = 4294967295,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						CameraName = "Camera3D1",
+					},
+				},
+			},
+			QuickTime = {
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+		},
+	},
+}
+
+ 

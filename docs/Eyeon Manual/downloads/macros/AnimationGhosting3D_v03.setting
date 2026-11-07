@@ -1,0 +1,219 @@
+{
+	Tools = ordered() {
+		AnimationGhosting3D = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Animation Ghosting tool for Fusion 6.x and later\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				FrameRange = InstanceInput {
+					SourceOp = "Dp_Ghosting_Forward",
+					Source = "FrameRange",
+					Default = 50,
+				},
+				EveryNthFrame = InstanceInput {
+					SourceOp = "Dp_Ghosting_Forward",
+					Source = "EveryNthFrame",
+					Default = 1,
+				},
+				FwdColorFill = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "Enable",
+					Name = "Enable Forward Color Fill",
+					Default = 1,
+				},
+				FwdRed = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.DiffuseRed",
+					Name = "Forward Color",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				FwdGreen = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.DiffuseGreen",
+					Name = "Forward Color Green",
+					ControlGroup = 2,
+					Default = 1,
+				},
+				FwdBlue = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.DiffuseBlue",
+					Name = "Forward Color Blue",
+					ControlGroup = 2,
+					Default = 1,
+				},
+				FwdOpacity = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Forward",
+					Source = "MtlStdInputs.Opacity",
+					Name = "Forward Opacity",
+				},
+				BwdColorFill = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "Enable",
+					Name = "Enable Backward Color Fill",
+					Default = 1,
+				},
+				BwdRed = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.DiffuseRed",
+					Name = "Backward Color",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				BwdGreen = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.DiffuseGreen",
+					Name = "Backward Color Green",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				BwdBlue = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.DiffuseBlue",
+					Name = "Backward Color Blue",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				BwdOpacity = InstanceInput {
+					SourceOp = "Rpl_Ghosting_Color_Backward",
+					Source = "MtlStdInputs.Opacity",
+					Name = "Backward Opacity",
+				},
+				Data3D = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+					Name = "3D Data",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Merge3D2",
+					Source = "Output",
+				},
+			},
+			Tools = ordered() {
+				Rpl_Ghosting_Color_Forward = ReplaceMaterial3D {
+					NameSet = true,
+					Inputs = {
+						["MtlStdInputs.DiffuseRed"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.Opacity"] = Input {
+							Value = 0.5,
+						},
+						Data3D = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -270.516, -196.385, },
+					},
+				},
+				Dp_Ghosting_Forward = Duplicate3D {
+					Inputs = {
+				Copies = Input {
+					Expression = "FrameRange/EveryNthFrame+1",
+				},
+				TimeOffset = Input {
+					Expression = "math.min(FrameRange, EveryNthFrame)",
+				},
+						Data3D = Input {
+							SourceOp = "Rpl_Ghosting_Color_Forward",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -155.587, -198.337, },
+					},
+			UserControls = ordered() {
+				FrameRange = {
+					INP_Default = 50,
+					INP_Integer = true,
+					INP_MinAllowed = 0,
+					INPID_InputControl = "SliderControl",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 0,
+					INP_MaxScale = 500,
+					LINKS_Name = "Ghosting Frame Range in Each Direction",
+				},
+				EveryNthFrame = {
+					INP_Integer = true,
+					INPID_InputControl = "SliderControl",
+					IC_ControlPage = 0,
+					INP_MaxScale = 20,
+					INP_Default = 1,
+					INP_MinScale = 1,
+					INP_MinAllowed = 1,
+					LINKID_DataType = "Number",
+					LINKS_Name = "Ghost Every N-th Frame",
+				},
+			},
+				},
+				Dp_Ghosting_Backward = Duplicate3D {
+					Inputs = {
+						Copies = Input {
+							Value = 50,
+							Expression = "Dp_Ghosting_Forward.LastCopy",
+						},
+						TimeOffset = Input {
+							Value = -1,
+							Expression = "-Dp_Ghosting_Forward.TimeOffset",
+						},
+						Data3D = Input {
+							SourceOp = "Rpl_Ghosting_Color_Backward",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -151.48, -141.637, },
+					},
+				},
+				Rpl_Ghosting_Color_Backward = ReplaceMaterial3D {
+					NameSet = true,
+					Inputs = {
+						["MtlStdInputs.DiffuseGreen"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.Opacity"] = Input {
+							Value = 0.5,
+						},
+						Data3D = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -262.564, -142.143, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					ViewInfo = PipeRouterInfo {
+						Pos = { -333.764, -123.04, },
+					},
+				},
+				Merge3D2 = Merge3D {
+					CtrlWZoom = false,
+					Inputs = {
+						Data3D1 = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Data3D2 = Input {
+							SourceOp = "Dp_Ghosting_Forward",
+							Source = "Data3D",
+						},
+						Data3D3 = Input {
+							SourceOp = "Dp_Ghosting_Backward",
+							Source = "Data3D",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -47.1454, -122.64, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "AnimationGhosting3D",
+}

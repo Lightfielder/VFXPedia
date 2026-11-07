@@ -1,0 +1,331 @@
+-- by johannes and simon
+{
+	Tools = ordered() {
+		Analyzer_3d = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "RouteIn",
+					Source = "Input",
+				},
+				Channel = InstanceInput {
+					SourceOp = "bmp_channel",
+					Source = "Channel",
+				},
+				ClipBlack = InstanceInput {
+					SourceOp = "bmp_channel",
+					Source = "ClipBlack",
+					Default = 0,
+				},
+				ClipWhite = InstanceInput {
+					SourceOp = "bmp_channel",
+					Source = "ClipWhite",
+					Default = 0,
+				},
+				Z_Expression = InstanceInput {
+					SourceOp = "Analyzer_pC",
+					Source = "PositionZExpression",
+					Name = "Z Expression",
+					DefaultText = "pz",
+				},
+				Particle_Density = InstanceInput {
+					SourceOp = "Analyzer_pIEM",
+					Source = "XDensity",
+					Name = "Particle Density",
+					Default = 0.5,
+				},
+				Box_Subdivision = InstanceInput {
+					SourceOp = "one_Box",
+					Source = "SurfaceCubeInputs.SubdivisionWidth",
+					Name = "Box Subdivision",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Analyzer_Mrg3D",
+					Source = "Output",
+					Name = "3D Out",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				bmp_channel = BitmapMask {
+					NameSet = true,
+					Inputs = {
+						MaskWidth = Input {
+							Value = 1960,
+						},
+						MaskHeight = Input {
+							Value = 817,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						ClippingMode = Input {
+							Value = FuID { "None", },
+						},
+						Image = Input {
+							SourceOp = "RouteIn",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Red", },
+						},
+						ClipBlack = Input {
+							Value = 0,
+						},
+						ClipWhite = Input {
+							Value = 0,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 330, 379.5, },
+					},
+				},
+				Analyzer_pC = pCustom {
+					ID = 2,
+					NameSet = true,
+					Inputs = {
+						["Position1.X"] = Input {
+							Value = -2.710766,
+						},
+						["Position1.Y"] = Input {
+							Value = 0.5420553552675,
+						},
+						["Position1.Z"] = Input {
+							Value = 2.136762,
+						},
+						["Position2.X"] = Input {
+							Value = -2.578152,
+						},
+						["Position3.X"] = Input {
+							Value = -2.558382,
+						},
+						["Position4.X"] = Input {
+							Value = -2.060225,
+						},
+						PositionZExpression = Input {
+							Value = "a",
+						},
+						GreenExpression = Input {
+							Value = "g\r\n",
+						},
+						AlphaExpression = Input {
+							Value = "1",
+						},
+						Input = Input {
+							SourceOp = "Analyzer_pIEM",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 550, 346.5, },
+					},
+				},
+				Analyzer_pIEM = pImageEmitter {
+					ID = 3,
+					NameSet = true,
+					Inputs = {
+						XDensity = Input {
+							Value = 0.5,
+						},
+						YDensity = Input {
+							Value = 0.5,
+							Expression = "XDensity",
+						},
+						CreateParticlesEveryFrame = Input {
+							Value = 1,
+						},
+						Lifespan = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Bol_CH2Alpha",
+							Source = "Output",
+						},
+						["ParticleStyle.ColorOverLife"] = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						["ParticleStyle.SizeOverLife"] = Input {
+							SourceOp = "Analyzer_pIEMSizeoverLife",
+							Source = "Value",
+						},
+						["ParticleStyle.BlurOverLife"] = Input {
+							SourceOp = "Analyzer_pIEMBluroverLife2D",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 440, 346.5, },
+					},
+				},
+				Analyzer_pIEMSizeoverLife = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+							[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 0, },
+				},
+				Analyzer_pIEMBluroverLife2D = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+							[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 0, },
+				},
+				Bol_CH2Alpha = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "RouteIn",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "bmp_channel",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 330, 346.5, },
+					},
+				},
+				RouteIn = PipeRouter {
+					NameSet = true,
+					ViewInfo = PipeRouterInfo {
+						Pos = { 220, 346.5, },
+					},
+				},
+				Analyzer_pR = pRender {
+					ExtentSet = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						GlobalOut = Input {
+							Value = 250,
+						},
+						Width = Input {
+							Value = 1960,
+						},
+						Height = Input {
+							Value = 817,
+						},
+						OutputMode = Input {
+							Disabled = true,
+						},
+						AutomaticPreRoll = Input {
+							Value = 0,
+						},
+						["MaterialID.MaterialID"] = Input {
+							Value = 3,
+						},
+						["ObjectID.ObjectID"] = Input {
+							Value = 3,
+						},
+						Input = Input {
+							SourceOp = "Analyzer_pC",
+							Source = "Output",
+						},
+						FrameRenderScript = Input {
+							Value = "if t ~= time then Restart = 1 end t = time",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 660, 346.5, },
+					},
+				},
+				one_Box = Shape3D {
+					NameSet = true,
+					Inputs = {
+						["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+							Value = 5,
+						},
+						["Transform3DOp.Translate.Z"] = Input {
+							Value = 0.5,
+						},
+						["Transform3DOp.ScaleLock"] = Input {
+							Value = 0,
+						},
+						["Transform3DOp.Scale.Y"] = Input {
+							Value = 0.5,
+						},
+						Shape = Input {
+							Value = FuID { "SurfaceCubeInputs", },
+						},
+						["MtlStdInputs.Diffuse.Color.Red"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.Diffuse.Color.Blue"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.Specular.Intensity"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.ReceivesLighting"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.ReceivesShadows"] = Input {
+							Value = 0,
+						},
+						["MtlStdInputs.MaterialID"] = Input {
+							Value = 5,
+						},
+						["SurfaceCubeInputs.SubdivisionWidth"] = Input {
+							Value = 1,
+						},
+						["SurfaceCubeInputs.Wireframe"] = Input {
+							Value = 1,
+						},
+						["SurfaceCubeInputs.ObjectID.ObjectID"] = Input {
+							Value = 6,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 825, 313.5, },
+					},
+				},
+				Analyzer_Mrg3D = Merge3D {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						["Transform3DOp.ScaleLock"] = Input {
+							Value = 0,
+						},
+						SceneInput1 = Input {
+							SourceOp = "Analyzer_pR",
+							Source = "Output",
+						},
+						SceneInput2 = Input {
+							SourceOp = "one_Box",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 825, 346.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "Analyzer_3d",
+}

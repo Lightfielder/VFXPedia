@@ -1,0 +1,193 @@
+--[[--
+Debug.Fuse
+by Stefan Ihringer, stefan@bildfehler.de
+
+prints info to the console for various Fuse events
+--]]--
+
+FuRegisterClass("Debug", CT_Tool, {		-- REGS_ID
+	REGS_Name = "Debug Fuse",
+	REGS_Category = "Fuses",
+	REGS_OpIconString = "Deb",
+	REGS_OpDescription = "Prints info for various Fuse events",
+	REGS_Company = "ACME",
+	REGS_URL = "http://en.wikipedia.org/wiki/Acme_Corporation",
+	REG_Unpredictable = true,			-- this tool shall never be cached
+	REG_SupportsDoD = true,				-- this tool supports DoD
+	REG_NoPreCalcProcess = true,		-- call Process for precalc requests (instead of PreCalcProcess)
+	})
+	
+function Create()
+	InSlider = self:AddInput("Slider", "Slider", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinAllowed = 0,
+		INP_MaxAllowed = 5,
+		INP_MaxScale = 5,
+		INP_DoNotifyChanged = true,
+		})
+	InDoUpdate = self:AddInput("Update 2nd Slider", "DoUpdate", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "CheckboxControl",
+		INP_Default = 1,
+		})
+	InTrigger = self:AddInput("Don't Trigger NotifyChanged", "Trigger", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "CheckboxControl",
+		INP_Default = 0,
+		})
+	InSlider2 = self:AddInput("Slider 2 (updated by first one)", "Slider2", {
+		LINKID_DataType = "Number",
+		INPID_InputControl = "SliderControl",
+		INP_MinAllowed = 0,
+		INP_MaxAllowed = 5,
+		INP_MaxScale = 5,
+		INP_DoNotifyChanged = true,
+		})
+		
+	InImage = self:AddInput("Input", "Input", {
+		LINKID_DataType = "Image",
+		LINK_Main = 1,
+		INP_AcceptTransform = true,
+		})
+
+	OutImage = self:AddOutput("Output", "Output", {
+		LINKID_DataType = "Image",
+		LINK_Main = 1,
+		})
+end
+
+
+-- OnAddToFlow() gets called after the Fuse has been added.
+-- All Inputs have already been created and can be modified (e.g. by setting
+-- MinAllowed and MaxAllowed depending on the current composition's frame range)
+function OnAddToFlow()
+	print()
+	print("OnAddToFlow()")
+end
+
+
+-- OnConnected gets called whenever a connection is made to the inputs, either
+-- by connecting images to an image input or by animating a number input.
+-- Also called when this connection is removed or when this change in connections
+-- happens anywhere upstream of this Fuse.
+function OnConnected(inp, old, new)
+	local inpName = inp:GetAttr("LINKS_Name")
+--	print("OnConnected() for: "..inpName," old = ",old,"new = ",new)
+end
+
+
+-- CheckRequest will be called once or multiple times before Process(), depending on the
+-- input priority levels of this Fuse.
+function CheckRequest(req)
+	local pri = req:GetPri()
+--	print("CheckRequest for input priority level "..pri)
+end
+
+
+-- Handle changes to an input.
+function NotifyChanged(inp, param, time)
+	local inpName = inp:GetAttr("LINKID_ID")
+--	print("NotifyChanged() for: "..inpName)
+	if inp == InSlider and param then
+--		print("  slider's new value: ", param.Value)
+		if InDoUpdate:GetSource(time).Value > 0.5 then
+			if InTrigger:GetSource(time).Value > 0.5 then
+				-- extra parameter to prevent NotifyChanged for this update
+				InSlider2:SetSource(param, time, 0)
+			else
+				-- normal call, triggers NotifyChanged for 2nd slider
+				InSlider2:SetSource(param, time)
+			end
+		end
+	end
+end
+
+
+-- currently won't be called since REG_NoPreCalcProcess is true
+function PreCalcProcess(req)
+	local img = InImage:GetValue(req)
+	print("\nPreCalcProcess()")
+
+	local dod = req:GetInputDoD(InImage)
+	print("Input DoD:   ", dod, dod:ValidWidth().."x"..dod:ValidHeight())
+	print("Request ROI: ", "not available during PreCalc")
+	local datawnd = dod:Intersect(img.DataWindow)
+	
+	local out = Image({
+		IMG_Like = img,
+		IMG_DataWindow = datawnd,
+		IMG_ValidWindow = nil,
+		IMG_NoData = true,
+		})
+	OutImage:Set(req, img)
+end
+
+-- main Process() function. Can't access global variables created in OnAddToFlow(),
+-- OnConnected() or NotifyChanged().
+function Process(req)
+	local img = InImage:GetValue(req)
+	if req:IsPreCalc() then
+		print("\nprecalc")
+	else
+		print("\nProcess")
+	end
+
+	-- get input DoD and request ROI
+	local dod, roi = req:GetInputDoD(InImage), req:GetRoI()
+	print("Input DoD:   ", dod, dod:ValidWidth().."x"..dod:ValidHeight())
+	if roi then
+		print("Request ROI: ", roi)--, roi:ValidWidth().."x"..roi:ValidHeight())
+	else
+		print("Request ROI: ", "not available during PreCalc")
+	end
+	-- request DoD is not needed but is printed anyways
+	local reqdod = req:GetDoD()
+	if reqdod then
+--		print("Request DoD: ", reqdod)--, reqdod:ValidWidth().."x"..reqdod:ValidHeight())
+	else
+--		print("Request DoD: ", "not available during PreCalc")
+	end
+
+	local datawnd = dod:Intersect(img.DataWindow)
+	-- this would be the place to modify datawnd if the output DoD should differ from the input
+	-- example: flip horizontally
+	--datawnd = FuRectInt(img.Width - datawnd[3], datawnd[2], img.Width - datawnd[1], datawnd[4])
+	-- example: flip vertically
+	--datawnd = FuRectInt(datawnd[1], img.Height- datawnd[4], datawnd[3], img.Height - datawnd[2])
+	-- example: turn image 90° counter clockwise
+	--datawnd = FuRectInt(img.Height - datawnd[4], datawnd[1], img.Height - datawnd[2], datawnd[3])
+
+
+	-- calculate the area we need to process: the input image's DoD intersected by the request's ROI
+	-- the image may be larger, but since pixels outside of the request's ROI are of no concern for
+	-- us, we can save a lot of processing time.
+	-- This mustn't be done during a precalc request which is why we're testing roi for nil here.
+	-- If REG_NoPreCalcProcess were false, the if statement wouldn't be necessary.
+	if roi ~= nil then
+		datawnd = roi:Intersect(datawnd)
+	end
+--	print("our datawnd: ", datawnd, datawnd:Width().."x"..datawnd:Height())
+
+	-- create output image with new DoD. Pixels outside of IMG_DataWindow mustn't be accessed (-> crash).
+	local out = Image({
+		IMG_Like = img,
+		IMG_DataWindow = datawnd,
+		IMG_ValidWindow = roi and roi.ValidWindow,		-- testing for roi so we can handle precalc requests here as well
+		IMG_NoData = req:IsPreCalc(),
+		})
+
+	if not req:IsPreCalc() then
+		-- fill image...
+		out:Fill(Pixel({R = 0, G = 0, B = 0.5, A = 0}))
+		-- but keep canvas color
+		local canvaspixel = Pixel()
+		img:GetCanvasColor(canvaspixel)
+		out:SetCanvasColor(canvaspixel)
+	end
+		
+	--	img:Use()
+	OutImage:Set(req, out)
+	print()
+end
+

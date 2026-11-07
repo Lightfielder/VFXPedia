@@ -1,0 +1,379 @@
+print("****************************************************************************************************\n")
+
+print("  Script:\t\t\tChange Path OpenEXR")
+print("  Version:\t\t\t1.0")
+print("  Written:\t\t\tBrian Sinasac")
+print("  Date:\t\t\tJanuary 3, 2007")
+print("  Requested by:\t\tBard Heriksen, Filmkameratene\n")
+
+print("\t\t\tRe-sets paths for OpenEXR files, maintaining user configured data\n")
+
+--			This script is run from within Fusion.
+
+--  Required Actions:
+
+--  1.  Identify the selected tool 
+--  2.  Verify that only Loader is selected
+--  3.  Verify that the Loader contains only 1 file and that it contains OpenEXR format
+--		3a.  A bug in fusion leaves behind residue (old clip information), it is therefore necessary to look through the inputs and identify the clip in the loader. 
+--  4.  Collect the user configured data
+--  5.  Launch a file selector
+--  6.  Reload the loader with the newly selected clip
+--  7.  Re-populate the user configured data
+
+
+print("****************************************************************************************************\n")
+--						TOOLBOX
+
+--theTool = a tool
+function showInputs(theTool)
+	inputList=theTool:GetInputList()
+	count=table.getn(inputList)
+	for i=1, count do
+		print(i.."  "..inputList[i]:GetAttrs().INPS_Name.."  "..inputList[i]:GetAttrs().INPS_ID)
+	end
+end
+
+
+function showAttributes(theTool)
+	table.foreach(theTool:GetAttrs(),print)
+end
+
+
+function showAttributesFull(theTool)  -- shows all attributes of the tool
+	theAttrs=theTool:GetAttrs()
+	for iterator, key in pairs(theAttrs) do
+		if(type(key)=="table") then
+			print(iterator)
+			print("****************************")
+			dump(key)
+			print("****************************")
+		else
+			print(iterator.."\t"..tostring(key))
+		end
+	end
+end
+
+
+function showAttributeValue(theTool, attrName)  -- shows the value of a specific attribute
+	consoleString = attrName.." does not exist."
+	attrList = theTool:GetAttrs()
+	print(theTool:GetAttrs()[6])
+	print(theTool:GetAttrs().TOOLI_ImageWidth)
+	dump(attrList)
+	count = table.getn(attrList)
+	print (count)
+	for i = 1, count do
+	print(attrList[i])
+		if attrList[i] == attrName then
+			consoleString = tostring(attrName) .." is "..attrList[i]
+		end
+	end
+	print(consoleString)
+end
+
+
+-- verify file exists
+function validateFile(aFile)
+	if fileexists(aFile) then
+		return(true)
+	else
+		return(false)
+	end
+end
+
+
+-- populate list box (fresh populate)
+function populateListBox(theListBox, theDataTable)
+	for i=1, table.getn(theDataTable) do
+		theListBox[tostring(i)]=theDataTable[i]
+	end
+end
+
+
+-- populate list box (fresh populate)
+function clearListBox(theListBox)
+	counter = 1
+	while theListBox[counter]~=nil do
+		theListBox[counter]=nil
+		counter=counter+1
+	end
+	iup.Flush()
+end
+
+
+-- File and Date Selection GUI
+function fileSelector()
+	iup.SetLanguage("ENGLISH")
+	f, err = iup.GetFile("*.exr")
+
+	if err == 0 then 
+		return (f)	    
+	elseif err == -1 then 
+		return(false)
+	end
+end
+
+
+-- returns all characters before or after specified delimitor
+function stripPath(thePath, theDelimitor, path) -- path is a boolean if true return all before
+-- find the last \ in the path
+	for i=string.len(thePath), 1, -1 do
+		if string.byte(thePath, i) == string.byte(theDelimitor,1) then
+			if path then
+				return(string.sub(thePath,1,i)) --return the path
+			else
+				return(string.sub(thePath,i+1))  --return the file
+			end
+		end
+	end
+	return(false)
+end
+
+
+-- returns the input location of the channels variable for the last clip
+-- required because residual information is maintained in the loaders when the filename is changed or new clip created
+function findLastClip(aLoader)
+	currentClip = 0
+	inputList = aLoader:GetInputList()
+ 	count=table.getn(inputList)
+	for i=1, count do
+		if inputList[i]:GetAttrs().INPS_Name== "Channels" then
+			currentClip = i
+		end
+	end
+	return currentClip
+ end
+--						TOOLBOX
+--****************************************************************************************************
+
+
+-- global variables
+selectedLoaders = false
+theLoader=0
+
+	
+--  1.  Identify the selected Loader
+completeToolList = composition:GetToolList()  -- list of all tools in comp
+
+for i=1, table.getn(completeToolList) do
+	if completeToolList[i]:GetAttrs().TOOLS_RegID == "Loader" then
+		if (completeToolList[i]:GetAttrs().TOOLB_Selected) then
+print("Identified selected loader as:  "..completeToolList[i]:GetAttrs().TOOLS_Name) -- DEBUG
+--  2.  Verify that only Loader is selected
+			if selectedLoaders then
+				selectedLoaders =false
+				break
+			end
+--  3.  Verify that the Loader contains only 1 file and that it contains OpenEXR format  
+			if completeToolList[i]:GetAttrs().TOOLST_Clip_FormatID[1] == "OpenEXRFormat" then
+				if completeToolList[i]:GetAttrs().TOOLST_Clip_FormatID[2] ~= nil then
+					print("Selected loader:  "..completeToolList[i]:GetAttrs().TOOLS_Name.." contains more than one entry in the clip list.\n")
+				else
+					theLoader=i
+					selectedLoaders = true
+				end
+			else
+				print("Selected loader:  "..completeToolList[i]:GetAttrs().TOOLS_Name.." does not contain an OpenEXR file.\n")
+			end
+		end
+	end
+end
+
+-- script works based on selected loaders, if none or more than one is selected then fail out	
+if not selectedLoaders then
+	print("An error has occured while running this script.")
+	print("Please select only one loader and re-run the script.")
+	print("Script Cancelled.")
+else
+--		3a.  A bug in fusion leaves behind residue (old clip information), it is therefore necessary to look through the inputs and identify the clip in the loader. 
+	lastClip=findLastClip(completeToolList[theLoader])
+	
+--  4.  Collect the user configured data
+	lastClip=lastClip+1
+	redEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]  -- secondary value is a frame
+	lastClip=lastClip+1
+	redValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+
+	lastClip=lastClip+1
+	greenEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	greenValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	blueEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	blueValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	alphaEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	alphaValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	zEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	zValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	coverageEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	coverageValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	objectIDEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	objectIDValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	materialIDEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	materialIDValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+
+	lastClip=lastClip+1
+	uEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	uValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	vEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	vValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	xNormalEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	xNormalValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	yNormalEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	yNormalValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	zNormalEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	zNormalValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	xVelocityEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	xVelocityValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	lastClip=lastClip+1
+	yVelocityEnabled=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	lastClip=lastClip+1
+	yVelocityValue=completeToolList[theLoader]:GetInputList()[lastClip][0]
+	
+	print("Original file name:  "..completeToolList[theLoader].Clip[0].."\n")
+
+	
+--  5.  Launch a file selector
+	theFile = fileSelector()
+	if theFile then
+		print("Replacement file name:  "..theFile.."\n")
+		
+		oldFile = stripPath(completeToolList[theLoader].Clip[0],"\\",false)
+		newFile = stripPath(theFile,"\\",false)
+				
+		if oldFile ~= newFile then
+			alarmText="The replacement file name does not match the new file name.\nThis may cause errors in the final output."
+			answer=iup.Alarm("File Mismatch", alarmText, "Continue", "Quit")
+			if answer ~= 1 then
+				print("Script Cancelled.")
+				return
+			end
+		end
+		
+		completeToolList[theLoader].Clip=theFile  -- create the new clip
+	
+--  6.  Reload the loader with the newly selected clip
+		lastClip=findLastClip(completeToolList[theLoader]) -- find the newly created clip in the loader
+		
+--  7.  Re-populate the user configured data
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=redEnabled  -- secondary value is a frame
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=redValue
+
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=greenEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=greenValue
+		
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=blueEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=blueValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=alphaEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=alphaValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=zEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=zValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=coverageEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=coverageValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=objectIDEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=objectIDValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=materialIDEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=materialIDValue
+
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=uEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=uValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=vEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=vValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=xNormalEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=xNormalValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=yNormalEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=yNormalValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=zNormalEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=zNormalValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=xVelocityEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=xVelocityValue
+	
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=yVelocityEnabled
+		lastClip=lastClip+1
+		completeToolList[theLoader]:GetInputList()[lastClip][0]=yVelocityValue
+			
+		print("Script Complete")
+
+	else
+		print("Script Cancelled.")
+	end
+		
+	
+end
+
+
+

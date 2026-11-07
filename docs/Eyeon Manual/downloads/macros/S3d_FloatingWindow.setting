@@ -1,0 +1,397 @@
+{
+	Tools = ordered() {
+		s3d_FloatingWindow_21 = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "sourcestereo",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "swap",
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "Left_TOP",
+					Default = 0,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "Left_BOTTOM",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "leftlock",
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "Right_TOP",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "Right_BOTTOM",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "rightlock",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "s3d_gain_1_21",
+					Source = "Softedge",
+					Default = 0,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "s3d_splitter_3_21",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "s3d_combiner_2_1_21",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 1375, 412.5, }, },
+			Tools = ordered() {
+				s3d_splitter_3_21 = Splitter {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Split = Input { Expression = "iif(s3d_gain_1_21.sourcestereo==1,\"Horiz\",\"Vert\")", },
+						Swap = Input {
+							Value = 1,
+							Expression = "iif(s3d_gain_1_21.sourcestereo==0,1-s3d_gain_1_21.swap,s3d_gain_1_21.swap)",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -220, 108.428, }, },
+				},
+				s3d_combiner_3_21 = Combiner {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Combine = Input { Value = FuID { "Vert", }, },
+						Swap = Input { Value = 1, },
+						Image1 = Input {
+							SourceOp = "s3d_splitter_3_21",
+							Source = "Image1",
+						},
+						Image2 = Input {
+							SourceOp = "s3d_splitter_3_21",
+							Source = "Image2",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -110, 108.428, }, },
+				},
+				s3d_mask_right_1_21Polyline = BezierSpline {
+					SplineColor = { Red = 173, Green = 255, Blue = 47, },
+					CtrlWShown = false,
+					NameSet = true,
+					KeyFrames = {
+						[46] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+								Closed = true,
+								Points = {
+									{ Linear = true, X = -0.16812227666378, Y = 0.399590164422989, LX = 0.0631732189406951, LY = -0.00204917788505554, RX = -0.00174672404925028, RY = -0.213114753365517, PublishID = "Point0", },
+									{ Linear = true, X = -0.173362448811531, Y = -0.239754095673561, LX = 0.00174672404925028, LY = 0.213114753365517, RX = 0.0806404675046603, RY = 0.00273223718007406, PublishID = "Point1", },
+									{ Linear = true, X = 0.0685589537024498, Y = -0.231557384133339, LX = -0.0806404675046603, LY = -0.00273223718007406, RX = -0.0157205245147149, RY = 0.208333338300387, PublishID = "Point2", },
+									{ Linear = true, X = 0.0213973801583052, Y = 0.393442630767822, LX = 0.0157205245147149, LY = -0.208333338300387, RX = -0.0631732189406951, RY = 0.00204917788505554, PublishID = "Point3", },
+								},
+							}, },
+					},
+				},
+				s3d_mask_right_1_21 = PolylineMask {
+					DrawMode = "InsertAndModify",
+					DrawMode2 = "InsertAndModify",
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						syncRight = Input { Value = 1, },
+						syncLeft = Input { Value = 1, },
+						leftButtom = Input { Value = 0.3373494, },
+						MaskWidth = Input { Value = 2048, },
+						MaskHeight = Input { Value = 872, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						ClippingMode = Input { Value = FuID { "None", }, },
+						Polyline = Input {
+							SourceOp = "s3d_mask_right_1_21Polyline",
+							Source = "Value",
+						},
+						Polyline2 = Input {
+							Value = Polyline {
+							},
+							Disabled = true,
+						},
+						Point0 = Input {
+							Value = { 0, 0.5, },
+							Expression = "iif(s3d_gain_1_21.Left_TOP>=0, Point(s3d_gain_1_21.Left_TOP, .5), Point(0, .5))",
+						},
+						Point1 = Input {
+							Value = { 0, 0, },
+							Expression = "iif(s3d_gain_1_21.leftlock==0, iif(s3d_gain_1_21.Left_BOTTOM>=0, Point(s3d_gain_1_21.Left_BOTTOM, 0), Point(0, 0)) ,Point(Point0.X, 0))",
+						},
+						Point2 = Input {
+							Value = { 1, 0, },
+							Expression = "iif(s3d_gain_1_21.rightlock==0, iif(s3d_gain_1_21.Right_BOTTOM<0, Point(1+s3d_gain_1_21.Right_BOTTOM, 0), Point(1, 0)) ,Point(Point3.X, 0))",
+						},
+						Point3 = Input {
+							Value = { 1, 0.5, },
+							Expression = "iif(s3d_gain_1_21.Right_TOP<0, Point(1+s3d_gain_1_21.Right_TOP, .5), Point(1, .5))",
+						},
+						EffectMask = Input {
+							SourceOp = "s3d_mask_left_1_21",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 0, 42.4281, }, },
+				},
+				s3d_mask_left_1_21 = PolylineMask {
+					DrawMode = "InsertAndModify",
+					DrawMode2 = "InsertAndModify",
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						syncRight = Input { Value = 1, },
+						syncLeft = Input { Value = 1, },
+						leftButtom = Input { Value = 0.3373494, },
+						OutputSize = Input { Value = FuID { "Custom", }, },
+						MaskWidth = Input {
+							Value = 720,
+							Expression = "s3d_gain_1_21.Input.Width",
+						},
+						MaskHeight = Input {
+							Value = 1152,
+							Expression = "s3d_gain_1_21.Input.Height",
+						},
+						PixelAspect = Input { Value = { 1, 1, }, },
+						ClippingMode = Input { Value = FuID { "None", }, },
+						Polyline = Input {
+							Value = Polyline {
+								Closed = true,
+								Points = {
+									{ Linear = true, X = -0.5, Y = 0.5, LX = 0.333333333333333, LY = 0, RX = 0, RY = -0.166666666666667, PublishID = "Point0", },
+									{ Linear = true, X = -0.5, Y = 0, LX = 0, LY = 0.166666666666667, RX = 0.333333333333333, RY = 0, PublishID = "Point1", },
+									{ Linear = true, X = 0.5, Y = 0, LX = -0.333333333333333, LY = 0, RX = 0, RY = 0.166666666666667, PublishID = "Point2", },
+									{ Linear = true, X = 0.5, Y = 0.5, LX = 0, LY = -0.166666666666667, RX = -0.333333333333333, RY = 0, PublishID = "Point3", },
+								},
+							},
+						},
+						Polyline2 = Input {
+							Value = Polyline {
+							},
+							Disabled = true,
+						},
+						Point0 = Input {
+							Value = { 0, 1, },
+							Expression = "iif(s3d_gain_1_21.Left_TOP<0, Point(-s3d_gain_1_21.Left_TOP, 1), Point(0, 1))",
+						},
+						Point1 = Input {
+							Value = { 0, 0.5, },
+							Expression = "iif(s3d_gain_1_21.leftlock==0, iif(s3d_gain_1_21.Left_BOTTOM<0, Point(-s3d_gain_1_21.Left_BOTTOM, 0.5), Point(0, 0.5)) ,Point(Point0.X, 0.5))",
+						},
+						Point2 = Input {
+							Value = { 1, 0.5, },
+							Expression = "iif(s3d_gain_1_21.rightlock==0, iif(s3d_gain_1_21.Right_BOTTOM>=0, Point(1-s3d_gain_1_21.Right_BOTTOM, 0.5), Point(1, 0.5)) ,Point(Point3.X, 0.5))",
+						},
+						Point3 = Input {
+							Value = { 1, 1, },
+							Expression = "iif(s3d_gain_1_21.Right_TOP>=0, Point(1-s3d_gain_1_21.Right_TOP, 1), Point(1, 1))",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 0, 9.42812, }, },
+				},
+				s3d_combiner_2_1_21 = Combiner {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Combine = Input { Expression = "iif(s3d_gain_1_21.sourcestereo==1,\"Horiz\",\"Vert\")", },
+						Swap = Input {
+							Value = 1,
+							Expression = "iif(s3d_gain_1_21.sourcestereo==1,1,0)",
+						},
+						Image1 = Input {
+							SourceOp = "s3d_splitter_2_1_21",
+							Source = "Image1",
+						},
+						Image2 = Input {
+							SourceOp = "s3d_splitter_2_1_21",
+							Source = "Image2",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 220, 108.428, }, },
+				},
+				s3d_splitter_2_1_21 = Splitter {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Split = Input { Value = FuID { "Vert", }, },
+						Input = Input {
+							SourceOp = "s3d_gain_1_21",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 110, 108.428, }, },
+				},
+				s3d_gain_1_21 = ColorGain {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMaskInverted = Input { Value = 1, },
+						LockRGB = Input { Value = 1, },
+						GainRed = Input { Value = 0, },
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.125, 0.75, },
+											{ 0.375, 0.25, },
+											{ 0.5, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0.5, 0, },
+											{ 0.625, 0.25, },
+											{ 0.875, 0.75, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+						Input = Input {
+							SourceOp = "s3d_combiner_3_21",
+							Source = "Output",
+						},
+						leftlock = Input { Value = 1, },
+						rightlock = Input { Value = 1, },
+						EffectMask = Input {
+							SourceOp = "Blur1_1_21",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 0, 108.428, }, },
+					UserControls = ordered() {
+						sourcestereo = {
+							{ CCS_AddString = "OverUnder", },
+							{ CCS_AddString = "Side By Side", },
+							INPID_InputControl = "ComboControl",
+							LINKID_DataType = "Number",
+							LINKS_Name = "source stereo:",
+						},
+						swap = {
+							LINKS_Name = "swap",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+						Left_TOP = {
+							INP_Default = 0,
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+						},
+						Left_BOTTOM = {
+							INPID_InputControl = "SliderControl",
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						leftlock = {
+							INP_Default = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKID_DataType = "Number",
+							LINKS_Name = "left lock",
+						},
+						Right_TOP = {
+							INPID_InputControl = "SliderControl",
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						Right_BOTTOM = {
+							INP_Default = 0,
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+						},
+						rightlock = {
+							LINKS_Name = "right lock",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+						Softedge = {
+							INP_MinScale = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Soft edge",
+							INPID_InputControl = "SliderControl",
+							INP_MaxScale = 100,
+							INP_Default = 0,
+						},
+					},
+				},
+				Blur1_1_21 = Blur {
+					CtrlWShown = false,
+					Inputs = {
+						LockXY = Input { Value = 0, },
+						XBlurSize = Input {
+							Value = 0,
+							Expression = "1000*s3d_gain_1_21.Softedge/Input.Width",
+						},
+						Input = Input {
+							SourceOp = "s3d_mask_right_1_21",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 0, 75.4281, }, },
+				},
+			},
+			UserControls = ordered() {
+				IndependentLabel = {
+					IC_ControlPage = 1,
+					LINKS_Name = "Allows you to manipulate with the floating windows on yours",
+					INPID_InputControl = "LabelControl",
+				},
+				IndependentLabel2 = {
+					IC_ControlPage = 1,
+					LINKS_Name = "stereoscopic images. By default it assume that Left image ",
+					INPID_InputControl = "LabelControl",
+				},
+				IndependentLabel3 = {
+					IC_ControlPage = 1,
+					LINKS_Name = "is OVER in OverUnder and on the left in SideBySide modes.",
+					INPID_InputControl = "LabelControl",
+				},
+				IndependentLabel5 = {
+					IC_ControlPage = 1,
+					LINKS_Name = "Negative values responsible for negative parallax, positive for positive. ",
+					INPID_InputControl = "LabelControl",
+				},
+				IndependentLabel6 = {
+					IC_ControlPage = 1,
+					LINKS_Name = "-----------------------------------  press F1 for online help  ------------------",
+					INPID_InputControl = "LabelControl",
+				},
+				IndependentLabel7 = {
+					IC_ControlPage = 1,
+					LINKS_Name = " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+					INPID_InputControl = "LabelControl",
+				},
+			},
+			CustomData = {					
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/FloatingWindow",
+			},
+		},
+	},
+	ActiveTool = "s3d_FloatingWindow_21",
+}

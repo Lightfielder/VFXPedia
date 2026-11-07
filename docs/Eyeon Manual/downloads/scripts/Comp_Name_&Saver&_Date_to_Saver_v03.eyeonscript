@@ -1,0 +1,36 @@
+--Based on Rocket_Science_Saver_Clip_Rename.eyeonscript by Brian Sinasac, reworked by Igor Kozitsyn, Dmitry Korshunov, Dmitry Slepichev and Gregory Chalenko
+
+--This edition by Gregory Chalenko assigns sequence frame padding with four digits separated by a dot: FileName.0000.ext
+
+if (tool==nil) then
+   print("It's a tool script. Please select a Saver tool before running this script")
+   return
+end
+
+if tool:GetAttrs().TOOLS_RegID~="Saver" then
+   print("It's a tool script. Please select a Saver tool before running this script")
+   return 
+end 
+
+compName=string.gsub(comp:GetAttrs().COMPS_Name, "%.comp", "")
+
+toolName = tool:GetAttrs().TOOLS_Name
+fragment = string.gsub(toolName, "Saver", "")
+
+FileName = compName..fragment.."_"..os.date("%Y.%m.%d")
+
+--Extension
+ext="."
+string.gsub(tool.Clip[TIME_UNDEFINED], "%.(%w+)$", function (arg) ext=ext..arg end, 1)
+
+if (ext==".mov") then
+	Padding = ""
+elseif (ext==".avi") then
+	Padding = ""
+else
+	Padding = ".0000"
+end
+
+tool.Clip[TIME_UNDEFINED] = eyeon.getfilepath(tool.Clip[TIME_UNDEFINED])..FileName..Padding..ext
+
+

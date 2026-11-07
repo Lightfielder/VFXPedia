@@ -1,0 +1,2055 @@
+Composition {
+	CurrentTime = 188,
+	RenderRange = { 1, 250, },
+	GlobalRange = { 1, 250, },
+	CurrentID = 76,
+	HiQ = true,
+	Version = "Fusion 6.1 build 697",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		VariBlurXBlurSize = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 5.66666666666667, 0.4, }, Flags = { Linear = true, }, },
+				[15] = { 1.2, LH = { 10.3333333333333, 0.8, }, RH = { 30, 1.2, }, Flags = { Linear = true, }, },
+				[60] = { 1.2, LH = { 45, 1.2, }, RH = { 65, 2.13333333333333, }, Flags = { Linear = true, }, },
+				[75] = { 4, LH = { 70, 3.06666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		VariBlurYBlurSize = BezierSpline {
+			SplineColor = { Red = 180, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 5.66666666666667, 0.833333333333333, }, Flags = { Linear = true, }, },
+				[15] = { 2.5, LH = { 10.3333333333333, 1.66666666666667, }, RH = { 30, 2.5, }, Flags = { Linear = true, }, },
+				[60] = { 2.5, LH = { 45, 2.5, }, RH = { 65, 3, }, Flags = { Linear = true, }, },
+				[75] = { 4, LH = { 70, 3.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		DepthDefocus_1FocalPoint = BezierSpline {
+			SplineColor = { Red = 255, Green = 180, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[90] = { -2.73537604456825, RH = { 95, -5.1569173630455, }, Flags = { Linear = true, }, },
+				[105] = { -10, LH = { 100, -7.57845868152275, }, RH = { 110, -8.33333333333333, }, Flags = { Linear = true, }, },
+				[120] = { -5, LH = { 115, -6.66666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		CT_FocalPointSelectorDepthPowerCurvatureSlider = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[135] = { 1, RH = { 140, 1.33333333333333, }, Flags = { Linear = true, }, },
+				[150] = { 2, LH = { 145, 1.66666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		CT_FocalPointSelectorFGPowerSlider = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[165] = { 2, RH = { 168.9, 1.46, }, Flags = { Linear = true, }, },
+				[180] = { 1, LH = { 171.8, 1, }, RH = { 188.2542, 1, }, },
+				[195] = { 3, LH = { 192, 2.26, }, },
+			},
+		},
+		DepthDefocus_1ImageGamma = BezierSpline {
+			SplineColor = { Red = 180, Green = 255, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[30] = { 1, RH = { 35, 1.4, }, Flags = { Linear = true, }, },
+				[45] = { 2.2, LH = { 40, 1.8, }, RH = { 100, 2.2, }, Flags = { Linear = true, }, },
+				[210] = { 2.2, LH = { 155, 2.2, }, RH = { 215, 2.46666666666667, }, Flags = { Linear = true, }, },
+				[225] = { 3, LH = { 220, 2.73333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		CT_ChannelSelectorLUTIn1 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_ChannelSelectorLUTIn2 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_ChannelSelectorLUTIn3 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_ChannelSelectorLUTIn4 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_FocalPointSelectorLUTIn1 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_FocalPointSelectorLUTIn2 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_FocalPointSelectorLUTIn3 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		CT_FocalPointSelectorLUTIn4 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		DepthDefocus = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Depth Defocus for Fusion 5.3 or above\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "ChangeDepth",
+					Source = "Input",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "CT_ChannelSelector",
+					Source = "Image1",
+					Name = "Depth Map",
+				},
+				DepthMapChannel = InstanceInput {
+					SourceOp = "CT_ChannelSelector",
+					Source = "BlurChannel",
+					Name = "Depth Map Channel",
+				},
+				FocalPoint = InstanceInput {
+					SourceOp = "CT_FocalPointSelector",
+					Source = "FocalPoint",
+					Name = "Focal Point",
+					ControlGroup = 4,
+					Default = 0,
+				},
+				LockXY = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "LockXY",
+					Default = 1,
+				},
+				XBlurSize = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "XBlurSize",
+					Default = 5,
+				},
+				YBlurSize = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "YBlurSize",
+					Default = 5,
+				},
+				DepthPowerCurvature = InstanceInput {
+					SourceOp = "CT_FocalPointSelector",
+					Source = "DepthPowerCurvatureSlider",
+					Name = "Depth Power Curvature",
+					Default = 2,
+				},
+				FGPower = InstanceInput {
+					SourceOp = "CT_FocalPointSelector",
+					Source = "FGPowerSlider",
+					Name = "FG Power",
+					Default = 2,
+				},
+				Quality = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "Quality",
+					Default = 4,
+				},
+				PreGammaPostGamma = InstanceInput {
+					SourceOp = "BC_Degamma",
+					Source = "PreGammaPostGamma",
+				},
+				ImageGamma = InstanceInput {
+					SourceOp = "BC_Regamma",
+					Source = "Gamma",
+					Name = "Image Gamma",
+					Default = 2.2,
+				},
+				Depth = InstanceInput {
+					SourceOp = "ChangeDepth",
+					Source = "Depth",
+					Name = "Set Depth",
+				},
+				ShowDefocusPowerMap = InstanceInput {
+					SourceOp = "Bol_DOFPowerOutput",
+					Source = "ShowDefocusPowerMap",
+					Name = "Show Defocus Power Map",
+				},
+				ConnectZBufferToTheOutput = InstanceInput {
+					SourceOp = "Bol_ZConnection",
+					Source = "ConnectZBuffer",
+					Name = "Connect Z Buffer to the Output",
+				},
+				Blend = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "BlendClone",
+					Name = "Blend",
+					Page = "Common Controls",
+					Default = 1,
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "ProcessRed",
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "ProcessGreen",
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "ProcessBlue",
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "ProcessAlpha",
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				FitMask = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "FitMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "MaskHigh",
+					ControlGroup = 12,
+					Default = 1,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "MaskLow",
+					ControlGroup = 12,
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "VariBlur",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Bol_DOFPowerOutput",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 653.925, 227.758, },
+			},
+			Tools = ordered() {
+				ChangeDepth = ChangeDepth {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Depth = Input {
+							Value = 4,
+						},
+						Input = Input {
+							SourceOp = "Renderer3D1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -87.688, 178.826, },
+					},
+				},
+				BC_Regamma = BrightnessContrast {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "BC_Degamma.Blend",
+						},
+						Alpha = Input {
+							Value = 1,
+						},
+						Gamma = Input {
+							SourceOp = "DepthDefocus_1ImageGamma",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "VariBlur",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 75.588, 111.452, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				VariBlur = VariBlur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "(1-Bol_DOFPowerOutput.ShowDefocusPowerMap)*BlendClone",
+						},
+						Method = Input {
+							Value = 2,
+						},
+						Quality = Input {
+							Value = 8,
+						},
+						LockXY = Input {
+							Value = 0,
+						},
+						XBlurSize = Input {
+							SourceOp = "VariBlurXBlurSize",
+							Source = "Value",
+						},
+						YBlurSize = Input {
+							SourceOp = "VariBlurYBlurSize",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "BC_Degamma",
+							Source = "Output",
+						},
+						BlurImage = Input {
+							SourceOp = "CT_FocalPointSelector",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 73.068, 74.226, },
+					},
+					UserControls = ordered() {
+						BlendClone = {
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							INPS_Name = "Blend",
+							INPID_InputControl = "SliderControl",
+						},
+					},
+				},
+				BC_Degamma = BrightnessContrast {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "iif(VariBlur.Blend==0,0,BC_Degamma.PreGammaPostGamma)",
+						},
+						Alpha = Input {
+							Value = 1,
+						},
+						Gamma = Input {
+							Value = 0.454545454545455,
+							Expression = "1/BC_Regamma.Gamma",
+						},
+						Input = Input {
+							SourceOp = "ChangeDepth",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 87.688, 19.201, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						PreGammaPostGamma = {
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Pre-Gamma / Post-Gamma",
+						},
+					},
+				},
+				CT_ChannelSelector = Custom {
+					CtrlWShown = false,
+					Inputs = {
+						FocalPoint = Input {
+							SourceOp = "Publish1_1",
+							Source = "Value",
+						},
+						NumberIn1 = Input {
+							Value = 5,
+							Expression = "BlurChannel",
+						},
+						NumberIn2 = Input {
+							Value = 1,
+						},
+						NumberIn3 = Input {
+							Value = 2,
+						},
+						NumberIn4 = Input {
+							Value = 5,
+							Expression = "BlurChannel",
+						},
+						LUTIn1 = Input {
+							SourceOp = "CT_ChannelSelectorLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "CT_ChannelSelectorLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "CT_ChannelSelectorLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "CT_ChannelSelectorLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input {
+							Value = "r1*0.299+g1*0.587+b1*0.114",
+						},
+						RedExpression = Input {
+							Value = "if(n1=1,g1,if(n1=2,b1,if(n1=3,a1,if(n1=4,i1,if(n1=5,z1,r1)))))",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Blur Channel",
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "Renderer3D1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -49.06, 10.15, },
+					},
+					UserControls = ordered() {
+						BlurChannel = {
+							{ MBTNC_AddButton = "Red", },
+							{ MBTNC_AddButton = "Green", },
+							{ MBTNC_AddButton = "Blue", },
+							{ MBTNC_AddButton = "Alpha", },
+							{ MBTNC_AddButton = "Luma", },
+							{ MBTNC_AddButton = "Z", },
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							IC_ControlPage = 0,
+							INPS_Name = "Blur Channel",
+							INP_Default = 5,
+						},
+					},
+				},
+				Publish1_1 = PublishNumber {
+					CtrlWShown = false,
+					Inputs = {
+						Value = Input {
+							Value = -5,
+						},
+					},
+				},
+				Bol_DOFPowerOutput = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "ShowDefocusPowerMap",
+						},
+						ToGreen = Input {
+							Value = 0,
+						},
+						ToBlue = Input {
+							Value = 0,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "Bol_ZConnection",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "CT_FocalPointSelector",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 75.588, 186.452, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						ShowDefocusPowerMap = {
+							INPID_InputControl = "CheckboxControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 2,
+							INPS_Name = "Show Defocus Power Map",
+							INP_Default = 0,
+						},
+					},
+				},
+				Bol_ZConnection = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "ConnectZBuffer",
+						},
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						EnableExtraChannels = Input {
+							Value = 1,
+						},
+						ToZBuffer = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "BC_Regamma",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "CT_ChannelSelector",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 75.588, 144.452, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						ConnectZBuffer = {
+							INPID_InputControl = "CheckboxControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 2,
+							INPS_Name = "Connect Z Buffer",
+							INP_Default = 1,
+						},
+					},
+				},
+				CT_FocalPointSelector = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						BlurChannel = Input {
+							Value = 3,
+						},
+						NumberIn1 = Input {
+							Value = -5,
+							Expression = "FocalPoint",
+						},
+						NumberIn2 = Input {
+							Value = 2,
+							Expression = "DepthPowerCurvatureSlider",
+						},
+						NumberIn3 = Input {
+							Value = 1.17635568747738,
+							Expression = "FGPowerSlider",
+						},
+						NumberIn4 = Input {
+							Value = 3,
+							Expression = "BlurChannel",
+						},
+						LUTIn1 = Input {
+							SourceOp = "CT_FocalPointSelectorLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "CT_FocalPointSelectorLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "CT_FocalPointSelectorLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "CT_FocalPointSelectorLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input {
+							Value = "if(a1=0,0,if(r1>n1,r1-n1,n1-r1))",
+						},
+						RedExpression = Input {
+							Value = "if(r1>n1,(i1*n3)^n2,i1^(1/n2))",
+						},
+						GreenExpression = Input {
+							Value = "",
+						},
+						BlueExpression = Input {
+							Value = "",
+						},
+						AlphaExpression = Input {
+							Value = "",
+						},
+						AuxChannelNest = Input {
+							Value = 1,
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Focal Point",
+						},
+						NameforNumber2 = Input {
+							Value = "Depth Power Curvature",
+						},
+						NameforNumber3 = Input {
+							Value = "FG Power",
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "CT_ChannelSelector",
+							Source = "Output",
+						},
+						FocalPoint = Input {
+							SourceOp = "DepthDefocus_1FocalPoint",
+							Source = "Value",
+						},
+						DepthPowerCurvatureSlider = Input {
+							SourceOp = "CT_FocalPointSelectorDepthPowerCurvatureSlider",
+							Source = "Value",
+						},
+						FGPowerSlider = Input {
+							SourceOp = "CT_FocalPointSelectorFGPowerSlider",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -53.5824, 81.066, },
+					},
+					UserControls = ordered() {
+						FocalPoint = {
+							INP_Default = 0,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							LINKID_DataType = "Number",
+							IC_ControlID = 12,
+							IC_ControlPage = 0,
+							INPS_Name = "Focal Point",
+							IC_ControlGroup = 1,
+						},
+						DepthPowerCurvatureSlider = {
+							ICD_Center = 1,
+							INPS_Name = "Depth Power Curvature Slider",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							INP_MaxScale = 5,
+							INP_Default = 2,
+						},
+						FGPowerSlider = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INPS_Name = "FG Power Slider",
+							IC_ControlPage = 0,
+							INP_MaxScale = 100,
+							INP_Default = 2,
+						},
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.423529411764706, G = 0.501960784313725, B = 0.333333333333333, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+		DPlain = GroupOperator {
+			NameSet = true,
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "Renderer3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 652.576, 118.945, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 551.137, 504.331, },
+				Direction = "Vertical",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -1215.37, 289.776, },
+			},
+			Tools = ordered() {
+				Renderer3D1 = Renderer3D {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					Inputs = {
+						Z = Input {
+							Value = 1,
+						},
+						OutputChannels = Input {
+							Value = 1,
+						},
+						GlobalIn = Input {
+							Value = 1,
+						},
+						GlobalOut = Input {
+							Value = 250,
+						},
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 384,
+						},
+						Height = Input {
+							Value = 288,
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						Reporting = Input {
+							Value = 1,
+						},
+						SceneInput = Input {
+							SourceOp = "Merge3D1",
+							Source = "Output",
+						},
+						["RendererSoftware.Channels.Nest"] = Input {
+							Value = 1,
+						},
+						["RendererSoftware.Channels.RGBA"] = Input {
+							Disabled = true,
+						},
+						["RendererSoftware.Channels.Z"] = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1222.68, 160.955, },
+					},
+				},
+				Merge3D1 = Merge3D {
+					Inputs = {
+						SceneInput1 = Input {
+							SourceOp = "ImagePlane3D1",
+							Source = "Output",
+						},
+						SceneInput2 = Input {
+							SourceOp = "Camera3D1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1196.43, 98.55, },
+					},
+				},
+				Camera3D1 = Camera3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.Y"] = Input {
+							Value = 0.756132505025017,
+						},
+						["Transform3DOp.Translate.Z"] = Input {
+							Value = 5.8861614695166,
+						},
+						["Transform3DOp.UseTarget"] = Input {
+							Value = 1,
+						},
+						["Transform3DOp.Target.Y"] = Input {
+							Value = -0.157685880108981,
+						},
+						["Transform3DOp.Target.Z"] = Input {
+							Value = 1.38143653206532,
+						},
+						PerspNearClip = Input {
+							Value = 0.05,
+						},
+						PerspFarClip = Input {
+							Value = 10000,
+						},
+						AoV = Input {
+							Value = 14.2,
+						},
+						FLength = Input {
+							Value = 60.5652446106099,
+						},
+						FilmBack = Input {
+							Value = 1,
+						},
+						["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+							Value = 1,
+						},
+						["MtlStdInputs.MaterialID"] = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1334.12, 85.806, },
+					},
+				},
+				Background = Background {
+					ExtentSet = true,
+					NameSet = true,
+					CurrentSettings = 4,
+					CustomData = {
+						Settings = {
+							[1] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											TopLeftAlpha = Input {
+												Value = 0,
+											},
+											Type = Input {
+												Value = FuID { "Gradient", },
+											},
+											GlobalIn = Input {
+												Value = 1,
+											},
+											PixelAspect = Input {
+												Value = { 1.06666666666667, 1, },
+											},
+											Height = Input {
+												Value = 576,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 0, 0, 0, 1, },
+														[1] = { 1, 1, 1, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Width = Input {
+												Value = 720,
+											},
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										ViewInfo = OperatorInfo {
+											Pos = { 1361.01, -210.81, },
+										},
+										CustomData = {
+										},
+									},
+								},
+							},
+							[2] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											GlobalIn = Input {
+												Value = 1,
+											},
+											Height = Input {
+												Value = 1556,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 0, 0, 0, 1, },
+														[1] = { 1, 1, 1, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Width = Input {
+												Value = 2048,
+											},
+										},
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										CustomData = {
+										},
+										CurrentSettings = 3,
+									},
+								},
+							},
+							[3] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											Type = Input {
+												Value = FuID { "Gradient", },
+											},
+											PixelAspect = Input {
+												Value = { 1.06666666666667, 1, },
+											},
+											Width = Input {
+												Value = 720,
+											},
+											GlobalIn = Input {
+												Value = 1,
+											},
+											End = Input {
+												Value = { 0.5, 1, },
+											},
+											Height = Input {
+												Value = 576,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 0, 0, 0, 1, },
+														[1] = { 1, 1, 1, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Start = Input {
+												Value = { 0.5, 0, },
+											},
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										ViewInfo = OperatorInfo {
+											Pos = { 1361.01, -210.81, },
+										},
+										CustomData = {
+										},
+									},
+								},
+							},
+							[4] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											Type = Input {
+												Value = FuID { "Gradient", },
+											},
+											GradientType = Input {
+												Value = FuID { "Radial", },
+											},
+											Width = Input {
+												Value = 2048,
+											},
+											GlobalIn = Input {
+												Value = 1,
+											},
+											End = Input {
+												Value = { 0.5, 1, },
+											},
+											Height = Input {
+												Value = 1556,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 1, 1, 1, 1, },
+														[1] = { 0, 0, 0, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Start = Input {
+												Value = { 0.5, 0.5, },
+											},
+										},
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										Name = "Background",
+										CustomData = {
+										},
+									},
+								},
+							},
+						},
+					},
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						GlobalOut = Input {
+							Value = 330,
+						},
+						Width = Input {
+							Value = 1000,
+						},
+						Height = Input {
+							Value = 1000,
+						},
+						Type = Input {
+							Value = FuID { "Gradient", },
+						},
+						GradientType = Input {
+							Value = FuID { "Radial", },
+						},
+						Start = Input {
+							Value = { 0.5, 0.5, },
+						},
+						End = Input {
+							Value = { 0.503135204315186, 1.39039158821106, },
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0.0344129554656] = { 3, 3, 3, 1, },
+									[0.048582995951417] = { 0, 0, 0, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1427.94, -270.35, },
+					},
+				},
+				Transform_1 = Transform {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						Center = Input {
+							Value = { 0.474934422377054, 0.475316455696203, },
+						},
+						UseSizeAndAspect = Input {
+							Value = 0,
+						},
+						Size = Input {
+							Value = 0.1,
+						},
+						YSize = Input {
+							Value = 0.0502793296089383,
+						},
+						ReferenceSize = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Background",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1404.5, -118.286, },
+					},
+					Colors = {
+						TileColor = { R = 0.541176470588235, G = 0.345098039215686, B = 0.364705882352941, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ImagePlane3D1 = ImagePlane3D {
+					Inputs = {
+						["Transform3DOp.Translate.Z"] = Input {
+							Value = -0.470596784975571,
+						},
+						["Transform3DOp.Rotate.X"] = Input {
+							Value = 90,
+						},
+						["Transform3DOp.ScaleLock"] = Input {
+							Value = 0,
+						},
+						["Transform3DOp.Scale.X"] = Input {
+							Value = 3.6953829,
+						},
+						["Transform3DOp.Scale.Y"] = Input {
+							Value = 8.7076951,
+						},
+						["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+							Value = 2,
+						},
+						MaterialInput = Input {
+							SourceOp = "Transform_2",
+							Source = "Output",
+						},
+						["MtlStdInputs.MaterialID"] = Input {
+							Value = 2,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1198.41, -5.37777, },
+					},
+				},
+				Transform_2 = Transform {
+					NameSet = true,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						Size = Input {
+							Value = 0.58609794628752,
+						},
+						ReferenceSize = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "MRG_Normal",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1203.73, -57.8849, },
+					},
+					Colors = {
+						TileColor = { R = 0.541176470588235, G = 0.345098039215686, B = 0.364705882352941, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Background_2 = Background {
+					ExtentSet = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+							[1] = {
+								Tools = ordered() {
+									Background = Background {
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										Name = "Background",
+										Inputs = {
+											GlobalIn = Input {
+												Value = 1,
+											},
+											TopLeftAlpha = Input {
+												Value = 0,
+											},
+											Height = Input {
+												Value = 1556,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 0, 0, 0, 1, },
+														[1] = { 1, 1, 1, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Width = Input {
+												Value = 2048,
+											},
+										},
+										CustomData = {
+										},
+										CurrentSettings = 2,
+									},
+								},
+							},
+							[2] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											GlobalIn = Input {
+												Value = 1,
+											},
+											Height = Input {
+												Value = 1556,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 0, 0, 0, 1, },
+														[1] = { 1, 1, 1, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Width = Input {
+												Value = 2048,
+											},
+										},
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										CustomData = {
+										},
+										CurrentSettings = 3,
+									},
+								},
+							},
+							[3] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											Start = Input {
+												Value = { 0.5, 0, },
+											},
+											Type = Input {
+												Value = FuID { "Gradient", },
+											},
+											GlobalIn = Input {
+												Value = 1,
+											},
+											End = Input {
+												Value = { 0.5, 1, },
+											},
+											Height = Input {
+												Value = 1556,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 0, 0, 0, 1, },
+														[1] = { 1, 1, 1, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Width = Input {
+												Value = 2048,
+											},
+										},
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										CustomData = {
+										},
+										CurrentSettings = 4,
+									},
+								},
+							},
+							[4] = {
+								Tools = ordered() {
+									Background = Background {
+										Inputs = {
+											Type = Input {
+												Value = FuID { "Gradient", },
+											},
+											GradientType = Input {
+												Value = FuID { "Radial", },
+											},
+											Width = Input {
+												Value = 2048,
+											},
+											GlobalIn = Input {
+												Value = 1,
+											},
+											End = Input {
+												Value = { 0.5, 1, },
+											},
+											Height = Input {
+												Value = 1556,
+											},
+											Gradient = Input {
+												Value = Gradient {
+													Colors = {
+														[0] = { 1, 1, 1, 1, },
+														[1] = { 0, 0, 0, 1, },
+													},
+												},
+											},
+											UseFrameFormatSettings = Input {
+												Value = 1,
+											},
+											Start = Input {
+												Value = { 0.5, 0.5, },
+											},
+										},
+										ExtentSet = false,
+										CtrlWZoom = false,
+										NameSet = true,
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										CustomData = {
+										},
+									},
+								},
+							},
+						},
+					},
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						GlobalOut = Input {
+							Value = 250,
+						},
+						Width = Input {
+							Value = 1000,
+						},
+						Height = Input {
+							Value = 1000,
+						},
+						Depth = Input {
+							Value = 3,
+						},
+						TopLeftGreen = Input {
+							Value = 0.5,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1307.46, -271.956, },
+					},
+				},
+				BOL_Copy = ChannelBoolean {
+					NameSet = true,
+					CustomData = {
+						Settings = {
+							[1] = {
+								Tools = {
+									ChannelBooleans = ChannelBoolean {
+										ViewInfo = OperatorInfo {
+											Pos = {
+												55,
+												17.05,
+											},
+										},
+										CtrlWZoom = false,
+										NameSet = true,
+										Colors = {
+											TileColor = {
+												R = 0.666666666666667,
+												G = 0.509803921568627,
+												B = 0.235294117647059,
+											},
+											TextColor = {
+												R = 0.862745098039216,
+												G = 0.862745098039216,
+												B = 0.862745098039216,
+											},
+										},
+										Name = "ChannelBooleans",
+										Inputs = {
+											ToRed = Input {
+												Value = 4,
+											},
+											ToGreen = Input {
+												Value = 4,
+											},
+											ToBlue = Input {
+												Value = 4,
+											},
+											ToAlpha = Input {
+												Value = 4,
+											},
+										},
+										CustomData = {
+										},
+										CurrentSettings = 2,
+									},
+								},
+							},
+							[2] = {
+								Tools = {
+									ChannelBooleans = ChannelBoolean {
+										ViewInfo = OperatorInfo {
+											Pos = {
+												55,
+												17.05,
+											},
+										},
+										Inputs = {
+											ToRed = Input {
+												Value = 3,
+											},
+											Operation = Input {
+												Value = 7,
+											},
+											ToGreen = Input {
+												Value = 3,
+											},
+											ToBlue = Input {
+												Value = 3,
+											},
+											ToAlpha = Input {
+												Value = 4,
+											},
+										},
+										Colors = {
+											TileColor = {
+												R = 0.666666666666667,
+												G = 0.509803921568627,
+												B = 0.235294117647059,
+											},
+											TextColor = {
+												R = 0.862745098039216,
+												G = 0.862745098039216,
+												B = 0.862745098039216,
+											},
+										},
+										CtrlWZoom = false,
+										NameSet = true,
+										CurrentSettings = 3,
+										CustomData = {
+										},
+									},
+								},
+							},
+							[3] = {
+								Tools = ordered() {
+									ChannelBooleans = ChannelBoolean {
+										Inputs = {
+											Operation = Input {
+												Value = 1,
+											},
+										},
+										Colors = {
+											TextColor = { B = 0.862745098039216, G = 0.862745098039216, R = 0.862745098039216, },
+											TileColor = { B = 0.235294117647059, G = 0.505882352941176, R = 0.666666666666667, },
+										},
+										CtrlWZoom = false,
+										NameSet = true,
+										ViewInfo = OperatorInfo {
+											Pos = { 55, 17.05, },
+										},
+										CustomData = {
+										},
+									},
+								},
+							},
+						},
+					},
+					Inputs = {
+						ToRed = Input {
+							Value = 17,
+						},
+						ToGreen = Input {
+							Value = 15,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "Background_2",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Rectangle3_1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1218.42, -180.23, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				MRG_Normal = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						Gain = Input {
+							Value = 0,
+						},
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Transform",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Transform_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1217.83, -101.632, },
+					},
+				},
+				Transform = Transform {
+					NameSet = true,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						Size = Input {
+							Value = 0.1,
+						},
+						FilterMethod = Input {
+							Value = 1,
+						},
+						ReferenceSize = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "BOL_Copy",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1217.65, -140.651, },
+					},
+					Colors = {
+						TileColor = { R = 0.541176470588235, G = 0.345098039215686, B = 0.364705882352941, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Rectangle3_1 = RectangleMask {
+					CtrlWShown = false,
+					Inputs = {
+						PaintMode = Input {
+							Value = FuID { "Invert", },
+						},
+						MaskWidth = Input {
+							Value = 720,
+						},
+						MaskHeight = Input {
+							Value = 576,
+						},
+						PixelAspect = Input {
+							Value = { 1.06666666666667, 1, },
+						},
+						Center = Input {
+							Value = { 0.5, 0, },
+						},
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 1,
+						},
+						EffectMask = Input {
+							SourceOp = "Rectangle3",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1091.6, -187.792, },
+					},
+				},
+				Rectangle3 = RectangleMask {
+					CtrlWShown = false,
+					Inputs = {
+						MaskWidth = Input {
+							Value = 720,
+						},
+						MaskHeight = Input {
+							Value = 576,
+						},
+						PixelAspect = Input {
+							Value = { 1.06666666666667, 1, },
+						},
+						Center = Input {
+							Value = { 0, 0.5, },
+						},
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 994.74, -187.849, },
+					},
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 706,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Vertical",
+						PipeStyle = "Direct",
+						Scale = 1.21255,
+						Offset = { -182.017, -45.3563, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+						ActiveUtility = "LuaScriptConsole",
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 479, },
+							ScaleX = 0.334666575875479,
+							OffsetX = -42.1679885603103,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.444643565462283,
+						ScaleY = 0.0643433658710034,
+						OffsetX = -38.2393466297563,
+						OffsetY = -11.5818058567806,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ToolStates = {
+							Current = {
+								Editable = { "CT_FocalPointSelectorFGPowerSlider", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = true,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					Chat = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 250, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.727899686520376,
+					RatioY = 0.010377358490566,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.481973434535104,
+						{ ID = "Left", RatioX = 0.562176165803109, RatioY = 0.00984251968503937, Pop = true, },
+						{ ID = "Right", RatioX = 0.437823834196891, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.466793168880455, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 432,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					PickW = 15,
+					PickH = 14,
+					Viewer = {
+						EnableLUTs = false,
+						Channel = 4294967295,
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+						Normalise = false,
+						Smooth = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						EnableLUTs = false,
+						Channel = 4294967295,
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+						Normalise = false,
+						Smooth = false,
+					},
+					SideB = {
+						Viewer = {
+							ScaleMode = 0,
+						},
+						ViewLUT = {
+						},
+					},
+					SubView = {
+						Enabled = false,
+					},
+					ViewLUT = {
+						{
+							Tools = ordered() {
+								FusionViewLUT = ViewOperator {
+									CtrlWZoom = false,
+									NameSet = true,
+									Inputs = {
+										Red = Input {
+											SourceOp = "FusionViewLUTRed",
+											Source = "Value",
+										},
+										Green = Input {
+											SourceOp = "FusionViewLUTGreen",
+											Source = "Value",
+										},
+										Blue = Input {
+											SourceOp = "FusionViewLUTBlue",
+											Source = "Value",
+										},
+										Alpha = Input {
+											SourceOp = "FusionViewLUTAlpha",
+											Source = "Value",
+										},
+										Gamma = Input {
+											Value = 2.2,
+										},
+									},
+									Tools = {
+										FusionViewLUTRed = LUTBezier {
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+												},
+											},
+											SplineColor = { Red = 255, Green = 0, Blue = 0, },
+											CtrlWShown = false,
+											NameSet = true,
+										},
+										FusionViewLUTBlue = LUTBezier {
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+												},
+											},
+											SplineColor = { Red = 0, Green = 0, Blue = 255, },
+											CtrlWShown = false,
+											NameSet = true,
+										},
+										FusionViewLUTAlpha = LUTBezier {
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+												},
+											},
+											SplineColor = { Red = 192, Green = 192, Blue = 192, },
+											CtrlWShown = false,
+											NameSet = true,
+										},
+										FusionViewLUTGreen = LUTBezier {
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+												},
+											},
+											SplineColor = { Red = 0, Green = 255, Blue = 0, },
+											CtrlWShown = false,
+											NameSet = true,
+										},
+									},
+								},
+							},
+							ID = "FusionViewLUT",
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "PAL (D1)",
+				Width = 384,
+				Height = 288,
+				Rate = 25,
+				PerFeet = 1,
+				GuideRatio = 1.33333333333333,
+				DepthFull = 3,
+				DepthPreview = 3,
+				DepthInteractive = 3,
+			},
+			LastFile = "D:\\Duplicate.tga",
+			Unsorted = {
+				GlobalStart = 1,
+				GlobalEnd = 250,
+				RenderSettings = {
+					Configs = {
+						Preview = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = false,
+						},
+						Final = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+					},
+					PreviewConfig = "Preview",
+					CurrentConfig = "Final",
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Cluster = {
+				SideFrames = 0,
+			},
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				Direction = 1,
+				AutoSnap = false,
+				FullToolIndicator = true,
+			},
+			SoftDPS = {
+				AdaptiveContour = true,
+			},
+			QuickTime = {
+			},
+			Tabasco = {
+				AdaptiveContour = true,
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,146 @@
+{
+	Tools = ordered() {
+		SE_GridMaker11 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "H_Lines",
+					Source = "Height",
+					Name = "Horizontal Thickness",
+					Default = 0.1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "V_Lines",
+					Source = "Width",
+					Name = "Vertikal Thickness",
+					Default = 0.05,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "Width",
+					Name = "Image Width",
+					Default = 1000,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "XSize",
+					Name = "Divide X",
+					Default = 0.04,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "YSize",
+					Name = "Divide Y",
+					Default = 0.04,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "SE_GridMaker1",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				H_Lines = RectangleMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 0.1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -220, 115.5, },
+					},
+				},
+				V_Lines = RectangleMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 0.05,
+						},
+						Height = Input {
+							Value = 1,
+						},
+						EffectMask = Input {
+							SourceOp = "H_Lines",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -220, 148.5, },
+					},
+				},
+				Background1 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					Inputs = {
+						Width = Input {
+							Value = 1000,
+						},
+						Height = Input {
+							Value = 500,
+						},
+						TopLeftRed = Input {
+							Value = 1,
+						},
+						TopLeftGreen = Input {
+							Value = 1,
+						},
+						TopLeftBlue = Input {
+							Value = 1,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "V_Lines",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -220, 181.5, },
+					},
+				},
+				Transform1 = Transform {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						UseSizeAndAspect = Input {
+							Value = 0,
+						},
+						XSize = Input {
+							Value = 0.04,
+						},
+						YSize = Input {
+							Value = 0.04,
+						},
+						Input = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, 181.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SE_GridMaker11",
+}

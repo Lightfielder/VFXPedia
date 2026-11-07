@@ -1,0 +1,79 @@
+-- Simple tool script to connect all a poly's published points
+-- To use:
+--  * Create a polymask
+--  * Publish any points you want tracked
+--  * Right-click on the polymask and choose this script
+--  * A tracker will be created & connected to the source of the polymask's host tool
+--  * Track points will be created and connected to each published point
+--
+-- v1.1, revised 19 Sept 07
+
+time = comp.CurrentTime
+
+-- travel down the output chain until we find a non-mask
+srctool = tool
+out = srctool:GetOutputList()[1]
+while out:GetAttrs().OUTS_DataType == "Mask" do
+	for i,inp in pairs(out:GetConnectedInputs()) do
+		srctool = inp:GetTool()
+		if srctool then			-- ignore inputs without tools (like Previews)
+			out = srctool:GetOutputList()[1]
+			break
+		end
+	end
+end
+
+-- then get this tool's source, if any, as the tracker's source
+if srctool then
+	inp = srctool:FindMainInput(1)
+	if inp then
+		out = inp:GetConnectedOutput()
+		if out then
+			srctool = out:GetTool()
+		end
+	end
+end
+
+comp:StartUndo("Track Published Points")
+
+-- look through all the published points on this tool
+nump = 0
+trk = nil
+maxp = #tool:GetInputList() - 25	-- (won't be any more than maxp points)
+
+for p = 0, maxp do
+	polyinp = tool["Point"..p]
+	
+	-- found a published point?
+	if polyinp and polyinp:GetConnectedOutput() == nil and polyinp:GetAttrs().INPID_InputControl then
+		if trk == nil then
+			-- create a Tracker
+			trk = Tracker({Input = srctool})
+		else
+			-- "press" the Add button for another point
+			trk.AddToTrackerList[0] = 1
+			trk.AddToTrackerList[0] = 0
+		end
+		
+		-- move the trackpoint to the published point's pos
+		pos = polyinp[time]
+		trk["PatternCenter"..p+1] = pos
+		trk["TrackedCenter"..p+1] = pos
+		
+		-- and connect them up
+		polyinp:ConnectTo(trk["Position"..p+1])
+
+		nump = nump + 1
+	end
+end
+
+comp:EndUndo(true)
+
+-- Let the user know
+if trk then
+	comp:SetActiveTool(trk)
+
+	print("Created "..trk:GetAttrs().TOOLS_Name.." and connected "..nump.." points\n")
+else
+	print("Could not find any published points\n")
+end

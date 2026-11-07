@@ -1,0 +1,132 @@
+-- written by : Isaac Guenard (izyk@eyeonline.com)
+-- written on : July 4th, 2003
+-- updated for Fusion 5.x by Slayer
+-- modified by Eric Westphal (eric@eyeonline.com)
+
+-- This goes into SCRIPTS\TOOL\
+
+-------------------------------------------------------------
+-- USEFUL FUNCTIONS
+-------------------------------------------------------------
+
+
+function eyeon.LD_GetFrames(ld)
+	lda = tool:GetAttrs()
+	
+ 	if not lda.TOOLST_Clip_Name then
+ 		return nil, "The tool "..lda.TOOLS_Name.." is not set up yet, the Loader is empty."
+ 	end
+	
+	frames = {}
+
+	for i, clip in lda.TOOLST_Clip_Name do
+
+		if lda.TOOLBT_Clip_IsMultiFrame[i] == true then
+			table.insert(frames, clip)
+		else
+			seq = eyeon.parseFilename(clip)
+			if seq.Padding == nil then 
+				table.insert(frames, clip )
+			else
+				for x = MyStart, MyEnd do
+					frame = MyStart + x
+					table.insert(frames, seq.Path..seq.CleanName..string.format("%0"..seq.Padding.."d", frame)..seq.Extension )
+				end
+			end			
+		end
+	end
+	
+	return frames
+
+end
+
+function isMissing(filename)
+	if fileexists(filename) == true then 
+		return false
+	else 
+		return true 
+	end
+end
+
+-------------------------------------------------------------
+-- MAIN BODY
+-------------------------------------------------------------
+if not tool.OutputFormat then
+	print("This script could be run on Savers only.")
+	return nil
+end
+
+	MyComp=comp:GetAttrs()
+	MyStart=MyComp.COMPN_RenderStartTime 
+	MyEnd=MyComp.COMPN_RenderEndTime 
+
+
+print()
+print("Checking Tool for missing frames from "..MyStart.." to "..MyEnd..".")
+print()
+
+
+	missing = {}
+	
+	-- print the toolname
+	result_text = tool:GetAttrs().TOOLS_Name.." : "
+
+	frames = eyeon.LD_GetFrames(tool)
+
+	for i, file in frames do
+		if isMissing(file) == true then
+			table.insert(missing, file)
+		end
+	end
+
+	if table.getn(missing) > 0 then
+		print(result_text.."Missing Frames")
+		print("-----------------------------------------------------")
+		MyFrameRange=""
+		for i, v in missing do
+			print("value: "..v)
+			MyFrame = eyeon.parseFilename(v)
+			MyNumber=MyFrame.Name
+			MyLength=string.len(MyNumber)
+			MyPadding=MyFrame.Padding
+			MyCleanNum=tonumber(string.sub(MyNumber, MyLength-MyPadding+1))
+			--print("i: "..i.." Frame: "..MyNumber.." length: "..MyLength.." padding: "..MyPadding.." Clean: "..MyCleanNum)
+			if i==1 then --is this the first frame in the 'missing' table?
+				MyFrameRange=MyCleanNum
+			else
+				-- Make some nifty concetanation of framenumbers			
+				if MyTempFrame==MyCleanNum-1 then
+					--print("concetanate!")
+					MyConc=1
+					MyTempNum=MyCleanNum
+				else
+					--print ("----------------------------------------------step over")
+					if MyTempNum then
+						MyFrameRange=MyFrameRange..".."..MyTempNum
+					end
+					MyFrameRange=MyFrameRange..","..MyCleanNum
+					MyConc=0
+				end
+			end
+			MyTempFrame=MyCleanNum
+		end
+		-- if the final frames are missing we have to take care for that
+		if MyConc==1 then
+			if MyTempNum then
+				MyFrameRange=MyFrameRange..".."..MyTempNum
+			end
+			MyFrameRange=MyFrameRange..","..MyCleanNum
+			MyConc=0
+		end
+
+		
+		print()
+		print ("We will now render frames: "..MyFrameRange.." This might take a while")
+		comp:Render({ FrameRange = MyFrameRange, Wait = true }) 
+		comp:SetAttrs({COMPN_RenderStart=MyStart, COMPN_RenderEnd=MyEnd})
+		print()
+		print("Done Re-Rendering. Thanks for your patience.")
+		print()
+	else
+		print(result_text.." No Missing Frames")
+	end

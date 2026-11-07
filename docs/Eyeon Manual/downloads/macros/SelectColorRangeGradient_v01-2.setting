@@ -1,0 +1,203 @@
+{
+	Tools = ordered() {
+		SelectColorRangeGradient = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "This is a kind of bitmap mask which selects a color range according to Hue, Saturation, Lightness or R, G, B, A values.\nby Gregory Chalenko\nwww.compositing.ru",
+				},
+				Level = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "Level",
+					Default = 1,
+				},
+				Filter = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "Filter",
+				},
+				SoftEdge = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "SoftEdge",
+				},
+				Passes = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "Passes",
+				},
+				PaintMode = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "PaintMode",
+				},
+				Invert = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "Invert",
+				},
+				Channel = InstanceInput {
+					SourceOp = "Bmp_Channel",
+					Source = "Channel",
+				},
+				ChannelMap = InstanceInput {
+					SourceOp = "BG_ChannelMap",
+					Source = "Gradient",
+					Name = "Channel Map (example, don't edit)",
+				},
+				SelectRange = InstanceInput {
+					SourceOp = "FN_GradientMapper",
+					Source = "Gradient",
+					Name = "Select Range",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Dissolve1",
+					Source = "Foreground",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "Bmp_Mask",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Bmp_Mask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Bmp_Mask = BitmapMask {
+					Inputs = {
+						Image = Input {
+							SourceOp = "FN_GradientMapper",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Luminance", },
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 449.774, 32.9182, },
+					},
+				},
+				Bmp_Channel = BitmapMask {
+					Inputs = {
+						Image = Input {
+							SourceOp = "Dissolve1",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Hue", },
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 345.496, -14.2511, },
+					},
+				},
+				FN_GradientMapper = FastNoise {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					Inputs = {
+						Depth = Input {
+							Value = 4,
+						},
+						Detail = Input {
+							Value = 0,
+						},
+						Brightness = Input {
+							Value = 1,
+						},
+						XScale = Input {
+							Value = 1,
+						},
+						YScale = Input {
+							Disabled = true,
+						},
+						Type = Input {
+							Value = 1,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 1, 1, 1, 1, },
+									[0.1] = { 0, 0, 0, 1, },
+									[0.9] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Offset = Input {
+							Value = 0.5,
+						},
+						FrameRenderScript = Input {
+							Value = "Width = Bmp_Channel.Image.Width\r\nHeight = Bmp_Channel.Image.Height\r\nDepth = Bmp_Channel.Image.Depth - 4\r\nPixelAspect = Bmp_Channel.Image.XScale, Bmp_Channel.Image.YScale",
+						},
+						NoiseBrightnessMap = Input {
+							SourceOp = "Bmp_Channel",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 347.09, 33.7489, },
+					},
+				},
+				Dissolve1 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					Inputs = {
+						Background = Input {
+							SourceOp = "BG_ChannelMap",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 244.955, -13.41, },
+					},
+				},
+				BG_ChannelMap = Background {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						UseFrameFormatSettings = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 2048,
+						},
+						Height = Input {
+							Value = 1556,
+						},
+						Type = Input {
+							Value = FuID { "Gradient", },
+						},
+						TopLeftAlpha = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 1, 0, 0, 1, },
+									[0.3333333333333] = { 0, 1, 0, 1, },
+									[0.6666666666667] = { 0, 0, 1, 1, },
+									[1] = { 1, 0, 0, 1, },
+								},
+							},
+						},
+						GradientInterpolationMethod = Input {
+							Value = FuID { "HLS", },
+						},
+						FrameRenderScript = Input {
+							Value = "Bmp_Channel.Channel",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 132.214, -11.3971, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "ColorRangeSelectGradient",
+}

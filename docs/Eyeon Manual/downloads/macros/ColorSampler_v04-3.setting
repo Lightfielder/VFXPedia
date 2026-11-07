@@ -1,0 +1,487 @@
+{
+	Tools = ordered() {
+		ColorSampler = MacroOperator {
+			CtrlWZoom = false,
+			CustomData = {
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/ColorSampler_Description",
+			},
+			NameSet = true,
+			Inputs = ordered() {
+				Comments = Input { Value = "Outputs the minimum, maximum or average RGB and Luminance values for an area or point\n\nIn v04-2: Control Panel output\n\nby Gregory Chalenko\nwww.compositing.ru\n\nBased on Stefan Ihringer's idea", },
+				Input = InstanceInput {
+					SourceOp = "BolInput",
+					Source = "Background",
+				},
+				Center = InstanceInput {
+					SourceOp = "Probe",
+					Source = "Position",
+				},
+				ProbeRectangle = InstanceInput {
+					SourceOp = "Probe",
+					Source = "ProbeRectangle",
+					Default = 1,
+				},
+				Width = InstanceInput {
+					SourceOp = "RectangleArea",
+					Source = "Width",
+					Default = 0.1,
+				},
+				Height = InstanceInput {
+					SourceOp = "RectangleArea",
+					Source = "Height",
+					Default = 0.1,
+				},
+				Evaluation = InstanceInput {
+					SourceOp = "Probe",
+					Source = "Evaluation",
+				},
+				MeasuredData = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "MeasuredData",
+				},
+				RedOutput = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "RedOutput",
+					Name = "Red",
+				},
+				GreenOutput = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "GreenOutput",
+					Name = "Green",
+				},
+				BlueOutput = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "BlueOutput",
+					Name = "Blue",
+				},
+				LuminanceOutput = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "LuminanceOutput",
+					Name = "Luminance",
+				},
+				DisplayStyle = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "AdvancedFontControls",
+					Name = "Display Style",
+					Default = 1,
+				},
+				OnscreenTextSize = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "LayoutSize",
+					Name = "On-Screen Text Size",
+					MaxScale = 2,
+					Default = 1,
+				},
+				LinesWidth = InstanceInput {
+					SourceOp = "RectangleArea",
+					Source = "BorderWidth",
+					MinScale = 0.0,
+					MaxScale = 0.025,
+					Default = 0.0025,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "ColorInspectorMacro",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1624.3, 198.09, },
+				Flags = {
+					Expanded = true,
+					AllowPan = false,
+					ForceSource = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 479.246, 342.007, },
+				Direction = "Vertical",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -2.60439, 58.1941, },
+			},
+			Tools = ordered() {
+				EllipsePoint = EllipseMask {
+					NameSet = true,
+					Inputs = {
+						Level = Input {
+							Value = 0,
+							Expression = "1-Probe.ProbeRectangle",
+						},
+						BorderWidth = Input {
+							Value = 0.003,
+							Expression = "RectangleArea.BorderWidth",
+						},
+						PaintMode = Input { Value = FuID { "Maximum", }, },
+						Solid = Input { Value = 0, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Center = Input {
+							Value = { 0.4, 0.4, },
+							Expression = "Probe.Position",
+						},
+						Width = Input { Expression = "RectangleArea.BorderWidth*3", },
+						Height = Input { Expression = "RectangleArea.BorderWidth*3", },
+						EffectMask = Input {
+							SourceOp = "RectangleArea",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 22.7172, 183.407, }, },
+				},
+				PolygonLine = PolylineMask {
+					DrawMode = "InsertAndModify",
+					DrawMode2 = "InsertAndModify",
+					NameSet = true,
+					Inputs = {
+						BorderWidth = Input {
+							Value = 0.003,
+							Expression = "RectangleArea.BorderWidth",
+						},
+						PaintMode = Input { Value = FuID { "Multiply", }, },
+						Solid = Input { Value = 0, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Center = Input {
+							Value = { 0.4, 0.45, },
+							Expression = "RectangleArea.Center",
+						},
+						Polyline = Input {
+							Value = Polyline {
+								Closed = true,
+								Points = {
+									{ Linear = true, X = 0, Y = 0, LX = 0, LY = 0.0329048843187661, RX = 0, RY = 0.0329048843187661, },
+									{ Linear = true, X = 0, Y = 0.0987146529562982, LX = 0, LY = -0.0329048843187661, RX = 0, RY = -0.0329048843187661, PublishID = "Point0", },
+								},
+							},
+						},
+						Polyline2 = Input {
+							Value = Polyline {
+							},
+							Disabled = true,
+						},
+						Point0 = Input {
+							Value = { 0.4, 0.548714652956298, },
+							Expression = "TextOutput.Center",
+						},
+						EffectMask = Input {
+							SourceOp = "Rct_TextBorder",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -86.3947, 127.57, }, },
+				},
+				Instance_RectangleArea = RectangleMask {
+					NameSet = true,
+					SourceOp = "RectangleArea",
+					Inputs = {
+						Level = Input { Expression = "Probe.ProbeRectangle", },
+						PaintMode = Input { Value = FuID { "Subtract", }, },
+						Solid = Input { },
+						BorderWidth = Input { Value = 0, },
+						StartEndRenderScripts = Input { },
+						EffectMask = Input {
+							SourceOp = "PolygonLine",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -28.8804, 128.475, }, },
+				},
+				RectangleArea = RectangleMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Level = Input { Expression = "Probe.ProbeRectangle", },
+						BorderWidth = Input { Value = 0.0025, },
+						PaintMode = Input { Value = FuID { "Maximum", }, },
+						Solid = Input { Value = 0, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Center = Input {
+							Value = { 0.4, 0.4, },
+							Expression = "Probe.Position",
+						},
+						Width = Input {
+							Value = 0.1,
+						},
+						Height = Input {
+							Value = 0.1,
+						},
+						EffectMask = Input {
+							SourceOp = "Rct_TextBorder1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 24.0146, 157.446, }, },
+				},
+				Rct_TextBorder1 = RectangleMask {
+					NameSet = true,
+					SourceOp = "Rct_TextBorder",
+					Inputs = {
+						BorderWidth = Input {
+							Value = 0.003,
+							Expression = "RectangleArea.BorderWidth",
+						},
+						Invert = Input { },
+						Solid = Input { Value = 0, },
+						EffectMask = Input {
+							SourceOp = "Instance_RectangleArea",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 22.8567, 127.515, }, },
+				},
+				Rct_TextBorder = RectangleMask {
+					NameSet = true,
+					Inputs = {
+						Invert = Input { Value = 1, },
+						MaskWidth = Input { Value = 320, },
+						MaskHeight = Input { Value = 240, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Center = Input {
+							Value = { 0.4, 0.548714652956298, },
+							Expression = "TextOutput.Center",
+						},
+						Width = Input {
+							Expression = "TextOutput.LayoutSize*.15",
+						},
+						Height = Input {
+							Expression = "TextOutput.LayoutSize*BolInput.Background.OriginalWidth*BolInput.Background.OriginalXScale/BolInput.Background.OriginalHeight/BolInput.Background.OriginalYScale*.125",
+						},
+						CornerRadius = Input { Value = 0.1878453, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -165.648, 175.627, }, },
+				},
+				TextOutput = TextPlus {
+					NameSet = true,
+					Inputs = {
+						Round2 = Input { Value = 0.2, },
+						Green3 = Input { Value = 1, },
+						Transform2 = Input { Value = 1, },
+						ShadingGradient3 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						ElementShape3 = Input { Value = 3, },
+						Blue3 = Input { Value = 1, },
+						Red3 = Input { Value = 1, },
+						Level2 = Input { Value = 2, },
+						ShadingGradient2 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Offset2 = Input {
+							Value = Point {
+								X = 0.02,
+								Y = 0,
+							},
+						},
+						ElementShape2 = Input { Value = 2, },
+						ApplyMaskInverted = Input { Value = 1, },
+						GlobalIn = Input { Value = 1, },
+						Width = Input {
+							Value = 2048,
+							Expression = "BolInput.Output.Width",
+						},
+						Height = Input {
+							Value = 1556,
+							Expression = "BolInput.Output.Height",
+						},
+						Depth = Input { Value = 3, },
+						Center = Input {
+							Value = { 0.4, 0.548714652956298, },
+							Expression = "Point(RectangleArea.Center.X, RectangleArea.Center.Y+iif(RectangleArea.Center.Y>0.5,-1,1)*(RectangleArea.Height/2+TextOutput.LayoutSize*BolInput.Background.OriginalWidth*BolInput.Background.OriginalXScale/BolInput.Background.OriginalHeight/BolInput.Background.OriginalYScale*.075))",
+						},
+						Red = Input {
+							SourceOp = "Probe",
+							Source = "Red",
+						},
+						Green = Input {
+							SourceOp = "Probe",
+							Source = "Green",
+						},
+						Blue = Input {
+							SourceOp = "Probe",
+							Source = "Blue",
+						},
+						Alpha = Input { Value = 1, },
+						Font = Input { Value = "Arial", },
+						Size = Input { Value = 0.04, },
+						StyledText = Input {
+							Value = "	R	0.1347\n	G	0.1544\n	B	0.1651\n	Y	0.1497",
+							Expression = "Text(\"\\t\"..\"R:\"..\"\\t\".. math.floor(Probe.Red*10000+0.5)/10000 ..\"\\n\"..\"\\t\"..\"G:\"..\"\\t\".. math.floor(Probe.Green*10000+0.5)/10000 ..\"\\n\"..\"\\t\"..\"B:\"..\"\\t\".. math.floor(Probe.Blue*10000+0.5)/10000 ..\"\\n\"..\"\\t\"..\"Y:\"..\"\\t\".. math.floor(Probe.Result*10000+0.5)/10000)",
+						},
+						Style = Input { Value = "Regular", },
+						AdvancedFontControls = Input { Value = 1, },
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input { Value = 1, },
+						HorizontalJustification = Input { Value = 1, },
+						VerticalJustification = Input { Value = 1, },
+						SelectTransform = Input { Value = 2, },
+						LineSpacing = Input { Value = 0.9, },
+						Red1 = Input { Expression = "iif((Probe.Red+Probe.Green+Probe.Blue)/3>0.7,0,1)", },
+						Green1 = Input { Expression = "Red1", },
+						Blue1 = Input { Expression = "Red1", },
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input { Value = -0.065, },
+						Tab1Alignment = Input { Value = -1, },
+						Tab2Position = Input { Value = -0.025, },
+						Tab2Alignment = Input { Value = -1, },
+						RenderToDPTFile = Input { Disabled = true, },
+						DPTType = Input { Disabled = true, },
+						DPTResolution = Input { Disabled = true, },
+						FrameRenderScript = Input { Value = "RedOutput = Probe.Red\nGreenOutput = Probe.Green\nBlueOutput = Probe.Blue LuminanceOutput = Probe.Result", },
+						EffectMask = Input {
+							SourceOp = "Rct_TextBorder",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -166.606, 27.6657, }, },
+					UserControls = ordered() {
+						MeasuredData = {
+							INP_Default = 1,
+							IC_ControlPage = 0,
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 4,
+							LBLC_NestLevel = 1,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Measured Data. Display the node to get the values",
+						},
+						RedOutput = {
+							LINKID_DataType = "Text",
+							INPB_External = 1,
+							INPS_DefaultText = "",
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+						},
+						GreenOutput = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+						},
+						BlueOutput = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+						},
+						LuminanceOutput = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+						},
+					},
+				},
+				Probe = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "BolInput",
+							Source = "Output",
+						},
+						Channel = Input { Value = 4, },
+						ProbeRectangle = Input { Value = 1, },
+						Position = Input { Value = { 0.4, 0.4, }, },
+						Width = Input { 
+							Expression = "RectangleArea.Width/2",
+						},
+						Height = Input {
+							Expression = "RectangleArea.Height/2",
+						},
+					},
+				},
+				BolInput = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 4, },
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 4, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 105.097, -19.25, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Mrg_Text = Merge {
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "BolInput",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "TextOutput",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 105.868, 38.1701, }, },
+				},
+				ColorInspectorMacro = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 16,
+							Expression = "TextOutput.Red1+15",
+						},
+						ToGreen = Input {
+							Value = 16,
+							Expression = "TextOutput.Red1+15",
+						},
+						ToBlue = Input {
+							Value = 16,
+							Expression = "TextOutput.Red1+15",
+						},
+						ToAlpha = Input { Value = 16, },
+						Background = Input {
+							SourceOp = "Mrg_Text",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "EllipsePoint",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 139.269, 147.789, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "ColorSampler",
+}

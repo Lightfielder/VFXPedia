@@ -1,0 +1,470 @@
+Composition {
+	CurrentTime = 30,
+	RenderRange = { 0, 94, },
+	GlobalRange = { 0, 1000, },
+	Version = "Fusion 5.1 build 104",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Follower1SoftnessY = BezierSpline {
+			SplineColor = { 0, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 6, RH = { 1.66666666666667, 4.66666666666667, }, },
+				[5] = { 2, LH = { 3.33333333333333, 3.33333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Publish2 = PublishNumber {
+			Inputs = {
+				Value = Input {
+					Value = 1,
+				},
+			},
+		},
+		TV1 = TV {
+			CtrlWZoom = false,
+			Inputs = {
+				Blend = Input {
+					SourceOp = "Shake1",
+					Source = "X",
+				},
+				Power = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 16.5, },
+			},
+		},
+		Publish1 = PublishNumber {
+			Inputs = {
+				Value = Input {
+					Value = 0.391926094217658,
+				},
+			},
+		},
+		Shake1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				Smoothness = Input {
+					Value = 0.05,
+				},
+				XMinimum = Input {
+					Value = 0.5,
+				},
+			},
+		},
+		Follower1Softnessglow = BezierSpline {
+			SplineColor = { 0.498039215686275, 0.498039215686275, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.9, RH = { 1.66666666666667, 0.6, }, },
+				[5] = { 0, LH = { 3.33333333333333, 0.3, }, Flags = { Linear = true, }, },
+			},
+		},
+		Publish3 = PublishNumber {
+			Inputs = {
+				Value = Input {
+					Value = 0.388088888888889,
+				},
+			},
+		},
+		Follower1 = StyledTextFollower {
+			CtrlWZoom = false,
+			Inputs = {
+				DelayType = Input {
+					Value = 2,
+				},
+				Delay = Input {
+					Value = 50,
+				},
+				Text = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "what's the story mother?",
+					},
+				},
+				Opacity1 = Input {
+					SourceOp = "Follower1Opacity",
+					Source = "Value",
+				},
+				Softness1 = Input {
+					Value = 1,
+				},
+				SoftnessX1 = Input {
+					SourceOp = "Follower1SoftnessX",
+					Source = "Value",
+				},
+				SoftnessY1 = Input {
+					SourceOp = "Follower1SoftnessY",
+					Source = "Value",
+				},
+				SoftnessGlow1 = Input {
+					SourceOp = "Follower1Softnessglow",
+					Source = "Value",
+				},
+			},
+		},
+		Follower1SoftnessX = BezierSpline {
+			SplineColor = { 1, 0, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 6, RH = { 1.66666666666667, 4.66666666666667, }, },
+				[5] = { 2, LH = { 3.33333333333333, 3.33333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				Center = Input {
+					Value = { 0.0539906103286385, 0.5, },
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					SourceOp = "Follower1",
+					Source = "StyledText",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Alignment = Input {
+					Value = 1,
+				},
+				HorizontalJustification = Input {
+					Value = 0,
+				},
+				VerticalJustification = Input {
+					Value = 0,
+				},
+				SelectElement = Input {
+					Value = 1,
+				},
+				Select = Input {
+					Value = 1,
+				},
+				Red1 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Green1 = Input {
+					SourceOp = "Publish2",
+					Source = "Value",
+				},
+				Blue1 = Input {
+					SourceOp = "Publish3",
+					Source = "Value",
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness1 = Input {
+					Value = 1,
+				},
+				SoftnessGlow1 = Input {
+					Value = 0.9,
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				Opacity2 = Input {
+					SourceOp = "Text1Opacity",
+					Source = "Value",
+				},
+				ElementShape2 = Input {
+					Value = 2,
+				},
+				Level2 = Input {
+					Value = 1,
+				},
+				ExtendVertical2 = Input {
+					Value = -0.43,
+				},
+				Color2 = Input {
+					Value = 0,
+				},
+				Red2 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Green2 = Input {
+					SourceOp = "Publish2",
+					Source = "Value",
+				},
+				Blue2 = Input {
+					SourceOp = "Publish3",
+					Source = "Value",
+				},
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Softness2 = Input {
+					Value = 1,
+				},
+				SoftnessX2 = Input {
+					SourceOp = "Text1SoftnessX",
+					Source = "Value",
+				},
+				SoftnessY2 = Input {
+					Value = 6,
+					Expression = "SoftnessX2",
+				},
+				SoftnessGlow2 = Input {
+					SourceOp = "Text1Softnessglow",
+					Source = "Value",
+				},
+				Offset2 = Input {
+					Value = { 0, -0.04, },
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 55, 16.5, },
+			},
+		},
+		Text1SoftnessX = BezierSpline {
+			SplineColor = { 0, 1, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 6, RH = { 51.6666666666667, 4.66666666666667, }, },
+				[55] = { 2, LH = { 53.3333333333333, 3.33333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1Softnessglow = BezierSpline {
+			SplineColor = { 1, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 0.9, RH = { 51.6666666666667, 0.6, }, },
+				[55] = { 0, LH = { 53.3333333333333, 0.3, }, Flags = { Linear = true, }, },
+			},
+		},
+		Text1Opacity = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 0, RH = { 50.6666666666667, 0.333333333333333, }, },
+				[52] = { 1, LH = { 51.3333333333333, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Follower1Opacity = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0.498039215686275, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 0.666666666666667, 0.333333333333333, }, },
+				[2] = { 1, LH = { 1.33333333333333, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 242,
+			Top = 242,
+			Width = 1564,
+			Height = 730,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { 245, 148, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "Text1", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 403, },
+							ScaleX = 0.2,
+							OffsetX = -49.2,
+							OffsetY = 0,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.0475161987041037,
+						ScaleY = 0.00364741641337386,
+						OffsetX = 17.0107991360691,
+						OffsetY = -0.0984802431610943,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "Follower1Opacity", "Text1SoftnessX", "Text1Softnessglow", "Text1Opacity", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 98.5452029520295,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.574211502782931,
+						{
+							ID = "Left",
+							RatioX = 1,
+							RatioY = 0.00969305331179321,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = -2,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.37569573283859,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.33333333333333,
+			},
+			LastFile = "E:\\Erics\\FusionSupport\\SE_Text_FlyThrough\\th_textflythrough.jpg",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

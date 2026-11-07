@@ -1,0 +1,390 @@
+Composition {
+	CurrentTime = 681,
+	RenderRange = { 0, 1000, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.2 build 54",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = true,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		pEmitter1 = pEmitter {
+			Inputs = {
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.05,
+				},
+				VelocityVariance = Input {
+					Value = 0.1,
+				},
+				AngleVariance = Input {
+					Value = 360,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBlob", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 0.78155833435691, 0.608, 0.297029702970297, },
+							[0.178723404255319] = { 1, 0.2192, 0.286796834852656, 0.227722772277228, },
+							[0.28936170212766] = { 0.0533333333333333, 0.0449801481481482, 0.0495213911143855, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.3450292,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.1900585,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeIn"] = Input {
+					Value = 0.0425532,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.4468085,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = -1,
+				},
+				["SphereRgn.ZRotation"] = Input {
+					Value = 6140,
+					Expression = "time*10",
+				},
+				["SphereRgn.XPivot"] = Input {
+					Value = 1,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 605, 115.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1556,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 115.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 176,
+			Top = 176,
+			Width = 1564,
+			Height = 760,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { 26, 29, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "pEmitter1", Expanded = true, },
+							{ "pEmitter1", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 524, },
+							ScaleX = 0.742741390952059,
+							OffsetX = -49.763673193788,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.000876552227903579,
+						ScaleY = 0.00792533333102862,
+						OffsetX = -0.0999269539810079,
+						OffsetY = -0.266818920179975,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 104.428186714542,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.476534296028881,
+						{
+							ID = "Left",
+							RatioX = 0.54421768707483,
+							RatioY = 112,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.45578231292517,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.474729241877256,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						SmoothThreshold = 1000000,
+						AlphaOverlay = false,
+						LUTSelected = "",
+						FollowActive = false,
+						CheckerUnderlay = true,
+						Normalise = false,
+						One2One = false,
+						OverlayOpacity = 100,
+						ScaleMode = 0,
+						PixelGrid = false,
+						Channel = -1,
+						ID = "GLImageViewer",
+						OverlayColor = 7,
+						ShowControls = true,
+						Smooth = true,
+					},
+					Controls = {
+						Hiding = 0,
+						Autofade = false,
+						Opacity = 100,
+						FadeDelay = 2000,
+						FadeSpeed = 1,
+					},
+					["3DHistogram"] = {
+						Proxy = 4,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					Guides = {
+						Show = false,
+						Center = true,
+						SafeTitle = true,
+						SafeImage = true,
+						Film = false,
+						FrameAspect = "Default",
+					},
+					QuadView = false,
+					Histogram = {
+						DrawStyles = 0,
+						Channels = 7,
+					},
+					SubView = {
+						Enabled = false,
+						Navigator = false,
+						Magnifier = false,
+						ID = "GLHistogramViewer",
+						MagnifierScale = 8,
+					},
+					FullScreen = false,
+					Toolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					CtrlWheelZoom = true,
+					QuadLayoutName = "4-Way",
+					AlwaysOnTop = false,
+					View3D = {
+						CameraName = "Perspective",
+						Options = {
+							Shadows = false,
+							Lighting = false,
+							Grid = true,
+							ShowVertexNormals = false,
+							DefaultLight = true,
+							Culling = false,
+							Wireframe = false,
+							RenderPath = 1,
+							ShowMatteObjects = false,
+						},
+						SortMethod = "BSP",
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.31619537275064,
+			},
+			LastFile = "S:\\__WORK\\Fusion\\Comps\\Particles_Simple_Emitters\\SeM_Emitter_08_001.jpg",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			FlowView = {
+				GridSnap = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

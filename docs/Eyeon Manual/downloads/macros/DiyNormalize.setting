@@ -1,0 +1,189 @@
+{
+	Tools = ordered() {
+		diyNormalize = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "diyTools - simple but handy macros\r\nfind more @ pigs fly forum (by sh4dow)\r\n(Andreas Opferkuch - http://www.variations-of-shadow.com)",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "InputIsPremultiplied",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NormalizeAlpha",
+					Default = 0,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "CustomTool1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				CustomTool1 = Custom {
+					CtrlWZoom = false,
+					Inputs = {
+						PointIn1 = Input {
+							Value = { 1, 0, },
+							Expression = "Point(ProbeMax.Alpha, ProbeMin.Alpha)",
+						},
+						NumberIn1 = Input {
+							SourceOp = "ProbeMax",
+							Source = "Red",
+						},
+						NumberIn2 = Input {
+							SourceOp = "ProbeMax",
+							Source = "Green",
+						},
+						NumberIn3 = Input {
+							SourceOp = "ProbeMax",
+							Source = "Blue",
+						},
+						NumberIn4 = Input {
+							SourceOp = "ProbeMin",
+							Source = "Result",
+						},
+						NumberIn5 = Input {
+							SourceOp = "ProbeMin",
+							Source = "Green",
+						},
+						NumberIn6 = Input {
+							SourceOp = "ProbeMin",
+							Source = "Blue",
+						},
+						NumberIn7 = Input {
+							Value = 1,
+							Expression = "InputIsPremultiplied",
+						},
+						NumberIn8 = Input { Expression = "NormalizeAlpha", },
+						LUTIn1 = Input {
+							SourceOp = "CustomTool1LUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "CustomTool1LUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "CustomTool1LUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "CustomTool1LUTIn4",
+							Source = "Value",
+						},
+						Setup1 = Input { Value = "max(max(n1, n2), n3)", },
+						Setup2 = Input { Value = "min(min(n4, n5), n6)", },
+						RedExpression = Input { Value = "if(n7, (r1-s2)/(s1-s2) *a1, (r1-s2)/(s1-s2))", },
+						GreenExpression = Input { Value = "if(n7, (g1-s2)/(s1-s2) *a1, (g1-s2)/(s1-s2))", },
+						BlueExpression = Input { Value = "if(n7, (b1-s2)/(s1-s2) *a1, (b1-s2)/(s1-s2))", },
+						AlphaExpression = Input { Value = "if(n8, (a1-p1y)/(p1x-p1y), a1)", },
+						Image1 = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						InputIsPremultiplied = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 1595, 214.5, }, },
+					UserControls = ordered() {
+						InputIsPremultiplied = {
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Input is Premultiplied",
+						},
+						NormalizeAlpha = {
+							LINKS_Name = "Normalize Alpha",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+					},
+				},
+				ProbeMax = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Channel = Input { Value = 2, },
+						ProbeRectangle = Input { Value = 1, },
+						Width = Input { Value = 1, },
+						Height = Input { Value = 1, },
+						Evaluation = Input { Value = 2, },
+					},
+				},
+				ProbeMin = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						ProbeRectangle = Input { Value = 1, },
+						Width = Input { Value = 1, },
+						Height = Input { Value = 1, },
+						Evaluation = Input { Value = 1, },
+					},
+				},
+				CustomTool1LUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+				},
+				CustomTool1LUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+				},
+				CustomTool1LUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+				},
+				CustomTool1LUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+				},
+				PipeRouter1 = PipeRouter {
+					ViewInfo = PipeRouterInfo { Pos = { 1320, 214.5, }, },
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.376470588235294, B = 0.549019607843137, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	ActiveTool = "diyNormalize",
+}

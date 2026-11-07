@@ -1,0 +1,827 @@
+Composition {
+	CurrentTime = 69,
+	RenderRange = { 1, 1, },
+	GlobalRange = { 1, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.3 build 55",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		CheckerSoft = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Checker texture generator with softness parameter\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "UseFrameFormatSettings",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "Width",
+					Name = "Image Width",
+					Default = 720,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "Height",
+					Name = "Image Height",
+					Default = 576,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "PixelAspect",
+					DefaultX = 1.066667,
+					DefaultY = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "TopLeftRed",
+					Name = "Checker Red",
+					ControlGroup = 5,
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "TopLeftGreen",
+					Name = "Checker Green",
+					ControlGroup = 5,
+					Default = 1,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Background1",
+					Source = "TopLeftBlue",
+					Name = "Checker Blue",
+					ControlGroup = 5,
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Calculation1",
+					Source = "SecondOperand",
+					Name = "Repeats",
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Rectangle1",
+					Source = "SoftEdge",
+					Name = "Softness X",
+					MaxScale = 0.5,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "Rectangle2",
+					Source = "SoftEdge",
+					Name = "Softness Y",
+					MaxScale = 0.5,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Center",
+				},
+				Input12 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Aspect",
+					Name = "Pattern Aspect",
+					Default = 1,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "Transform1",
+					Source = "Angle",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 651.587, 294.955, },
+			},
+			Tools = ordered() {
+				Background1 = Background {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 720,
+						},
+						Height = Input {
+							Value = 576,
+						},
+						PixelAspect = Input {
+							Value = { 1.066667, 1, },
+						},
+						TopLeftRed = Input {
+							Value = 1,
+						},
+						TopLeftGreen = Input {
+							Value = 1,
+						},
+						TopLeftBlue = Input {
+							Value = 1,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "Rectangle2",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 44.5, 43.3721, },
+					},
+				},
+				Calculation1 = Calculation {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						FirstOperand = Input {
+							Value = 0.952380952380943,
+						},
+						Operator = Input {
+							Value = 3,
+						},
+						SecondOperand = Input {
+							Value = 2,
+						},
+					},
+				},
+				Rectangle1 = RectangleMask {
+					CtrlWShown = false,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.1,
+						},
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Height = Input {
+							Value = 1.01,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -167.5, 40.9281, },
+					},
+				},
+				Rectangle2 = RectangleMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.1,
+						},
+						PaintMode = Input {
+							Value = FuID { "Invert", },
+						},
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Width = Input {
+							Value = 1,
+						},
+						EffectMask = Input {
+							SourceOp = "Rectangle1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -69.5, 40.9281, },
+					},
+				},
+				Transform1 = Transform {
+					CtrlWShown = false,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						Size = Input {
+							SourceOp = "Calculation1",
+							Source = "Result",
+						},
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 167.5, 43.3721, },
+					},
+					Colors = {
+						TileColor = { R = 0.545098039215686, G = 0.349019607843137, B = 0.368627450980392, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1.06666666666667, 1, },
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				Center = Input {
+					Value = { 0.5, 0.536789297658863, },
+				},
+				Size = Input {
+					Value = 0.7,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "Hi!",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input {
+					Disabled = true,
+				},
+				DPTType = Input {
+					Disabled = true,
+				},
+				DPTResolution = Input {
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 652, 182, },
+			},
+		},
+		Refraction = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Refraction\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Blur",
+					Source = "Input",
+					Name = "Refraction Map",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Blur",
+					Source = "XBlurSize",
+					Name = "Map Blur",
+					Default = 28.61842,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn1",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn2",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "Texture1",
+					Source = "Texture",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Texture1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 892, 269, },
+			},
+			Tools = ordered() {
+				Blur = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 15,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Text1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -114.16, 10.15, },
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.525490196078431, B = 0.356862745098039, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Filter_1 = Filter {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Angle = Input {
+							Value = 180,
+						},
+						Randomize = Input {
+							Disabled = true,
+						},
+						Seed = Input {
+							Disabled = true,
+						},
+						Animated = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Blur",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -32.69, 60.28, },
+					},
+					Colors = {
+						TileColor = { R = 0.490196078431373, G = 0.505882352941176, B = 0.298039215686275, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Filter = Filter {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Angle = Input {
+							Value = 90,
+						},
+						Randomize = Input {
+							Disabled = true,
+						},
+						Seed = Input {
+							Disabled = true,
+						},
+						Animated = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Blur",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -145.89, 102.545, },
+					},
+					Colors = {
+						TileColor = { R = 0.490196078431373, G = 0.505882352941176, B = 0.298039215686275, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				CustomTool1 = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 4,
+						},
+						NumberIn2 = Input {
+							Value = 4,
+						},
+						RedExpression = Input {
+							Value = "r2+(r3-0.5)*n1",
+						},
+						GreenExpression = Input {
+							Value = "g2+(g1-0.5)*n2",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Horizontal Power",
+						},
+						NameforNumber2 = Input {
+							Value = "Vertical Power",
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "Filter",
+							Source = "Output",
+						},
+						Image2 = Input {
+							SourceOp = "Background",
+							Source = "Output",
+						},
+						Image3 = Input {
+							SourceOp = "Filter_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -13.07, 99.683, },
+					},
+				},
+				ChannelBooleans = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						EnableExtraChannels = Input {
+							Value = 1,
+						},
+						ToUTexture = Input {
+							Value = 5,
+						},
+						ToVTexture = Input {
+							Value = 6,
+						},
+						Background = Input {
+							SourceOp = "CustomTool1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -16.32, 156.036, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Background = Background {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 720,
+							Expression = "Blur.Input.OriginalWidth",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Blur.Input.OriginalHeight",
+						},
+						PixelAspect = Input {
+							Value = { 1.06666666666667, 1, },
+							Expression = "Point(Blur.Input.OriginalXScale, Blur.Input.OriginalYScale)",
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						Type = Input {
+							Value = FuID { "Corner", },
+						},
+						TopLeftGreen = Input {
+							Value = 1,
+						},
+						TopLeftAlpha = Input {
+							Value = 0,
+						},
+						TopRightRed = Input {
+							Value = 1,
+						},
+						TopRightGreen = Input {
+							Value = 1,
+						},
+						BottomRightRed = Input {
+							Value = 1,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 145.89, 80.351, },
+					},
+				},
+				Texture1 = Texture {
+					CtrlWShown = false,
+					Inputs = {
+						UScale = Input {
+							Value = 0.9342105,
+						},
+						VScale = Input {
+							Value = 0.9407895,
+						},
+						Input = Input {
+							SourceOp = "ChannelBooleans",
+							Source = "Output",
+						},
+						Texture = Input {
+							SourceOp = "Transform1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -17.7499, 206.744, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.537254901960784, G = 0.368627450980392, B = 0.525490196078431, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 88,
+			Top = 88,
+			Width = 1568,
+			Height = 710,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Vertical",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { -67, -75, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+							"Help \"image\"",
+							"Help \"Image\"",
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "Refraction", Expanded = true, },
+							{ "Background", Expanded = true, },
+							{ "BrightnessContrast", Expanded = true, },
+							{ "Refraction", Expanded = true, },
+							{ "Background", Expanded = true, },
+							{ "Refraction", Expanded = true, },
+							{ "Background", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 497, },
+							ScaleX = 0.735485494635858,
+							OffsetX = -52.9549556137818,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.810289389067524,
+					RatioY = 97.2863436123348,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.460740740740741,
+						{
+							ID = "Left",
+							RatioX = 0.500397772474145,
+							RatioY = 103.665594855305,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.499602227525855,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.459259259259259,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Scale = 2,
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+						Channel = 4294967295,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.31619537275064,
+			},
+			LastFile = "\\\\Express-ulitka\\forum_pics\\Nine\\040.jpg",
+			Unsorted = {
+				GlobalStart = 1,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Cluster = {
+				SideFrames = 0,
+			},
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+				EnableReverseMapping = true,
+			},
+			FlowView = {
+				ForceSource = true,
+				Direction = 1,
+				AutoSnap = false,
+				FullToolIndicator = true,
+			},
+			SoftDPS = {
+				AdaptiveContour = true,
+			},
+			QuickTime = {
+			},
+			Tabasco = {
+				AdaptiveContour = true,
+			},
+		},
+	},
+}
+
+ 

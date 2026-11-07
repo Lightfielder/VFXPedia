@@ -1,0 +1,750 @@
+Composition {
+	CurrentTime = 71,
+	RenderRange = { 1, 100, },
+	GlobalRange = { 1, 110, },
+	CurrentID = 34,
+	HiQ = true,
+	Version = "Fusion 6.1 build 684",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		pEmitter1 = pEmitter {
+			ID = 4,
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleNGon", },
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.0263158,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 379.5, },
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 180, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 20, RH = { 14, 20, }, Flags = { Linear = true, }, },
+				[40] = { 20, LH = { 27, 20, }, RH = { 40.3333333333333, 13.3333333333333, }, Flags = { Linear = true, }, },
+				[41] = { 0, LH = { 40.6666666666667, 6.66666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		Rectangle1 = RectangleMask {
+			Inputs = {
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.995, 0.5, },
+					Expression = "Point((time/100)-1/200,0.5)",
+				},
+				Width = Input {
+					Value = 0.01,
+				},
+				Height = Input {
+					Value = 1.8,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 55, 214.5, },
+			},
+		},
+		Background1 = Background {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				GlobalOut = Input {
+					Value = 110,
+				},
+				Width = Input {
+					Value = 100,
+				},
+				Height = Input {
+					Value = 32,
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				TopLeftRed = Input {
+					SourceOp = "CoordTransform3D1",
+					Source = "Position.X",
+				},
+				TopLeftGreen = Input {
+					SourceOp = "CoordTransform3D1",
+					Source = "Position.Y",
+				},
+				TopLeftBlue = Input {
+					SourceOp = "CoordTransform3D1",
+					Source = "Position.Z",
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 214.5, },
+			},
+		},
+		Shape3D1XOffset = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0.848778054604006, RH = { 17.3333333333333, 0.231725721957589, }, Flags = { Linear = true, }, },
+				[50] = { -1.00237894333524, LH = { 33.6682998108412, -1.0722406459038, }, RH = { 66.6650001930192, -0.931091491734673, }, },
+				[100] = { 1.27226786118755, LH = { 83.3333333333333, 1.27226786118755, }, },
+			},
+		},
+		Shape3D1YOffset = BezierSpline {
+			SplineColor = { Red = 255, Green = 0, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { 0, RH = { 8.66666666666667, 0.272201541254589, }, Flags = { Linear = true, }, },
+				[24] = { 0.816604623763766, LH = { 16.3341000526866, 0.812999853587389, }, RH = { 32.6657999404413, 0.820679581354452, }, },
+				[50] = { 0.0230414876082946, LH = { 41.3342001438141, 0.418352192097149, }, RH = { 58, -0.341897201075285, }, },
+				[74] = { -1.07177457844244, LH = { 66.0007999717828, -1.08036789183513, }, RH = { 82.6658000305686, -1.06246515560037, }, },
+				[100] = { 0.0767550674811088, LH = { 91.3333333333333, 0.0767550674811088, }, },
+			},
+		},
+		Shape3D1ZOffset = BezierSpline {
+			SplineColor = { Red = 255, Green = 180, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[1] = { -0.462028769478088, RH = { 17.3333333333333, -0.133407544242878, }, Flags = { Linear = true, }, },
+				[50] = { 0.523834906227542, LH = { 33.6683000760991, 0.538601723728851, }, RH = { 66.6649999223478, 0.508766725103758, }, },
+				[100] = { -0.551542717165194, LH = { 83.3333333333333, -0.551542717165194, }, },
+			},
+		},
+		Trails1 = Trails {
+			Inputs = {
+				Input = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 214.5, },
+			},
+		},
+		pCustom1_1 = pCustom {
+			ID = 17,
+			Inputs = {
+				NumberIn1 = Input {
+					Value = 0.0370371,
+				},
+				NumberIn2 = Input {
+					Value = 0.037037,
+				},
+				PositionXExpression = Input {
+					Value = "getr1d(age+n1,0.5)+rands(-1,1,id)*n2",
+				},
+				PositionYExpression = Input {
+					Value = "getg1d(age+n1,0.5)+rands(-1,1,id+1)*n2",
+				},
+				PositionZExpression = Input {
+					Value = "getb1d(age+n1,0.5)+rands(-1,1,id+2)*n2",
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Image1 = Input {
+					SourceOp = "Trails1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 379.5, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				GlobalOut = Input {
+					Value = 110,
+				},
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 4,
+				},
+				["MaterialID.MaterialID"] = Input {
+					Value = 1,
+				},
+				["ObjectID.ObjectID"] = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pCustom1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 379.5, },
+			},
+		},
+		Step_3 = Note {
+			NameSet = true,
+			Inputs = {
+				Comments = Input {
+					Value = "Use a pCustom to read out the RGB values into the px, py and pz fields using the \"age\" info. The particles get a randomized offset using \"rands(min,max,seed)\" function. The motion can be shifted using n1. The position offset can be scaled using n2. This is only an example. The possibilitys using the pCu are endless... :-)",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { -330, 379.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 330.847, 162.461, },
+			},
+		},
+		Step_1 = Note {
+			NameSet = true,
+			Inputs = {
+				Comments = Input {
+					Value = "Create a Path using a 3D Object or something similar. The point is to create 3 animated parameters, one for each axis. A 3d object is a good example because you see exactly what it does.",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { -330, 49.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 324.88, 133.998, },
+			},
+		},
+		Step_2 = Note {
+			NameSet = true,
+			Inputs = {
+				Comments = Input {
+					Value = "Create a BG tool in 32flt. Connect the RGB channels to the XYZ motion. Create a animated Rct with 1 pixel width. Animate it from left to right. Bake the animation into the image using a trails tool.",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { -330, 214.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 327.267, 138.397, },
+			},
+		},
+		Shape3D1 = Shape3D {
+			Inputs = {
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Shape3D1XOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Shape3D1YOffset",
+					Source = "Value",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "Shape3D1ZOffset",
+					Source = "Value",
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceCubeInputs", },
+				},
+				["MtlStdInputs.MaterialID"] = Input {
+					Value = 1,
+				},
+				["SurfaceCubeInputs.Width"] = Input {
+					Value = 0.2,
+				},
+				["SurfaceCubeInputs.ObjectID.ObjectID"] = Input {
+					Value = 2,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 49.5, },
+			},
+		},
+		CoordTransform3D1 = CoordTransform3D {
+			CtrlWZoom = false,
+			Inputs = {
+				TargetObject = Input {
+					SourceOp = "Shape3D1",
+					Source = "Output",
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1377,
+			Height = 637,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							AutoHideNavigator = true,
+							ForceSource = true,
+							GridSnap = true,
+							PipesAlways = true,
+							AspectPics = false,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 252, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.837987,
+						Offset = { 567.48, 9.40595, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+						ActiveUtility = "LuaScriptConsole",
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 479, },
+							ScaleX = 0.892688870836718,
+							OffsetX = -52.6686433793664,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.0864,
+						ScaleY = 0.00664273624382874,
+						OffsetX = -8.8992,
+						OffsetY = -1.31384026512279,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ToolStates = {
+							Current = {
+								Editable = { "Shape3D1XOffset", "Shape3D1YOffset", "Shape3D1ZOffset", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					Chat = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 110, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 0.00920810313075507,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.491666666666667,
+						{ ID = "Left", RatioX = 1, RatioY = 106.199623352166, Pop = true, },
+						{ ID = "Right", RatioX = -2, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.458333333333333, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Splines = {
+				AutoSmoothMeshes = false,
+			},
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 180,
+				OnRender = true,
+			},
+			Memory = {
+				FramesAtOnce = 1,
+			},
+			NumberStyles = {
+				ClipFrame = 1,
+			},
+			Views = {
+				Right = {
+					ViewLUT = {
+						Tools = ordered() {
+							FusionViewLUT1 = ViewOperator {
+								NameSet = true,
+								Inputs = {
+									Green = Input {
+										SourceOp = "LUTBezier6",
+										Source = "Value",
+									},
+									Alpha = Input {
+										SourceOp = "LUTBezier8",
+										Source = "Value",
+									},
+									Blue = Input {
+										SourceOp = "LUTBezier7",
+										Source = "Value",
+									},
+									Red = Input {
+										SourceOp = "LUTBezier5",
+										Source = "Value",
+									},
+								},
+								Tools = {
+									LUTBezier6 = LUTBezier {
+										SplineColor = { Green = 0, Blue = 0, Red = 0, },
+										KeyColorSplines = {
+											[0] = {
+												[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+												[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+											},
+										},
+									},
+									LUTBezier7 = LUTBezier {
+										SplineColor = { Green = 0, Blue = 0, Red = 0, },
+										KeyColorSplines = {
+											[0] = {
+												[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+												[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+											},
+										},
+									},
+									LUTBezier8 = LUTBezier {
+										SplineColor = { Green = 0, Blue = 0, Red = 0, },
+										KeyColorSplines = {
+											[0] = {
+												[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+												[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+											},
+										},
+									},
+									LUTBezier5 = LUTBezier {
+										SplineColor = { Green = 0, Blue = 0, Red = 0, },
+										KeyColorSplines = {
+											[0] = {
+												[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+												[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+				},
+				Left = {
+					Viewer = {
+						Smooth = false,
+					},
+					ViewLUT = {
+						{
+							Tools = ordered() {
+								FusionViewLUT = ViewOperator {
+									NameSet = true,
+									Inputs = {
+									},
+								},
+							},
+							ID = "FusionViewLUT",
+						},
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+					Toolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+						},
+						CamRight = {
+							Rotation = {
+								Y = -90,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamLeft = {
+							Rotation = {
+								Y = 90,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamFront = {
+							Rotation = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamTop = {
+							Rotation = {
+								Y = 0,
+								X = 90,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamPersp = {
+							FovY = 45,
+							AdaptiveFar = false,
+							Scale = 0.56840854883194,
+							Separation = 0.100000001490116,
+							Near = 0.0500000007450581,
+							Rotation = {
+								Y = -19.8000011444092,
+								X = 19.7999954223633,
+								Z = 0,
+							},
+							Position = {
+								Y = 0.000997200608253479,
+								X = 0.0353515930473804,
+								Z = 0.310211688280106,
+							},
+							AdaptiveNear = false,
+							Convergence = 0,
+							Far = 100000,
+						},
+						CameraName = "Perspective",
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+						CameraConvergence = 0,
+						CameraSeparation = 0.1,
+					},
+					Vectorccope = {
+						DrawStyles = 1,
+						OneLine = false,
+						Color = false,
+						LoopLines = true,
+						SubSampling = 4,
+						ColorSpace = 0,
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720 Europe",
+				Width = 1280,
+				Height = 720,
+				Rate = 25,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+				DepthFull = 1,
+				DepthPreview = 1,
+				DepthInteractive = 1,
+			},
+			LastFile = "C:\\Users\\Robert\\Pictures\\20080910_ValGardena\\Developed\\DSC_6367.jpg",
+			Unsorted = {
+				GlobalStart = 1,
+				GlobalEnd = 110,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ScaleLocked = false,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+				ScaleLocked = false,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			LastLUTFile = "C:\\Users\\Robert\\Desktop\\mieps.alut3",
+			FlowView = {
+				ForceSource = true,
+				GridSnap = true,
+				PipesOnTop = true,
+				AspectTilePics = false,
+				AutoSnap = false,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

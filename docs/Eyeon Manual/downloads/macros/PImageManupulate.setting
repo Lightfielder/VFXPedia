@@ -1,0 +1,162 @@
+{
+	Tools = ordered() {
+		pImageManipulate = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "one",
+					Source = "Input",
+					Name = "ParticleInput",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn1",
+					Name = "Rotate X by Red",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn2",
+					Name = "Rotate Y by Green",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn3",
+					Name = "Rotate Z by Blue",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn4",
+					Name = "Scale by Luma ",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn5",
+					Name = "Velocity X by Red",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn6",
+					Name = "Velocity Y by Green",
+				},
+				Input7 = InstanceInput {
+					SourceOp = "one",
+					Source = "NumberIn7",
+					Name = "Velocity Z by Blue",
+				},
+				Input8 = InstanceInput {
+					SourceOp = "two",
+					Source = "NumberIn1",
+					Name = "Position X by Red",
+				},
+				Input9 = InstanceInput {
+					SourceOp = "two",
+					Source = "NumberIn2",
+					Name = "Position Y by Green",
+				},
+				Input10 = InstanceInput {
+					SourceOp = "two",
+					Source = "NumberIn3",
+					Name = "Position Z by Blue",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "two",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				one = pCustom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Intermediate1 = Input {
+							Value = "getr1b(pxi1+0.5,pyi1+0.5)",
+						},
+						Intermediate2 = Input {
+							Value = "getg1b(pxi1+0.5,pyi1+0.5)",
+						},
+						Intermediate3 = Input {
+							Value = "getb1b(pxi1+0.5,pyi1+0.5)",
+						},
+						VelocityXExpression = Input {
+							Value = "vx+((i1*n5))",
+						},
+						VelocityYExpression = Input {
+							Value = "vy+((i1*n6))",
+						},
+						VelocityZExpression = Input {
+							Value = "vz+((i1*n7))",
+						},
+						RotationXExpression = Input {
+							Value = "rx+((i1*n1)*50)",
+						},
+						RotationYExpression = Input {
+							Value = "ry+((i1*n2)*50)",
+						},
+						RotationZExpression = Input {
+							Value = "rz+((i3*n3)*50)",
+						},
+						SizeExpression = Input {
+							Value = "size+(((i1+i2+i3)/3)*n4)",
+						},
+						Image1 = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 660, 115.5, },
+					},
+				},
+				two = pCustom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Intermediate1 = Input {
+							Value = "getr1b(pxi1+0.5,pyi1+0.5)",
+						},
+						Intermediate2 = Input {
+							Value = "getg1b(pxi1+0.5,pyi1+0.5)",
+						},
+						Intermediate3 = Input {
+							Value = "getb1b(pxi1+0.5,pyi1+0.5)",
+						},
+						PositionXExpression = Input {
+							Value = "px+((i1*n1))",
+						},
+						PositionYExpression = Input {
+							Value = "py+((i2*n2))",
+						},
+						PositionZExpression = Input {
+							Value = "pz+((i3*n3))",
+						},
+						Input = Input {
+							SourceOp = "one",
+							Source = "Output",
+						},
+						Image1 = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 770, 115.5, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					ViewInfo = PipeRouterInfo {
+						Pos = { 715, 181.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "pImageManipulate",
+}

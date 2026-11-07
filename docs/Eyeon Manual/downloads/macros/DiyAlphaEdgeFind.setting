@@ -1,0 +1,277 @@
+{
+	Tools = ordered() {
+		diyAlphaEdgeFind = GroupOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input { Value = "Low/High: clip input values\r\n\r\nThis is basically a \"wrapper\" for AlphaEdgeCCv by Gregory Chalenko, to simplify the UI.\r\nIf you want a more technical/detailed approach, just go with AlphaEdgeCCv.", },
+				Gain = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "Gain",
+				},
+				Input12 = InstanceInput {
+					SourceOp = "ColorCurves2_2_1",
+					Source = "Alpha",
+				},
+				Gamma = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "Gamma",
+				},
+				Contrast = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "Contrast",
+				},
+				ClipBlack = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "ClipBlack",
+				},
+				ClipWhite = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "ClipWhite",
+				},
+				InvertBrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1_2_1",
+					Source = "InvertGarbageMatte",
+				},
+				PreBlurSize = InstanceInput {
+					SourceOp = "Blur1_2_1",
+					Source = "XBlurSize",
+				},
+				PostBlurSize = InstanceInput {
+					SourceOp = "MatteControl1_2_1",
+					Source = "MatteBlur",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},				
+				Low = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "Low",
+					ControlGroup = 4,
+					Default = 0,
+				},
+				High = InstanceInput {
+					SourceOp = "BrightnessContrast1_2_1",
+					Source = "High",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				InputBlend = InstanceInput {
+					SourceOp = "ChannelBooleans2",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ChannelBooleans2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 1925, 313.5, }, },
+			Tools = ordered() {
+				PipeRouter1 = PipeRouter {
+					CtrlWZoom = false,
+					ViewInfo = PipeRouterInfo { Pos = { 440, 313.5, }, },
+				},
+				ChannelBooleans2 = ChannelBoolean {
+					CtrlWZoom = false,
+					Inputs = {
+						Background = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "ChannelBooleans1_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 605, 511.5, }, },
+				},
+				MatteControl1_2_1 = MatteControl {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						MatteBlur = Input { Value = 0.2, },
+						InvertGarbageMatte = Input { Value = 1, },
+						Background = Input {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -0.23499, 172.978, }, },
+					Colors = {
+						TileColor = { R = 0.443137254901961, G = 0.349019607843137, B = 0.52156862745098, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ChannelBooleans1_2_1 = ChannelBoolean {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						ToRed = Input { Value = 8, },
+						ToGreen = Input { Value = 8, },
+						ToBlue = Input { Value = 8, },
+						ToAlpha = Input { Value = 8, },
+						Background = Input {
+							SourceOp = "MatteControl1_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -0.23499, 139.978, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ColorCurves2_2_1 = ColorCurves {
+					PickColor = true,
+					CtrlWShown = false,
+					Inputs = {
+						Red = Input {
+							SourceOp = "ColorCurves2_2_1Red",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ColorCurves2_2_1Green",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ColorCurves2_2_1Blue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ColorCurves2_2_1Alpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Blur1_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -0.23499, 73.978, }, },
+					Tools = {
+						ColorCurves2_2_1Green = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2_2_1Alpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2_2_1Blue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 68, Green = 68, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves2_2_1Red = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 52, Blue = 52, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Blur1_2_1 = Blur {
+					CtrlWShown = false,
+					Inputs = {
+						Filter = Input { Value = FuID { "Multi-box", }, },
+						Input = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -1.505, 41.65, }, },
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.52156862745098, B = 0.352941176470588, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				BrightnessContrast1_2_1 = BrightnessContrast {
+					CtrlWShown = false,
+					Inputs = {
+						Alpha = Input { Value = 1, },
+						ClipBlack = Input { Value = 1, },
+						ClipWhite = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "ColorCurves2_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1.505, 106.145, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.352941176470588, B = 0.525490196078431, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+			UserControls = ordered() {
+				Gain = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				Input12 = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				Gamma = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				Contrast = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				ClipBlack = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				ClipWhite = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				InvertBrightnessMap = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+				PreBlurSize = {
+					INP_MaxAllowed = 100,
+					LINKS_Name = "Thickness",
+					INP_MinAllowed = 0,
+					INPID_InputControl = "SliderControl",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 1,
+					INP_MaxScale = 10,
+					INP_Default = 1,
+				},
+				PostBlurSize = {
+					INP_MaxAllowed = 100,
+					INP_Default = 0.2,
+					INP_MinAllowed = 0,
+					INPID_InputControl = "SliderControl",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 1,
+					INP_MaxScale = 5,
+					LINKS_Name = "Blur",
+				},
+			},
+		},
+	},
+}

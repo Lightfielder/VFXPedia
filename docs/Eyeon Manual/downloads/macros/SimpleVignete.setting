@@ -1,0 +1,155 @@
+{
+	Tools = ordered() {
+		SimpleVignette11 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "Ellipse1",
+					Source = "SoftEdge",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Ellipse1",
+					Source = "BorderWidth",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Ellipse1",
+					Source = "Width",
+					Default = 1.12,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Ellipse1",
+					Source = "Height",
+					Default = 1.12,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Gain",
+					Default = 0.2,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Saturation",
+					Default = 0.5,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Input",
+					Source = "Input",
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Blur1",
+					Source = "LockXY",
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Blur1",
+					Source = "XBlurSize",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					Disabled = true,
+					SourceOp = "Blur1",
+					Source = "YBlurSize",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Output",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "SimpleVignette1",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Ellipse1 = EllipseMask {
+					CtrlWShown = false,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.06,
+						},
+						Invert = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1.12,
+						},
+						Height = Input {
+							Value = 1.12,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 609.263, 338.593, },
+					},
+				},
+				BrightnessContrast1 = BrightnessContrast {
+					CtrlWShown = false,
+					Inputs = {
+						Gain = Input {
+							Value = 0.2,
+						},
+						Saturation = Input {
+							Value = 0.5,
+						},
+						Input = Input {
+							SourceOp = "Input",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Ellipse1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 544.318, 404.1, },
+					},
+				},
+				Input = BrightnessContrast {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					ViewInfo = OperatorInfo {
+						Pos = { 424.395, 404.44, },
+					},
+				},
+				Blur1 = Blur {
+					CtrlWShown = false,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "BrightnessContrast1",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Ellipse1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 669.931, 403.32, },
+					},
+				},
+				Output = BrightnessContrast {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Input = Input {
+							SourceOp = "Blur1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 793.984, 403.32, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SimpleVignette11",
+}

@@ -1,0 +1,26 @@
+{
+	Tools = ordered() {
+		BG_UVMap = Background {
+			Inputs = {
+				UseFrameFormatSettings = Input {
+					Value = 1,
+				},
+				Type = Input {
+					Value = FuID { "Corner", },
+				},
+				TopLeftGreen = Input {
+					Value = 1,
+				},
+				TopRightRed = Input {
+					Value = 1,
+				},
+				TopRightGreen = Input {
+					Value = 1,
+				},
+				BottomRightRed = Input {
+					Value = 1,
+				},
+			},
+		},
+	},
+}

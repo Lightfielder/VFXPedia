@@ -1,0 +1,30 @@
+{
+	Tools = ordered() {
+		BG_Spectrum = Background {
+			Inputs = {
+				UseFrameFormatSettings = Input {
+					Value = 1,
+				},
+				Type = Input {
+					Value = FuID { "Gradient", },
+				},
+				TopLeftAlpha = Input {
+					Value = 0,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 0, 0, 1, },
+							[0.3333333333333] = { 0, 1, 0, 1, },
+							[0.6666666666667] = { 0, 0, 1, 1, },
+							[1] = { 1, 0, 0, 1, },
+						},
+					},
+				},
+				GradientInterpolationMethod = Input {
+					Value = FuID { "HLS", },
+				},
+			},
+		},
+	},
+}

@@ -1,0 +1,11 @@
+{
+	Tools = ordered() {
+		ColorSpace1 = ColorSpace {
+			Inputs = {
+				ColorSpaceConversion = Input {
+					Value = 1,
+				},
+			},
+		},
+	},
+}

@@ -1,0 +1,142 @@
+------------------------------------------------------------
+
+-- Save One Comp Per Frame -- v0.1
+-- written by Pieter Van Houte (pieter@secondman.com)
+-- Feb 01, 2008
+--
+-- Based on:
+--
+-- Save New Version -- Revision: 2.4
+--
+-- Saves the current composition with a version number - incrementing the version 
+-- each time the script is called.
+--
+-- this is a composition type script, and must be run from the 
+-- scripts/composition directory of fusion
+--
+-- written by Isaac Guenard (izyk@eyeonline.com)
+-- edited by Sean Konrad (sean@eyeonline.com)
+-- edited by Daniel Koch (daniel@eyeonline.com)
+-- edited by Axel Mertes
+-- written : Nov 11th, 2002
+-- updated : Sept 27, 2005
+-- changes : updated for 5
+-- updated : April 5, 2006 (actually works now)
+-- updated : April 5, 2006 (forces first save to be enumerated with default 3 digits padding,
+--           fixed first save dialog path issues)
+-- updated : April 6, 2006 (reports failures, won't clobber existing comps)
+------------------------------------------------------------
+
+--------------------------------------------------------------------------
+-- MAIN BODY
+--
+
+composition=fusion:CurrentComp()
+
+-- Ask user Start and End frames and where to save the comps.
+
+
+ret = AskUser("SM Take5 Xsheet converter v1.06",{
+	{"SaveDir", Name = "Select Path to Save to", "PathBrowse"},
+	{"StartFrame", Name = "Start Frame", "Screw" , Min = 0 , Integer = true , Default = 1},
+	{"EndFrame", Name = "End Frame", "Screw" , Min = 0 , Integer = true , Default = 1},
+	})
+	if ret == nil then print("Cancelled") return end
+	
+SaveDir = ret["SaveDir"]
+StartFrame = ret["StartFrame"]
+EndFrame = ret ["EndFrame"]
+
+CurrentFrame = StartFrame-1 -- Start from here, this because the script will add 1 when first going through the loop.
+
+LoopLength = EndFrame-StartFrame+1 -- start and end inclusive
+
+
+
+-- loop through the comp from StartFrame to EndFrame, setting render ranges and saving the comp.
+-- the user needs to start with a comp already having the frame number at the end with the desired padding.
+
+for t = 1, LoopLength do
+
+	-- first set comp's render range
+	composition:SetAttrs({COMPN_RenderStart = StartFrame+t-1})
+	composition:SetAttrs({COMPN_RenderEnd = StartFrame+t-1})
+
+	fa = composition:GetAttrs()
+	if fa.COMPS_FileName == "" then
+
+		-- add the default composition name provided by Fusion
+		composition_dir = composition:MapPath("comps:") .. fa.COMPS_Name..".comp"
+	
+		ret = composition:AskUser("Unsaved Comp", {
+			{"Filename", "FileBrowse", Save=true, Default=composition_dir} 
+			})
+	
+		if ret == nil then
+			print("Save Cancelled!")
+			return
+		end
+	
+		pf = eyeon.parseFilename(MapPath(ret.Filename))
+		if pf.Number == nil then
+			pf.Number =  1
+		end
+	else
+		pf = eyeon.parseFilename(MapPath(fa.COMPS_FileName))
+		if pf.Number == nil then
+			pf.Number =  1
+		else
+			pf.Number = CurrentFrame + 1
+			CurrentFrame = CurrentFrame + 1
+		end
+	end	
+	
+	-- default to 3 digits padding if no padding is given by the user
+	if pf.Padding then
+	else
+		print("\nThe basic filename does not contain version numbers, set to default '001'")
+		pf.Padding =  3
+	end
+
+	composition_new = SaveDir .. pf.CleanName..string.format("%0"..pf.Padding.."d", pf.Number)..".comp"
+	
+	if fileexists(composition_new) then
+		ret = composition:AskUser("File Exists!", {
+			{"Description", "Text", 
+			Default = composition_new.."\n\n"..
+			"Do you want to overwrite the existing file?", 
+			ReadOnly = true, Wrap=true} 
+			} )
+		if ret == nil then
+			return
+		end
+	end
+
+	-- is the filename provided even valid?
+	-- we find out by trying to open the file for writing.
+	-- if we can't we display a message with the windows error
+	-- (use a temporary name to avoid stomping on any existing comps)
+
+	composition_tmp = SaveDir .. pf.CleanName..string.format("%0"..pf.Padding.."d", pf.Number)..".tmp"
+	file, errorMsg = io.open(composition_tmp, "w")
+	if file == nil then
+		composition:AskUser("File Save Error!", {
+			{"Description", "Text", 
+			Default = "Invalid Filename : The Windows error was :\n"..errorMsg, 
+			ReadOnly = true, Wrap=true} 
+			} )
+		return
+	end
+	file:close()
+  
+	if composition:Save( composition_new ) == true then
+		print("\nThis composition has been saved as:\n"..composition_new.."\n")
+	else
+		print("\nWarning: could not save at :\n"..composition_new.."\n")
+	end
+
+end
+
+--------------------------------------------------------------------------
+-- SCRIPT ENDS
+

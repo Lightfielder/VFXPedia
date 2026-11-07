@@ -1,0 +1,138 @@
+------------------------------------------------------------------------------
+-- Flame2DFMO
+-- Converts flame track(s) to DFMO for fusion
+--
+-- comp script
+--
+-- This script converts 2D tracks exported from FFI stabilizer as .ascii file.
+-- Writes .dfmo to the same direcrory, make sure it is writable.
+-- Can do all .ascii in directory with Process all files option.
+-- Needs horizontal resolution of tracked image in pixels.
+--
+-- Directory selection for Process all files option requires file select,
+-- but can be any file...
+-- Looks like doDirectories function can't go to subdirs when mask is used?
+--
+-- portions from Import SynthEyes Track and Create Bin From Directory scripts
+-- by Isaac Guenard and Peter Loveday, thanks
+--
+-- written by : Jirka Sindelar (jirka@avion.net)
+------------------------------------------------------------------------------
+
+-- returns all *.ascii files in dir
+function doDirectories(dir, mask)
+	local path = dir..mask
+	local files = readdir(path)
+	
+	if files == nil then print("   FAILED TO READ : "..string.lower(dir)) return end
+	for i, f in ipairs(files) do	
+		if type(f)=="table" and f.IsDir == true then
+			if ret.Recurse == 1 then
+				doDirectories(dir..f.Name.."\\", mask)
+			end
+		else
+			if type(f) == "table" then
+				seq = eyeon.parseFilename(dir..f.Name)
+				if string.lower(seq.Extension) == ".ascii" then
+					table.insert(flamefiles,seq.FullPath)
+				end
+			end
+		end
+	end
+	return flamefiles
+end
+
+function trim(strTrim)
+	strTrim = string.gsub(strTrim, "^(%s+)", "") -- remove leading spaces
+	strTrim = string.gsub(strTrim, "$(%s+)", "") -- remove trailing spaces
+	return strTrim
+end
+
+-- saves readed *.ascii to tab
+function handled(frame, x, y)
+	fr = tonumber(frame)
+	if not (tracker[fr]) then tracker[fr] = {} end 
+	tracker[fr] = {x, y}
+end
+
+-- converts one file
+function doOneFile(fileName)
+	-- can we open the file
+	tracks = {}
+	track, err = io.open(fileName, "r")
+	tracker = {}
+	line = track:read("*l")
+	while line do
+		line = trim(line)
+		-- example " 16.00 :    266.48,    313.46" frame: x y
+		string.gsub(line, "([%S]+)%s*:%s*([%S]+)%s*,%s*([%S]+)", handled)
+		line = track:read("*l")
+	end
+	track:close()
+	track = nil
+
+	fn = eyeon.parseFilename(fileName)
+	newFn = fn.Path..fn.Name..".dfmo"
+	fh, errormessage = io.output(newFn)
+	if not fh then
+		print("Can't open"..newFn)
+		exit(10)
+	end
+	fh:write("DFMO\n")
+	for frame, pos in tracker do
+		newX = math.floor((tonumber(pos[1])/ret.w)*1000000)/1000000 -- FIX hmm, rounding to 6 decimals ???
+		newY = math.floor((tonumber(pos[2])/ret.w)*1000000)/1000000
+		line = newX.." "..newY.." "..frame.."\n"
+		fh:write(line)
+	end
+	fh:close()
+	fh = nil
+	msg = msg..fileName.."\n"
+end
+
+------------------------------------------------------------------------------
+--                                                               MAIN BODY                                                                   --
+------------------------------------------------------------------------------
+-- gui
+while track == nil do
+	-- ask the user what Flame file(s) to process
+	dialog = {}
+	if ret == nil then
+		table.insert(dialog, {"Filename", "FileBrowse", Default = ""})
+		table.insert(dialog, {"allindir", Name="Process all files in directory", "Checkbox", Default=1, NumAcross=2})
+		--table.insert(dialog, {"Recurse", Name="do subdirectories", "Checkbox", Default=0, NumAcross=2})
+		table.insert(dialog, {"w", "Screw", Name = "Width in pixels", Default = 720, Min = 1, Max = 4096, DisplayedPrecision = 0})
+	else
+		table.insert(dialog, {"Filename", "FileBrowse", Default = ret.Filename})
+	end
+	if err then
+		table.insert(dialog, {"warning", Name = "warning", "Text", Default=err, Wrap=true, Lines=8})
+	end
+	ret = composition:AskUser("Select A Flame tracker file (*.ascii)", dialog)
+	if ret == nil then return end
+	-- test to open selected file
+	tracks = {}
+	track, err = io.open(MapPath(ret.Filename), "r")
+end
+track:close()
+track = nil
+
+-- conversion
+msg = ""
+if ret.allindir == 1 then
+	-- all in dir
+	flamefiles = {}
+	fn = eyeon.parseFilename(MapPath(ret.Filename))
+	flamefilesRet = doDirectories(fn.Path, "*.ascii")
+	for i, flamename in flamefilesRet do
+		doOneFile(flamename)
+	end
+else
+	-- just single
+	doOneFile(MapPath(ret.Filename))
+end
+
+-- report gui
+ret = composition:AskUser("Conversion finished", {
+{"warning", Name = "converted:", "Text", Default=msg, Wrap=true, Lines=10}})
+if ret == nil then return end

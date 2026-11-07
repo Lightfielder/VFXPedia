@@ -1,0 +1,63 @@
+{
+	Tools = ordered() {
+		GradientSlice1 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "FromImage1",
+					Source = "ImageToScan",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "FromImage1",
+					Source = "Start",
+					DefaultX = 0,
+					DefaultY = 0.5,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "FromImage1",
+					Source = "End",
+					DefaultX = 1,
+					DefaultY = 0.5,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "FromImage1",
+					Source = "NumberOfSampleSteps",
+					MaxScale = 1024,
+					Default = 64,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "FromImage1",
+					Source = "OutOfImageColor",
+					ControlGroup = 5,
+					Default = 0,
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "FromImage1",
+					Source = "Gradient",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "GradientSlice",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				FromImage1 = GradientFromImage {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						NumberOfSampleSteps = Input {
+							Value = 64,
+						},
+						OutOfImageColor = Input {
+							Value = 0,
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "GradientSlice1",
+	Name = "GradientSlice1",
+	IsMacro = true,
+}

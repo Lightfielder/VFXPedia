@@ -1,0 +1,32 @@
+------------------------------------------------------------
+-- 
+--
+-- Set tools 'levels' by putting PL1, PL2,...PL4 in the tool's info-tab on selected tools.
+-- Works well in conjunction with SE_PriorityPassthrough'.
+-- 
+--
+-- place in Fusion:\Scripts\Comp 
+--
+-- copied & pasted by SirEdric (Eric@SirEdric.de), March 2007
+------------------------------------------------------------
+
+
+GeneralOpt={"PL1", "PL2", "PL3","PL4", "Clear"}
+
+ret = AskUser("SirEdric's Set selected Tool's level", {	
+	--{"", "Text", Lines=1, Default="Set selected tools ", ReadOnly=true, Wrap=true},
+	{"Set_Level_to",  "Dropdown", Options = GeneralOpt},
+	--{"Selected", Name = "Affect Selected Tools Only", "Checkbox", Default = 0},
+	})
+
+if ret then
+	for i, tool in composition:GetToolList((true)) do
+		if ret.Set_Level_to==4 then
+			tool.Comments=""
+		else
+			tool.Comments="PL"..ret.Set_Level_to+1
+		end
+	end
+end
+print()
+

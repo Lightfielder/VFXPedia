@@ -1,0 +1,319 @@
+{
+	Tools = ordered() {
+		PG_Light_Wrap1 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "boolean",
+					Source = "Background",
+					Name = "FG Alpha IN",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "blurBG",
+					Source = "Input",
+					Name = "LightSource Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "blurBG",
+					Source = "XBlurSize",
+					Name = "Light Source Blur Amount",
+					Default = 14.91713,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "LightBoostGlow",
+					Source = "XGlowSize",
+					Name = "LightBoost Glow Size",
+					Default = 10,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "LightBoostGlow",
+					Source = "Glow",
+					Name = "LightBoost Glow Power",
+					Default = 0.8,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "LightBoostGlow",
+					Source = "Blend",
+					Name = "Glow Power Blend",
+					Default = 0.0552486,
+				},
+				MainInput3 = InstanceInput {
+					SourceOp = "inputBG",
+					Source = "Background",
+					Name = "Place BG to be lit here",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "inputBG",
+					Source = "ApplyMode",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "inputBG",
+					Source = "Gain",
+					Default = 0.5469613,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "inputBG",
+					Source = "Blend",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "inputBG",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "PG_Light_Wrap",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				boolean = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 3560, -196, },
+					},
+				},
+				invertalpha = ColorCorrector {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Saturation1 = Input {
+							Value = 1,
+						},
+						Saturation2 = Input {
+							Value = 1,
+						},
+						Saturation3 = Input {
+							Value = 1,
+						},
+						Saturation4 = Input {
+							Value = 1,
+						},
+						ReleaseMatch = Input {
+							Disabled = true,
+						},
+						MasterRGBContrast = Input {
+							Value = -1,
+						},
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.4, 0.2, },
+											{ 0.6, 0, },
+											{ 1, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0, 0, },
+											{ 0.4, 0, },
+											{ 0.6, 0.2, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+						Input = Input {
+							SourceOp = "boolean",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 3712, -195, },
+					},
+				},
+				Background1 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					Inputs = {
+						Width = Input {
+							Value = 720,
+						},
+						Height = Input {
+							Value = 480,
+						},
+						PixelAspect = Input {
+							Value = { 0.9, 1, },
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 3727, -132, },
+					},
+				},
+				bluralphaedges = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 27.07182,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "invertalpha",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4021, -212, },
+					},
+				},
+				blurBG = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 14.91713,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4036, -55, },
+					},
+				},
+				edgematte = Merge {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "bluralphaedges",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "boolean",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4108, -128, },
+					},
+				},
+				LightBoostGlow = Glow {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0.0552486,
+						},
+						YGlowSize = Input {
+							Disabled = true,
+						},
+						Low = Input {
+							Disabled = true,
+						},
+						High = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "blurBG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4146, -55, },
+					},
+				},
+				EdgeBoosterGlow = Glow {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0.0220994,
+						},
+						YGlowSize = Input {
+							Disabled = true,
+						},
+						Glow = Input {
+							Value = 0.6740331,
+						},
+						Low = Input {
+							Disabled = true,
+						},
+						High = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "edgematte",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4218, -128, },
+					},
+				},
+				Bitmap3 = BitmapMask {
+					CtrlWShown = false,
+					Inputs = {
+						Image = Input {
+							SourceOp = "EdgeBoosterGlow",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Luminance", },
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4345, -127, },
+					},
+				},
+				inputBG = Merge {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMode = Input {
+							Value = FuID { "Multiply", },
+						},
+						Gain = Input {
+							Value = 0.5469613,
+						},
+						Foreground = Input {
+							SourceOp = "LightBoostGlow",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Bitmap3",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 4357, -61, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "PG_Light_Wrap1",
+}

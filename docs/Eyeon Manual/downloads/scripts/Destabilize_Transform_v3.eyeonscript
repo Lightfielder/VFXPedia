@@ -1,0 +1,227 @@
+------------------------------------------------------------------------------
+-- Destabilize Transform Reloaded
+-- 
+-- a tool script by Stefan Ihringer <stefan@bildfehler.de>
+-- based on the work of Isaac Guenard and Sean Konrad.
+--
+-- version 3.0, 2010-12-07: based on Destabilize Transform rev 2 by eyeon
+--                          software, this version is now capable of connecting
+--                          trackers to any tool that has a center, size or angle
+--                          input (not just Xf and Mrg anymore). It can also
+--                          rename and/or color the tool. If you select a tracker
+--                          in addition to a regular tool, it will be selected
+--                          automatically.
+--           
+------------------------------------------------------------------------------
+
+-- uncomment this line if you want the tool's color changed
+--COLORED = {bg = {R=200/255, G=255/255, B=210/255}, fg = {R=25/255, G=25/255, B=25/255}}
+-- uncomment this line if you want to rename tools by default
+--RENAME = true
+
+
+if not tool then
+	print("This is a tool script, you must select a tool in the flow to run this script.")
+	return
+else
+	-- make sure selected tool isn't a tracker (tracker can be selected in addition to a tool though)
+	if tool:GetAttrs().TOOLS_RegID == "Tracker" then
+		print("This script needs to be run on a tool that is not a tracker.")
+		return
+	end
+end
+
+local tracks = {}
+local names = {}
+local defaultTracker = nil
+
+-- search for all Tracker tools
+local toollist = comp:GetToolList(false, "Tracker")
+for i, v in ipairs(toollist) do
+	local tAttrs = v:GetAttrs()
+	table.insert(tracks, v)
+	table.insert(names, tAttrs.TOOLS_Name)
+	-- if tracker is selected, remember it for later
+	if tAttrs.TOOLB_Selected and defaultTracker == nil then
+		defaultTracker = i - 1
+	end
+end
+
+if table.getn(tracks) == 0 then
+	local err = "This script is designed to connect a tool to the unsteady outputs of a tracker. There are no (valid) trackers in this comp though."
+	comp:AskUser("Error!", { 
+			{"Description", "Text", ReadOnly = true, Default = err, Wrap=true, Lines = 5 } 
+			})
+	return
+end
+
+			
+-- build dialog, depending on which inputs are available for the current tool.
+local desc = "This script will connect the controls of a tool to the unsteady outputs of a tracker to apply the tracked motion to the image."
+local dlg = {}
+local numCheckboxes = 0
+
+table.insert(dlg, {"Tracker", "Dropdown", Options = names, Default = (defaultTracker or 0) })
+table.insert(dlg, {"Description", "Text", ReadOnly = true, Default = desc, Wrap=true, Lines = 3})
+
+-- one of Size, XSize, XScale (fastnoise) or DstSize (gridwarps)
+if tool.Size then
+	table.insert(dlg, {"Size", "Checkbox", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.XSize then
+	table.insert(dlg, {"XSize", "Checkbox", Name = "X Size", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.XScale then
+	table.insert(dlg, {"XScale", "Checkbox", Name = "X Scale (Size)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.DstSize then
+	table.insert(dlg, {"SrcSize", "Checkbox", Name = "Source Size", Default = 0, NumAcross=2})
+	table.insert(dlg, {"DstSize", "Checkbox", Name = "Destination Size", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+end
+-- one of Angle, DstAngle (gridwarps), AngleZ (Text tool), ZRotation (masks)
+if tool.Angle then
+	table.insert(dlg, {"Angle", "Checkbox", Name = "Angle (Rotation)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.DstAngle then
+	table.insert(dlg, {"SrcAngle", "Checkbox", Name = "Source Angle (Rotation)", Default = 0, NumAcross=2})
+	table.insert(dlg, {"DstAngle", "Checkbox", Name = "Destination Angle (Rotation)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.AngleZ then
+	table.insert(dlg, {"AngleZ", "Checkbox", Name = "Angle Z (Rotation)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.ZRotation then
+	table.insert(dlg, {"ZRotation", "Checkbox", Name = "Z Rotation", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+end
+-- center & pivot, if available
+if tool.Center then
+	table.insert(dlg, {"Center", "Checkbox", Name = "Center (Position)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+elseif tool.DstCenter then
+	table.insert(dlg, {"SrcCenter", "Checkbox", Name = "Source Center (Position)", Default = 0, NumAcross=2})
+	table.insert(dlg, {"DstCenter", "Checkbox", Name = "Destination Center (Position)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+end
+if tool.Pivot then
+	table.insert(dlg, {"Pivot", "Checkbox", Name = "Pivot (Axis)", Default = 1, NumAcross=2})
+	numCheckboxes = numCheckboxes + 1
+end
+
+table.insert(dlg, {"Rename", "Checkbox", Name = "Append tracker name to tool", Default = (RENAME and 1 or 0), NumAcross=2})
+
+
+-- if no checkboxes were added, the current tool lacks supported inputs
+if numCheckboxes == 0 then
+	local err  = "This script is designed to connect a tool to the unsteady outputs of a tracker. You must select a tool that has a center, angle and/or size input."
+	comp:AskUser("Error!", { 
+			{"Description", "Text", ReadOnly = true, Default = err, Wrap=true, Lines = 5 } 
+			})
+	return
+end
+
+-- display dialog of trackers
+local ret = comp:AskUser("Select a Tracker to Connect To :", dlg)
+if ret == nil then
+	return
+end
+
+local tracker = tracks[ret.Tracker + 1]
+
+
+--------------------------------------------------------------------
+
+comp:StartUndo("Destabilize Transform")
+
+-- connect inputs and outputs
+if ret.Size and ret.Size == 1 then
+	tool.Size:ConnectTo( tracker.UnsteadySize )
+end
+if ret.DstSize and ret.DstSize == 1 then
+	tool.DstSize:ConnectTo( tracker.UnsteadySize )
+end
+if ret.SrcSize and ret.SrcSize == 1 then
+	tool.SrcSize:ConnectTo( tracker.UnsteadySize )
+end
+if ret.XSize and ret.XSize == 1 then
+	tool.XSize:ConnectTo( tracker.UnsteadySize )
+end
+if ret.XScale and ret.XScale == 1 then
+	tool.XScale:ConnectTo( tracker.UnsteadySize )
+end
+
+if ret.Angle and ret.Angle == 1 then
+	tool.Angle:ConnectTo( tracker.UnsteadyAngle )
+end
+if ret.DstAngle and ret.DstAngle == 1 then
+	tool.DstAngle:ConnectTo( tracker.UnsteadyAngle )
+end
+if ret.SrcAngle and ret.SrcAngle == 1 then
+	tool.SrcAngle:ConnectTo( tracker.UnsteadyAngle )
+end
+if ret.AngleZ and ret.AngleZ == 1 then
+	tool.AngleZ:ConnectTo( tracker.UnsteadyAngle )
+end
+if ret.ZRotation and ret.ZRotation == 1 then
+	tool.ZRotation:ConnectTo( tracker.UnsteadyAngle )
+end
+
+if ret.Center and ret.Center == 1 then
+	tool.Center:ConnectTo( tracker.UnsteadyPosition )
+end
+if ret.DstCenter and ret.DstCenter == 1 then
+	tool.DstCenter:ConnectTo( tracker.UnsteadyPosition )
+end
+if ret.SrcCenter and ret.SrcCenter == 1 then
+	tool.Center:ConnectTo( tracker.UnsteadyPosition )
+end
+if ret.Pivot and ret.Pivot == 1 then
+	tool.Pivot:ConnectTo( tracker.SteadyAxis )
+end
+
+-- rename tool?
+if ret.Rename == 1 then
+	local toolName = tool:GetAttrs().TOOLS_Name
+	local trackerName = tracker:GetAttrs().TOOLS_Name
+	if not string.find(toolName, "_"..trackerName.."$") then
+		-- prevent adding the tracker name over and over
+		tool:SetAttrs({TOOLS_Name = toolName.."_"..trackerName, TOOLB_NameSet = true})
+	end
+end
+
+-- change tool color?
+if COLORED ~= nil then
+	tool.TileColor = COLORED.bg
+	tool.TextColor = COLORED.fg
+end
+	
+--[[
+-- old code from destabilize transform
+	-- connect xform parameters to tracker steady inputs
+	if ret.Position == 1 then 
+	  tool.Center:ConnectTo( tracker.SteadyPosition	)
+	end
+	
+	if ret.Size == 1 then 
+		tool.Size:ConnectTo( tracker.SteadySize )
+	end
+	
+	if ret.Angle == 1 then 
+	   tool.Angle:ConnectTo( tracker.SteadyAngle )
+	end
+	
+	-- the merge tool has no axis, 
+	-- so skip this if the tool is a merge
+	if ret.Axis == 1 and id ~= Mrg then 
+		tool.Pivot:ConnectTo( tracker.SteadyAxis )
+	end
+
+-- invert to convert the transformation 
+	-- from stablize to unstabilize
+	tool.InvertTransform = 1
+]]--
+
+comp:EndUndo(true)
+
+-- done
+return

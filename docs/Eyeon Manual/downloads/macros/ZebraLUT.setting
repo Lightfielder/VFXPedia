@@ -1,0 +1,76 @@
+{
+	Tools = ordered() {
+		Zebra = Custom {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				Intermediate1 = Input {
+					Value = "int(x*w-0.001)",
+				},
+				Intermediate2 = Input {
+					Value = "int(y*h-0.001)",
+				},
+				Intermediate3 = Input {
+					Value = "(i1+i2+n1)%4",
+				},
+				Intermediate4 = Input {
+					Value = "if(i3 <= 1, 0.2, 0.8)",
+				},
+				RedExpression = Input {
+					Value = "if(a1 > 0 && ((c1>=1) || (c1 <=0)), i4, c1)",
+				},
+				GreenExpression = Input {
+					Value = "if(a1 > 0 && ((c1>=1) || (c1 <=0)), i4, c1)",
+				},
+				BlueExpression = Input {
+					Value = "if(a1 > 0 && ((c1>=1) || (c1 <=0)), i4, c1)",
+				},
+				NumberControls = Input {
+					Value = 1,
+				},
+				ShowNumber1 = Input {
+					Value = 0,
+				},
+				NameforNumber1 = Input {
+					Value = "Seconds",
+				},
+				ShowNumber2 = Input {
+					Value = 0,
+				},
+				ShowNumber3 = Input {
+					Value = 0,
+				},
+				ShowNumber4 = Input {
+					Value = 0,
+				},
+				ShowNumber5 = Input {
+					Value = 0,
+				},
+				ShowNumber6 = Input {
+					Value = 0,
+				},
+				ShowNumber7 = Input {
+					Value = 0,
+				},
+				ShowNumber8 = Input {
+					Value = 0,
+				},
+				ShowPoint1 = Input {
+					Value = 0,
+				},
+				ShowPoint2 = Input {
+					Value = 0,
+				},
+				ShowPoint3 = Input {
+					Value = 0,
+				},
+				ShowPoint4 = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 4015, -841.5, },
+			},
+		},
+	},
+}

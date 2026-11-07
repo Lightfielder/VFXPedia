@@ -1,0 +1,420 @@
+{
+	Tools = ordered() {
+		OKShuffler = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "OpenKAK Shuffler v1.1\nPieter Van Houte 2012\npieter[at]secondman[dot]com",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+					Name = "CoreInput",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "PipeRouter2",
+					Source = "Input",
+					Name = "GarbageInput",
+				},
+				MainInput3 = InstanceInput {
+					SourceOp = "PipeRouter3",
+					Source = "Input",
+					Name = "EdgeInput",
+				},
+				MainInput4 = InstanceInput {
+					SourceOp = "PipeRouter4",
+					Source = "Input",
+					Name = "AlphaInput",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "CoreChannel",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "Core",
+					Default = 3,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "CoreName",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "GarbageChannel",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "Garbage",
+					Default = 3,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "GarbageName",
+				},
+				Input7 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "EdgeChannel",
+				},
+				Input8 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "Edge",
+					Default = 3,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "EdgeName",
+				},
+				Input10 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "AlphaChannel",
+				},
+				Input11 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "Alpha",
+					Default = 3,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "OKS",
+					Source = "AlphaName",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "OpenKAKShuffler",
+					Source = "Output",
+					Name = "OKShufflerOutput"
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Colors = {
+				TileColor = { R = 0.5, G = 0.25, B = 0, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/OKShuffler_Description",
+			},
+			Tools = ordered() {
+				Background1 = Background {
+					Inputs = {
+						Width = Input { Value = 1, },
+						Height = Input { Value = 2, },
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 55, 82.5, }, },
+				},
+				Dissolve1 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					Inputs = {
+						Background = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 220, 82.5, }, },
+				},
+				BK = Background {
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 1891,
+							Expression = "max(Core.Foreground.OriginalWidth, Garbage.Foreground.OriginalWidth, Edge.Foreground.OriginalWidth,OpenKAKShuffler.Foreground.OriginalWidth)",
+						},
+						Height = Input {
+							Value = 911,
+							Expression = "max(Core.Foreground.OriginalHeight, Garbage.Foreground.OriginalHeight, Edge.Foreground.OriginalHeight,OpenKAKShuffler.Foreground.OriginalHeight)",
+						},
+						TopLeftAlpha = Input { Value = 0, },
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 55, 115.5, }, },
+				},
+				Core = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 3,
+							Expression = "OKS.Core",
+						},
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "BK",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Dissolve1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 220, 115.5, }, },
+				},
+				PipeRouter1 = PipeRouter {
+					ViewInfo = PipeRouterInfo { Pos = { 220, 49.5, }, },
+				},
+				Garbage = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 4, },
+						ToGreen = Input {
+							Value = 3,
+							Expression = "OKS.Garbage",
+						},
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "Core",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Dissolve1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 115.5, }, },
+				},
+				Dissolve1_1 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					Inputs = {
+						Background = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "PipeRouter2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 82.5, }, },
+				},
+				PipeRouter2 = PipeRouter {
+					ViewInfo = PipeRouterInfo { Pos = { 330, 49.5, }, },
+				},
+				Dissolve1_2 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					Inputs = {
+						Background = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "PipeRouter3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 440, 82.5, }, },
+				},
+				Edge = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 4, },
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input {
+							Value = 3,
+							Expression = "OKS.Edge",
+						},
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "Garbage",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Dissolve1_2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 440, 115.5, }, },
+				},
+				PipeRouter3 = PipeRouter {
+					ViewInfo = PipeRouterInfo { Pos = { 440, 49.5, }, },
+				},
+				Dissolve1_3 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWZoom = false,
+					Inputs = {
+						Background = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "PipeRouter4",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 550, 82.5, }, },
+				},
+				OpenKAKShuffler = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 4, },
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Expression = "OKS.Alpha", },
+						Background = Input {
+							SourceOp = "Edge",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Dissolve1_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 550, 115.5, }, },
+				},
+				OKS = AlphaMultiply {
+					CtrlWZoom = false,
+					NameSet = true,
+					ViewInfo = OperatorInfo { Pos = { 550, 148.5, }, },
+					UserControls = ordered() {
+						CoreChannel = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "Core -->",
+						},
+						Core = {
+							{ MBTNC_AddButton = "R", },
+							{ MBTNC_AddButton = "G", },
+							{ MBTNC_AddButton = "B", },
+							{ MBTNC_AddButton = "A", },
+							ICD_Width = 0.4,
+							LINKS_Name = "",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = false,
+							IC_ControlPage = 0,
+							INPID_InputControl = "MultiButtonControl",
+							INP_Default = 3,
+						},
+						CoreName = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "--> OK /R",
+						},
+						GarbageChannel = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "Garbage -->",
+						},
+						Garbage = {
+							{ MBTNC_AddButton = "R", },
+							{ MBTNC_AddButton = "G", },
+							{ MBTNC_AddButton = "B", },
+							{ MBTNC_AddButton = "A", },
+							ICD_Width = 0.4,
+							LINKS_Name = "",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "MultiButtonControl",
+							IC_ControlPage = 0,
+							MBTNC_StretchToFit = false,
+							INP_Default = 3,
+						},
+						GarbageName = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "--> OK /G",
+						},
+						EdgeChannel = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "Edge -->",
+						},
+						Edge = {
+							{ MBTNC_AddButton = "R", },
+							{ MBTNC_AddButton = "G", },
+							{ MBTNC_AddButton = "B", },
+							{ MBTNC_AddButton = "A", },
+							ICD_Width = 0.4,
+							LINKS_Name = "",
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							MBTNC_StretchToFit = false,
+							INP_Default = 3,
+						},
+						EdgeName = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "--> OK /B",
+						},
+						AlphaChannel = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "Alpha -->",
+						},
+						Alpha = {
+							{ MBTNC_AddButton = "R", },
+							{ MBTNC_AddButton = "G", },
+							{ MBTNC_AddButton = "B", },
+							{ MBTNC_AddButton = "A", },
+							ICD_Width = 0.4,
+							LINKS_Name = "",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "MultiButtonControl",
+							IC_ControlPage = 0,
+							MBTNC_StretchToFit = false,
+							INP_Default = 3,
+						},
+						AlphaName = {
+							ICD_Width = 0.3,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "--> OK /A",
+						},
+					},
+				},
+				PipeRouter4 = PipeRouter {
+					ViewInfo = PipeRouterInfo { Pos = { 550, 49.5, }, },
+				},
+			},
+		},
+	},
+	ActiveTool = "OKShuffler",
+}

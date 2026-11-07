@@ -1,0 +1,1721 @@
+Composition {
+	CurrentTime = 73,
+	RenderRange = { 0, 100, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 104",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		V_Line = RectangleMask {
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 0.003,
+				},
+				Height = Input {
+					Value = 1,
+				},
+				Comments = Input {
+					Value = "2.) A vertical line",
+				},
+				EffectMask = Input {
+					SourceOp = "H_Line",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 313.5, },
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				Brightness = Input {
+					Value = 0.1538462,
+				},
+				Saturation = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Dent1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Desaturates the outer area of the Display.\r\nMasked by a combination of instanced outer and inner mask.",
+				},
+				EffectMask = Input {
+					SourceOp = "Inst_Outer2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 478.5, },
+			},
+		},
+		Merge2_1 = Merge {
+			Inputs = {
+				ApplyMode = Input {
+					Value = FuID { "Screen", },
+				},
+				Background = Input {
+					SourceOp = "LeftFull",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "RightFull",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 115.5, },
+			},
+		},
+		TimeStretcher1 = TimeStretcher {
+			NameSet = true,
+			Inputs = {
+				SourceTime = Input {
+					Value = 1,
+				},
+				InterpolateBetweenFrames = Input {
+					Value = 0,
+				},
+				SampleSpread = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "The tools up to here are static.\r\nHowever, since the MasterBG has an expression that checks for the size of our clip, the tools will be calculated every frame.\r\nThis TimeStretcher caches the first frame only, which then speeds up rendering significantly.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 825, 181.5, },
+			},
+		},
+		RightFull = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = " Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				LayoutType = Input {
+					Value = 2,
+				},
+				LayoutSize = Input {
+					Value = 0.49,
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleZ = Input {
+					Value = -90,
+				},
+				Size = Input {
+					Value = 0.04,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "WWWWWWWWWWWWW",
+				},
+				Start = Input {
+					SourceOp = "Probe2",
+					Source = "Result",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ElementShape1 = Input {
+					Value = 2,
+				},
+				Thickness1 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal1 = Input {
+					Value = 1.6491228,
+				},
+				ExtendVertical1 = Input {
+					Value = 4.0350877,
+				},
+				Type1 = Input {
+					Value = 2,
+				},
+				Green1 = Input {
+					Value = 0.5,
+				},
+				Blue1 = Input {
+					Value = 0,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0.371428571428571] = { 0.57148588881365, 1, 0, 1, },
+							[0.5] = { 1, 0.8526527171524, 0, 1, },
+							[0.591836734693878] = { 1, 0.148010985842004, 0, 1, },
+						},
+					},
+				},
+				ShadingMappingLevel1 = Input {
+					Value = 0,
+				},
+				Comments = Input {
+					Value = "This is the right part of our main 'VU-Meter'.\r\nA bit trickier in the shading-tab....;-)\r\n\r\nThe WriteOn-value is connected to a ProbeModifier\r\nwhich Center is attached to the MasterShake.\r\nSo the Probe actually measures the values of the image in our 'Master', depending on the position of our crosshair. Different clips deliver different results in the behavior of the 'VU-Meter'.\r\n\r\nThe RGB-values of the text are connected to those of our MasterBG.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1100, 49.5, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "Crosshair",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 605, 181.5, },
+			},
+		},
+		MasterXF = Transform {
+			NameSet = true,
+			Inputs = {
+				Edges = Input {
+					Value = 2,
+				},
+				Center = Input {
+					SourceOp = "Shake1",
+					Source = "Position",
+				},
+				Input = Input {
+					SourceOp = "Merge3",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Our main transform, moving the crosshair around based on a Shake Modifier.\r\nNote that the Edges are set to 'Duplicate',\r\nso the lines of our crosshair automatically extend to the edges of our frame.\r\n\r\nFeel free to remove the Shake and replace it with any animation that suits you.\r\n\r\nHave Phun.\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, 181.5, },
+			},
+		},
+		Merge2 = Merge {
+			Inputs = {
+				ApplyMode = Input {
+					Value = FuID { "Screen", },
+				},
+				Background = Input {
+					SourceOp = "LeftOutline",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "RightOutline",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 605, 115.5, },
+			},
+		},
+		MasterShake = Shake {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 31571,
+				},
+				Smoothness = Input {
+					Value = 20,
+				},
+				XMinimum = Input {
+					Value = 0.1,
+				},
+				XMaximum = Input {
+					Value = 0.9,
+				},
+			},
+		},
+		ColorCorrector1 = ColorCorrector {
+			Inputs = {
+				WheelTintAngle1 = Input {
+					Value = 0.102416382349567,
+				},
+				WheelTintLength1 = Input {
+					Value = 1,
+				},
+				Saturation1 = Input {
+					Value = 1,
+				},
+				Saturation2 = Input {
+					Value = 1,
+				},
+				Saturation3 = Input {
+					Value = 1,
+				},
+				Saturation4 = Input {
+					Value = 1,
+				},
+				ReleaseMatch = Input {
+					Disabled = true,
+				},
+				ColorRanges = Input {
+					Value = ColorCurves {
+						Curves = {
+							{
+								Points = {
+									{ 0, 1, },
+									{ 0.4, 0.2, },
+									{ 0.6, 0, },
+									{ 1, 0, },
+								},
+							},
+							{
+								Points = {
+									{ 0, 0, },
+									{ 0.4, 0, },
+									{ 0.6, 0.2, },
+									{ 1, 1, },
+								},
+							},
+						},
+					},
+				},
+				Input = Input {
+					SourceOp = "Merge2_1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Just changing the look of our VU-Meter a bit....;-)",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 148.5, },
+			},
+		},
+		Transform2 = Transform {
+			Inputs = {
+				Pivot = Input {
+					Value = { 0.260519221574552, 0.593264564958647, },
+					Expression = "MasterXF.Center",
+				},
+				Size = Input {
+					Value = 2,
+				},
+				Input = Input {
+					SourceOp = "Master",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "The first tool for our magnifying-glass effect.\r\nIt scales the image up.\r\nBy attaching the transform's Pivot to the center of our animated display (MasterShake) it automatically scales the right area of the image.\r\nThe instanced Mask of InnerCircle restricts the effect.",
+				},
+				EffectMask = Input {
+					SourceOp = "Inst_Inner",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 326.344, 478.5, },
+			},
+		},
+		Top = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				ExtendVertical2 = Input {
+					Value = 5,
+				},
+				Green2 = Input {
+					Value = 0.5,
+				},
+				Thickness2 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal2 = Input {
+					Value = 10,
+				},
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				ElementShape2 = Input {
+					Value = 3,
+				},
+				Round2 = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = " Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				LayoutType = Input {
+					Value = 2,
+				},
+				LayoutSize = Input {
+					Value = 0.49,
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				Size = Input {
+					Value = 0.05,
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					SourceOp = "Formula1",
+					Source = "Output",
+				},
+				End = Input {
+					Value = 0.6821192,
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Alignment = Input {
+					Value = 1,
+				},
+				HorizontalJustification = Input {
+					Value = 1,
+				},
+				VerticalJustification = Input {
+					Value = 1,
+				},
+				Thickness1 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal1 = Input {
+					Value = 1.2982456,
+				},
+				ExtendVertical1 = Input {
+					Value = -0.5,
+				},
+				Round1 = Input {
+					Value = 1,
+				},
+				Red1 = Input {
+					Value = 0.933333333333333,
+					Expression = "MasterBG.TopLeftRed",
+				},
+				Green1 = Input {
+					Value = 0.504579484309869,
+					Expression = "MasterBG.TopLeftGreen",
+				},
+				Blue1 = Input {
+					Value = 0.0224000000000001,
+					Expression = "MasterBG.TopLeftBlue",
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0.371428571428571] = { 0.57148588881365, 1, 0, 1, },
+							[0.5] = { 1, 0.8526527171524, 0, 1, },
+							[0.591836734693878] = { 1, 0.148010985842004, 0, 1, },
+						},
+					},
+				},
+				ShadingMappingLevel1 = Input {
+					Value = 0,
+				},
+				Comments = Input {
+					Value = "You'll need the Krokodoves installed for this one.\r\n\r\nKKD_Formula is connected to the MasterShake and returns the X-coordinate to generate some 'running numbers' in our TextTool.\r\n\r\nThe RGB-values of the text are connected to those of our MasterBG.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1430, 49.5, },
+			},
+		},
+		Master = BrightnessContrast {
+			NameSet = true,
+			Inputs = {
+				Input = Input {
+					SourceOp = "TV1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "This tool does effectively nothing,\r\nbut many other tools reference to it to get the framesize and aspect of the input.\r\nSo please DO NOT delete this....;-)",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, 478.5, },
+			},
+		},
+		BrightnessContrast2 = BrightnessContrast {
+			Inputs = {
+				Brightness = Input {
+					Value = 0.3516484,
+				},
+				Saturation = Input {
+					Value = 0.6666667,
+				},
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "A little highlight on our magnifier.\r\nMasked by a small ellipse (Msk_HiLite)",
+				},
+				EffectMask = Input {
+					SourceOp = "Msk_HiLite",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 181.5, },
+			},
+		},
+		Inst_Outer = EllipseMask {
+			NameSet = true,
+			SourceOp = "OuterCircle",
+			Inputs = {
+				BorderWidth = Input {
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				Solid = Input {
+				},
+				StartEndRenderScripts = Input {
+				},
+				Comments = Input {
+					Value = "3.) An instance of the OuterCircle with DeInstaced\r\nBorderWidth, Solid and PaintMode cuts away the inner part of the crosshair.",
+				},
+				EffectMask = Input {
+					SourceOp = "V_Line",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 280.5, },
+			},
+		},
+		Probe2 = Probe {
+			CtrlWZoom = false,
+			Inputs = {
+				ImageToProbe = Input {
+					SourceOp = "Master",
+					Source = "Output",
+				},
+				Channel = Input {
+					Value = 4,
+				},
+				Position = Input {
+					Value = { 0.28088891059094, 0.544034282255521, },
+					Expression = "MasterXF.Center",
+				},
+				ProbeRectangle = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 0.02,
+				},
+				Height = Input {
+					Value = 0.02,
+				},
+			},
+		},
+		Dent1 = Dent {
+			Inputs = {
+				Type = Input {
+					Value = 2,
+				},
+				Center = Input {
+					Value = { 0.253757996358124, 0.501527004608295, },
+					Expression = "MasterXF.Center",
+				},
+				Size = Input {
+					Value = 0.21,
+					Expression = "InnerCircle.Width",
+				},
+				Strength = Input {
+					Value = 0.3038674,
+				},
+				Input = Input {
+					SourceOp = "Transform2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "A slight bulge added to our magnifying glass.\r\nThe center of the Dent is again attached to the MasterShake.\r\nThe Size is derived from the Width of our InnerMask.",
+				},
+				EffectMask = Input {
+					SourceOp = "Inst_Inner",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 496.219, 478.5, },
+			},
+		},
+		Group1 = GroupOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Replace this Group with a Loader of your choice.",
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "TV1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 55, 478.5, },
+				Flags = {
+					AllowPan = false,
+					GridSnap = true,
+					AutoSnap = true,
+					RemoveRouters = true,
+				},
+				Size = { 236, 64.3, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { 55, -467.8, },
+			},
+			Tools = ordered() {
+				TV1 = TV {
+					CtrlWShown = false,
+					Inputs = {
+						Blend = Input {
+							Value = 0.679558,
+						},
+						Power = Input {
+							Value = 0,
+						},
+						Input = Input {
+							SourceOp = "Text1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 478.5, },
+					},
+				},
+				Text1 = TextPlus {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Width = Input {
+							Value = 720,
+						},
+						Height = Input {
+							Value = 576,
+						},
+						PixelAspect = Input {
+							Value = { 1, 0.9375, },
+						},
+						Red = Input {
+							Value = 0.122917925925926,
+						},
+						Green = Input {
+							Value = 0.149715950745008,
+						},
+						Blue = Input {
+							Value = 0.186666666666667,
+						},
+						Alpha = Input {
+							Value = 1,
+						},
+						Size = Input {
+							Value = 0.2955801,
+						},
+						Font = Input {
+							Value = "Verdana",
+						},
+						StyledText = Input {
+							Value = "Your clip\r\ngoes in\r\nhere!",
+						},
+						Style = Input {
+							Value = "Bold",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						LineSpacing = Input {
+							Value = 1.1712707,
+						},
+						Red1 = Input {
+							Value = 0.519288888888889,
+						},
+						Green1 = Input {
+							Value = 0.818772993127403,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, 478.5, },
+					},
+				},
+			},
+		},
+		OuterCircle = EllipseMask {
+			NameSet = true,
+			Inputs = {
+				BorderWidth = Input {
+					Value = 0.003,
+				},
+				Solid = Input {
+					Value = 0,
+				},
+				Width = Input {
+					Value = 0.28,
+				},
+				Height = Input {
+					Value = 0.28,
+				},
+				Comments = Input {
+					Value = "4.) Our main Outer Circle of the crosshair.",
+				},
+				EffectMask = Input {
+					SourceOp = "Inst_Outer",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 247.5, },
+			},
+		},
+		Bottom = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = " Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				LayoutType = Input {
+					Value = 2,
+				},
+				LayoutSize = Input {
+					Value = 0.49,
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleZ = Input {
+					Value = 180,
+				},
+				Size = Input {
+					Value = 0.04,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					SourceOp = "Follower1",
+					Source = "StyledText",
+				},
+				End = Input {
+					Value = 0.6821192,
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				CharacterSpacing = Input {
+					Value = 2,
+				},
+				SelectElement = Input {
+					Value = 1,
+				},
+				Select = Input {
+					Value = 1,
+				},
+				ElementShape1 = Input {
+					Value = 2,
+				},
+				Thickness1 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal1 = Input {
+					Value = 1.2982456,
+				},
+				ExtendVertical1 = Input {
+					Value = -0.5,
+				},
+				Round1 = Input {
+					Value = 1,
+				},
+				Green1 = Input {
+					Value = 0.5,
+				},
+				Blue1 = Input {
+					Value = 0,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0.371428571428571] = { 0.57148588881365, 1, 0, 1, },
+							[0.5] = { 1, 0.8526527171524, 0, 1, },
+							[0.591836734693878] = { 1, 0.148010985842004, 0, 1, },
+						},
+					},
+				},
+				ShadingMappingLevel1 = Input {
+					Value = 0,
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				ElementShape2 = Input {
+					Value = 3,
+				},
+				Thickness2 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal2 = Input {
+					Value = 10,
+				},
+				ExtendVertical2 = Input {
+					Value = 5,
+				},
+				Round2 = Input {
+					Value = 1,
+				},
+				Red2 = Input {
+					Value = 0.933333333333333,
+					Expression = "MasterBG.TopLeftRed",
+				},
+				Green2 = Input {
+					Value = 0.504579484309869,
+					Expression = "MasterBG.TopLeftGreen",
+				},
+				Blue2 = Input {
+					Value = 0.0224000000000001,
+					Expression = "MasterBG.TopLeftBlue",
+				},
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				ShadingMappingLevel2 = Input {
+					Value = 0,
+				},
+				Comments = Input {
+					Value = "Bling-Bling....;-)\r\n\r\nSince we haven't had a Follower Modifier in this comp yet, I thought it was about time to put one in.\r\n\r\nThe RGB-values of the text are connected to those of our MasterBG.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1265, 49.5, },
+			},
+		},
+		Formula1 = KomkomDoorn.KD_TextFormula {
+			CtrlWZoom = false,
+			Inputs = {
+				n1 = Input {
+					Value = 280888.91059094,
+					Expression = "MasterXF.Center.X*1000000",
+				},
+				p1 = Input {
+					SourceOp = "MasterShake",
+					Source = "Position",
+				},
+				t1 = Input {
+					Value = "p1x",
+				},
+				n2 = Input {
+					Value = 272017.141127761,
+					Expression = "MasterXF.Center.Y*500000",
+				},
+				Text = Input {
+					Value = "n1",
+				},
+				Precisionnumbervalues = Input {
+					Value = 0,
+				},
+				Precisionpointvalues = Input {
+					Value = 0,
+				},
+				Leadingzeros = Input {
+					Value = 0,
+				},
+				Addspaceifnotnegative = Input {
+					Value = 0,
+				},
+			},
+		},
+		Follower1Opacity = BezierSpline {
+			SplineColor = { 0.705882352941177, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 1, 0.333333333333333, }, Flags = { Loop = true, }, },
+				[3] = { 1, LH = { 2, 0.666666666666667, }, RH = { 8.66666666666667, 1, }, Flags = { Linear = true, }, },
+				[20] = { 1, LH = { 14.3333333333333, 1, }, RH = { 21.6666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				[25] = { 0, LH = { 23.3333333333333, 0.333333333333333, }, Flags = { Linear = true, Loop = true, }, },
+			},
+		},
+		MasterBG = Background {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = "Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				TopLeftRed = Input {
+					Value = 0.933333333333333,
+				},
+				TopLeftGreen = Input {
+					Value = 0.504579484309869,
+				},
+				TopLeftBlue = Input {
+					Value = 0.0224000000000001,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input {
+					Value = "Select your main Display-color here.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 55, 181.5, },
+			},
+		},
+		Inst_Outer2 = EllipseMask {
+			CtrlWZoom = false,
+			NameSet = true,
+			SourceOp = "OuterCircle",
+			Inputs = {
+				BorderWidth = Input {
+				},
+				PaintMode = Input {
+					Value = FuID { "Invert", },
+				},
+				Solid = Input {
+				},
+				Center = Input {
+					Value = { 0.253757996358124, 0.501527004608295, },
+					Expression = "MasterXF.Center",
+				},
+				StartEndRenderScripts = Input {
+				},
+				Comments = Input {
+					Value = "An instance of our OuterCircle with DeInstanced Solid, Borderwidth, PaintMode and Center",
+				},
+				EffectMask = Input {
+					SourceOp = "Inst_Inner",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 379.5, },
+			},
+		},
+		H_Line = RectangleMask {
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 1,
+				},
+				Height = Input {
+					Value = 0.003,
+				},
+				Comments = Input {
+					Value = "1.) A horizontal line",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 346.5, },
+			},
+		},
+		Inst_Inner = EllipseMask {
+			NameSet = true,
+			SourceOp = "InnerCircle",
+			Inputs = {
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				Solid = Input {
+				},
+				Center = Input {
+					Value = { 0.253757996358124, 0.501527004608295, },
+					Expression = "MasterXF.Center",
+				},
+				StartEndRenderScripts = Input {
+				},
+				Comments = Input {
+					Value = "An instance of our InnerCircle with DeInstanced Solid and Center",
+				},
+				EffectMask = Input {
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 379.5, },
+			},
+		},
+		LeftOutline = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = " Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				LayoutType = Input {
+					Value = 2,
+				},
+				LayoutSize = Input {
+					Value = 0.49,
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleZ = Input {
+					Value = 90,
+				},
+				Size = Input {
+					Value = 0.04,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "WWWWWWWWWWWWW",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ElementShape1 = Input {
+					Value = 3,
+				},
+				Thickness1 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal1 = Input {
+					Value = 0.2748538,
+				},
+				ExtendVertical1 = Input {
+					Value = 4.0350877,
+				},
+				Red1 = Input {
+					Value = 0.933333333333333,
+					Expression = "MasterBG.TopLeftRed",
+				},
+				Green1 = Input {
+					Value = 0.504579484309869,
+					Expression = "MasterBG.TopLeftGreen",
+				},
+				Blue1 = Input {
+					Value = 0.0224000000000001,
+					Expression = "MasterBG.TopLeftBlue",
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input {
+					Value = "Check the shading- and the layout- tab of this one.\r\nThe RGB-values of the text are connected to those of our MasterBG.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 49.5, },
+			},
+		},
+		RightOutline = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = " Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				LayoutType = Input {
+					Value = 2,
+				},
+				LayoutSize = Input {
+					Value = 0.49,
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleZ = Input {
+					Value = -90,
+				},
+				Size = Input {
+					Value = 0.04,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "WWWWWWWWWWWWW",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Options1 = Input {
+					Value = 0,
+				},
+				ElementShape1 = Input {
+					Value = 3,
+				},
+				Thickness1 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal1 = Input {
+					Value = 0.2748538,
+				},
+				ExtendVertical1 = Input {
+					Value = 4.0350877,
+				},
+				Red1 = Input {
+					Value = 0.933333333333333,
+					Expression = "MasterBG.TopLeftRed",
+				},
+				Green1 = Input {
+					Value = 0.504579484309869,
+					Expression = "MasterBG.TopLeftGreen",
+				},
+				Blue1 = Input {
+					Value = 0.0224000000000001,
+					Expression = "MasterBG.TopLeftBlue",
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input {
+					Value = "Check the shading- and the layout- tab of this one.\r\nThe RGB-values of the text are connected to those of our MasterBG.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 49.5, },
+			},
+		},
+		Merge1_1_1 = Merge {
+			Inputs = {
+				Blend = Input {
+					Value = 0.6,
+				},
+				Background = Input {
+					SourceOp = "Merge1_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bottom",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1265, 181.5, },
+			},
+		},
+		Merge3 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "Merge1_1_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Top",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1430, 181.5, },
+			},
+		},
+		final = Merge {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				Blend = Input {
+					Value = 0.9,
+				},
+				Background = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "MasterXF",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, 478.5, },
+			},
+		},
+		Probe1 = Probe {
+			CtrlWZoom = false,
+			Inputs = {
+				ImageToProbe = Input {
+					SourceOp = "Master",
+					Source = "Output",
+				},
+				Channel = Input {
+					Value = 2,
+				},
+				Position = Input {
+					Value = { 0.28088891059094, 0.544034282255521, },
+					Expression = "MasterXF.Center",
+				},
+				ProbeRectangle = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 0.05,
+				},
+				Height = Input {
+					Value = 0.05,
+				},
+			},
+		},
+		LeftFull = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+					Expression = "Master.Input.OriginalWidth",
+				},
+				Height = Input {
+					Value = 576,
+					Expression = "Master.Input.OriginalHeight",
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+					Expression = " Point(Master.Input.XScale,Master.Input.YScale)",
+				},
+				LayoutType = Input {
+					Value = 2,
+				},
+				LayoutSize = Input {
+					Value = 0.49,
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleZ = Input {
+					Value = 90,
+				},
+				Size = Input {
+					Value = 0.04,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "WWWWWWWWWWWWW",
+				},
+				End = Input {
+					SourceOp = "Probe1",
+					Source = "Result",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ElementShape1 = Input {
+					Value = 2,
+				},
+				Thickness1 = Input {
+					Value = 0.1,
+				},
+				ExtendHorizontal1 = Input {
+					Value = 1.6491228,
+				},
+				ExtendVertical1 = Input {
+					Value = 4.0350877,
+				},
+				Type1 = Input {
+					Value = 2,
+				},
+				Green1 = Input {
+					Value = 0.5,
+				},
+				Blue1 = Input {
+					Value = 0,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0.371428571428571] = { 0.57148588881365, 1, 0, 1, },
+							[0.5] = { 1, 0.8526527171524, 0, 1, },
+							[0.591836734693878] = { 1, 0.148010985842004, 0, 1, },
+						},
+					},
+				},
+				ShadingMappingLevel1 = Input {
+					Value = 0,
+				},
+				Comments = Input {
+					Value = "This is the left part of our main 'VU-Meter'.\r\nA bit trickier in the shading-tab....;-)\r\n\r\nThe WriteOff-value is connected to a ProbeModifier\r\nwhich Center is attached to the MasterShake.\r\nSo the Probe actually measures the values of the image in our 'Master', depending on the position of our crosshair. Different clips deliver different results in the behavior of the 'VU-Meter'.\r\n\r\nThe RGB-values of the text are connected to those of our MasterBG.\r\nThe Size of this tool is derived from the 'Master',\r\nso it fits whatever footage you pipe into this comp.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 990, 49.5, },
+			},
+		},
+		InnerCircle = EllipseMask {
+			NameSet = true,
+			Inputs = {
+				BorderWidth = Input {
+					Value = 0.003,
+				},
+				Solid = Input {
+					Value = 0,
+				},
+				Width = Input {
+					Value = 0.21,
+				},
+				Height = Input {
+					Value = 0.21,
+				},
+				Comments = Input {
+					Value = "Our main Inner Circle of the crosshair",
+				},
+				EffectMask = Input {
+					SourceOp = "OuterCircle",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 214.5, },
+			},
+		},
+		Shake1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				Smoothness = Input {
+					Value = 20,
+				},
+				XMinimum = Input {
+					Value = 0.1,
+				},
+				XMaximum = Input {
+					Value = 0.9,
+				},
+			},
+		},
+		Follower1 = StyledTextFollower {
+			CtrlWZoom = false,
+			Inputs = {
+				Order = Input {
+					Value = 3,
+				},
+				Delay = Input {
+					Value = 3,
+				},
+				Text = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "OOOOO",
+					},
+				},
+				Opacity1 = Input {
+					SourceOp = "Follower1Opacity",
+					Source = "Value",
+				},
+			},
+		},
+		Msk_HiLite = EllipseMask {
+			NameSet = true,
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0574586,
+				},
+				BorderWidth = Input {
+					Value = 0.0055249,
+				},
+				PaintMode = Input {
+					Value = FuID { "Minimum", },
+				},
+				Center = Input {
+					Value = { 0.447094748832174, 0.539214008435816, },
+				},
+				Width = Input {
+					Value = 0.0769220031763142,
+				},
+				Height = Input {
+					Value = 0.0769220031763142,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 214.5, },
+			},
+		},
+		Merge1_1 = Merge {
+			Inputs = {
+				Blend = Input {
+					Value = 0.9,
+				},
+				ApplyMode = Input {
+					Value = FuID { "Screen", },
+				},
+				Background = Input {
+					SourceOp = "TimeStretcher1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "ColorCorrector1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 181.5, },
+			},
+		},
+		Crosshair = BrightnessContrast {
+			NameSet = true,
+			Inputs = {
+				ApplyMaskInverted = Input {
+					Value = 1,
+				},
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "MasterBG",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Creates our main Display.\r\nNote that the Maks on this too is set to \r\n'Apply inverted'.\r\n",
+				},
+				EffectMask = Input {
+					SourceOp = "InnerCircle",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 181.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 730,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.08473,
+						Offset = { -0.810242, 23.3506, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+							"==GetAtts:tool()",
+							"==GetAttrs:tool()",
+							"==GetAttrs:Master()",
+							"help (GetAttrs)",
+							"herlp",
+							"help",
+							"==Master:GetAttrs()",
+							"Help(\"Image\")",
+							"Help(\"Input\")",
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "RightFull", Expanded = true, },
+							{ "Top", Expanded = true, },
+							{ "Dent1", Expanded = true, },
+							{ "Bottom", Expanded = true, },
+							{ "MasterBG", Expanded = true, },
+							{ "LeftOutline", Expanded = true, },
+							{ "RightOutline", Expanded = true, },
+							{ "LeftFull", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 461, },
+							ScaleX = 0.191374901844457,
+							OffsetX = -49.0481619176136,
+							OffsetY = 7,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.0215982721382289,
+						ScaleY = 0.00406779661016949,
+						OffsetX = -2.50539956803455,
+						OffsetY = -0.0976271186440676,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 98.5452029520295,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.520408163265306,
+						{
+							ID = "Left",
+							RatioX = 0.500309214594929,
+							RatioY = 112.199643493761,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.499690785405071,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.429499072356215,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						Channel = 4294967295,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.33333333333333,
+			},
+			LastFile = "E:\\Erics\\FusionSupport\\vfxpedia\\th_setting2.jpg",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

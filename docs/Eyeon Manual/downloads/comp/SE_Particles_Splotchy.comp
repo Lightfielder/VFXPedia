@@ -1,0 +1,714 @@
+Composition {
+	CurrentTime = 47,
+	RenderRange = { 0, 150, },
+	GlobalRange = { 0, 1000, },
+	Version = "Fusion 5.3 build 55",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		pEmitter3 = pEmitter {
+			Inputs = {
+				Number = Input {
+					Value = 0,
+				},
+				NumberVariance = Input {
+					Value = 10,
+				},
+				Lifespan = Input {
+					Value = 50,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					Value = 0.04,
+				},
+				VelocityVariance = Input {
+					Value = 0.01,
+				},
+				Angle = Input {
+					Value = -90,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleNGon", },
+				},
+				Region = Input {
+					Value = FuID { "BitmapRgn", },
+				},
+				Comments = Input {
+					Value = "Now we use the rendered output upstream as the region to generate little rundown drips. Based on the incoming image's alpha, they are only generated on alphavalues greater than 0.89 (check the region tab)",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Green"] = Input {
+					Value = 0.129411771893501,
+				},
+				["ParticleStyle.Blue"] = Input {
+					Value = 0.580392181873322,
+				},
+				["ParticleStyle.Alpha"] = Input {
+					Value = 0.781818181818182,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.5,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter3SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.4893617,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter3BluroverLife2D",
+					Source = "Value",
+				},
+				["BitmapRgn.Bitmap"] = Input {
+					SourceOp = "pRender2",
+					Source = "Output",
+				},
+				["BitmapRgn.Low"] = Input {
+					Value = 0.89,
+				},
+				["ParticleStyleNGon.NGonType"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 825, 346.5, },
+			},
+		},
+		pEmitter3SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pEmitter3BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pFriction1 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					Value = 0.1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter3",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "This one slows our drips down, until they come to a complete halt.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 346.5, },
+			},
+		},
+		pSpawn1 = pSpawn {
+			Inputs = {
+				Number = Input {
+					Value = 1,
+				},
+				Lifespan = Input {
+					Value = 50,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				VelocityTransfer = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "pFriction1",
+					Source = "Output",
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleNGon", },
+				},
+				EndAge = Input {
+					Value = 0.5,
+				},
+				Comments = Input {
+					Value = "and here we generate the \"trace\" of our drips. Just by creating particles slightly smaller than the original ones\r\nwith no motion at all.",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Green"] = Input {
+					Value = 0.129411771893501,
+				},
+				["ParticleStyle.Blue"] = Input {
+					Value = 0.580392181873322,
+				},
+				["ParticleStyle.Alpha"] = Input {
+					Value = 0.7843137383461,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.2827485,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pSpawn1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.5673759,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pSpawn1BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleNGon.NGonType"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1100, 346.5, },
+			},
+		},
+		pSpawn1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pSpawn1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pRender3 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pSpawn1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1265, 346.5, },
+			},
+		},
+		pEmitter1 = pEmitter {
+			Inputs = {
+				Number = Input {
+					Value = 150,
+				},
+				NumberVariance = Input {
+					Value = 70,
+				},
+				Lifespan = Input {
+					Value = 1,
+				},
+				PositionVariance = Input {
+					Value = 0.2,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleNGon", },
+				},
+				Comments = Input {
+					Value = "This one generates the actual paintsplotches. The particles only live for one frame, so we have a completely new pattern on every frame.",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Green"] = Input {
+					Value = 0.1296,
+				},
+				["ParticleStyle.Blue"] = Input {
+					Value = 0.578780894758613,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.8654971,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.5,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 0.5966851,
+				},
+				["ParticleStyleNGon.NGonType"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 148.5, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 128,
+				},
+				Height = Input {
+					Value = 128,
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Rendering our Splotches at 128x128 pixels",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 148.5, },
+			},
+		},
+		pEmitter2 = pEmitter {
+			Inputs = {
+				RandomSeed = Input {
+					Value = 599,
+				},
+				Number = Input {
+					Value = 0.5,
+				},
+				NumberVariance = Input {
+					Value = 0.3,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				Comments = Input {
+					Value = "Here we used the rendered Splotches as Particles.\r\nIn addition to the fade-out value we also set the alpha to go from 1 to 0 over the particle's lifetime. That helps in the next particle setup to define the creation of those little \"rundown drips\" based on the image's alpha.\r\nSo the drips are created only when the big splotch hits the screen.\r\nExamine the \"size over life\" as well.",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0.102127659574468] = { 1, 1, 1, 1, },
+							[1] = { 1, 1, 1, 0, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.7,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.5,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter2SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.7092199,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter2BluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Translate.X"] = Input {
+					SourceOp = "Shake1",
+					Source = "X",
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					SourceOp = "Shake1",
+					Source = "Y",
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 0.0331492,
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 2,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 247.5, },
+			},
+		},
+		pEmitter2SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0.00390625] = { 0.120659722222222, RH = { 0.0269258939972115, 0.257544321161892, }, Flags = { Linear = true, }, },
+					[0.1] = { 0.5, LH = { 0.0374798639203182, 0.504109973248836, }, RH = { 0.4, 0.5, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pEmitter2BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+			NameSet = true,
+		},
+		pRender2 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pEmitter2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 247.5, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "pRender3",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "pRender2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1320, 247.5, },
+			},
+		},
+		Shake1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 28289,
+				},
+				LockXY = Input {
+					Value = 0,
+				},
+				XMinimum = Input {
+					Value = -0.4,
+				},
+				XMaximum = Input {
+					Value = 0.4,
+				},
+				YMinimum = Input {
+					Value = -0.4,
+				},
+				YMaximum = Input {
+					Value = 0.4,
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 44,
+			Top = 58,
+			Width = 1460,
+			Height = 638,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.74359,
+						Offset = { -73.0179, -55.5697, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 431, },
+							ScaleX = 0.88638195004029,
+							OffsetX = -49.6373892022563,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 205,
+						ScaleX = 0.00104030678851175,
+						ScaleY = 0.00244869568349087,
+						OffsetX = -0.0957082245430811,
+						OffsetY = 0.081485022173964,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.79612992398065,
+					RatioY = 0.00996677740863787,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.625866050808314,
+						{
+							ID = "Left",
+							RatioX = 0.185983454401004,
+							RatioY = 0.011070110701107,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.814016545598996,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.283529922346048,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Paths = {
+			},
+			LastFile = "C:\\erics\\_Crap\\MountainRev0000.jpg",
+			FrameFormat = {
+				GuideRatio = 1.77777777777778,
+				Rate = 25,
+				Width = 1280,
+				Name = "HDTV 720",
+				Height = 720,
+				PerFeet = 1,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			FilterModeName = "Show All",
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			Views = {
+				Left = {
+					Viewer = {
+					},
+					ViewLUT = {
+					},
+				},
+				Right = {
+					Viewer = {
+						Channel = 4294967295,
+						CheckerUnderlay = false,
+						ScaleMode = 0,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

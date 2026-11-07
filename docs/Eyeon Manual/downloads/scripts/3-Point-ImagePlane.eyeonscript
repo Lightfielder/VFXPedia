@@ -1,0 +1,277 @@
+------------------------------------------------------------------------------
+-- 3-Point-ImagePlane
+-- This tool script allows you to create an image plane from three points of a
+-- point cloud. You can place the plane at one of the chosen points or at the
+-- triangle's center of mass. It will be rotated so its Z axis is perpendicular
+-- to the plane and you can move it easily by dragging the X and Y axis in the
+-- viewer.
+-- 
+-- Since there's no way for this script to know which points you have
+-- already selected in the viewer, you will have to launch the script and then
+-- hover your mouse over points in the 3D viewer to get each point's name as
+-- a tooltip.
+--
+-- All 6 rotation orders are supported and you can choose to apply the
+-- transformation to an existing ImagePlane3D or Shape3D instead of creating a
+-- new one. This script remembers its previous settings so you can easily play
+-- around with the options until the plane looks right.
+-- Transformations on the PointCloud3D are not taken into account.
+--
+-- This is a tool script!
+-- written by Stefan Ihringer, stefan@bildfehler.de
+--
+-- Version 1.0 - 2012-05-23
+------------------------------------------------------------------------------
+
+
+if not tool then
+	tool = composition:GetAttrs().COMPH_ActiveTool
+end
+if not tool or tool.ID ~= "PointCloud3D" then
+	print("You must select a PointCloud3D tool in the flow to run this script.")
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	exit()
+end
+
+
+-- read all vertices from point cloud
+toolsettings = comp:CopySettings(tool)
+rawpoints = toolsettings['Tools'][tool.Name]['Positions']
+
+-- Positions table starts at index 0, array length returned by LUA doesn't account for this.
+-- Copy names and coordinates to a table that is more LUA-friendly:
+pointnames = {}
+coords = {}
+for i = 0, #rawpoints do
+	pointnames[i+1] = rawpoints[i][4]
+	coords[i+1] = Vector4(rawpoints[i][1], rawpoints[i][2], rawpoints[i][3], 1)
+end
+rawpoints = nil
+toolsettings = nil
+
+-- get options from previous invocation of script
+options = globals.ThreePointImagePlaneOptions or {}
+
+-- create list of all existing image planes (or Shape3Ds set to plane)
+imageplanes = {}
+toollist = comp:GetToolList(false, "ImagePlane3D")
+for i,t in toollist do
+	table.insert(imageplanes, t.Name)
+end
+toollist = comp:GetToolList(false, "Shape3D")
+for i,t in toollist do
+	if t.Shape[TIME_UNDEFINED] == "SurfacePlaneInputs" then
+		table.insert(imageplanes, t.Name)
+	end
+end
+table.sort(imageplanes)
+table.insert(imageplanes, 1, "New Shape3D Plane")
+table.insert(imageplanes, 1, "New ImagePlane3D")
+-- look for previously used image plane name and select it in the dropdown even if its index has changed
+if options.previousname and options.applyto and options.applyto >= 2 then
+	n = eyeon.get_table_index(imageplanes, options.previousname)
+	if n then
+		options.applyto = n - 1
+	else
+		options.applyto = 0
+	end
+end
+
+rotorder_ids = {'XYZ', 'XZY', 'YXZ', 'YZX', 'ZXY', 'ZYX'}
+
+
+-- build user dialog
+dialog = {}
+dialog[1] = {'applyto', 'Dropdown',    Name = 'Apply To:',       Options = imageplanes, Default = options.applyto or 0}
+dialog[2] = {'point_a', 'Dropdown',    Name = 'Point A:',        Options = pointnames, Default = options.point_a or 0}
+dialog[3] = {'point_b', 'Dropdown',    Name = 'Point B:',        Options = pointnames, Default = options.point_b or 1}
+dialog[4] = {'point_c', 'Dropdown',    Name = 'Point C:',        Options = pointnames, Default = options.point_c or 2}
+dialog[5] = {'center',  'Dropdown',    Name = 'Center:',         Options = {'Point A', 'Point B', 'Point C', 'Center of Mass'}, Default = options.center or 3}
+dialog[6] = {'rotorder','Multibutton', Name = 'Rotation Order:', Options = rotorder_ids, Default = options.rotorder or 0}
+dialog[7] = {'autoscale', 'Checkbox',  Name = 'Auto-Scale Plane to Encompass Selected Points', Default = options.autoscale or 1}
+dialog[8] = {'connect', 'Checkbox',    Name = 'Auto-Connect Plane to PointCloud', Default = options.connect or 0}
+
+ret = composition:AskUser("Create ImagePlane:", dialog)
+if ret == nil then
+	exit()
+end
+
+if ret['point_a'] == ret['point_b'] or ret['point_a'] == ret['point_c'] or ret['point_b'] == ret['point_c'] then
+	print("You must choose three distinct points to create a plane")
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	exit()
+end
+
+points = {}
+points[1] = coords[ret.point_a + 1]
+points[2] = coords[ret.point_b + 1]
+points[3] = coords[ret.point_c + 1]
+		
+-- determine center position and create two vectors (which will be lying
+-- on the plane but probably won't be perpendicular)
+center = Vector4(0,0,0,1)
+v2 = Vector4()
+v3 = Vector4()
+
+if ret.center == 0 then
+	center = points[1]
+	v2 = points[2] - points[1]
+	v3 = points[3] - points[1]
+elseif ret.center == 1 then
+	center = points[2]
+	v2 = points[1] - points[2]
+	v3 = points[3] - points[2]
+elseif ret.center == 2 then
+	center = points[3]
+	v2 = points[1] - points[3]
+	v3 = points[2] - points[3]
+else
+	center.X = (points[1].X + points[2].X + points[3].X) / 3.0
+	center.Y = (points[1].Y + points[2].Y + points[3].Y) / 3.0
+	center.Z = (points[1].Z + points[2].Z + points[3].Z) / 3.0
+	v2 = points[1] - center
+	v3 = points[3] - center
+end
+
+-- calculate normal vector of plane and make it point upwards (will be the Z axis)
+normal  = v2:Cross(v3)
+if normal.Y < 0 then
+	normal = v3:Cross(v2)
+end
+normal = normal / normal:Length()
+
+-- instead of using one of the existing vectors on the plane as the first axis,
+-- create a new axis vector which is better aligned to the world coordinate system.
+-- Gram-Schmidt algorithm from http://stackoverflow.com/q/2096474
+n = {normal.X, normal.Y, normal.Z}
+imin = 1
+for i = 1,3 do
+	if math.abs(n[i]) < math.abs(n[imin]) then
+		imin = i
+	end
+end
+v2 = {0, 0, 0}
+dt = n[imin]
+v2[imin] = 1
+for i = 1,3 do
+	v2[i] = v2[i] - dt * n[i]
+end
+v2 = Vector4(v2[1], v2[2], v2[3], 1)
+
+-- recalculate (and normalize) 3rd vector so all three are linearly independent
+v3 = normal:Cross(v2)
+v3 = v3 / v3:Length()
+v2 = v2 / v2:Length()
+
+-- Three axis vectors form a rotation matrix that can be decomposed to get the desired angles.
+-- Taken from Matrix4.h of the SDK since Matrix4:GetRotation() doesn't seem to work in LUA...
+-- normal vector is used for Z axis (Fusion uses row vectors)
+tm = {  v2.X,     v2.Y,     v2.Z,     0,	--  1   2   3   4
+		v3.X,     v3.Y,     v3.Z,     0,	--  5   6   7   8
+		normal.X, normal.Y, normal.Z, 0,	--  9  10  11  12
+		0,        0,        0,        1 }	-- 13  14  15  16
+
+rx, ry, rz = 0, 0, 0
+if ret.rotorder == 0 then
+	-- XYZ:
+	ry = math.asin(-tm[3])
+	if math.cos(ry) ~= 0 then
+		rx = math.atan2(tm[7], tm[11])
+		rz = math.atan2(tm[2], tm[1])
+	else
+		rx = math.atan2(tm[5], tm[6])
+	end
+elseif ret.rotorder == 1 then
+	-- XZY:
+	rz = math.asin(tm[2])
+	if math.cos(rz) ~= 0 then
+		rx = math.atan2(-tm[10], tm[6])
+		ry = math.atan2(-tm[3], tm[1])
+	else
+		rx = math.atan2(-tm[9], tm[11])
+	end
+elseif ret.rotorder == 2 then
+	-- YXZ:
+	rx = math.asin(tm[7])
+	if math.cos(rx) ~= 0 then
+		ry = math.atan2(-tm[3], tm[11])
+		rz = math.atan2(-tm[5], tm[6])
+	else
+		ry = math.atan2(-tm[2], tm[1])
+	end
+elseif ret.rotorder == 3 then
+	-- YZX:
+	rz = math.asin(-tm[5])
+	if math.cos(rz) ~= 0 then
+		ry = math.atan2(tm[9], tm[1])
+		rx = math.atan2(tm[7], tm[6])
+	else
+		ry = math.atan2(tm[10], tm[11])
+	end
+elseif ret.rotorder == 4 then
+	-- ZXY:
+	rx = math.asin(-tm[10])
+	if math.cos(rx) ~= 0 then
+		rz = math.atan2(tm[2], tm[6])
+		ry = math.atan2(tm[9], tm[11])
+	else
+		rz = math.atan2(tm[3], tm[1])
+	end
+elseif ret.rotorder == 5 then
+	-- ZYX:
+	ry = math.asin(tm[9])
+	if math.cos(ry) ~= 0 then
+		rz = math.atan2(-tm[5], tm[1])
+		rx = math.atan2(-tm[10], tm[11])
+	else
+		rz = math.atan2(-tm[7], tm[6])
+	end
+end
+
+-------------------------------------------------------------------------------
+
+comp:StartUndo("Create Plane From 3 Points")
+-- deselect point cloud tool if you don't want the image plane
+-- to be automatically connected via a Merge3D:
+if ret.connect == 0 then
+	comp:SetActiveTool(nil)
+end
+
+plane = nil
+if ret.applyto >= 2 then
+	-- use an existing image plane. If not found, we creat a new one anyways
+	plane = comp:FindTool(imageplanes[ret.applyto+1])
+end
+
+if plane == nil then
+	if ret.applyto == 1 then
+		plane = comp:AddTool('Shape3D', -32768, -32768)
+		plane.Shape = "SurfacePlaneInputs"
+	else
+		plane = comp:AddTool('ImagePlane3D', -32768, -32768)
+	end
+end
+
+plane.Transform3DOp.Translate.X = center.X
+plane.Transform3DOp.Translate.Y = center.Y
+plane.Transform3DOp.Translate.Z = center.Z
+plane.Transform3DOp.Rotate.RotOrder = rotorder_ids[ret.rotorder+1]
+plane.Transform3DOp.Rotate.X = rx / math.pi * 180
+plane.Transform3DOp.Rotate.Y = ry / math.pi * 180
+plane.Transform3DOp.Rotate.Z = rz / math.pi * 180
+if ret.autoscale == 1 then
+	-- Project all three points onto X and Y axis of plane to get maximum extends
+	p1 = points[1]-center
+	p2 = points[2]-center
+	p3 = points[3]-center
+	plane_scale = math.max(0, math.abs(p1:Dot3(v2)), math.abs(p1:Dot3(v3)))
+	plane_scale = math.max(plane_scale, math.abs(p2:Dot3(v2)), math.abs(p2:Dot3(v3)))
+	plane_scale = math.max(plane_scale, math.abs(p3:Dot3(v2)), math.abs(p3:Dot3(v3)))
+	plane.Transform3DOp.Scale.X = plane_scale * 2
+end
+comp:SetActiveTool(plane)
+comp:EndUndo(true)
+
+-- remember options for next invocation of script
+ret.previousname = plane.Name
+globals.ThreePointImagePlaneOptions = ret

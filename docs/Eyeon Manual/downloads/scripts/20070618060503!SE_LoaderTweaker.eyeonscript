@@ -1,0 +1,74 @@
+------------------------------------------------------------
+-- Change various options in Loadertools, Revision: 2.1
+--
+--
+-- place in Fusion:\Scripts\Comp 
+--
+-- written by Isaac Guenard (izyk@eyeonline.com) / Sean Konrad
+-- created : January 24rd, 2005
+-- modified by Eric Westphal (Eric@SirEdric.de), February 2007
+------------------------------------------------------------
+
+
+MissingFramesOpt = {"Do Not Change", "Fail", "Hold Previous", "Output Black", "Wait"}
+DepthOpt={"Do Not Change", "Format", "Default", "int8", "int16", "float16", "float32"}
+GeneralOpt={"Do Not Change", "Off", "On"}
+
+ret = AskUser("SirEdric's Tweak-All-Loaders", {	
+	{"AlphaSolid",  "Dropdown", Options = GeneralOpt},
+	{"PostMultiply",  "Dropdown", Options = GeneralOpt},
+	{"InvertAlpha",  "Dropdown", Options = GeneralOpt},
+	{"MissingFrames",  "Dropdown", Options = MissingFramesOpt},
+	{"Depth",  "Dropdown", Options = DepthOpt},
+	{"Selected", Name = "Affect Selected Tools Only", "Checkbox", Default = 0}
+	})
+
+if ret then
+	print()
+	print("SE_LoaderTweaker is about to change...")
+	print("...AlphaSolid to ["..GeneralOpt[ret.AlphaSolid+1].."]")
+	print("...PostMultiply to ["..GeneralOpt[ret.PostMultiply+1].."]")
+	print("...InvertAlpha to ["..GeneralOpt[ret.InvertAlpha+1].."]")
+	print("...Missing Frames to [".. MissingFramesOpt[ret.MissingFrames + 1].."]")
+	print("...Depth to ["..DepthOpt[ret.Depth+1].."]")
+	if ret.Selected then
+		print("...... *** on selected tools only! ***")
+	end
+	print("---------------------------------------------------")
+	print()
+
+	-- ((ret.Selected ==1)) will return true if the 
+	-- selected checkbox is enabled.....
+	
+	for i, v in composition:GetToolList((ret.Selected == 1)) do
+		id = v:GetAttrs().TOOLS_RegID
+		MyName = v:GetAttrs().TOOLS_Name
+		if id == "Loader" then
+			print("Changing "..MyName.." Options:")
+			if ret.AlphaSolid > 0 then -- check for 'DoNothing'
+				print("MakeAlphaSolid set to: "..(ret.AlphaSolid-1))
+				v.MakeAlphaSolid = (ret.AlphaSolid-1)
+			end
+			if ret.PostMultiply > 0 then -- check for 'DoNothing'
+				print("PostMultiplyByAlpha set to: "..(ret.PostMultiply-1))
+				v.PostMultiplyByAlpha = (ret.PostMultiply-1)
+			end
+			if ret.InvertAlpha > 0 then -- check for 'DoNothing'
+				print("InvertAlpha set to: "..(ret.InvertAlpha-1))
+				v.InvertAlpha = (ret.InvertAlpha-1)
+			end
+			if ret.MissingFrames >0 then -- check for 'DoNothing'
+				print("MissingFrames set to: "..(ret.MissingFrames-1))
+				v.MissingFrames = (ret.MissingFrames-1)
+			end
+			if ret.Depth >0 then -- check for 'DoNothing'
+				print("Depth set to: "..(ret.Depth-1))
+				v.Depth = (ret.Depth-1)
+			end
+			print(v:GetAttrs().TOOLS_Name)
+		end
+	end
+	
+end
+print()
+

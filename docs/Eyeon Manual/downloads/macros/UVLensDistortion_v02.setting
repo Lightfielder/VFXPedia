@@ -1,0 +1,98 @@
+{
+	Tools = ordered() {
+		UVLensDistortion = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input { Value = "Applies lens distortion to 3D layers according to the UV map.\r\nIdea by Stefan Ihringer\r\nMacro by Gregory Chalenko\r\nwww.compositing.ru", },
+				Input1 = InstanceInput {
+					SourceOp = "Loader1",
+					Source = "Clip",
+					Name = "Distortion UV Map",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "CT_UVDistortion",
+					Source = "Image1",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "CT_UVDistortion",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				Loader1 = Loader {
+					Clips = {
+						Clip {
+							ID = "Clip1",
+							FormatID = "OpenEXRFormat",
+							StartFrame = -1,
+							LengthSetManually = true,
+							TrimIn = 0,
+							TrimOut = 0,
+							ExtendFirst = 0,
+							ExtendLast = 0,
+							Loop = 0,
+							AspectMode = 0,
+							Depth = 0,
+							TimeCode = 0,
+							GlobalStart = 1,
+							GlobalEnd = 1,
+						},
+					},
+					Inputs = {
+						EnableClipList = Input { Value = 0, },
+						["Clip1.OpenEXRFormat.RedName"] = Input { Value = FuID { "R", }, },
+						["Clip1.OpenEXRFormat.GreenName"] = Input { Value = FuID { "G", }, },
+						["Clip1.OpenEXRFormat.BlueName"] = Input { Value = FuID { "B", }, },
+						["Clip1.OpenEXRFormat.AlphaName"] = Input { Value = FuID { "A", }, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 981.5, -1.80794, }, },
+				},
+				Resize = BetterResize {
+					CtrlWZoom = false,
+					Inputs = {
+						Width = Input {
+							Value = 2048,
+							Expression = "CT_UVDistortion.Image1.OriginalWidth",
+						},
+						Height = Input {
+							Value = 1556,
+							Expression = "CT_UVDistortion.Image1.OriginalHeight",
+						},
+						PixelAspect = Input { Value = { 1, 1, }, },
+						FilterMethod = Input { Value = 5, },
+						Input = Input {
+							SourceOp = "Loader1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 980.618, 95.8241, }, },
+					Colors = {
+						TileColor = { R = 0.556862745098039, G = 0.36078431372549, B = 0.380392156862745, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				CT_UVDistortion = Custom {
+					NameSet = true,
+					Inputs = {
+						RedExpression = Input { Value = "getr1d(r2,g2)", },
+						GreenExpression = Input { Value = "getg1d(r2,g2)", },
+						BlueExpression = Input { Value = "getb1d(r2,g2)", },
+						AlphaExpression = Input { Value = "geta1d(r2,g2)", },
+						Image2 = Input {
+							SourceOp = "Resize",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 983.157, 128.164, }, },
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.501960784313725, G = 0.333333333333333, B = 0.498039215686275, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

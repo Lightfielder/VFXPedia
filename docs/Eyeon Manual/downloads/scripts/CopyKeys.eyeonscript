@@ -1,0 +1,76 @@
+--###################################
+-- a tool script that creates a table 
+-- with all animate values a the current
+-- time, lets the uses choose which will
+-- be copied to which time
+-- 
+-- michael vorberg (mv@empty98.de)
+-- 09 July 2008
+--######################################
+
+if not tool then
+	tool = composition:GetAttrs().COMPH_ActiveTool
+	if not tool then
+		print("This is a tool script, you must select a tool in the flow to run this script")
+		return
+	end
+end
+
+composition:Lock()
+
+composition:StartUndo("Bake Animation")
+
+local dialog = {}
+local dialogcounter = 1
+
+-- We can't bake DT_Image or DT_Mask (and possibly others...)
+--unbakeable = { Image = true, Mask = true, Particles = true, DataType3D = true }
+ unbakeable = {}
+-- Generate a list of inputs that are animated
+inputs = {}
+input_id = {}
+for key,inp in tool:GetInputList() do
+	attrs = inp:GetAttrs()
+	if not unbakeable[attrs.INPS_DataType] then
+		if attrs.INPB_Connected then
+			table.insert(inputs, attrs.INPS_Name)
+			table.insert(input_id, attrs.INPS_ID)
+			dialog[dialogcounter] = {"process"..key, Name= "Copy: "..attrs.INPS_Name, "Checkbox", Default=1, NumAcross=2}
+			dialogcounter = dialogcounter + 1
+		elseif inp:GetExpression() then
+			table.insert(inputs, attrs.INPS_Name)
+			table.insert(input_id, attrs.INPS_ID)
+			dialog[dialogcounter] = {"process"..key, Name= "Copy: "..attrs.INPS_Name, "Checkbox", Default=1, NumAcross=2}
+			dialogcounter = dialogcounter + 1
+		end
+	end
+end
+
+dialog[dialogcounter+1] = {"target", Name= "Copy to frame: ", "Text", Lines=1}
+
+
+if #inputs == 0 then
+	composition:AskUser("Nothing to Copy", {
+	{"description", "Text", Lines=5, Default="This tool has no inputs which can be copied by this script.", ReadOnly=true, Wrap=true},
+	})
+	do return end
+end
+
+-- Ask the user which keyframes/values to copy
+settings = composition:AskUser("Copy Key", dialog)
+
+if settings == nil then print("cancelled") return end
+
+--print(dialog[1][1])
+
+for a,b in input_id do
+	processVar = dialog[a][1]
+	if settings[processVar] == 1 then
+		str = "tool."..b.."["..settings.target.."] = tool."..b.."["..CurrentTime.."]"
+		--print(str)
+		dostring(str)
+	end	
+end
+
+composition:EndUndo(true)
+composition:Unlock()

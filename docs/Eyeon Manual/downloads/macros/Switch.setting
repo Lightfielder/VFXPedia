@@ -1,0 +1,111 @@
+{
+	Tools = ordered() {
+		Switch = MacroOperator {
+			Inputs = ordered() {
+				InputA = InstanceInput {
+					SourceOp = "Pipe_A",
+					Source = "Input",
+					Name = "InputA",
+				},
+				Input = InstanceInput {
+					SourceOp = "DX_Switch",
+					Source = "InputSwitch",
+					Name = "Input",
+					Default = 0,
+				},
+				InputB = InstanceInput {
+					SourceOp = "Pipe_B",
+					Source = "Input",
+					Name = "InputB",
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "DoD_Switch",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				Pipe_A = PipeRouter {
+					NameSet = true,
+					ViewInfo = PipeRouterInfo { Pos = { 880, 82.5, }, },
+				},
+				DX_Switch = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					NameSet = true,
+					Inputs = {
+						Mix = Input { Expression = "InputSwitch", },
+						Background = Input {
+							SourceOp = "Pipe_A",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Pipe_B",
+							Source = "Output",
+						},
+						InputSwitch = Input { Value = 0, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 990, 115.5, }, },
+					UserControls = ordered() {
+						InputSwitch = {
+							{ MBTNC_AddButton = "A", },
+							{ MBTNC_AddButton = "B", },
+							INP_MaxAllowed = 1,
+							INP_Integer = true,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "MultiButtonControl",
+							LINKS_Name = "Input Switch",
+							MBTNC_StretchToFit = true,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+					},
+				},
+				Pipe_B = PipeRouter {
+					CtrlWZoom = false,
+					NameSet = true,
+					ViewInfo = PipeRouterInfo { Pos = { 880, 148.5, }, },
+				},
+				DoD_Switch = SetDomain {
+					NameSet = true,
+					Inputs = {
+						Mode = Input { Expression = "iif(DX_Switch.Mix==1,\"Adjust\",\"Set\")", },
+						Combine = Input { Value = FuID { "Intersect", }, },
+						Input = Input {
+							SourceOp = "DoD_A",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Pipe_B",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1100, 148.5, }, },
+				},
+				DoD_A = SetDomain {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Mode = Input {
+							Value = FuID { "Set", },
+							Expression = "iif(DX_Switch.Mix==1,\"Set\",\"Adjust\")",
+						},
+						Input = Input {
+							SourceOp = "DX_Switch",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Pipe_A",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1100, 82.5, }, },
+				},
+			},
+		},
+	},
+	ActiveTool = "Switch",
+}

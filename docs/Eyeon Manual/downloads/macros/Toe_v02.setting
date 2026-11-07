@@ -1,0 +1,346 @@
+{
+	Tools = ordered() {
+		Toe = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/Toe_Description",
+			}, 
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "Unpremult",
+					Source = "Input",
+				},
+				BlackpointRed = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "BlackpointRed",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				BlackpointGreen = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "BlackpointGreen",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				BlackpointBlue = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "BlackpointBlue",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				LiftRed = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "LiftRed",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				LiftGreen = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "LiftGreen",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				LiftBlue = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "LiftBlue",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				PreDividePostMultiply = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "PreDividePostMultiply",
+					Default = 1,
+				},
+				Blend = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "Blend",
+					Page = "Common Controls",
+					Default = 1,
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ProcessAlpha",
+					Name = "Alpha",
+					Default = 1,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				FitMask = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "FitMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MaskHigh",
+					ControlGroup = 14,
+					Default = 1,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MaskLow",
+					ControlGroup = 14,
+					Default = 0,
+				},
+				MaskClipBlack = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MaskClipBlack",
+					Default = 1,
+				},
+				MaskClipWhite = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MaskClipWhite",
+					Default = 1,
+				},
+				UseObject = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "UseObject",
+					Default = 0,
+				},
+				UseMaterial = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "UseMaterial",
+					Default = 0,
+				},
+				CorrectEdges = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "CorrectEdges",
+				},
+				ObjectID = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "ObjectID",
+					Name = "Object / Material",
+					ControlGroup = 20,
+					Default = 0,
+				},
+				MaterialID = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "MaterialID",
+					Name = "Object / Material",
+					ControlGroup = 20,
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "__CT_Toe",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "Premult",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+			Tools = ordered() {
+				Unpremult = AlphaDivide {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "__CT_Toe.PreDividePostMultiply", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 1155, 82.5, }, },
+				},
+				["__CT_Toe"] = Custom {
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input { Expression = "BlackpointRed", },
+						NumberIn2 = Input { Expression = "BlackpointGreen", },
+						NumberIn3 = Input { Expression = "BlackpointBlue", },
+						NumberIn4 = Input { Expression = "LiftRed", },
+						NumberIn5 = Input { Expression = "LiftGreen", },
+						NumberIn6 = Input { Expression = "LiftBlue", },
+						LUTIn1 = Input {
+							SourceOp = "__CT_ToeLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "__CT_ToeLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "__CT_ToeLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "__CT_ToeLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input { Value = "max(0, r1 * (1 + n1) - n1)", },
+						Intermediate2 = Input { Value = "max(0, g1 * (1 + n2) - n2)", },
+						Intermediate3 = Input { Value = "max(0, b1 * (1 + n3) - n3)", },
+						RedExpression = Input { Value = "if(i1 >= 2 * n4, i1, n4 + (i1*i1)/(4*n4) )", },
+						GreenExpression = Input { Value = "if(i2 >= 2 * n5, i2, n5 + (i2*i2)/(4*n5) )", },
+						BlueExpression = Input { Value = "if(i3 >= 2 * n6, i3, n6 + (i3*i3)/(4*n6) )", },
+						NumberControls = Input { Value = 1, },
+						NameforNumber1 = Input { Value = "Blackpoint Red", },
+						NameforNumber2 = Input { Value = "Blackpoint Green", },
+						NameforNumber3 = Input { Value = "Blackpoint Blue", },
+						NameforNumber4 = Input { Value = "Lift Red", },
+						NameforNumber5 = Input { Value = "Lift Green", },
+						NameforNumber6 = Input { Value = "Lift Blue", },
+						ShowNumber7 = Input { Value = 0, },
+						ShowNumber8 = Input { Value = 0, },
+						Image1 = Input {
+							SourceOp = "Unpremult",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input { Value = 1, },
+						Comments = Input { Value = "Lifts black point using a soft toe formula where values above 2 x the toe value are left unmodified.\r\nIntermediate values are for blackpoint correction which precedes the toe calculation.\r\n", },
+						PreDividePostMultiply = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 1155, 115.5, }, },
+					UserControls = ordered() {
+						BlackpointRed = {
+							INP_Default = 0,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlID = 0,
+							IC_ControlGroup = 2,
+							LINKS_Name = "Blackpoint (color that will be turned to black)",
+						},
+						BlackpointGreen = {
+							LINKS_Name = "Blackpoint Green",
+							IC_ControlGroup = 2,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlID = 1,
+							INPID_InputControl = "ColorControl",
+							INP_Default = 0,
+						},
+						BlackpointBlue = {
+							LINKS_Name = "Blackpoint Blue",
+							IC_ControlGroup = 2,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlID = 2,
+							INPID_InputControl = "ColorControl",
+							INP_Default = 0,
+						},
+						LiftRed = {
+							LINKS_Name = "Toe (black will be lifted to this color)",
+							INP_Default = 0,
+							INPID_InputControl = "ColorControl",
+							IC_ControlID = 0,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlGroup = 3,
+						},
+						LiftGreen = {
+							LINKS_Name = "Lift Green",
+							INP_Default = 0,
+							INPID_InputControl = "ColorControl",
+							IC_ControlID = 1,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlGroup = 3,
+						},
+						LiftBlue = {
+							LINKS_Name = "Lift Blue",
+							INP_Default = 0,
+							INPID_InputControl = "ColorControl",
+							IC_ControlID = 2,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlGroup = 3,
+						},
+						PreDividePostMultiply = {
+							LINKS_Name = "Pre-Divide/Post-Multiply",
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+					},
+				},
+				["__CT_ToeLUTIn1"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+				},
+				["__CT_ToeLUTIn2"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+				},
+				["__CT_ToeLUTIn3"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+				},
+				["__CT_ToeLUTIn4"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+				},
+				Premult = AlphaMultiply {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "__CT_Toe.PreDividePostMultiply", },
+						Input = Input {
+							SourceOp = "__CT_Toe",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1155, 148.5, }, },
+				},
+			},
+		},
+	},
+	ActiveTool = "Toe",
+}

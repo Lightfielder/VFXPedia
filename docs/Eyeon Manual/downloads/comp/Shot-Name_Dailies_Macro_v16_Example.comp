@@ -1,0 +1,1980 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 44, },
+	GlobalRange = { -5, 50, },
+	HiQ = true,
+	Version = "Fusion 5.31 build 78",
+	SavedOutputs = 0,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+		"comp:\\Shot-Name_Dailies_Macro.mov",
+	},
+	Tools = {
+		Saver_mov = Saver {
+			NameSet = true,
+			Inputs = {
+				Clip = Input {
+					Value = Clip {
+						Filename = "comp:\\Shot-Name_Dailies_Macro.mov",
+						FormatID = "QuickTimeMovies",
+						StartFrame = 0,
+						Length = 0,
+						Multiframe = false,
+						Saving = true,
+						LengthSetManually = false,
+						TrimIn = 0,
+						TrimOut = 4294967295,
+						ExtendFirst = 0,
+						ExtendLast = 0,
+						Loop = 1,
+						Reverse = false,
+						ImportMode = 0,
+						PullOffset = 0,
+						AspectMode = 0,
+						Depth = 0,
+						TimeCode = 0,
+						KeyCode = "",
+						GlobalStart = -1000000000,
+						GlobalEnd = 0,
+					},
+				},
+				OutputFormat = Input {
+					Value = FuID { "QuickTimeMovies", },
+				},
+				SequenceStartFrame = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "_Dmov_Slate",
+					Source = "Output",
+				},
+				["QuickTimeMovies.Compression"] = Input {
+					Value = FuID { "Motion JPEG A_mjpa", },
+				},
+				["QuickTimeMovies.AttemptToSaveAlpha"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 401, 84, },
+			},
+		},
+		Dailies_mov = GroupOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Macro for automatical dailies generation\r\nfor Fusion 5.3 and above\r\nby Gregory Chalenko & Roman Fedotov",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Letterbox",
+					Source = "Input",
+					Name = "Comp Result",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "BC_Cashe",
+					Source = "LetterboxDarkening",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Bol_WhiteStripes",
+					Source = "Blend",
+					Name = "White Stripes Blend",
+					Default = 0.5,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "RectangleInner",
+					Source = "BorderWidth",
+					Name = "White Stripes Thickness",
+					MinScale = 0,
+					MaxScale = 0.01,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "_Dmov_TimeStretcherScan",
+					Source = "SourceTime",
+					Name = "Scan Time",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "FramesAmount",
+					Source = "ResultNumberingOffset",
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Mrg_Handles",
+					Source = "ThisFrameIsHandle",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "_Dmov_Slate",
+					Source = "SwitchToSlate",
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "Notes",
+					Source = "StyledText",
+					Name = "Slate Notes",
+				},
+				Input11 = InstanceInput {
+					SourceOp = "Facility",
+					Source = "FacilityName",
+				},
+				Input12 = InstanceInput {
+					SourceOp = "Letterbox",
+					Source = "OutputWidth",
+					Default = 720,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "Letterbox",
+					Source = "OutputHeight",
+					Default = 540,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "Letterbox",
+					Source = "AspectX",
+					Name = "Pixel Aspect X",
+				},
+				Input15 = InstanceInput {
+					SourceOp = "Letterbox",
+					Source = "AspectY",
+					Name = "Pixel Aspect Y",
+				},
+				Input16 = InstanceInput {
+					SourceOp = "RectangleOuter1",
+					Source = "LetterboxAspect",
+				},
+				Input17 = InstanceInput {
+					SourceOp = "RectangleInner",
+					Source = "InnerLetterboxAspect",
+					Default = 2.35,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "_Dmov_Slate",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 404.668, 44.3051, },
+				Flags = {
+					AllowPan = false,
+					RemoveRouters = true,
+				},
+				Size = { 1464.48, 315.086, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -70.0414, -28.9984, },
+			},
+			Tools = ordered() {
+				Notes = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.5, 0.441605839416058, },
+						},
+						Size = Input {
+							Value = 0.04,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "An example of using the Dailies_mov Macro",
+						},
+						Style = Input {
+							Value = "Bold",
+						},
+						AdvancedFontControls = Input {
+							Value = 1,
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 1,
+						},
+						VerticalJustification = Input {
+							Value = 1,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 605, 214.5, },
+					},
+				},
+				MRG_Normal3 = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						Blend = Input {
+							Value = 0.5,
+						},
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Facility",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Notes",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 605, 247.5, },
+					},
+				},
+				FileName = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.5, 0.7551627348321, },
+						},
+						Size = Input {
+							Value = 0.05,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "Use Saver_mov as name of the output saver node",
+						},
+						Style = Input {
+							Value = "Bold",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						VerticalJustification = Input {
+							Value = 0,
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						LineSpacing = Input {
+							Value = 1.858802,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "x = Saver_mov.Clip.FileName\r\nx = string.gsub( x,\"(.*)\\\\\", \"\"  )\r\nStyledText = x..\"\\n\"..os.date(\"%Y.%m.%d\")",
+						},
+						StartEndRenderScripts = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 495, 214.5, },
+					},
+				},
+				MRG_Normal4 = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "MRG_Normal3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "FileName",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 495, 247.5, },
+					},
+				},
+				CompName = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.5, 0.207319068771543, },
+						},
+						Size = Input {
+							Value = 0.03,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						Style = Input {
+							Value = "Bold",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "StyledText = comp.Name",
+						},
+						StartEndRenderScripts = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 385, 214.5, },
+					},
+				},
+				Mrg_CompName = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "MRG_Normal4",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "CompName",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 385, 247.5, },
+					},
+				},
+				MRG_Normal = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Mrg_ShotName",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Date_FileName",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, 148.5, },
+					},
+				},
+				["_Dmov_TimeStretcherScan"] = TimeStretcher {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						SourceTime = Input {
+							SourceOp = "_Dmov_TimeStretcherScanSourceTime",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "_Dmov_FrameNumber_Scan",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 110, 115.5, },
+					},
+				},
+				["_Dmov_TimeStretcherScanSourceTime"] = BezierSpline {
+					SplineColor = { Red = 180, Green = 0, Blue = 255, },
+					CtrlWShown = false,
+					NameSet = true,
+					KeyFrames = {
+						[0] = { 0, Flags = { Loop = true, LoopRel = true, PreLoop = true, PreLoopRel = true, }, },
+						[1] = { 1, Flags = { Linear = true, Loop = true, LoopRel = true, PreLoop = true, PreLoopRel = true, }, },
+					},
+				},
+				Handles = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.7494920067448, 0.03, },
+						},
+						Size = Input {
+							Value = 0.03,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "H",
+						},
+						Style = Input {
+							Value = "Regular",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 2,
+						},
+						VerticalJustification = Input {
+							Value = 2,
+						},
+						SelectElement = Input {
+							Value = 1,
+						},
+						Select = Input {
+							Value = 1,
+						},
+						Overlap1 = Input {
+							Value = 0,
+						},
+						Thickness1 = Input {
+							Value = 0.0584795,
+						},
+						OutsideOnly1 = Input {
+							Value = 1,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Transform1 = Input {
+							Value = 1,
+						},
+						Offset1 = Input {
+							Value = { 0, 0.08, },
+						},
+						Enabled2 = Input {
+							Value = 1,
+						},
+						ElementShape2 = Input {
+							Value = 3,
+						},
+						Thickness2 = Input {
+							Value = 0.1,
+						},
+						OutsideOnly2 = Input {
+							Value = 1,
+						},
+						Round2 = Input {
+							Value = 0.0994152,
+						},
+						Green2 = Input {
+							Value = 1,
+						},
+						Blue2 = Input {
+							Value = 1,
+						},
+						ShadingGradient2 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Transform2 = Input {
+							Value = 1,
+						},
+						Offset2 = Input {
+							Value = { 0, 0.12, },
+						},
+						SizeY2 = Input {
+							Value = 0.8,
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 115.5, },
+					},
+				},
+				MRG_Normal2 = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "MRG_Normal1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "FramesAmount",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, 148.5, },
+					},
+				},
+				Bol_WhiteStripes = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0.5,
+						},
+						MaskChannel = Input {
+							Value = 0,
+						},
+						ToRed = Input {
+							Value = 16,
+						},
+						ToGreen = Input {
+							Value = 16,
+						},
+						ToBlue = Input {
+							Value = 16,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "BC_Cashe",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "RectangleOuter2",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -338.17, 148.5, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Shot_Facility = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0, 0.94, },
+						},
+						Size = Input {
+							Value = 0.04,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						Style = Input {
+							Value = "Regular",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 0,
+						},
+						VerticalJustification = Input {
+							Value = 2,
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input {
+							Value = 0.03,
+						},
+						Tab1Alignment = Input {
+							Value = -1,
+						},
+						Tab2Position = Input {
+							Value = 0.97,
+						},
+						Tab2Alignment = Input {
+							Value = 1,
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "Shot = string.gsub( comp.Name,\"_.*\", \"\"  )\r\nFac = Facility.StyledText.Value\r\n\r\nStyledText = \"\\t\"..Shot..\"\\t\"..Fac",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -228.17, 115.5, },
+					},
+				},
+				Mrg_ShotName = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Bol_WhiteStripes",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Shot_Facility",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -228.17, 148.5, },
+					},
+				},
+				["_Dmov_FrameNumber_Scan"] = TextPlus {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.802013683483397, 0.03, },
+						},
+						Size = Input {
+							Value = 0.04,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "1",
+						},
+						Style = Input {
+							Value = "Regular",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 2,
+						},
+						VerticalJustification = Input {
+							Value = 2,
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						LineSpacing = Input {
+							Value = 1.2,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input {
+							Value = 0.7756977657022,
+						},
+						Tab1Alignment = Input {
+							Value = 1,
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "StyledText = (time+4)..\"\\n\"..\"\"",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 110, 82.5, },
+					},
+				},
+				RectangleOuter2 = RectangleMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						BorderWidth = Input {
+							Value = 0.0015,
+							Expression = "RectangleInner.BorderWidth",
+						},
+						Solid = Input {
+							Value = 0,
+						},
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Width = Input {
+							Value = 1.5,
+						},
+						Height = Input {
+							Value = 0.749999906250012,
+							Expression = "1/RectangleOuter1.LetterboxAspect/Letterbox.Height*Letterbox.Width*Point(Letterbox.AspectX, Letterbox.AspectY).X/Point(Letterbox.AspectX, Letterbox.AspectY).Y",
+						},
+						EffectMask = Input {
+							SourceOp = "RectangleInner",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -338.17, 181.5, },
+					},
+				},
+				MRG_Normal1 = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "Mrg_Handles",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "_Dmov_TimeStretcherScan",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 110, 148.5, },
+					},
+				},
+				Mrg_Handles = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						Blend = Input {
+							Expression = "ThisFrameIsHandle",
+						},
+						BlendClone = Input {
+							Expression = "ThisFrameIsHandle",
+						},
+						FlattenTransform = Input {
+							Value = 1,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "MRG_Normal",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Handles",
+							Source = "Output",
+						},
+						ThisFrameIsHandle = Input {
+							SourceOp = "Mrg_HandlesThisFrameisHandle",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 148.5, },
+					},
+					UserControls = ordered() {
+						ThisFrameIsHandle = {
+							INP_Integer = true,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "This Frame is Handle",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+					},
+				},
+				["_Dmov_Slate"] = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "SwitchToSlate",
+						},
+						Background = Input {
+							SourceOp = "MRG_Normal2",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Mrg_CompName",
+							Source = "Output",
+						},
+						SwitchToSlate = Input {
+							SourceOp = "_Dmov_SlateSwitchtoSlateZeroFrame",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, 247.5, },
+					},
+					UserControls = ordered() {
+						SwitchToSlate = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Switch to Slate (Zero-Frame)",
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+					},
+				},
+				BC_Cashe = BrightnessContrast {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ApplyMaskInverted = Input {
+							Value = 1,
+						},
+						Gain = Input {
+							Value = 0.5,
+							Expression = "1-LetterboxDarkening",
+						},
+						Input = Input {
+							SourceOp = "Letterbox",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "RectangleOuter1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -448.17, 148.5, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						LetterboxDarkening = {
+							INP_Default = 0.5,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							IC_ControlPage = 0,
+							ICD_Center = 0.5,
+							LINKS_Name = "Letterbox Darkening",
+						},
+					},
+				},
+				RectangleInner = RectangleMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						BorderWidth = Input {
+							Value = 0.0015,
+						},
+						Solid = Input {
+							Value = 0,
+						},
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Width = Input {
+							Value = 1.5,
+						},
+						Height = Input {
+							Value = 0.567375886524823,
+							Expression = "1/RectangleInner.InnerLetterboxAspect/Letterbox.Height*Letterbox.Width*Point(Letterbox.AspectX, Letterbox.AspectY).X/Point(Letterbox.AspectX, Letterbox.AspectY).Y",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -338.17, 214.5, },
+					},
+					UserControls = ordered() {
+						InnerLetterboxAspect = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Inner Letterbox Aspect",
+							IC_ControlPage = 0,
+							INPID_InputControl = "ScrewControl",
+							INP_Default = 2.35,
+						},
+					},
+				},
+				RectangleOuter1 = RectangleMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Width = Input {
+							Value = 1.5,
+						},
+						Height = Input {
+							Value = 0.749999906250012,
+							Expression = "1/RectangleOuter1.LetterboxAspect/Letterbox.Height*Letterbox.Width*Point(Letterbox.AspectX, Letterbox.AspectY).X/Point(Letterbox.AspectX, Letterbox.AspectY).Y",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -448.17, 181.5, },
+					},
+					UserControls = ordered() {
+						LetterboxAspect = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Letterbox Aspect",
+							IC_ControlPage = 0,
+							INPID_InputControl = "ScrewControl",
+							INP_Default = 1.777778,
+						},
+					},
+				},
+				Letterbox = Letterbox {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 768,
+							Expression = "OutputWidth*Input.ProxyScale",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "OutputHeight*Input.ProxyScale",
+						},
+						AspectX = Input {
+							Value = 1,
+						},
+						AspectY = Input {
+							Value = 1,
+						},
+						FilterMethod = Input {
+							Value = 5,
+						},
+						Input = Input {
+							SourceOp = "Background",
+							Source = "Output",
+						},
+						OutputWidth = Input {
+							Value = 768,
+						},
+						PixelAspect = Input {
+							Value = Point {
+								X = 1.066667,
+								Y = 1,
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -573.264, 148.764, },
+					},
+					Colors = {
+						TileColor = { R = 0.498039215686275, G = 0.298039215686275, B = 0.317647058823529, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						OutputWidth = {
+							INP_Default = 720,
+							INP_MinScale = 1,
+							INP_Integer = true,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 2048,
+							LINKS_Name = "Output Width",
+						},
+						OutputHeight = {
+							INP_Default = 576,
+							INP_Integer = true,
+							INP_MinScale = 1,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 2048,
+							LINKS_Name = "Output Height",
+						},
+						PixelAspect = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+					},
+				},
+				FramesAmount = TextPlus {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.8096138401914, 0.03, },
+						},
+						Size = Input {
+							Value = 0.04,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "ERROR:\r\nLoader1\r\nnot found",
+						},
+						Style = Input {
+							Value = "Regular",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 0,
+						},
+						VerticalJustification = Input {
+							Value = 2,
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						LineSpacing = Input {
+							Value = 1.2,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input {
+							Value = -0.00777155755828374,
+						},
+						Tab1Alignment = Input {
+							Value = 1,
+						},
+						Tab2Position = Input {
+							Value = 0,
+						},
+						Tab2Alignment = Input {
+							Value = -1,
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "ScanTtl = Background.GlobalOut-Background.GlobalIn+1\r\nResTtl = comp.RenderEnd-comp.RenderStart\r\nResNum = time+ResultNumberingOffset\r\n--Numbering From 0-- ResNum = time+ResultNumberingOffset-comp.RenderStart\r\n--Numbering From 1-- ResNum = time+ResultNumberingOffset-comp.RenderStart+1\r\n\r\nStyledText = \"of \"..ScanTtl..\" scan\"..\"\\n\"..\"\\t\"..ResNum..\"\\t\"..\"of \"..ResTtl..\" result \" ",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 222.526, 115.5, },
+					},
+					UserControls = ordered() {
+						ResultNumberingOffset = {
+							INP_Integer = true,
+							INP_Default = 0,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "ScrewControl",
+							IC_ControlPage = 1,
+							INP_MaxScale = 50,
+							LINKS_Name = "Result Numbering Offset",
+						},
+					},
+				},
+				Date_FileName = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.03, 0.03, },
+						},
+						Size = Input {
+							Value = 0.04,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "ERROR! Use Saver_mov as name of the output saver",
+						},
+						Style = Input {
+							Value = "Regular",
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 0,
+						},
+						VerticalJustification = Input {
+							Value = 2,
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						LineSpacing = Input {
+							Value = 1.2,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input {
+							Value = 0,
+						},
+						Tab1Alignment = Input {
+							Value = -1,
+						},
+						Tab2Position = Input {
+							Value = 0.77,
+						},
+						Tab2Alignment = Input {
+							Value = 1,
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "x = Saver_mov.Clip.FileName\r\nx = string.gsub( x,\"(.*)\\\\\", \"\"  )\r\nStyledText = os.date(\"%Y.%m.%d\")..\"\\n\"..x",
+						},
+						ResultNumberingOffset = Input {
+							Expression = "-comp.RenderStart",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, 115.5, },
+					},
+					UserControls = ordered() {
+						ResultNumberingOffset = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+					},
+				},
+				Facility = TextPlus {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = -5,
+						},
+						GlobalOut = Input {
+							Value = 50,
+						},
+						Width = Input {
+							Value = 768,
+							Expression = "Letterbox.Width",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "Letterbox.Height",
+						},
+						PixelAspect = Input {
+							Expression = "Point(Letterbox.AspectX, Letterbox.AspectY)",
+						},
+						Center = Input {
+							Value = { 0.5, 0.263027154226081, },
+						},
+						Size = Input {
+							Value = 0.05,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = "Gregory Chalenko",
+							Expression = "FacilityName",
+						},
+						Style = Input {
+							Value = "Bold",
+						},
+						AdvancedFontControls = Input {
+							Value = 1,
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 1,
+						},
+						VerticalJustification = Input {
+							Value = 1,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FacilityName = Input {
+							Value = "Gregory Chalenko",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 714.332, 247.663, },
+					},
+					UserControls = ordered() {
+						FacilityName = {
+							LINKID_DataType = "Text",
+							INPS_DefaultText = "Type your name here",
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 1,
+							TEC_Lines = 1,
+							LINKS_Name = "Facility Name",
+						},
+					},
+				},
+			},
+		},
+		Background = Background {
+			ExtentSet = false,
+			NameSet = true,
+			CustomData = {
+				Settings = {
+					[1] = {
+						Tools = ordered() {
+							Background = Background {
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								ExtentSet = false,
+								CtrlWZoom = false,
+								NameSet = true,
+								Name = "Background",
+								Inputs = {
+									GlobalIn = Input {
+										Value = 1,
+									},
+									TopLeftAlpha = Input {
+										Value = 0,
+									},
+									Height = Input {
+										Value = 1556,
+									},
+									Gradient = Input {
+										Value = Gradient {
+											Colors = {
+												[0] = { 0, 0, 0, 1, },
+												[1] = { 1, 1, 1, 1, },
+											},
+										},
+									},
+									UseFrameFormatSettings = Input {
+										Value = 1,
+									},
+									Width = Input {
+										Value = 2048,
+									},
+								},
+								CustomData = {
+								},
+								CurrentSettings = 2,
+							},
+						},
+					},
+					[2] = {
+						Tools = ordered() {
+							Background = Background {
+								Inputs = {
+									GlobalIn = Input {
+										Value = 1,
+									},
+									Height = Input {
+										Value = 1556,
+									},
+									Gradient = Input {
+										Value = Gradient {
+											Colors = {
+												[0] = { 0, 0, 0, 1, },
+												[1] = { 1, 1, 1, 1, },
+											},
+										},
+									},
+									UseFrameFormatSettings = Input {
+										Value = 1,
+									},
+									Width = Input {
+										Value = 2048,
+									},
+								},
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								ExtentSet = false,
+								CtrlWZoom = false,
+								NameSet = true,
+								CustomData = {
+								},
+								CurrentSettings = 3,
+							},
+						},
+					},
+					[3] = {
+						Tools = ordered() {
+							Background = Background {
+								Inputs = {
+									Start = Input {
+										Value = { 0.5, 0, },
+									},
+									Type = Input {
+										Value = FuID { "Gradient", },
+									},
+									GlobalIn = Input {
+										Value = 1,
+									},
+									End = Input {
+										Value = { 0.5, 1, },
+									},
+									Height = Input {
+										Value = 1556,
+									},
+									Gradient = Input {
+										Value = Gradient {
+											Colors = {
+												[0] = { 0, 0, 0, 1, },
+												[1] = { 1, 1, 1, 1, },
+											},
+										},
+									},
+									UseFrameFormatSettings = Input {
+										Value = 1,
+									},
+									Width = Input {
+										Value = 2048,
+									},
+								},
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								ExtentSet = false,
+								CtrlWZoom = false,
+								NameSet = true,
+								CustomData = {
+								},
+								CurrentSettings = 4,
+							},
+						},
+					},
+					[4] = {
+						Tools = ordered() {
+							Background = Background {
+								Inputs = {
+									Type = Input {
+										Value = FuID { "Gradient", },
+									},
+									GradientType = Input {
+										Value = FuID { "Radial", },
+									},
+									Width = Input {
+										Value = 2048,
+									},
+									GlobalIn = Input {
+										Value = 1,
+									},
+									End = Input {
+										Value = { 0.5, 1, },
+									},
+									Height = Input {
+										Value = 1556,
+									},
+									Gradient = Input {
+										Value = Gradient {
+											Colors = {
+												[0] = { 1, 1, 1, 1, },
+												[1] = { 0, 0, 0, 1, },
+											},
+										},
+									},
+									UseFrameFormatSettings = Input {
+										Value = 1,
+									},
+									Start = Input {
+										Value = { 0.5, 0.5, },
+									},
+								},
+								ExtentSet = false,
+								CtrlWZoom = false,
+								NameSet = true,
+								ViewInfo = OperatorInfo {
+									Pos = { 55, 17.05, },
+								},
+								CustomData = {
+								},
+							},
+						},
+					},
+				},
+			},
+			Inputs = {
+				GlobalIn = Input {
+					Value = -5,
+				},
+				GlobalOut = Input {
+					Value = 50,
+				},
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1556,
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				Type = Input {
+					Value = FuID { "Corner", },
+				},
+				TopLeftRed = Input {
+					Value = 0.6,
+				},
+				TopRightGreen = Input {
+					Value = 0.5,
+				},
+				BottomLeftBlue = Input {
+					Value = 0.7,
+				},
+				BottomRightRed = Input {
+					Value = 0.6,
+				},
+				BottomRightGreen = Input {
+					Value = 0.425,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 401.062, -48.2685, },
+			},
+		},
+		["_Dmov_SlateSwitchtoSlateZeroFrame"] = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1, Flags = { Linear = true, }, },
+				[1] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+		Mrg_HandlesThisFrameisHandle = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[4] = { 1, Flags = { Linear = true, }, },
+				[5] = { 0, Flags = { Linear = true, }, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 44,
+			Top = 44,
+			Width = 1568,
+			Height = 704,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Vertical",
+						PipeStyle = "Direct",
+						Scale = 1.12839,
+						Offset = { 134.501, 136.555, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = true,
+						ShowAnimatedToolsOnly = true,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 329, },
+							ScaleX = 0.0702708963477203,
+							OffsetX = -48.2058348945361,
+							OffsetY = 0,
+							AutoScaling = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -4,
+						OffsetY = 0,
+						AutoScaling = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { -5, 50, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.815047021943574,
+					RatioY = 0.010377358490566,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.63472485768501,
+						{
+							ID = "Left",
+							RatioX = 0.515805705474171,
+							RatioY = 0.0104633781763827,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.484194294525829,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.31404174573055,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.31619537275064,
+			},
+			LastFile = "I:\\_SHOTS_\\CHS-1802\\Res\\CHS-1802_Conform_2008.01.03.mov",
+			Unsorted = {
+				GlobalStart = 4294967291,
+				GlobalEnd = 50,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Cluster = {
+				SideFrames = 0,
+			},
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				Direction = 1,
+				AutoSnap = false,
+				FullToolIndicator = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

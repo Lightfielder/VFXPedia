@@ -1,0 +1,117 @@
+------------------------------------------------------------
+-- CreateLocalProxies
+-- 
+-- A CompScript that creates localproxies for each/selected loader
+--
+-- written by : Michael Vorberg (mv@empty98.de) for RTT AG (www.rtt.ag) (september 2007)
+--
+-- $Revision: 0.3$ (03.03.2009)
+--
+----------------------------------------------------------------------
+
+
+fusion = Fusion()
+
+composition = fusion:GetCurrentComp()
+
+attrs = composition:GetAttrs()
+prefs = fusion:GetPrefs()
+
+RenderStart = attrs.COMPN_RenderStartTime
+RenderEnd = attrs.COMPN_RenderEndTime
+
+pfad = MapPath("Temp:\\")
+
+DepthOpt={"same as footage", "int8", "int16", "float16", "float32"}
+
+ret = comp:AskUser("Create Local Proxies", {
+	{"NPrx_Path", Name="path for proxies", "PathBrowse", Default = pfad},
+	{"PrxScale", Name="Scale", "Slider", Default=4, Integer = true, Min = 1, Max = 8},
+	{"Depth", Name = "BitDepth","Dropdown", Options = DepthOpt, Default = 0},
+	{"Selected", Name="Render only selected", "Checkbox", Default=0, NumAcross=2}
+	})
+	
+if ret == nil then print ("dialog canceled") return end
+
+composition:Lock()
+
+if ret.PrxScale == 1 then
+	for i, v in composition:GetToolList((ret.Selected == 1)) do
+			id = v:GetAttrs().TOOLS_RegID
+			if id == "Loader" then
+				Clip = v.Clip[1]
+				path = eyeon.parseFilename(Clip).Path
+				name = eyeon.parseFilename(Clip).Name
+				ext = eyeon.parseFilename(Clip).Extension
+				CleanName = eyeon.parseFilename(Clip).CleanName
+				Padding = eyeon.parseFilename(Clip).Padding
+				Clipname = ret.NPrx_Path..name..ext
+				seq_start = v:GetAttrs().TOOLIT_Clip_InitialFrame[1]
+				Length = v:GetAttrs().TOOLIT_Clip_Length[1]
+				
+				start = seq_start
+				theend = start + (Length-1)
+				
+				for i = start, theend do
+					print (i)
+					fname = CleanName..string.format("%0"..Padding.."d", i)..ext
+					size, errText = eyeon.copyfile(path..fname, ret.NPrx_Path..fname)
+					if size ~= 0 then 
+						print ("copied: "..path..fname.." to: "..ret.NPrx_Path..fname)
+						print(size, errText)
+					end
+				end
+			end
+		end
+	
+
+else
+
+	composition:StartUndo("Create local proxies")
+
+
+	for i, v in composition:GetToolList((0)) do
+		id = v:GetAttrs().TOOLS_RegID
+		if id == "Saver" then
+			v:SetAttrs({TOOLB_PassThrough = true})
+		end
+	end
+
+
+	for i, v in composition:GetToolList((ret.Selected == 1)) do
+		id = v:GetAttrs().TOOLS_RegID
+		if id == "Loader" then
+			Clip = v.Clip[1]
+			path = eyeon.parseFilename(Clip).Path
+			name = eyeon.parseFilename(Clip).Name
+			ext = eyeon.parseFilename(Clip).Extension
+			NPrx = Scale({XSize=1/ret.PrxScale, Input = v.Output})
+			NDepth = ChangeDepth ({Depth = ret.Depth, Input = NPrx.Output})
+			Clipname = ret.NPrx_Path..name..ext
+			PrxSV = Saver({Clip = Clipname, Input = NDepth.Output, SetSequenceStart = 1})
+			seq_start = v:GetAttrs().TOOLIT_Clip_InitialFrame[1]
+			PrxSV.SequenceStartFrame = seq_start
+		end
+	end
+
+
+	err = composition:Render(true, RenderStart, RenderEnd, 1)
+
+	composition:EndUndo(true)
+	composition:Undo(1)
+
+end
+
+for i, v in composition:GetToolList((ret.Selected == 1)) do
+	id = v:GetAttrs().TOOLS_RegID
+	if id == "Loader" then
+		Clip = v.Clip[1]
+		path = eyeon.parseFilename(Clip).Path
+		name = eyeon.parseFilename(Clip).Name
+		ext = eyeon.parseFilename(Clip).Extension
+		Clipname = ret.NPrx_Path..name..ext
+		v.ProxyFilename = Clipname
+	end
+end
+
+composition:Unlock()

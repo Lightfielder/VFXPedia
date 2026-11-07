@@ -1,0 +1,285 @@
+{
+	Tools = ordered() {
+		TMIColor = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/TMIColor_Description",
+			}, 
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "Input",
+				},
+				Gain = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "Gain",
+				},
+				T = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "T",
+				},
+				M = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "M",
+					Default = 0,
+				},
+				I = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "I",
+					Default = 0,
+				},
+				Gamma = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "Gamma",
+				},
+				GammaT = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "GammaT",
+					Default = 0,
+				},
+				GammaM = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "GammaM",
+					Default = 0,
+				},
+				GammaI = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "GammaI",
+					Default = 0,
+				},
+				PreDividePostMultiply = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "PreDividePostMultiply",
+					Default = 0,
+				},
+				Blend = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "Blend",
+					Page = "Common Controls",
+					Default = 1,
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ProcessAlpha",
+					Name = "Alpha",
+					Default = 1,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				FitMask = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "FitMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MaskHigh",
+					ControlGroup = 14,
+					Default = 1,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MaskLow",
+					ControlGroup = 14,
+					Default = 0,
+				},
+				MaskClipBlack = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MaskClipBlack",
+					Default = 1,
+				},
+				MaskClipWhite = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MaskClipWhite",
+					Default = 1,
+				},
+				UseObject = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "UseObject",
+					Default = 0,
+				},
+				UseMaterial = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "UseMaterial",
+					Default = 0,
+				},
+				CorrectEdges = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "CorrectEdges",
+				},
+				ObjectID = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "ObjectID",
+					Name = "Object / Material",
+					ControlGroup = 20,
+					Default = 0,
+				},
+				MaterialID = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "MaterialID",
+					Name = "Object / Material",
+					ControlGroup = 20,
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "__TMI",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "__TMI",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				["__TMI"] = ColorGain {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						GainNest = Input { Value = 0, },
+						GainRed = Input { Expression = "1 - T/2 + M/3 + I", },
+						GainGreen = Input { Expression = "1 - M*2/3 + I", },
+						GainBlue = Input { Expression = "1 + T/2 + M/3 + I", },
+						LiftNest = Input { Value = 0, },
+						GammaNest = Input { Value = 0, },
+						GammaRed = Input { Expression = "1 - GammaT/2 + GammaM/3 + GammaI", },
+						GammaGreen = Input { Expression = "1 - GammaM*2/3 + GammaI", },
+						GammaBlue = Input { Expression = "1 + GammaT/2 + GammaM/3 + GammaI", },
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.125, 0.75, },
+											{ 0.375, 0.25, },
+											{ 0.5, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0.5, 0, },
+											{ 0.625, 0.25, },
+											{ 0.875, 0.75, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 660, 247.5, }, },
+					UserControls = ordered() {
+						Gain = {
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 3,
+							LBLC_NestLevel = 1,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						T = {
+							INP_MinScale = -1,
+							INPID_InputControl = "SliderControl",
+							IC_Steps = 0.1,
+							LINKID_DataType = "Number",
+							ICD_Center = 0,
+							LINKS_Name = "T (Temperature)",
+						},
+						M = {
+							INP_MinScale = -1,
+							LINKS_Name = "M (Magenta/Green)",
+							INPID_InputControl = "SliderControl",
+							IC_Steps = 0.1,
+							LINKID_DataType = "Number",
+							ICD_Center = 0,
+							INP_Default = 0,
+						},
+						I = {
+							INP_MinScale = -1,
+							INP_Default = 0,
+							INPID_InputControl = "SliderControl",
+							IC_Steps = 0.1,
+							LINKID_DataType = "Number",
+							ICD_Center = 0,
+							LINKS_Name = "I (Intensity)",
+						},
+						Gamma = {
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 3,
+							LBLC_NestLevel = 1,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						GammaT = {
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							IC_Steps = 0.1,
+							INP_Default = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "T (Temperature)",
+						},
+						GammaM = {
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							IC_Steps = 0.1,
+							INP_Default = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "M (Magenta/Green)",
+						},
+						GammaI = {
+							INP_MinScale = -1,
+							LINKID_DataType = "Number",
+							IC_Steps = 0.1,
+							INP_Default = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "I (Intensity)",
+						},
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	ActiveTool = "TMIColor",
+}

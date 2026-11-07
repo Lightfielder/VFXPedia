@@ -1,0 +1,324 @@
+#!"D:\Program Files\Fusion\eyeonScript.exe" -q
+
+-- it is assumed that this is normal instalation of fusion or fusion slave, which has eyeon.scriptlib in its script path.
+
+
+master	=	'192.168.10.5' -- default render master machine
+
+
+remote	=	os.getenv('REMOTE_ADDR')
+referer	=	os.getenv("HTTP_REFERER")
+
+
+-- List of remote hosts from which operation is allowed.
+ops = {
+
+	'192.168.10.12',
+	'192.168.10.16',
+	'192.168.10.18',
+}
+
+
+if eyeon.isin(ops,remote) then
+	operator=true
+else
+	operator=false
+end
+
+
+function unescape (str)
+  str = string.gsub(str, "+", " ")
+  return string.gsub(str, "%%(%x%x)", function (x)
+         return strchar(tonumber(x, 16))
+    end)
+end
+
+function decode (s)
+  cgi={}
+  string.gsub(s, "([^&=]*)=([^&=]*)&?",
+       function (key, value)
+         key=unescape(key)
+         value=unescape(value)
+         cgi[key]=value
+       end)
+end
+
+function back()
+	if referer~=nil 	then
+	print("Location:"..referer)
+	end
+end
+
+
+decode(os.getenv("QUERY_STRING"))      -- The magic :-)
+
+
+if cgi["master"] then master=cgi["master"] end
+
+
+f	=	Fusion(master)
+
+if not f then
+	print()
+	print('No Fusion manager is running at '..master)
+end
+
+rm	=	f.RenderManager
+
+attr=rm:GetAttrs()
+jobs  = rm:GetJobList()
+slaves = rm:GetSlaveList()
+
+--[[
+	RQUEUEB_Verbose = true
+	RQUEUES_QueueName = Autosave2007-07-19-0002
+	RQUEUEB_Paused = true
+]]
+
+
+
+if  operator   then
+
+	if cgi['up']  then
+		num=tonumber(cgi['up'])
+		rm:MoveJob(jobs[num], -1)
+		wait(1)
+back()
+	end
+
+	if cgi['down']  then
+		num=tonumber(cgi['down'])
+		rm:MoveJob(jobs[num], 1)
+		wait(1)
+back()
+	end
+
+	if cgi['rem']  then
+		numr=tonumber(cgi['rem'])
+		rm:RemoveJob(jobs[numr], 1)
+		wait(1)
+		back()
+	end
+
+if cgi['sq']  then
+	rm:SaveQueue(attr.RQUEUES_QueueName)
+	back()
+end
+
+end
+
+
+
+
+
+
+--SaveQueue
+--RQUEUEB_Paused
+--RQUEUES_QueueName
+
+
+
+print("Content-type: text/html\n\n")
+
+
+--os.getenv("SCRIPT_NAME")
+print([[
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<TITLE>Render Status ]]..master..[[</TITLE>
+<style type="text/css">
+body { background: #444;
+font-family: tahoma, sans-serif;
+/* font-size: 10px; */
+color: #fff;
+margin: 0;
+padding: 10px;
+}
+
+a, a:visited {color: #9cf; font-weight: bold; padding: 1px 5px;}
+a:hover, a:active {text-decoration: none; background: #000; color: #f90;}
+
+td,th,table {
+    color: #FFFFFF;
+    font-family: verdana;
+    font-size: 11px;
+}
+
+.smhd {
+    font-size: 12px;
+    font-weight: bold;
+    /* color: #f90; */
+}
+
+#slaves td{
+  border-bottom:1px solid #eee;
+  border-right:1px solid #eee;
+  padding:2px;
+  padding-top:0px;
+}
+
+#slaves th{
+  border-bottom:1px solid #eee;
+  border-right:1px solid #eee;
+  font-size:12px
+    padding:2px;
+  padding-top:0px;
+}
+#queue {
+ overflow: auto;
+ text-align: left;
+ padding: 5px;
+ vertical-align: middle;
+ font-family: Microsoft sans serif;
+ font-size: 10px;
+ margin: 0px;
+ border: 1px dashed #ccccff;
+ z-index: 2;
+ width:100%;
+height:480px;
+}
+#joblist th{
+  border-bottom:1px solid #eee;
+}
+.trover, td.trover /* , .blue */ {background: #666;}
+.trover, td.trover, tr.trover td /* , .blue */ {background: #fff; color: #000; }
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251"><meta http-equiv="pragma" content="no-cache">
+<script>
+<!--
+var refresh="15"
+
+function beginrefresh(){
+   var curtime=1
+   if (!document.images)return
+   if (refresh==1){
+    window.location.reload()
+   }else{
+      refresh-=1
+    var curmin=Math.floor(refresh/60)
+    var cursec=refresh%60
+    if (curmin!=0){
+        curtime="<b>"+curmin+"</b> min and <b>"+cursec+"</b> s. "
+    }else{
+         curtime="<b>"+cursec+"</b> s";
+    }
+    if(document.getElementById("sek"))document.getElementById("sek").innerHTML = curtime
+    setTimeout("beginrefresh()",1000)
+   }
+}
+window.onload=beginrefresh
+//-->
+</script>
+</HEAD>
+<BODY>
+<form method="get">
+	<input type="text" name="master" value="]]..master..[["><input type="submit" value="go">
+</form>
+]])
+
+
+if string.len(tostring(attr.RQUEUES_QueueName)) >1 then
+		print('Queue name: <b>('..attr.RQUEUES_QueueName..')</b>')
+else
+		print("QUEUE IS NOT SAVED!!!!!!!!!!!!!")
+end
+
+if operator then
+	print('<a href="?master='..master..'&sq=1">[save queue]</a>')
+end
+
+print([[
+  reloading in: <span id=sek></span>
+
+<div id="slaves">
+
+]])
+
+table.sort(slaves)
+
+if table.getn(slaves) == 0 then
+	print("No Slaves on "..master)
+else
+	print([[<table width=100% id="slaves">
+	<tr><th>Slave</th>
+	<th>Status</th>
+	<th>job</th>
+	<th>Groups</th>
+	<th>v</th>
+	<tr>]])
+	for i, v in slaves do
+		slv = v:GetAttrs()
+		job=''
+		if(slv.RSLVN_Status==9) then
+			job =eyeon.parseFilename(v:GetJob():GetAttrs().RJOBS_Name).FullName
+		end
+		print( [[<tr><td>]]..slv.RSLVS_IP.." \t\t|\t\t"..slv.RSLVS_Name..[[ </td><td>]]..slv.RSLVS_Status..[[</td><td>&nbsp;]]..job..[[</td><td>]]..slv.RSLVS_Groups..[[</td><td>]]..slv.RSLVS_Version..[[</td><tr>]])
+	end
+	print([[</table>]])
+end
+
+print([[</div>
+<div id="queue">
+<table width=100% id=joblist>
+<tr>
+<td>##</th><th>Render job</th><th>Groups</th><th>Status</th><th>Done/Total-(Left)</th><th>Queued By</th><td>delete</td></tr>]])
+
+if table.getn(jobs) == 0 then
+	print('<tr><td colspan=6>No Jobs In Queue</td></tr>')
+  else
+
+for i,v in jobs do
+	a 	= v:GetAttrs()
+		print([[
+		<tr onMouseOver = "this.className='trover'; " onMouseOut="this.className = ''">
+		<td>]])
+
+			if operator then
+		print([[<a href="?master=]]..master..[[&up=]]..i..[[" title="Click to move up">up</a>&nbsp;|&nbsp;<a href="?master=]]..master..[[&down=]]..i..[[" title="Click to move down">down</a>]])
+	else
+		print('up | down')
+	end
+
+
+
+
+	print([[</td>
+		<td>]])
+
+	--print(td_e)
+	--dump(a.RJOBS_Name)
+	print(eyeon.parseFilename(a.RJOBS_Name).FullName..[[</td>
+	<td>]]..a.RJOBS_Groups..[[</td>
+	<td>]]..a.RJOBS_Status)
+
+	if a.RJOBN_RenderingFrames > 0 then
+		print(a.RJOBN_RenderingFrames)
+	end
+
+	print([[</td>
+	<td>]]..a.RJOBN_RenderedFrames..[[ / ]]..(a.RJOBN_UnrenderedFrames + a.RJOBN_RenderedFrames + a.RJOBN_RenderingFrames)..[[ - (]]..a.RJOBN_UnrenderedFrames..[[)]]..''..[[</td>
+	<td>]]..a.RJOBS_QueuedBy..[[</td>
+	<td>]])
+
+	if operator then
+		print([[<a href="?master=]]..master..[[&rem=]]..i..[[" title="Click REMOVE JOBS">X</a>]])
+	else
+		print('X')
+	end
+
+	print([[</td>
+	</tr>]])
+
+	end
+
+end
+
+print([[	</table>
+    </div>
+   </TD>
+  </TR>
+ </TABLE>
+ </BODY>
+</HTML>]])

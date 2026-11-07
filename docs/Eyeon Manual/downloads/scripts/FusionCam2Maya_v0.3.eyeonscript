@@ -1,0 +1,231 @@
+--[[
+FusionCamera to Maya Ascii exporter
+created by Michael Vorberg
+mv@empty98.de
+www.empty98.de
+
+v0.3 22.06.2009
+corrected by Attila Sziklai
+	corrected array size definition
+	deleted extra lines for frame 0
+	scale multiply in rotation is eliminated
+	curve interpolation is changed to spline
+	default path is "comp:"
+	added some more words to HowTo
+v0.2 21.06.2009
+v0.1 03.04.2008
+--]]--
+
+fusion = Fusion()
+
+composition = fusion:GetCurrentComp()
+
+local attrs = composition:GetAttrs()
+local prefs = fusion:GetPrefs()
+
+RenderStart = attrs.COMPN_RenderStartTime
+RenderEnd = attrs.COMPN_RenderEndTime
+
+time = prefs.Comp.FrameFormat.Rate
+if time == 25 then 
+	timestring = "pal"
+elseif time == 30 then
+	timestring = "ntsc"
+elseif time == 24 then
+	timestring = "film"
+end
+
+
+savingBox = AskUser("FusionCam2Maya",{ 
+	{"HowTo", Name="How to use:", "Text", Lines=4, Default= "Make the camera which should be exported the active tool, choose a path and filename and hit OK \nThis script will export baked animCurves from the defined render range", ReadOnly = true, Wrap = true},
+	{"Scale", Name="Scale", "Slider", Integer = true, Min = 1, Max = 100, Default=1,},
+	{"filePath", Name="Select path:", "PathBrowse", Save=true, Default=(composition:MapPath("Comp:"))},
+	{"Filename", "Text", Lines = 1, Default = "export_cam.ma"},
+	})
+	
+completePath = savingBox.filePath..savingBox.Filename
+
+savingBox.Selected = 1
+
+
+
+for i, v in composition:GetToolList((savingBox.Selected == 1)) do
+	id = v:GetAttrs().TOOLS_RegID
+	if id == "Camera3D" then
+		cam_name = v:GetAttrs().TOOLS_Name
+		cam_focal = v.FLength[TIME_UNDEFINED]
+		cam_apertureW = v.ApertureW[TIME_UNDEFINED]
+		cam_apertureH = v.ApertureH[TIME_UNDEFINED]
+		
+		file = io.open(completePath, "w")
+
+		file:write ("//Maya ASCII scene \n")
+		file:write ("//Name:"..attrs.COMPS_FileName.."\n")
+		file:write ("//Last modified:"..os.date("%a, %b %d, %Y %I:%M:%S %p").."\n")
+		file:write ("//Codeset: 1252 \n")
+		file:write ("requires maya \"6.0\";\n")
+		file:write ("currentUnit -l centimeter -a degree -t "..timestring.."; \n")
+		
+		if v.Transform3DOp.UseTarget[TIME_UNDEFINED] == 1 then
+			file:write ("createNode lookAt -n \""..cam_name.."_group\";\n")
+			file:write ("\t setAttr \".a\" -type \"double3\" 0 0 -1 ;\n")
+			file:write ("createNode transform -n \""..cam_name.."\" -p \""..cam_name.."_group\";\n")
+			file:write ("createNode camera -n \""..cam_name.."Shape".."\" -p \""..cam_name.."\";\n")
+			file:write ("\t setAttr \".cap\" -type \"double2\" "..cam_apertureW.." "..cam_apertureH.." ;\n")
+			if v.FLength:GetConnectedOutput() == nil then
+				file:write ("\t setAttr -l on \".fl\" "..cam_focal..";\n")
+			end
+			file:write ("createNode transform -n \""..cam_name.."_aim".."\" -p \""..cam_name.."_group\";\n")
+			file:write ("createNode locator -n \""..cam_name.."_aimShape\" -p \""..cam_name.."_aim\";\n")
+			file:write ("\t setAttr -k off \".v\" no;\n")
+		else
+			file:write ("createNode transform -n \""..cam_name.."\";\n")
+			file:write ("createNode camera -n \""..cam_name.."Shape".."\" -p \""..cam_name.."\";\n")
+			file:write ("\t setAttr \".cap\" -type \"double2\" "..cam_apertureW.." "..cam_apertureH.." ;\n")
+			
+			if v.FLength:GetConnectedOutput() == nil then
+				file:write ("\t setAttr -l on \".fl\" "..cam_focal..";\n")
+			end
+		end
+
+		if v.Transform3DOp.Translate.X:GetConnectedOutput() ~= nil then
+			file:write ("createNode animCurveTL -n \""..cam_name.."_translateX\";\n")
+			file:write ("\t setAttr \".tan\" 9;\n")
+			file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+				for t=RenderStart, RenderEnd do
+						file:write(t.." "..v.Transform3DOp.Translate.X[t]*savingBox.Scale.."\n")
+				end
+			file:write(";\n")
+		end
+
+		if v.Transform3DOp.Translate.Y:GetConnectedOutput() ~= nil then
+			file:write ("createNode animCurveTL -n \""..cam_name.."_translateY\";\n")
+			file:write ("\t setAttr \".tan\" 9;\n")
+			file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+				for t=RenderStart, RenderEnd do
+					file:write(t.." "..v.Transform3DOp.Translate.Y[t]*savingBox.Scale.."\n")
+				end
+			file:write(";\n")
+		end
+
+		if v.Transform3DOp.Translate.Z:GetConnectedOutput() ~= nil then
+			file:write ("createNode animCurveTL -n \""..cam_name.."_translateZ\";\n")
+			file:write ("\t setAttr \".tan\" 9;\n")
+			file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+				for t=RenderStart, RenderEnd do
+				--for t, k in v.Transform3DOp.Translate.Z:GetConnectedOutput():GetTool():GetKeyFrames() do
+					file:write(t.." "..v.Transform3DOp.Translate.Z[t]*savingBox.Scale.."\n")
+				end
+			file:write(";\n")
+		end
+	
+		if v.Transform3DOp.Rotate.X:GetConnectedOutput() ~= nil then
+			file:write ("createNode animCurveTA -n \""..cam_name.."_rotateX\";\n")
+			file:write ("\t setAttr \".tan\" 9;\n")
+			file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+				for t=RenderStart, RenderEnd do
+				--for t, k in v.Transform3DOp.Rotate.X:GetConnectedOutput():GetTool():GetKeyFrames() do
+					file:write(t.." "..v.Transform3DOp.Rotate.X[t].."\n")
+				end
+			file:write(";\n")
+		end
+
+		if v.Transform3DOp.Rotate.Y:GetConnectedOutput() ~= nil then
+			file:write ("createNode animCurveTA -n \""..cam_name.."_rotateY\";\n")
+			file:write ("\t setAttr \".tan\" 9;\n")
+			file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+				for t=RenderStart, RenderEnd do
+				--for t, k in v.Transform3DOp.Rotate.Y:GetConnectedOutput():GetTool():GetKeyFrames() do
+					file:write(t.." "..v.Transform3DOp.Rotate.Y[t].."\n")
+				end
+			file:write(";\n")
+		end
+		if v.Transform3DOp.Rotate.Z:GetConnectedOutput() ~= nil then
+			file:write ("createNode animCurveTA -n \""..cam_name.."_rotateZ\";\n")
+			file:write ("\t setAttr \".tan\" 9;\n")
+			file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+				for t=RenderStart, RenderEnd do
+				--for t, k in v.Transform3DOp.Rotate.Z:GetConnectedOutput():GetTool():GetKeyFrames() do
+					file:write(t.." "..v.Transform3DOp.Rotate.Z[t].."\n")
+				end
+			file:write(";\n")
+		end
+		if v.Transform3DOp.UseTarget[TIME_UNDEFINED] == 1 then
+		
+			if v.Transform3DOp.Target.X:GetConnectedOutput() ~= nil then
+				file:write ("createNode animCurveTL -n \""..cam_name.."_aim".."_translateX\";\n")
+				file:write ("\t setAttr \".tan\" 9;\n")
+				file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+					for t=RenderStart, RenderEnd do
+					--for t, k in v.Transform3DOp.Target.X:GetConnectedOutput():GetTool():GetKeyFrames() do
+						file:write(t.." "..v.Transform3DOp.Target.X[t]*savingBox.Scale.."\n")
+					end
+				file:write(";\n")
+			end
+
+			if v.Transform3DOp.Target.Y:GetConnectedOutput() ~= nil then
+				file:write ("createNode animCurveTL -n \""..cam_name.."_aim".."_translateY\";\n")
+				file:write ("\t setAttr \".tan\" 9;\n")
+				file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+					for t=RenderStart, RenderEnd do
+					--for t, k in v.Transform3DOp.Target.Y:GetConnectedOutput():GetTool():GetKeyFrames() do
+						file:write(t.." "..v.Transform3DOp.Target.Y[t]*savingBox.Scale.."\n")
+					end
+				file:write(";\n")
+			end
+
+			if v.Transform3DOp.Target.Z:GetConnectedOutput() ~= nil then
+				file:write ("createNode animCurveTL -n \""..cam_name.."_aim".."_translateZ\";\n")
+				file:write ("\t setAttr \".tan\" 9;\n")
+				file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+					for t=RenderStart, RenderEnd do
+					--for t, k in v.Transform3DOp.Target.Z:GetConnectedOutput():GetTool():GetKeyFrames() do
+						file:write(t.." "..v.Transform3DOp.Target.Z[t]*savingBox.Scale.."\n")
+					end
+				file:write(";\n")
+			end
+			if v.FLength:GetConnectedOutput() ~= nil then
+				file:write ("createNode animCurveTU -n \""..cam_name.."Shape_focalLength\";\n")
+				file:write ("\t setAttr \".tan\" 9;\n")
+				file:write ("\t setAttr -s "..(RenderEnd-RenderStart+1).."\".ktv[0:"..(RenderEnd-RenderStart).."]\"\n")
+					for t=RenderStart, RenderEnd do
+					--for t, k in v.FLength:GetConnectedOutput():GetTool():GetKeyFrames() do
+						file:write(t.." "..v.FLength[t].."\n")
+					end
+				file:write(";\n")
+			end
+			
+			file:write ("connectAttr \""..cam_name.."_aim.tx\" \""..cam_name.."_group.tg[0].ttx\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim.ty\" \""..cam_name.."_group.tg[0].tty\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim.tz\" \""..cam_name.."_group.tg[0].ttz\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim.rp\" \""..cam_name.."_group.tg[0].trp\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim.rpt\" \""..cam_name.."_group.tg[0].trt\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim.pm\" \""..cam_name.."_group.tg[0].tpm\";\n")
+			file:write ("connectAttr \""..cam_name..".pim\" \""..cam_name.."_group.cpim\";\n")
+			file:write ("connectAttr \""..cam_name..".t\" \""..cam_name.."_group.ct\";\n")
+			file:write ("connectAttr \""..cam_name..".rp\" \""..cam_name.."_group.crp\";\n")
+			file:write ("connectAttr \""..cam_name..".rpt\" \""..cam_name.."_group.crt\";\n")
+			file:write ("connectAttr \""..cam_name.."_group.crx\" \""..cam_name..".rx\";\n")
+			file:write ("connectAttr \""..cam_name.."_group.cry\" \""..cam_name..".ry\";\n")
+			file:write ("connectAttr \""..cam_name.."_group.crz\" \""..cam_name..".rz\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim_translateX.o\" \""..cam_name.."_aim.tx\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim_translateY.o\" \""..cam_name.."_aim.ty\";\n")
+			file:write ("connectAttr \""..cam_name.."_aim_translateZ.o\" \""..cam_name.."_aim.tz\";\n")
+		end
+		
+		file:write ("connectAttr \""..cam_name.."_translateX.o\" \""..cam_name..".tx\" -l on;\n")
+		file:write ("connectAttr \""..cam_name.."_translateY.o\" \""..cam_name..".ty\" -l on;\n")
+		file:write ("connectAttr \""..cam_name.."_translateZ.o\" \""..cam_name..".tz\" -l on;\n")
+		file:write ("connectAttr \""..cam_name.."_rotateX.o\" \""..cam_name..".rx\" -l on;\n")
+		file:write ("connectAttr \""..cam_name.."_rotateY.o\" \""..cam_name..".ry\" -l on;\n")
+		file:write ("connectAttr \""..cam_name.."_rotateZ.o\" \""..cam_name..".rz\" -l on;\n")
+		if v.FLength:GetConnectedOutput() ~= nil then
+			file:write ("connectAttr \""..cam_name.."Shape_focalLength.o\" \""..cam_name.."Shape.fl\";\n")
+		end
+		
+		file:write("//End of"..attrs.COMPS_FileName.."\n")
+	end
+end
+
+
+print("Camera exported to"..savingBox.filePath..savingBox.Filename)

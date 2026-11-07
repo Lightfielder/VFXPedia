@@ -1,0 +1,343 @@
+-- Copyright Christoffer Hulusjö, mrhulan@home.se        --
+-- Modified by Daniel Koch, eyeon Software               --
+-- Modified by Stefan Ihringer, stefan@bildfehler.de     --
+--    to fix tool connections in current Fusion versions --
+
+function CreatePlanes (srcImage, xRow, yRow, formatInp, overlap, jitter, mathmod)
+
+	comp:Lock()	
+	
+	print("Working..\n")
+
+	local numTiles = xRow*yRow
+
+	local mWidth = 1/xRow
+	local mHeight = 1/yRow
+	
+	local xPos = mWidth/2
+	local yPos = 1-mHeight/2
+	local mergeNr = 1
+
+	local cameraX = 0
+	local cameraY = 0
+	local cameraZ = formatInp
+
+	local cMerge3D, cCamera3D, cLoader, cBG
+	local cBC1, cBC2, cCrop, cLast, cImagePlane
+	
+	local typeSlice = (typeRadio.value.title == "Slices")
+	
+	cMerge3D = comp:AddTool("Merge3D",15, numTiles/2+2)  
+	
+	cCamera3D = comp:AddTool("Camera3D",16, numTiles/2-1)
+	cLoader = comp:AddTool("Loader", 1,1)
+	cLoader.Clip = srcImage
+
+	comp:Unlock()
+	
+	local xPix, yPix = 1,1
+	local img = cLoader.Output:GetValue(comp.CurrentTime)
+	if img then
+		xPix = img.OriginalWidth
+		yPix = img.OriginalHeight
+	else
+		btn_file.BGCOLOR = "255 100 100"
+		return
+	end
+
+	comp:Lock()	
+
+	cCamera3D.Transform3DOp.Translate.X = cameraX
+	cCamera3D.Transform3DOp.Translate.Y = cameraY
+	cCamera3D.Transform3DOp.Translate.Z = cameraZ
+
+	if typeSlice then
+		cBG = comp:AddTool("Background", 1,5)
+		cBG.Type = "Gradient"
+		cBG.GradientType = "Radial"
+		cBG.Start = {0.5, 0.5}
+		cBG.End   = {1.2, 0.5}
+		cBG.Width  = xPix
+		cBG.Height = yPix
+	else
+	end
+	
+	if formatInp == 3.62 then
+		cCamera3D.FilmGate = "HD"
+	end
+
+	local limitstep = 1 / numTiles
+	local limit = 1
+	local xPos
+	local yPos = mHeight/2
+	local xSize = math.ceil(xPix * (mWidth  + overlap) + 0.5)
+	local ySize = math.ceil(yPix * (mHeight + overlap) + 0.5)
+	local aspect = yPix / xPix
+	
+	for j = 1, yRow  do
+
+		xPos = mWidth/2
+
+		for i = 1, xRow do
+
+			if typeSlice then
+				cBC1 = comp:AddTool("BrightnessContrast",7,mergeNr+2)
+				cBC1.Gain = 0
+				cBC1.Alpha = 1
+				cBC1.MaskChannel = 0
+				cBC1.MaskLow = math.min(limit + overlap / 2, 1)
+				cBC1.MaskHigh = math.min(limit + overlap / 2, 1)
+				cBC1.Input = cLoader.Output
+				cBC1.EffectMask = cBG.Output
+
+				limit = limit - limitstep
+				
+				cBC2 = comp:AddTool("BrightnessContrast",8,mergeNr+2)
+				cBC2.Gain = 0
+				cBC2.Alpha = 1
+				cBC2.ApplyMaskInverted = 1
+				cBC2.MaskChannel = 0
+				cBC2.MaskLow = math.max(limit - overlap / 2, 0)
+				cBC2.MaskHigh = math.max(limit - overlap / 2, 0)
+				cBC2.Input = cBC1.Output
+				cBC2.EffectMask = cBG.Output
+				
+				cLast = cBC2
+			else
+				cCrop = comp:AddTool("Crop",8,mergeNr+2)
+				cCrop.XSize = xSize
+				cCrop.YSize = ySize
+				cCrop.XOffset = math.floor(xPos * xPix - xSize * 0.5 + 0.5)
+				cCrop.YOffset = math.floor(yPos * yPix - ySize * 0.5 + 0.5)
+				
+				cCrop.Input = cLoader
+				
+				cLast = cCrop
+			end
+
+			cImagePlane = comp:AddTool("ImagePlane3D",9,mergeNr+2)
+
+			cImagePlane.SurfacePlaneInputs.SubdivisionWidth = 1		-- efficiency
+
+			cImagePlane.Transform3DOp.Pivot.X = cameraX
+			cImagePlane.Transform3DOp.Pivot.Y = cameraY
+			cImagePlane.Transform3DOp.Pivot.Z = cameraZ
+
+			local offset = mathmod(i, jitter)
+
+			if typeSlice then
+				cImagePlane.Transform3DOp.Scale.X = offset
+			else
+				cImagePlane.Transform3DOp.ScaleLock = 0
+				cImagePlane.Transform3DOp.Scale.X = offset * (mWidth + overlap)
+				cImagePlane.Transform3DOp.Scale.Y = offset * (mWidth + overlap)
+				cImagePlane.Transform3DOp.Scale.Z = offset
+
+				cImagePlane.Transform3DOp.Translate.X = (xPos - 0.5) * offset
+				cImagePlane.Transform3DOp.Translate.Y = (yPos - 0.5) * offset * aspect
+			end
+
+			-- fixed 2011-11-02: Fusion 6+ has "MaterialInput" instead
+			if cImagePlane.Input ~= nil then
+				cImagePlane.Input = cLast.Output
+			else
+				cImagePlane.MaterialInput = cLast.Output
+			end
+					
+			xRowut = cMerge3D:FindMainInput(mergeNr)
+			xRowut:ConnectTo(cImagePlane.Output)
+			
+			mergeNr = mergeNr + 1
+			
+			progressBar.value = (mergeNr-1)/numTiles
+
+			xPos = xPos + mWidth
+		end
+
+		yPos = yPos + mHeight
+		print("created: "..(mergeNr-1).." planes of total: ".. numTiles )
+
+	end
+
+	local xInput = cMerge3D:FindMainInput(mergeNr)
+	xInput:ConnectTo(cCamera3D.Output)
+	
+	local cRenderer3D = comp:AddTool("Renderer3D",17, numTiles/2+2)
+
+	-- fixed 2011-11-02: Fusion 6+ has "SceneInput" instead
+	if cRenderer3D.Data3D ~= nil then
+		cRenderer3D.Data3D = cMerge3D
+	else
+		cRenderer3D.SceneInput = cMerge3D
+	end
+
+	local getSize = cLoader:GetAttrs()
+	cRenderer3D.Width = getSize.TOOLIT_Clip_Width[1]
+	cRenderer3D.Height = getSize.TOOLIT_Clip_Height[1]
+
+	composition:SetAttrs({COMPB_HiQ = false, COMPB_Proxy = false})
+	
+	comp:Unlock()
+
+	print("\nFinished!")
+
+
+end
+
+
+----------------------------   user         ----------------------------------
+----------------------------     interface  ----------------------------------
+
+
+buttonBGColors = "230 230 230"
+buttonFGColors = "0  0  0"
+
+
+function xButtonpress(self, val)
+  lbl_x.title= math.ceil(val)
+  return iup.DEFAULT
+end
+
+function xButtonrelease(self, val)
+  lbl_x.title= math.ceil(val)
+  return iup.DEFAULT
+end
+
+function xMousemove(self, val)
+   lbl_x.title= math.ceil(val)
+   return iup.DEFAULT
+end
+
+function yButtonpress(self, val)
+   lbl_y.title = math.ceil(val)
+  return iup.DEFAULT
+end
+
+function yButtonrelease(self, val)
+  lbl_y.title = math.ceil(val)
+  return iup.DEFAULT
+end
+
+function yMousemove(self, val)
+   lbl_y.title = math.ceil(val)
+   return iup.DEFAULT
+end
+
+val_x = iup.val{"HORIZONTAL"; min=1, max=20, VALUE=9, mousemove_cb=xMousemove, button_press_cb=xButtonpress, button_release_cb=xButtonrelease}
+lbl_x = iup.label{title = math.ceil(val_x.value), size=20, type="1"}
+
+val_y = iup.val{"HORIZONTAL"; min=1, max=20, VALUE=5, mousemove_cb=yMousemove, button_press_cb=yButtonpress, button_release_cb=yButtonrelease}
+lbl_y = iup.label{title = math.ceil( val_y.value), size=20, type="1"}
+   
+xPlaneLabel = iup.label{title = "X planes", SIZE="51x16",FGCOLOR="0 0 0",BGCOLOR="255 255 255" }
+yPlaneLabel = iup.label{title = "Y planes", SIZE="51x16",FGCOLOR="0 0 0",BGCOLOR="255 255 255" }
+rectBox = iup.vbox{iup.hbox{xPlaneLabel, val_x, lbl_x}, iup.hbox{yPlaneLabel, val_y, lbl_y } }
+
+xyOverlapLabel = iup.label{title = "Overlap", SIZE="51x16",FGCOLOR="0 0 0",BGCOLOR="255 255 255" }
+xyOverlap = iup.text{size="35x13",value="0.000"}
+
+sRandomLabel = iup.label{title = "Rand-jitter", SIZE="51x16",FGCOLOR="0 0 0",BGCOLOR="255 255 255" }
+sRandom = iup.text{size="35x13",value="0.5"}
+
+dropDown = iup.list{"16:9","4:3","custom"; DROPDOWN="YES", EXPAND="YES", VALUE="1"}
+labelDrop = iup.label{title = "Camera format", SIZE="100x13",FGCOLOR="0 0 0",BGCOLOR="255 255 255"}
+
+customFormat = iup.text{size="40x13",value=""}
+labelCustom = iup.label{title = "Custom (16:9 = 3.62)", SIZE="120x13",FGCOLOR="0 0 0",BGCOLOR="255 255 255"}
+
+filedlg = iup.filedlg{dialogtype = "OPEN", title = "Choose file", EXTFILTER="Image/Sequence supported by Fusion|*.*" } 
+
+btn_file = iup.button{ title = "Choose file", size="161x12", FLAT="YES", BGCOLOR=buttonBGColors, FGCOLOR = buttonFGColors}
+btn_start = iup.button{ title = "Start", size="80x12", FLAT="YES", BGCOLOR=buttonBGColors, FGCOLOR = buttonFGColors}
+btn_cancel = iup.button{ title = "Cancel", size="80x12", FLAT="YES", BGCOLOR=buttonBGColors, FGCOLOR = buttonFGColors}
+
+progressBar = iup.gauge{SIZE="165x16"}
+progressBar.show_text = "YES"
+
+
+uRandom = iup.toggle{title="Rand (xy)"}
+uCos = iup.toggle{title="Cos (x)"}
+uLog = iup.toggle{title="Log (x)"}
+
+modifier = iup.radio { iup.hbox { uRandom, uCos, uLog }; value=uRandom, GAP="15"}
+
+uRects = iup.toggle{title="Rects"}
+uSlices = iup.toggle{title="Slices"}
+
+typeRadio = iup.radio { iup.hbox { uRects, uSlices }; value=uRects, GAP="15"}
+
+function uRects:action()
+	xPlaneLabel.title = "X planes"
+	yPlaneLabel.visible = "YES"
+	val_y.visible = "YES"
+	lbl_y.visible = "YES"
+end
+
+function uSlices:action()
+	xPlaneLabel.title = "Slices"
+	yPlaneLabel.visible = "NO"
+	val_y.visible = "NO"
+	lbl_y.visible = "NO"
+end
+
+function btn_file:action()
+	filedlg:popup (iup.ANYWHERE, iup.ANYWHERE)
+
+	if filedlg.value == nil then
+    	btn_file.BGCOLOR = "255 100 100"
+	
+	else
+		btn_file.BGCOLOR = "100 255 100"
+	end
+end
+
+function btn_start:action()
+
+    frameF = 0
+
+	if filedlg.value == nil then
+    	btn_file.BGCOLOR = "255 100 100"
+
+	else
+		local frameF, mathmod
+
+
+		if dropDown.value == "1" then
+			frameF = 3.62
+		elseif dropDown.value == "2" then
+			frameF = 1.8549
+		elseif dropDown.value == "3" then
+			frameF = customFormat.value
+		end
+
+		if modifier.value.title == "Rand (xy)" then
+			mathmod = function(i, jitter) return 1 + (((math.random(1, 100)/50)-0.6) * jitter) end
+		elseif modifier.value.title == "Cos (x)" then
+			mathmod = function(i, jitter) return (math.cos(i/2.5)/25) + 1 end
+		elseif modifier.value.title == "Log (x)" then
+			mathmod = function(i, jitter) return (math.log(i)/5) + 1 end
+		end
+
+		if typeRadio.value.title == "Slices" then
+			lbl_y.title = 1
+		end
+	
+		CreatePlanes(filedlg.value, lbl_x.title, lbl_y.title, frameF, xyOverlap.value, sRandom.value, mathmod)
+	end
+end
+
+function btn_cancel:action()
+	dlg:destroy()
+	exit(10)
+end
+
+dlg = iup.dialog{ 	iup.vbox{
+						iup.frame { iup.vbox{ btn_file , iup.hbox{labelDrop, dropDown},iup.hbox{labelCustom, customFormat} ; ALIGNMENT = "ACENTER"}; TITLE = "Image", MARGIN="5x3", GAP="2"},
+						iup.frame { iup.vbox{ typeRadio, rectBox, iup.hbox{xyOverlapLabel, xyOverlap; GAP="100"} , iup.hbox{modifier}, iup.hbox{sRandomLabel, sRandom; GAP="100"}; MARGIN="3x3", GAP="0", ALIGNMENT = "ACENTER" }; TITLE="Settings"},
+						iup.frame { iup.hbox { progressBar}; TITLE="Progress"},
+						iup.frame { iup.hbox { btn_start, btn_cancel; MARGIN= "10x5", GAP="4"}; TITLE="Action"}
+					}; title = "HuLaN Plane generator V2", MARGIN= "10x10", TOPMOST = "YES",  BGCOLOR="255 255 255", FGCOLOR = "0 0 0", BORDER = "NO", MINBOX = "NO", MAXBOX = "NO", MENUBOX = "NO", RESIZE = "NO"}
+
+dlg:showxy(iup.CENTER, iup.CENTER)
+iup.MainLoop()
+

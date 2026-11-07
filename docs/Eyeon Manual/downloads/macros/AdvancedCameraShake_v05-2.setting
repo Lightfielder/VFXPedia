@@ -1,0 +1,424 @@
+{
+	Tools = ordered() {
+		AdvancedCameraShake = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Camera Shake tool which gives you more natural effect. Has all the transform controlls you need for correct shaking. This version should be used in Fusion 6.1 build 741 and later\r\n\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Input",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "EffectMask",
+				},
+				OverallMagnitude = InstanceInput {
+					SourceOp = "Expression",
+					Source = "n1",
+					Name = "Overall Magnitude",
+					Default = 0.5,
+				},
+				XShakeMagnitude = InstanceInput {
+					SourceOp = "Expression",
+					Source = "n3",
+					Name = "X Shake Magnitude",
+					Default = 1,
+				},
+				YShakeMagnitude = InstanceInput {
+					SourceOp = "Expression",
+					Source = "n4",
+					Name = "Y Shake Magnitude",
+					Default = 1,
+				},
+				PrimRandomize = InstanceInput {
+					SourceOp = "Shake1",
+					Source = "Randomize",
+				},
+				PrimRandomSeed = InstanceInput {
+					SourceOp = "Shake1",
+					Source = "RandomSeed",
+					Name = "Primary Shake Random Seed",
+					Default = 0,
+				},
+				PrimSmoothness = InstanceInput {
+					SourceOp = "Shake1",
+					Source = "Smoothness",
+					Name = "Primary Shake Smoothness",
+					Default = 0.5,
+				},
+				PrimModMax = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "PrimModMax",
+					Name = "Shake Modulation Max",
+					ControlGroup = 4,
+				},
+				PrimModMin = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "PrimModMin",
+					Name = "Shake Modulation Min",
+					ControlGroup = 4,
+				},
+				ModRandomize = InstanceInput {
+					SourceOp = "Shake2",
+					Source = "Randomize",
+				},
+				ModRandomSeed = InstanceInput {
+					SourceOp = "Shake2",
+					Source = "RandomSeed",
+					Name = "Modulation Random Seed",
+					Default = 0,
+				},
+				ModSmoothness = InstanceInput {
+					SourceOp = "Shake2",
+					Source = "Smoothness",
+					Name = "Modulation Smoothness",
+					Default = 5,
+				},
+				PerformAutomaticUpscaling = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "PerformAutomaticUpscaling",
+				},
+				FlipHoriz = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "FlipHoriz",
+					Name = "Flip Horizontally",
+					Page = "Transform",
+				},
+				FlipVert = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "FlipVert",
+					Name = "Flip Vertically",
+					Default = 0,
+				},
+				Edges = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Edges",
+					Default = 0,
+				},
+				Center = InstanceInput {
+					SourceOp = "Expression",
+					Source = "p2",
+					Name = "Center",
+				},
+				Pivot = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Pivot",
+				},
+				UseSizeAndAspect = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "UseSizeAndAspect",
+					Default = 1,
+				},
+				Size = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "SizeTransform",
+					Name = "Size",
+					Default = 1.0,
+				},
+				Aspect = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Aspect",
+					Default = 1,
+				},
+				XSize = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "XSize",
+					Default = 1.0,
+				},
+				YSize = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "YSize",
+					Default = 1.0,
+				},
+				Angle = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Angle",
+					Default = 0,
+				},
+				FilterMethod = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "FilterMethod",
+					Default = 2,
+				},
+				WindowMethod = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "WindowMethod",
+					Default = 0,
+				},
+				InvertTransform = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "InvertTransform",
+				},
+				FlattenTransform = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "FlattenTransform",
+				},
+				Blend = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+				},
+				Red = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				Green = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				Blue = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				Alpha = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ProcessAlpha",
+					Name = "Alpha",
+					Default = 1,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "MaskHigh",
+					ControlGroup = 29,
+					Default = 1,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "MaskLow",
+					ControlGroup = 29,
+					Default = 0,
+				},
+				MotionBlur = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "MotionBlur",
+					Default = 1,
+				},
+				Quality = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "Quality",
+					Default = 3,
+				},
+				ShutterAngle = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "ShutterAngle",
+					Default = 90,
+				},
+				CenterBias = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "CenterBias",
+					Default = 0,
+				},
+				SampleSpread = InstanceInput {
+					SourceOp = "Xf_Shake",
+					Source = "SampleSpread",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Xf_Shake",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "Advanced Camera Shake",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Xf_Shake = Transform {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						MotionBlur = Input {
+							Value = 1,
+						},
+						Center = Input {
+							SourceOp = "Expression",
+							Source = "PointResult",
+						},
+						Size = Input {
+							Expression = "SizeTransform*iif(PerformAutomaticUpscaling==1,SizeCompensation,1)",
+						},
+						SizeCompensation = Input {
+							Expression = "(math.abs(0.05*Expression.n1*Expression.n9*max(Expression.n3, Expression.n4*Expression.n5))+0.5)/0.5",
+						},
+					},
+			UserControls = ordered() {
+						PrimModMax = {
+							IC_ControlGroup = 3,
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+							LINKS_Name = "Modulation Maximum",
+						},
+						PrimModMin = {
+							LINKS_Name = "Modulation Minimum",
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							IC_ControlGroup = 3,
+						},
+						SizeTransform = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_MaxScale = 5,
+							IC_ControlPage = 0,
+							LINKS_Name = "Size Transform",
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+						SizeCompensation = {
+							ICD_Center = 1,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							LINKS_Name = "Size Compensation",
+							INP_MaxScale = 5,
+							INP_Default = 1,
+						},
+						PerformAutomaticUpscaling = {
+							LINKS_Name = "Perform Automatic Upscaling",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 1,
+						},
+			},
+					Colors = {
+						TileColor = { R = 0.552941176470588, G = 0.356862745098039, B = 0.376470588235294, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Expression = Expression {
+					CtrlWZoom = false,
+					Inputs = {
+						p1 = Input {
+							SourceOp = "Shake1",
+							Source = "Position",
+						},
+						n1 = Input {
+							Value = 0.5,
+						},
+						n2 = Input {
+							SourceOp = "Shake2",
+							Source = "X",
+						},
+						n3 = Input {
+							Value = 1,
+						},
+						n4 = Input {
+							Value = 1,
+						},
+						n5 = Input {
+							Value = 1.333333,
+							Expression = "Xf_Shake.Input.Width*Xf_Shake.Input.XScale/Xf_Shake.Input.Height/Xf_Shake.Input.YScale",
+						},
+						n9 = Input {
+							Value = 1,
+							Expression = "Xf_Shake.PrimModMax",
+						},
+						PointExpressionX = Input {
+							Value = "p1x*n1*n2*n3+p2x",
+						},
+						PointExpressionY = Input {
+							Value = "p1y*n1*n2*n4*n5+p2y",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Overall Magnitude",
+						},
+						NameforNumber2 = Input {
+							Value = "Secondary Shake (Modulator)",
+						},
+						NameforNumber3 = Input {
+							Value = "X Shake Magnitude",
+						},
+						NameforNumber4 = Input {
+							Value = "Y Shake Magnitude",
+						},
+						NameforNumber5 = Input {
+							Value = "Image Aspect",
+						},
+						NameforNumber9 = Input {
+							Value = "Shake Modulation Maximum",
+						},
+						PointControls = Input {
+							Value = 1,
+						},
+						NameforPoint1 = Input {
+							Value = "Shake",
+						},
+						NameforPoint2 = Input {
+							Value = "Offset",
+						},
+					},
+				},
+				Shake1 = Shake {
+					CtrlWZoom = false,
+					Inputs = {
+						Smoothness = Input {
+							Value = 0.5,
+						},
+						XMinimum = Input {
+							Value = -0.05,
+						},
+						XMaximum = Input {
+							Value = 0.05,
+						},
+					},
+				},
+				Shake2 = Shake {
+					CtrlWZoom = false,
+					Inputs = {
+						Smoothness = Input {
+							Value = 5,
+						},
+						XMinimum = Input {
+							Expression = "Xf_Shake.PrimModMin",
+						},
+						XMaximum = Input {
+							Expression = "Xf_Shake.PrimModMax",
+						},
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.56078431372549, G = 0.364705882352941, B = 0.384313725490196, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

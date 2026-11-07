@@ -1,0 +1,393 @@
+{
+	Tools = ordered() {
+		P_N_Light_Picker11 = MacroOperator {
+			Inputs = ordered() {
+			Comments = Input {
+				Value = "Use on a normal pass or a position pass in the RGB Channels to relight\nPlease unpremultiply and or normalize your data before if necessary \nAlphaInput post multiplies by given alpha \r\n\r\nby Johannes for SR 2010",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Picker",
+					Source = "TopLeftRed",
+					Name = "Color",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Picker",
+					Source = "TopLeftGreen",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Picker",
+					Source = "TopLeftBlue",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "ChannelBooleans3",
+					Source = "Background",
+					Name = "Input",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "ChannelBooleans3",
+					Source = "Foreground",
+					Name = "Alpha",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "NumberIn4",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "NumberIn5",
+				},
+				Input7 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls"
+				},
+				Input8 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ProcessWhenBlendIs00",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ProcessAlpha",
+					Name = "Alpha",
+					Default = 1,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "FitMask",
+				},
+				Input16 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MaskHigh",
+					ControlGroup = 17,
+					Default = 1,
+				},
+				Input18 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MaskLow",
+					ControlGroup = 17,
+					Default = 0,
+				},
+				Input19 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MaskClipBlack",
+					Default = 1,
+				},
+				Input20 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MaskClipWhite",
+					Default = 1,
+				},
+				Input21 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "UseObject",
+					Default = 0,
+				},
+				Input22 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "UseMaterial",
+					Default = 0,
+				},
+				Input23 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "CorrectEdges",
+				},
+				Input24 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ObjectID",
+					Name = "Object / Material",
+					ControlGroup = 23,
+					Default = 0,
+				},
+				Input25 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MaterialID",
+					Name = "Object / Material",
+					ControlGroup = 23,
+					Default = 0,
+				},
+				Input26 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "MotionBlur",
+					Default = 0,
+				},
+				Input27 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "Quality",
+					Default = 2,
+				},
+				Input28 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "ShutterAngle",
+					Default = 180,
+				},
+				Input29 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "CenterBias",
+					Default = 0,
+				},
+				Input30 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "SampleSpread",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "P_N_Light_Picker",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "P_N_Light_Picker1",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Picker = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1960,
+						},
+						Height = Input {
+							Value = 817,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, -1501.5, },
+					},
+				},
+				ChannelBooleans3 = ChannelBoolean {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 330, -1468.5, },
+					},
+				},
+				P_N_Light_Picker = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Expression = "Picker.TopLeftRed",
+						},
+						NumberIn2 = Input {
+							Expression = "Picker.TopLeftGreen",
+						},
+						NumberIn3 = Input {
+							Expression = "Picker.TopLeftBlue",
+						},
+						NumberIn5 = Input {
+							Value = 1,
+						},
+						LUTIn1 = Input {
+							SourceOp = "P_N_Light_PickerLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "P_N_Light_PickerLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "P_N_Light_PickerLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "P_N_Light_PickerLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input {
+							Value = "sqrt((r1-n1)*(r1-n1)+(g1-n2)*(g1-n2)+(b1-n3)*(b1-n3))",
+						},
+						Intermediate2 = Input {
+							Value = "1/(n5-n4)",
+						},
+						RedExpression = Input {
+							Value = "r1",
+						},
+						GreenExpression = Input {
+							Value = "g1",
+						},
+						BlueExpression = Input {
+							Value = "b1",
+						},
+						AlphaExpression = Input {
+							Value = "max(min(1 - i2 *( i1 - n4),1),0)*a1",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "X_Position",
+						},
+						NameforNumber2 = Input {
+							Value = "Y_Position",
+						},
+						NameforNumber3 = Input {
+							Value = "Z_Position",
+						},
+						NameforNumber4 = Input {
+							Value = "Light Intensity",
+						},
+						NameforNumber5 = Input {
+							Value = "Light Size",
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						LUTControls = Input {
+							Value = 1,
+						},
+						ShowLUT1 = Input {
+							Value = 0,
+						},
+						ShowLUT2 = Input {
+							Value = 0,
+						},
+						ShowLUT3 = Input {
+							Value = 0,
+						},
+						ShowLUT4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "ChannelBooleans3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 220, -1468.5, },
+					},
+				},
+				P_N_Light_PickerLUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+				},
+				P_N_Light_PickerLUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+				},
+				P_N_Light_PickerLUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+				},
+				P_N_Light_PickerLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+			},
+		},
+	},
+	ActiveTool = "P_N_Light_Picker11",
+}

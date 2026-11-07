@@ -1,0 +1,139 @@
+----------------------------------------------------------------------------------
+-- Update Render Location
+--
+-- Modified: 2007/01/05
+-- by Stefan Ihringer <stefan {@} bildfehler.de>
+--
+-- In a workflow where the rendered output has to be named like the composition
+-- itself (e.g. "Shot_V04.0000.cin" for the composition "Shot_V04"),
+-- savers have to be updated whenever the comp is saved under a new file name.
+-- This script is a tool script for saver nodes and will update the saver's
+-- path so that it matches the comp name. It also takes into account sitations
+-- where rendered image sequences are to be put into subfolders of the same
+-- name (e.g. \Renders\Shot_V04\Shot_V04.0000.cin), and it will try to create
+-- directories on your file system.
+--
+-- This script could be a comp script and integrated into the "Save New Version"
+-- script, but as a tool script there's no need to be extra smart in handling exceptions.
+--
+-- The script has been tested and works for me but since I have no idea what
+-- naming conventions are used in your workflow, don't blame me if it eats your
+-- comps (read: no warranty).
+----------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+-- FUNCTION direxists()
+--
+-- checks wether a directory exists
+------------------------------------------------------------------------------
+function direxists(dir)
+	local lastChar = string.sub(dir, -1, -1)
+	
+	-- get rid of trailing \ in path
+	if (lastChar == "\\") or (lastChar == "/") then
+		dir = string.sub(dir, 1, -2)
+	end
+	
+	local res = readdir(dir)
+	if res and res[1] then
+		return res[1].IsDir
+	else
+		return false
+	end
+end
+
+
+-------------------------------------------------------------------------------
+-- MAIN BODY
+-------------------------------------------------------------------------------
+
+if not tool then
+	print("Error: This script must be run as a Tool Script.")
+	return
+end
+
+if tool:GetAttrs().TOOLS_RegID ~= "Saver" then
+	local err  = "This script can only be run on a Saver tool."
+	comp:AskUser("Error", {{"", "Text", ReadOnly=true, Default=err, Wrap=true, Lines=1}})
+	return
+end
+
+-- get new base name (=name of comp without extension)
+
+if comp:GetAttrs().COMPS_FileName == "" then
+	local err  = "The composition has not been saved yet."
+	comp:AskUser("Error", {{"", "Text", ReadOnly=true, Default=err, Wrap=true, Lines=1}})
+	return
+end
+
+baseName = eyeon.parseFilename(comp:GetAttrs().COMPS_FileName).Name
+
+-- get saver's output location
+
+output_old = tool.Clip[TIME_UNDEFINED]
+if output_old == "" then
+	local err  = "This script can only update the render location if an output filename has already been specified."
+	comp:AskUser("Error", {{"", "Text", ReadOnly=true, Default=err, Wrap=true, Lines=2}})
+	return
+end
+pf = eyeon.parseFilename(output_old)
+
+-- get current file name w/o sequence numbers (distinguish between movie files and image sequences!)
+
+isMovie = false
+if pf.Extension == ".mov" or pf.Extension == ".avi" then
+	isMovie = true
+	fileName = pf.Name
+	extraChars = ""
+else
+	fileName = pf.CleanName
+	extraChars = ""
+	-- strip some characters ("extraChars") that might be found between file name and sequence number
+	c = string.sub(fileName, string.len(fileName), string.len(fileName))
+	while c == "." or c == "_" or c == "-" do
+		extraChars = c..extraChars
+		fileName = string.sub(fileName, 1, string.len(fileName)-1)
+		c = string.sub(fileName, string.len(fileName), string.len(fileName))
+	end
+end
+
+if fileName == baseName then
+	print(tool:GetAttrs().TOOLS_Name..": render location is already up to date. Nothing to do.")
+	return
+else
+	-- if the output clip is saved in a subdirectory of the same base name, a new
+	-- directory will have to be created!
+
+	findStart, findEnd = string.find(string.lower(pf.Path),string.lower(fileName));
+	if findStart ~= nil then
+		pf.Path = string.sub(pf.Path,1,findStart-1)..baseName..string.sub(pf.Path,findEnd+1)
+
+		-- try to create this directory. If it fails, abort the script.
+		-- stolen and improved from "Archive Composition.eyeonscript"
+
+		createdir(pf.Path);
+		if not direxists(pf.Path) then
+			local err = "Could not create new output directory "..pf.Path
+			comp:AskUser("Error", {{"", "Text", ReadOnly=true, Default=err, Wrap=true, Lines=5}})
+			return
+		end	
+	end
+
+	-- set new name for output clip, keeping sequence info
+	-- dot at the end has to be added again
+	if isMovie then
+		output_new = pf.Path..baseName..pf.Extension
+
+	else
+		output_new = pf.Path..baseName..extraChars..pf.SNum..pf.Extension
+	end
+
+	composition:StartUndo("Update Render Location")
+	tool.Clip[TIME_UNDEFINED] = output_new
+	composition:EndUndo(true)
+
+	print("\nUpdate Render Location successful for "..tool:GetAttrs().TOOLS_Name)
+	print("old output: "..output_old)
+	print("new output: "..output_new)
+	print();
+end

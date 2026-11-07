@@ -1,0 +1,51 @@
+------------------------------------------------------------
+-- Check for and delete unconnected loaders 
+--
+--
+-- 
+--
+-- place in Fusion:\Scripts\Comp 
+--
+-- written by Eric Westphal (Eric@SirEdric.de)
+-- Thanks to Isaac Guenard and Peter Loveday from eyeon.
+-- created : March 23rd, 2007
+------------------------------------------------------------
+
+print("Checking for Loaders....this might take a moment or two")
+MyOrphans={}
+MyList="Orphaned Loaders: \n"
+
+	for i, v in composition:GetToolList() do
+		id = v:GetAttrs().TOOLS_RegID
+
+		if id == "Loader" then
+			inps = v.Output:GetConnectedInputs()
+			if #inps == 0 then
+				MyName=v:GetAttrs().TOOLS_Name
+				print(MyName.." has no connected output. Marked for deletion")
+				v.Comments = "NoOutput"
+				table.insert(MyOrphans, v)
+				MyList=MyList..MyName.."\n"
+			end
+			
+		end
+	end
+
+
+
+
+ret = AskUser("Orphaned loaders found.", {
+	{"msg", Name="On selecting OK these Loaders will be deleted", "Text", Default=MyList, Wrap=true, Lines=10, ReadOnly=true}
+	})
+
+if ret then
+	composition:StartUndo("Delete orphaned Loaders")
+		for i, v in MyOrphans do
+			MyDel=MyOrphans[i]
+			print()
+			print("Deleting Loader ".. MyDel)
+			MyDel:Delete()
+			print("---------------------------------------------------")
+		end
+	composition:EndUndo(true)
+end

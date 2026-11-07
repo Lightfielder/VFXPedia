@@ -1,0 +1,58 @@
+{
+	Tools = ordered() {
+		Text2 = TextPlus {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1556,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input {
+					Disabled = true,
+				},
+				DPTType = Input {
+					Disabled = true,
+				},
+				DPTResolution = Input {
+					Disabled = true,
+				},
+				FrameRenderScript = Input {
+					Value = "index = math.floor(time / interval) + 1\r\n\r\nif index > num_lines then\r\n  index = num_lines\r\nend\r\n\r\nStyledText = t[index]",
+				},
+				StartEndRenderScripts = Input {
+					Value = 1,
+				},
+				StartRenderScript = Input {
+					Value = "f = [[Z:\\title.txt]]\r\ninterval = 2\r\nt = {}\r\n\r\nfor l in io.lines(f) do\r\n  table.insert(t, l)\r\nend\r\n\r\nnum_lines = table.getn(t)",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 707, 195, },
+			},
+		},
+	},
+}

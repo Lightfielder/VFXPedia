@@ -1,0 +1,1003 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 1000, },
+	GlobalRange = { 0, 1000, },
+	CurrentID = 124,
+	Version = "Fusion 6.1 build 697",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = true,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		FilmGrainExample = Note {
+			NameSet = true,
+			Inputs = {
+				Comments = Input {
+					Value = "Connect the output of the FilmGrain tool to the \"mix image\" input of the ImageMixer and the tool before FilmGrain to the backround  input.\r\n\r\nIn this example, the red grain is reduced in the midtones and the blue grain is reduced in the shadows and highlights.",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 385, -148.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 286.779, 183.191, },
+			},
+		},
+		ScannedGrainExample = Note {
+			NameSet = true,
+			Inputs = {
+				Comments = Input {
+					Value = "This is an example setup for grain or CCD noise that has been scanned/recorded on a gray card, oscillating around 0.5 (The use of the grain tool is just a placeholder).\r\n\r\nAdd it using the channel boolean set to \"signed add\" and adjust the strength in the shadows, midtones and highlights using the ImageMixer.",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1210, -148.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 286.779, 183.191, },
+			},
+		},
+		Background1_1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 768,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				Depth = Input {
+					Value = 3,
+				},
+				Type = Input {
+					Value = FuID { "Horizontal", },
+				},
+				TopRightRed = Input {
+					Value = 1,
+				},
+				TopRightGreen = Input {
+					Value = 1,
+				},
+				TopRightBlue = Input {
+					Value = 1,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 880, 148.5, },
+			},
+		},
+		GrayCard = Background {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 768,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				Depth = Input {
+					Value = 3,
+				},
+				TopLeftRed = Input {
+					Value = 0.5,
+				},
+				TopLeftGreen = Input {
+					Value = 0.5,
+				},
+				TopLeftBlue = Input {
+					Value = 0.5,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, -82.5, },
+			},
+		},
+		SomeNoise = Grain {
+			NameSet = true,
+			Inputs = {
+				Power = Input {
+					Value = 2.408377,
+				},
+				RedDifference = Input {
+					Value = 0.9947644,
+				},
+				GreenDifference = Input {
+					Value = 1.6753927,
+				},
+				BlueDifference = Input {
+					Value = 2.513089,
+				},
+				AspectRatio = Input {
+					Value = 0.25,
+				},
+				Red = Input {
+					SourceOp = "SomeNoiseRed",
+					Source = "Value",
+				},
+				Green = Input {
+					SourceOp = "SomeNoiseGreen",
+					Source = "Value",
+				},
+				Blue = Input {
+					SourceOp = "SomeNoiseBlue",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "GrayCard",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 16.5, },
+			},
+		},
+		SomeNoiseRed = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 1, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		SomeNoiseGreen = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 1, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		SomeNoiseBlue = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 1, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		ScannedGrain = ChannelBoolean {
+			NameSet = true,
+			Inputs = {
+				Operation = Input {
+					Value = 14,
+				},
+				ToAlpha = Input {
+					Value = 4,
+				},
+				Background = Input {
+					SourceOp = "Background1_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "SomeNoise",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 82.5, },
+			},
+		},
+		ImageMixer1_1 = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "Image1",
+					Name = "Input",
+				},
+				MixImage = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "Image2",
+					Name = "Mix Image",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "EditLUTIn1",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "EditLUTIn2",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "EditLUTIn3",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "LUTIn1",
+					ControlGroup = 7,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "LUTIn2",
+					ControlGroup = 7,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "LUTIn3",
+					ControlGroup = 7,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "Blend",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "ProcessWhenBlendIs00",
+					Page = "Common Controls",
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "MaskHigh",
+					ControlGroup = 16,
+					Default = 1,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "MaskLow",
+					ControlGroup = 16,
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "__CT_ImageMixer_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1100, 148.5, },
+			},
+			Tools = ordered() {
+				["__CT_ImageMixer_1"] = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						LUTControlsNest = Input {
+							Value = 1,
+						},
+						LUTIn1 = Input {
+							SourceOp = "__CT_ImageMixer_1Red",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "__CT_ImageMixer_1Green",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "__CT_ImageMixer_1Blue",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "ImageMixerLUTIn4_1",
+							Source = "Value",
+						},
+						RedExpression = Input {
+							Value = "c2 * getlut1(c1) + c1 * (1 - getlut1(c1))",
+						},
+						GreenExpression = Input {
+							Value = "c2 * getlut2(c1) + c1 * (1 - getlut2(c1))",
+						},
+						BlueExpression = Input {
+							Value = "c2 * getlut3(c1) + c1 * (1 - getlut3(c1))",
+						},
+						ShowNumber1 = Input {
+							Value = 0,
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						NameforLUT1 = Input {
+							Value = "Red",
+						},
+						NameforLUT2 = Input {
+							Value = "Green",
+						},
+						NameforLUT3 = Input {
+							Value = "Blue",
+						},
+						ShowLUT4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "Background1_1",
+							Source = "Output",
+						},
+						Image2 = Input {
+							SourceOp = "ScannedGrain",
+							Source = "Output",
+						},
+						Comments = Input {
+							Value = "Mix a foreground image into a background using curves. A value of 1 will indicate 100% mix image, 0 means 100% background image.\r\n\r\n",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 10.15, },
+					},
+				},
+				["__CT_ImageMixer_1Red"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.330708661417322, 1, }, Flags = { Linear = true, }, },
+							[0.992125984251968] = { 0.270161290322581, LH = { 0.661417322834646, 0.270161290322581, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+					NameSet = true,
+				},
+				["__CT_ImageMixer_1Green"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.330708661417322, 1, }, Flags = { Linear = true, }, },
+							[0.992125984251968] = { 0.270161290322581, LH = { 0.661417322834646, 0.270161290322581, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+					NameSet = true,
+				},
+				["__CT_ImageMixer_1Blue"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.330708661417322, 1, }, Flags = { Linear = true, }, },
+							[0.992125984251968] = { 0.270161290322581, LH = { 0.661417322834646, 0.270161290322581, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+					NameSet = true,
+				},
+				ImageMixerLUTIn4_1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+			},
+		},
+		ImageMixer1 = MacroOperator {
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Image1",
+					Name = "Input",
+				},
+				MixImage = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Image2",
+					Name = "Mix Image",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EditLUTIn1",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EditLUTIn2",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EditLUTIn3",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "LUTIn1",
+					ControlGroup = 7,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "LUTIn2",
+					ControlGroup = 7,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "LUTIn3",
+					ControlGroup = 7,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Blend",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessWhenBlendIs00",
+					Page = "Common Controls",
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MaskHigh",
+					ControlGroup = 16,
+					Default = 1,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "MaskLow",
+					ControlGroup = 16,
+					Default = 0,
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "__CT_ImageMixer",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 495, 148.5, },
+			},
+			Tools = ordered() {
+				["__CT_ImageMixer"] = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						LUTControlsNest = Input {
+							Value = 1,
+						},
+						EditLUTIn1 = Input {
+							Value = 0,
+						},
+						EditLUTIn2 = Input {
+							Value = 0,
+						},
+						LUTIn1 = Input {
+							SourceOp = "__CT_ImageMixerRed",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "__CT_ImageMixerGreen",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "__CT_ImageMixerBlue",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "ImageMixerLUTIn4",
+							Source = "Value",
+						},
+						RedExpression = Input {
+							Value = "c2 * getlut1(c1) + c1 * (1 - getlut1(c1))",
+						},
+						GreenExpression = Input {
+							Value = "c2 * getlut2(c1) + c1 * (1 - getlut2(c1))",
+						},
+						BlueExpression = Input {
+							Value = "c2 * getlut3(c1) + c1 * (1 - getlut3(c1))",
+						},
+						ShowNumber1 = Input {
+							Value = 0,
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						NameforLUT1 = Input {
+							Value = "Red",
+						},
+						NameforLUT2 = Input {
+							Value = "Green",
+						},
+						NameforLUT3 = Input {
+							Value = "Blue",
+						},
+						ShowLUT4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Image2 = Input {
+							SourceOp = "FilmGrain1",
+							Source = "Output",
+						},
+						Comments = Input {
+							Value = "Mix a foreground image into a background using curves. A value of 1 will indicate 100% mix image, 0 means 100% background image.\r\n\r\n",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 10.15, },
+					},
+				},
+				["__CT_ImageMixerRed"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.170603674540682, 1, }, Flags = { Linear = true, }, },
+							[0.511811023622047] = { 0.169354838709677, LH = { 0.341207349081365, 0.169354838709677, }, RH = { 0.674540682414698, 0.169354838709677, }, },
+							[1] = { 1, LH = { 0.837270341207349, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+				},
+				["__CT_ImageMixerGreen"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333333333333333, 1, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+				},
+				["__CT_ImageMixerBlue"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0.125, RH = { 0.167979002624672, 0.125, }, Flags = { Linear = true, }, },
+							[0.503937007874016] = { 1, LH = { 0.335958005249344, 1, }, RH = { 0.663740157480315, 1, }, },
+							[0.988188976377953] = { 0.149193548387097, LH = { 0.828385826771654, 0.149193548387097, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+				},
+				ImageMixerLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+			},
+		},
+		Background1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 768,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				Depth = Input {
+					Value = 3,
+				},
+				Type = Input {
+					Value = FuID { "Horizontal", },
+				},
+				TopRightRed = Input {
+					Value = 1,
+				},
+				TopRightGreen = Input {
+					Value = 1,
+				},
+				TopRightBlue = Input {
+					Value = 1,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 148.5, },
+			},
+		},
+		FilmGrain1 = FilmGrain {
+			Inputs = {
+				LogProcessing = Input {
+					Value = 0,
+				},
+				Monochrome = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, 82.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1379,
+			Height = 623,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							AutoHideNavigator = true,
+							ForceSource = true,
+							GridSnap = true,
+							AutoSnap = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.771105,
+						Offset = { -72.9592, 262.313, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+						ActiveUtility = "LuaScriptConsole",
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 415, },
+							ScaleX = 0.882117080994387,
+							OffsetX = -51.1627906976745,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.00347222222222222,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					Chat = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.823880597014925,
+					RatioY = 102.444685466377,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.470524017467249,
+						{ ID = "Left", RatioX = 0.498184458968773, RatioY = 107.749419953596, Pop = true, },
+						{ ID = "Right", RatioX = 0.501815541031227, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.470524017467249, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Splines = {
+				TrackerPath = "XYPath",
+			},
+			AutoSave = {
+				Delay = 180,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						ScaleMode = 1,
+						Channel = 4294967295,
+					},
+					Waveform = {
+						Mode = 1,
+					},
+					SubView = {
+						Enabled = false,
+						Navigator = false,
+						ID = "GLWaveformViewer",
+						Magnifier = false,
+					},
+				},
+				Left = {
+					Viewer = {
+						EnableLUTs = false,
+						LUTPlugin = "ViewLUTMacro.Gamma22",
+						Channel = 4294967295,
+						LUTSelected = "Gamma22",
+						CheckerUnderlay = true,
+						ScaleMode = 1,
+						Smooth = false,
+					},
+					SubView = {
+						Enabled = false,
+						Navigator = false,
+						Magnifier = false,
+						ID = "GLWaveformViewer",
+						Viewer = {
+							Channel = 0,
+						},
+						Waveform = {
+							Mode = 1,
+						},
+					},
+					CheckerUnderlay = false,
+					ViewLUT = {
+						{
+							Gamma22 = {
+								Tools = {
+									BrightnessContrast3 = BrightnessContrast {
+										Inputs = {
+											Gamma = Input {
+												Value = 2.2,
+											},
+											Input = Input {
+												SourceOp = "SourceOperator1",
+												Source = "Output",
+											},
+										},
+										ViewInfo = OperatorInfo {
+											Pos = { 935, -577.5, },
+										},
+										CtrlWZoom = false,
+									},
+								},
+								IsMacro = true,
+								Name = "BrightnessContrast3",
+							},
+							ID = "ViewLUTMacro.Gamma22",
+						},
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 1080",
+				Width = 1920,
+				Height = 1080,
+				Rate = 25,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+				DepthFull = 2,
+				DepthPreview = 2,
+				DepthInteractive = 2,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				GridSnap = true,
+				FullToolIndicator = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

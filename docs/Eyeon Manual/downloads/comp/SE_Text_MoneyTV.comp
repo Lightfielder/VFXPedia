@@ -1,0 +1,1270 @@
+Composition {
+	CurrentTime = 61,
+	RenderRange = { 0, 100, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 100",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Outline = TextPlus {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			NameSet = true,
+			SourceOp = "Fill",
+			Inputs = {
+				LayoutRotation = Input {
+				},
+				InternationalFontControls = Input {
+				},
+				AdvancedFontControls = Input {
+				},
+				Alignment = Input {
+				},
+				LineRotation = Input {
+				},
+				WordRotation = Input {
+				},
+				CharacterRotation = Input {
+				},
+				Enabled1 = Input {
+				},
+				Opacity1 = Input {
+					Value = 0.3,
+				},
+				Options1 = Input {
+				},
+				ElementShape1 = Input {
+					Value = 1,
+				},
+				Color1 = Input {
+				},
+				Softness1 = Input {
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				Enabled3 = Input {
+					Value = 1,
+				},
+				Enabled4 = Input {
+					Value = 1,
+				},
+				Enabled5 = Input {
+					Value = 1,
+				},
+				Enabled6 = Input {
+					Value = 1,
+				},
+				StartEndRenderScripts = Input {
+				},
+				Comments = Input {
+					Value = "This is the outline of the main Text.\r\nIt's basically an instance of the FillText.\r\n\r\nThe TextOutline and the Opacity are however DeInstanced.\r\nThe Opacity of shaders 2-6 is also linked via a simple expression to the opacity of Shader1.\r\n",
+				},
+				Opacity2 = Input {
+					Value = 0.3,
+					Expression = "Opacity1",
+				},
+				Options2 = Input {
+				},
+				ElementShape2 = Input {
+				},
+				Color2 = Input {
+				},
+				Softness2 = Input {
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				OffsetZ2 = Input {
+					Value = 0.56,
+					Expression = "OffsetZ1+(OffsetZ1*0.5)",
+				},
+				Opacity3 = Input {
+					Value = 0.3,
+					Expression = "Opacity1",
+				},
+				Options3 = Input {
+				},
+				ElementShape3 = Input {
+					Value = 1,
+				},
+				Color3 = Input {
+				},
+				Softness3 = Input {
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				OffsetZ3 = Input {
+					Value = 0.746666666666666,
+					Expression = "OffsetZ1+(OffsetZ1*1)",
+				},
+				Opacity4 = Input {
+					Value = 0.3,
+					Expression = "Opacity1",
+				},
+				Options4 = Input {
+				},
+				ElementShape4 = Input {
+					Value = 1,
+				},
+				Color4 = Input {
+				},
+				Softness4 = Input {
+				},
+				Transform4 = Input {
+					Value = 1,
+				},
+				OffsetZ4 = Input {
+					Value = 0.933333333333333,
+					Expression = "OffsetZ1+(OffsetZ1*1.5)",
+				},
+				Opacity5 = Input {
+					Value = 0.3,
+					Expression = "Opacity1",
+				},
+				Options5 = Input {
+				},
+				ElementShape5 = Input {
+					Value = 1,
+				},
+				Color5 = Input {
+				},
+				Softness5 = Input {
+				},
+				Transform5 = Input {
+					Value = 1,
+				},
+				OffsetZ5 = Input {
+					Value = 1.12,
+					Expression = "OffsetZ1+(OffsetZ1*2)",
+				},
+				Opacity6 = Input {
+					Value = 0.3,
+					Expression = "Opacity1",
+				},
+				Options6 = Input {
+				},
+				ElementShape6 = Input {
+					Value = 1,
+				},
+				Color6 = Input {
+				},
+				Softness6 = Input {
+				},
+				Transform6 = Input {
+				},
+				OffsetZ6 = Input {
+					Value = 1.30666666666667,
+					Expression = "OffsetZ1+(OffsetZ1*2.5)",
+				},
+				EffectMask = Input {
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 82.5, },
+			},
+		},
+		FillCenterZ = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { -2, RH = { 25, -1.33333333333333, }, },
+				[75] = { 0, LH = { 50, -0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		FadeOutGain = BezierSpline {
+			SplineColor = { 0.498039215686275, 0.498039215686275, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 1, RH = { 58.3333333333333, 0.666666666666667, }, },
+				[75] = { 0, LH = { 66.6666666666667, 0.333333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPath1Z = BezierSpline {
+			SplineColor = { 1, 0, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[21] = { 0, },
+			},
+		},
+		BG_01CenterZ = BezierSpline {
+			SplineColor = { 0, 0.498039215686275, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { -0.5801105, RH = { 25, -0.753407, }, },
+				[75] = { -1.1, LH = { 50, -0.9267035, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPath1Y = BezierSpline {
+			SplineColor = { 0, 0.705882352941177, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 25, 0.5, }, },
+				[75] = { 0.5, LH = { 50, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		FillOffsetZ = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 2, RH = { 25, 1.33333333333333, }, },
+				[75] = { 0, LH = { 50, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Blend = Input {
+					SourceOp = "Merge1Blend",
+					Source = "Value",
+				},
+				ApplyMode = Input {
+					Value = FuID { "Screen", },
+				},
+				Background = Input {
+					SourceOp = "Fill",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Outline",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 165, 148.5, },
+			},
+		},
+		XYPath2 = XYPath {
+			Inputs = {
+				X = Input {
+					SourceOp = "XYPath2X",
+					Source = "Value",
+				},
+				Y = Input {
+					SourceOp = "XYPath2Y",
+					Source = "Value",
+				},
+				Z = Input {
+					SourceOp = "XYPath2Z",
+					Source = "Value",
+				},
+				Displacement = Input {
+					SourceOp = "XYPath2Displacement",
+					Source = "Value",
+				},
+			},
+		},
+		TextScramble1 = TextScramble {
+			CtrlWZoom = false,
+			Inputs = {
+				Randomness = Input {
+					Value = 1,
+				},
+				InputText = Input {
+					Value = "₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ \r\n₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ₣ ₤ ₧ ₫ € $ ",
+				},
+				SubstituteChars = Input {
+					Value = "₣₤₧₫€$",
+				},
+			},
+		},
+		BG_02AngleY = BezierSpline {
+			SplineColor = { 0, 0.498039215686275, 0.741176470588235, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 25, 30, }, },
+				[75] = { 90, LH = { 50, 60, }, Flags = { Linear = true, }, },
+			},
+		},
+		Fill = TextPlus {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				CenterZ = Input {
+					SourceOp = "FillCenterZ",
+					Source = "Value",
+				},
+				Size = Input {
+					Value = 0.1270718,
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					Value = "moneyTV",
+				},
+				Style = Input {
+					Value = "Bold Italic",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Opacity1 = Input {
+					Value = 0.2,
+				},
+				Red1 = Input {
+					Value = 0.953333333333333,
+				},
+				Green1 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue1 = Input {
+					Value = 0,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				OffsetZ1 = Input {
+					SourceOp = "FillOffsetZ",
+					Source = "Value",
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				Opacity2 = Input {
+					Value = 0.2,
+				},
+				ElementShape2 = Input {
+					Value = 0,
+				},
+				Red2 = Input {
+					Value = 0.953333333333333,
+				},
+				Green2 = Input {
+					Value = 0.241435615481694,
+				},
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				OffsetZ2 = Input {
+					Value = 0.56,
+					Expression = "OffsetZ1+(OffsetZ1*0.5)",
+				},
+				Enabled3 = Input {
+					Value = 1,
+				},
+				Opacity3 = Input {
+					Value = 0.2,
+				},
+				Red3 = Input {
+					Value = 0.953333333333333,
+				},
+				Green3 = Input {
+					Value = 0.241435615481694,
+				},
+				Alpha3 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient3 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				SoftnessX3 = Input {
+					Value = 0,
+				},
+				SoftnessY3 = Input {
+					Value = 0,
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				Offset3 = Input {
+					Value = { 0, 0, },
+				},
+				OffsetZ3 = Input {
+					Value = 0.746666666666666,
+					Expression = "OffsetZ1+(OffsetZ1*1)",
+				},
+				Enabled4 = Input {
+					Value = 1,
+				},
+				Opacity4 = Input {
+					Value = 0.2,
+				},
+				ElementShape4 = Input {
+					Value = 0,
+				},
+				Red4 = Input {
+					Value = 0.953333333333333,
+				},
+				Green4 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue4 = Input {
+					Value = 0,
+				},
+				Alpha4 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient4 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform4 = Input {
+					Value = 1,
+				},
+				OffsetZ4 = Input {
+					Value = 0.933333333333333,
+					Expression = "OffsetZ1+(OffsetZ1*1.5)",
+				},
+				Enabled5 = Input {
+					Value = 1,
+				},
+				Opacity5 = Input {
+					Value = 0.2,
+				},
+				Red5 = Input {
+					Value = 0.953333333333333,
+				},
+				Green5 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue5 = Input {
+					Value = 0,
+				},
+				Alpha5 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient5 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform5 = Input {
+					Value = 1,
+				},
+				OffsetZ5 = Input {
+					Value = 1.12,
+					Expression = "OffsetZ1+(OffsetZ1*2)",
+				},
+				Enabled6 = Input {
+					Value = 1,
+				},
+				Opacity6 = Input {
+					Value = 0.2,
+				},
+				Red6 = Input {
+					Value = 0.953333333333333,
+				},
+				Green6 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue6 = Input {
+					Value = 0,
+				},
+				Alpha6 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient6 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform6 = Input {
+					Value = 1,
+				},
+				OffsetZ6 = Input {
+					Value = 1.30666666666667,
+					Expression = "OffsetZ1+(OffsetZ1*2.5)",
+				},
+				SortShadingElements = Input {
+					Value = 1,
+				},
+				Comments = Input {
+					Value = "This is the main Text.\r\nThe shadings 1-6 are identical\r\n(I used the TextPlusPlus-script, to copy them over)\r\nand only the OffsetZ is connected via simple expressions.\r\nSo Shader1's OffsetZ drives the Offset\r\n(and thus the space between the elements)\r\nof Shaders 2-6.\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 0, 148.5, },
+			},
+		},
+		XYPath1Displacement = BezierSpline {
+			SplineColor = { 1, 1, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[21] = { 0, },
+			},
+		},
+		BG_01AngleY = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { -90, RH = { 25, -60, }, },
+				[75] = { 0, LH = { 50, -30, }, Flags = { Linear = true, }, },
+			},
+		},
+		final = Merge {
+			NameSet = true,
+			Inputs = {
+				Background = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "FadeOut",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "The final comp",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, 148.5, },
+			},
+		},
+		XYPath1X = BezierSpline {
+			SplineColor = { 0.705882352941177, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.749886726161198, RH = { 25, 0.665924484107465, }, },
+				[75] = { 0.498, LH = { 50, 0.581962242053733, }, Flags = { Linear = true, }, },
+			},
+		},
+		FadeOut = BrightnessContrast {
+			NameSet = true,
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					SourceOp = "FadeOutGain",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "This BC simply fades out the Background",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, 82.5, },
+			},
+		},
+		BG_02 = TextPlus {
+			ExtentSet = true,
+			CtrlWZoom = false,
+			NameSet = true,
+			SourceOp = "BG_01",
+			Inputs = {
+				OffsetZ3 = Input {
+					Expression = "OffsetZ1+(OffsetZ1*10)",
+				},
+				Softness3 = Input {
+				},
+				Options2 = Input {
+				},
+				OffsetZ2 = Input {
+					Expression = "OffsetZ1+(OffsetZ1*5)",
+				},
+				Softness6 = Input {
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				OffsetZ6 = Input {
+					Expression = "OffsetZ1+(OffsetZ1*2.5)",
+				},
+				Color3 = Input {
+				},
+				Options5 = Input {
+				},
+				Options3 = Input {
+				},
+				Color5 = Input {
+				},
+				Color6 = Input {
+				},
+				Softness2 = Input {
+				},
+				Transform5 = Input {
+					Value = 1,
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				OffsetZ5 = Input {
+					Expression = "OffsetZ1+(OffsetZ1*20)",
+				},
+				Transform6 = Input {
+					Value = 1,
+				},
+				Color2 = Input {
+				},
+				Softness5 = Input {
+				},
+				Options6 = Input {
+				},
+				Center = Input {
+					SourceOp = "XYPath2",
+					Source = "Value",
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleY = Input {
+					SourceOp = "BG_02AngleY",
+					Source = "Value",
+				},
+				InternationalFontControls = Input {
+				},
+				AdvancedFontControls = Input {
+				},
+				Alignment = Input {
+				},
+				LineRotation = Input {
+				},
+				WordRotation = Input {
+				},
+				CharacterRotation = Input {
+				},
+				Options1 = Input {
+				},
+				Color1 = Input {
+				},
+				Softness1 = Input {
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				StartEndRenderScripts = Input {
+				},
+				Comments = Input {
+					Value = "An instance of BG01.\r\n\r\nCenter and AngleY in the layout-tab are DeInstanced.\r\nAngleY has been shifted by 90°\r\nand the path on the center has also been changed\r\nto adapt for the different perspective.\r\n\r\nTo save on rendertime this tool is only valid through frame75.\r\n",
+				},
+				Options4 = Input {
+				},
+				Color4 = Input {
+				},
+				Softness4 = Input {
+				},
+				Transform4 = Input {
+					Value = 1,
+				},
+				OffsetZ4 = Input {
+					Value = 16,
+					Expression = "OffsetZ1+(OffsetZ1*15)",
+				},
+				EffectMask = Input {
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, -49.5, },
+			},
+		},
+		XYPath1 = XYPath {
+			Inputs = {
+				X = Input {
+					SourceOp = "XYPath1X",
+					Source = "Value",
+				},
+				Y = Input {
+					SourceOp = "XYPath1Y",
+					Source = "Value",
+				},
+				Z = Input {
+					SourceOp = "XYPath1Z",
+					Source = "Value",
+				},
+				Displacement = Input {
+					SourceOp = "XYPath1Displacement",
+					Source = "Value",
+				},
+			},
+		},
+		Merge2 = Merge {
+			Inputs = {
+				ApplyMode = Input {
+					Value = FuID { "Screen", },
+				},
+				Background = Input {
+					SourceOp = "BG_01",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "BG_02",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 440, 16.5, },
+			},
+		},
+		Merge1Blend = BezierSpline {
+			SplineColor = { 0.705882352941177, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 1, RH = { 58.3333333333333, 0.833333333333333, }, },
+				[75] = { 0.5, LH = { 66.6666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPath2Displacement = BezierSpline {
+			SplineColor = { 0, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, },
+			},
+		},
+		XYPath2Z = BezierSpline {
+			SplineColor = { 1, 0, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, },
+			},
+		},
+		XYPath2Y = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0.498039215686275, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 25, 0.5, }, },
+				[75] = { 0.5, LH = { 50, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPath2X = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0.741176470588235, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 25, 0.447386638975424, }, },
+				[75] = { 0.342159916926272, LH = { 50, 0.394773277950848, }, Flags = { Linear = true, }, },
+			},
+		},
+		BG_01 = TextPlus {
+			ExtentSet = true,
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input {
+					Value = 75,
+				},
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				Center = Input {
+					SourceOp = "XYPath1",
+					Source = "Value",
+				},
+				CenterZ = Input {
+					SourceOp = "BG_01CenterZ",
+					Source = "Value",
+				},
+				LayoutRotation = Input {
+					Value = 1,
+				},
+				AngleY = Input {
+					SourceOp = "BG_01AngleY",
+					Source = "Value",
+				},
+				Size = Input {
+					Value = 0.03,
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					SourceOp = "TextScramble1",
+					Source = "ScrambledText",
+				},
+				Style = Input {
+					Value = "Bold Italic",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				SelectTransform = Input {
+					Value = 2,
+				},
+				LineSpacing = Input {
+					Value = 1.5,
+				},
+				WordSpacing = Input {
+					Value = 2,
+				},
+				SelectElement = Input {
+					Value = 3,
+				},
+				Select = Input {
+					Value = 3,
+				},
+				Opacity1 = Input {
+					Value = 0.2,
+				},
+				ElementShape1 = Input {
+					Value = 1,
+				},
+				Thickness1 = Input {
+					Value = 0.04,
+				},
+				Red1 = Input {
+					Value = 0.953333333333333,
+				},
+				Green1 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue1 = Input {
+					Value = 0,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				OffsetZ1 = Input {
+					Value = 1,
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				Opacity2 = Input {
+					Value = 0.2,
+				},
+				Thickness2 = Input {
+					Value = 0.04,
+				},
+				Red2 = Input {
+					Value = 0.953333333333333,
+				},
+				Green2 = Input {
+					Value = 0.241435615481694,
+				},
+				ShadingGradient2 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				OffsetZ2 = Input {
+					Value = 6,
+					Expression = "OffsetZ1+(OffsetZ1*5)",
+				},
+				Enabled3 = Input {
+					Value = 1,
+				},
+				Opacity3 = Input {
+					Value = 0.2,
+				},
+				ElementShape3 = Input {
+					Value = 1,
+				},
+				Thickness3 = Input {
+					Value = 0.04,
+				},
+				Red3 = Input {
+					Value = 0.953333333333333,
+				},
+				Green3 = Input {
+					Value = 0.241435615481694,
+				},
+				Alpha3 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient3 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				SoftnessX3 = Input {
+					Value = 0,
+				},
+				SoftnessY3 = Input {
+					Value = 0,
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				Offset3 = Input {
+					Value = { 0, 0, },
+				},
+				OffsetZ3 = Input {
+					Value = 11,
+					Expression = "OffsetZ1+(OffsetZ1*10)",
+				},
+				Enabled4 = Input {
+					Value = 1,
+				},
+				Opacity4 = Input {
+					Value = 0.2,
+				},
+				ElementShape4 = Input {
+					Value = 1,
+				},
+				Thickness4 = Input {
+					Value = 0.04,
+				},
+				Red4 = Input {
+					Value = 0.953333333333333,
+				},
+				Green4 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue4 = Input {
+					Value = 0,
+				},
+				Alpha4 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient4 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform4 = Input {
+					Value = 1,
+				},
+				OffsetZ4 = Input {
+					Value = 16,
+					Expression = "OffsetZ1+(OffsetZ1*15)",
+				},
+				Enabled5 = Input {
+					Value = 1,
+				},
+				Opacity5 = Input {
+					Value = 0.2,
+				},
+				ElementShape5 = Input {
+					Value = 1,
+				},
+				Thickness5 = Input {
+					Value = 0.04,
+				},
+				Red5 = Input {
+					Value = 0.953333333333333,
+				},
+				Green5 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue5 = Input {
+					Value = 0,
+				},
+				Alpha5 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient5 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform5 = Input {
+					Value = 1,
+				},
+				OffsetZ5 = Input {
+					Value = 21,
+					Expression = "OffsetZ1+(OffsetZ1*20)",
+				},
+				Enabled6 = Input {
+					Value = 1,
+				},
+				Opacity6 = Input {
+					Value = 0.2,
+				},
+				ElementShape6 = Input {
+					Value = 1,
+				},
+				Thickness6 = Input {
+					Value = 0.04,
+				},
+				Red6 = Input {
+					Value = 0.953333333333333,
+				},
+				Green6 = Input {
+					Value = 0.241435615481694,
+				},
+				Blue6 = Input {
+					Value = 0,
+				},
+				Alpha6 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient6 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Transform6 = Input {
+					Value = 1,
+				},
+				OffsetZ6 = Input {
+					Value = 3.5,
+					Expression = "OffsetZ1+(OffsetZ1*2.5)",
+				},
+				SortShadingElements = Input {
+					Value = 1,
+				},
+				Comments = Input {
+					Value = "This Text is used for the Background.\r\nIt has been assigned a TextScramble modifier,\r\nsubstituting the characters ₣₤₧₫€$ and ... well ... scrambling them.\r\n\r\nTo save on rendertime this tool is only valid through frame75.\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 16.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 110,
+			Top = 110,
+			Width = 1564,
+			Height = 730,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.909538,
+						Offset = { 421.46, 190.628, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "Outline", Expanded = true, },
+							{ "Merge1", Expanded = true, },
+							{ "Fill", Expanded = true, },
+							{ "FadeOut", Expanded = true, },
+							{ "BG_02", Expanded = true, },
+							{ "BG_01", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 458, },
+							ScaleX = 0.193069638713652,
+							OffsetX = -49.0929533583896,
+							OffsetY = 19,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -13.6,
+						OffsetY = 0,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 98.5452029520295,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.523191094619666,
+						{
+							ID = "Left",
+							RatioX = 1,
+							RatioY = 0.00886524822695036,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = -2,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.426716141001855,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Memory = {
+				FramesAtOnce = 3,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						LUTPlugin = "",
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						Channel = 4294967295,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						CameraName = "Camera3D1",
+						SortMethod = "ZBuffer",
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 30,
+				AspectY = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "E:\\Erics\\FusionSupport\\th_shineon.jpg",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			LastLUTFile = "C:\\Programme\\Fusion51\\Comps\\dvs3.rgb",
+			FlowView = {
+				GridSnap = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,507 @@
+{
+	Tools = ordered() {
+		TapeMeasure = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input { Value = "To measure the distance\n1. Feed your image to this node's Input\n2. Drag'n'drop the TapeMeasure node to a Display View\n\nby Gregory Chalenko\nwww.compositing.ru", },
+				Input = InstanceInput {
+					SourceOp = "CT_Line",
+					Source = "Image1",
+				},
+				FromPoint = InstanceInput {
+					SourceOp = "DistanceExp",
+					Source = "p1",
+					Name = "From Point",
+				},
+				ToPoint = InstanceInput {
+					SourceOp = "DistanceExp",
+					Source = "p2",
+					Name = "To Point",
+				},
+				MeasuredData = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "MeasuredData",
+				},
+				DistanceInFusionUnits = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "DistanceInFusionUnits",
+				},
+				DistanceInPixels = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "DistanceInPixels",
+				},
+				XDistanceInFusionUnits = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "XDistanceInFusionUnits",
+				},
+				XDistanceInPixels = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "XDistanceInPixels",
+				},
+				YDistanceInFusionUnits = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "YDistanceInFusionUnits",
+				},
+				YDistanceInPixels = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "YDistanceInPixels",
+				},
+				Angle = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "Angle",
+				},
+				InputImageAspect = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "InputImageAspect",
+				},
+				DisplayStyle = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "DisplayStyle",
+				},
+				DisplayText = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "DisplayText",
+				},
+				TextSize = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "Size",
+					Name = "Text Size",
+					Default = 0.04,
+				},
+				Justification = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "Justification",
+					Default = 1,
+				},
+				TextColor = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "Red",
+					Name = "Text Color",
+					ControlGroup = 5,
+					Default = 1,
+				},
+				Green = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "Green",
+					ControlGroup = 5,
+					Default = 1,
+				},
+				Blue = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "Blue",
+					ControlGroup = 5,
+					Default = 1,
+				},
+				DisplayLine = InstanceInput {
+					SourceOp = "CT_Line",
+					Source = "DisplayLine",
+				},
+				LineThickness = InstanceInput {
+					SourceOp = "Polygon",
+					Source = "BorderWidth",
+					Name = "Line Thickness",
+					Default = 0.002,
+				},
+				ConvertPixelsToFusionUnits = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "ConvertPixelsToFusionUnits",
+				},
+				SizeInPixels = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "SizeInPixels",
+					Default = 1920,
+				},
+				SizeInFusionUnits = InstanceInput {
+					SourceOp = "Ann_Text",
+					Source = "SizeInFusionUnits",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Ann_Text",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 493.163, -45.3527, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					FullIndicator = true,
+				},
+				Size = { 360, 228.138, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -66.7433, 0, },
+			},
+			Tools = ordered() {
+				Polygon = PolylineMask {
+					DrawMode = "ModifyOnly",
+					DrawMode2 = "InsertAndModify",
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						SoftEdge = Input { Value = 0.0005, },
+						BorderWidth = Input { Value = 0.002, },
+						MaskWidth = Input { Value = 2048, },
+						MaskHeight = Input { Value = 1556, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Polyline = Input {
+							Value = Polyline {
+								Points = {
+									{ Linear = true, X = 0, Y = 0.5, RX = 0, RY = -0.333333333333333, PublishID = "Point1", },
+									{ Linear = true, X = 0, Y = -0.5, LX = 0, LY = 0.333333333333333, PublishID = "Point0", },
+								},
+							},
+						},
+						Polyline2 = Input {
+							Value = Polyline {
+							},
+							Disabled = true,
+						},
+						Point0 = Input {
+							Value = { 0.5, 0, },
+							Expression = "DistanceExp.p1",
+						},
+						Point1 = Input {
+							Value = { 0.5, 1, },
+							Expression = "DistanceExp.p2",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -43.9144, 140.579, }, },
+				},
+				CT_Line = Custom {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0.5,
+							Expression = "DisplayLine*0.5",
+						},
+						NumberIn1 = Input {
+							Value = 1,
+							Expression = "Ann_Text.Red",
+						},
+						NumberIn2 = Input {
+							Value = 1,
+							Expression = "Ann_Text.Green",
+						},
+						NumberIn3 = Input {
+							Value = 1,
+							Expression = "Ann_Text.Blue",
+						},
+						NumberIn4 = Input {
+							Value = 1,
+							Expression = "Ann_Text.Alpha",
+						},
+						RedExpression = Input { Value = "n1*n4", },
+						GreenExpression = Input { Value = "n2*n4", },
+						BlueExpression = Input { Value = "n3*n4", },
+						DisplayLine = Input { Value = 1, },
+						EffectMask = Input {
+							SourceOp = "Ellipse2",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -45.5, 39.3813, }, },
+					UserControls = ordered() {
+						DisplayLine = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Display Line",
+							IC_ControlPage = 5,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 0,
+						},
+					},
+				},
+				Ellipse1 = EllipseMask {
+					CtrlWShown = false,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.0005,
+							Expression = "Polygon.SoftEdge",
+						},
+						BorderWidth = Input {
+							Value = 0.002,
+							Expression = "Polygon.BorderWidth",
+						},
+						Solid = Input { Value = 0, },
+						MaskWidth = Input { Value = 2048, },
+						MaskHeight = Input { Value = 1556, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						ClippingMode = Input { Value = FuID { "None", }, },
+						Center = Input {
+							Value = { 0.5, 0, },
+							Expression = "DistanceExp.p1",
+						},
+						Width = Input {
+							Value = 0.008,
+							Expression = "BorderWidth*4",
+						},
+						Height = Input {
+							Value = 0.008,
+							Expression = "BorderWidth*4",
+						},
+						EffectMask = Input {
+							SourceOp = "Polygon",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -45.9144, 103.579, }, },
+				},
+				Ellipse2 = EllipseMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.0005,
+							Expression = "Polygon.SoftEdge",
+						},
+						BorderWidth = Input {
+							Value = 0.002,
+							Expression = "Polygon.BorderWidth",
+						},
+						Solid = Input { Value = 0, },
+						MaskWidth = Input { Value = 2048, },
+						MaskHeight = Input { Value = 1556, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						ClippingMode = Input { Value = FuID { "None", }, },
+						Center = Input {
+							Value = { 0.5, 1, },
+							Expression = "DistanceExp.p2",
+						},
+						Width = Input {
+							Value = 0.008,
+							Expression = "BorderWidth*4",
+						},
+						Height = Input {
+							Value = 0.008,
+							Expression = "BorderWidth*4",
+						},
+						EffectMask = Input {
+							SourceOp = "Ellipse1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -35.8052, 75.039, }, },
+				},
+				Ann_Text = Fuse.Annotate {
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "DisplayText", },
+						StyledText = Input { Value = "0.759765625 Fusion units\n1556 pixels\n90 degrees", },
+						Font = Input { Value = "Arial", },
+						Style = Input { Value = "Regular", },
+						Position = Input {
+							SourceOp = "PositionExp",
+							Source = "PointResult",
+						},
+						Size = Input { Value = 0.04, },
+						Justification = Input { Value = 1, },
+						SizeInFusionUnits = Input {
+							Expression = "SizeInPixels/Input.OriginalWidth",
+						},
+						Input = Input {
+							SourceOp = "CT_Line",
+							Source = "Output",
+						},
+						FrameRenderScript = Input { Value = "StyledText=math.floor(DistanceExp.PointResult.X*1000+0.5)/1000 ..\" Fusion units\"..\"\\n\"..math.floor(DistanceExp.PointResult.Y+0.5)..\" pixels\"..\"\\n\"..math.floor(DistanceExp.NumberResult*10+0.5)/10 ..\" degrees\"\r\n\r\nDistanceInFusionUnits=DistanceExp.PointResult.X\r\nDistanceInPixels=DistanceExp.PointResult.Y\r\n\r\nXDist=math.abs(DistanceExp.p1.X-DistanceExp.p2.X)\r\nXDistanceInFusionUnits=XDist\r\nXDistanceInPixels=XDist*Input.OriginalWidth\r\n\r\nYDist=math.abs(DistanceExp.p1.Y-DistanceExp.p2.Y)\r\nAspect=Input.OriginalWidth*Input.OriginalXScale/Input.OriginalHeight/Input.OriginalYScale\r\nYDistanceInFusionUnits=YDist/Aspect\r\nYDistanceInPixels=YDist*Input.OriginalHeight\r\n\r\nAngle=DistanceExp.NumberResult\r\nInputImageAspect=Aspect", },
+						DisplayText = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 124.38, 35.5313, }, },
+					UserControls = ordered() {
+						DisplayText = {
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+							IC_ControlPage = 1,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Display Text",
+						},
+						DistanceInFusionUnits = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							ICD_Width = 0.5,
+							INPS_DefaultText = "",
+							LINKS_Name = "Distance in Fusion Units",
+						},
+						DistanceInPixels = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							ICD_Width = 0.5,
+							INPS_DefaultText = "",
+							LINKS_Name = "Distance in Pixels",
+						},
+						XDistanceInFusionUnits = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							ICD_Width = 0.5,
+							INPS_DefaultText = "",
+							LINKS_Name = "X Distance in Fusion Units",
+						},
+						XDistanceInPixels = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							ICD_Width = 0.5,
+							INPS_DefaultText = "",
+							LINKS_Name = "X Distance in Pixels",
+						},
+						YDistanceInFusionUnits = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							ICD_Width = 0.5,
+							INPS_DefaultText = "",
+							LINKS_Name = "Y Distance in Fusion Units",
+						},
+						YDistanceInPixels = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							ICD_Width = 0.5,
+							INPS_DefaultText = "",
+							LINKS_Name = "Y Distance in Pixels",
+						},
+						Angle = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							INPS_DefaultText = "",
+							LINKS_Name = "Angle",
+						},
+						InputImageAspect = {
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							TEC_ReadOnly = true,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							INPS_DefaultText = "",
+							LINKS_Name = "Input Image Aspect",
+						},
+				ConvertPixelsToFusionUnits = {
+					LBLC_DropDownButton = true,
+					INPID_InputControl = "LabelControl",
+					LBLC_NumInputs = 2,
+					LINKS_Name = "Convert Pixels to Fusion Units",
+							IC_ControlPage = 0,
+					INP_Default = 0,
+					LINKID_DataType = "Number",
+					LBLC_NestLevel = 1,
+				},
+						SizeInPixels = {
+							INP_Default = 1,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							INP_Integer = true,
+							INP_Passive = true,
+							IC_ControlPage = 0,
+							INP_MaxScale = 2048,
+							LINKS_Name = "This Size in Pixels:",
+						},
+						SizeInFusionUnits = {
+							INP_Default = 1,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							INP_Passive = true,
+							IC_ControlPage = 0,
+							INP_MaxScale = 2048,
+							LINKS_Name = "Equalls to This Size in Fusion Units:",
+						},
+						DisplayStyle = {
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 8,
+							LINKS_Name = "Display Style",
+							IC_ControlPage = 0,
+							INP_Default = 0,
+							LINKID_DataType = "Number",
+							LBLC_NestLevel = 1,
+						},
+						MeasuredData = {
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 7,
+							LINKS_Name = "Measured Data. Display the node to get the values",
+							IC_ControlPage = 0,
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							LBLC_NestLevel = 1,
+						},
+					},
+				},
+				PositionExp = Expression {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						p1 = Input {
+							Value = { 0.5, 0, },
+							Expression = "DistanceExp.p1",
+						},
+						p2 = Input {
+							Value = { 0.5, 1, },
+							Expression = "DistanceExp.p2",
+						},
+						p3 = Input {
+							SourceOp = "DistanceExp",
+							Source = "PointResult",
+						},
+						PointExpressionX = Input { Value = "p1x+(p2x-p1x)/2", },
+						PointExpressionY = Input { Value = "p1y+(p2y-p1y)/2", },
+						PointControls = Input { Value = 1, },
+						NameforPoint3 = Input { Value = "Distance", },
+					},
+				},
+				DistanceExp = Expression {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						p1 = Input { Value = { 0.5, 0, }, },
+						p2 = Input { Value = { 0.5, 1, }, },
+						n1 = Input {
+							Value = 2048,
+							Expression = "Ann_Text.Input.OriginalWidth",
+						},
+						n2 = Input {
+							Value = 1556,
+							Expression = "Ann_Text.Input.OriginalHeight",
+						},
+						n3 = Input {
+							Value = 1,
+							Expression = "Ann_Text.Input.OriginalXScale",
+						},
+						n4 = Input {
+							Value = 1,
+							Expression = "Ann_Text.Input.OriginalYScale",
+						},
+						NumberExpression = Input { Value = "atan2(p2y*n2/n1*n4/n3-p1y*n2/n1*n4/n3,p2x-p1x)", },
+						PointExpressionX = Input { Value = "dist(p1x,p1y*n2/n1*n4/n3,p2x,p2y*n2/n1*n4/n3)", },
+						PointExpressionY = Input { Value = "dist(p1x*n1,p1y*n2,p2x*n1,p2y*n2)", },
+						NumberControls = Input { Value = 1, },
+						NameforNumber1 = Input { Value = "Width", },
+						NameforNumber2 = Input { Value = "Height", },
+						PointControls = Input { Value = 1, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "TapeMeasure",
+}

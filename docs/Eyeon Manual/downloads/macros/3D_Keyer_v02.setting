@@ -1,0 +1,507 @@
+{
+	Tools = ordered() {
+		ThreeDKeyer = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/3D_Keyer_Description",
+			}, 
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "ThreeDKeyer_Input",
+					Source = "Input",
+				},
+				GarbageMatte = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "GarbageMatte",
+				},
+				Comments = Input {
+					Value = "The 3D Keyer calculates a matte by looking at each pixel's distance from the selected key color in a variety of color spaces. There are two formulas: \"Sum\" will take the sum of the R, G and B distance (so-called \"Manhattan distance\"), while \"Euclidean\" uses the Pythagorean theorem.",
+				},
+				
+				Red = InstanceInput {
+					SourceOp = "KeyColorSelection",
+					Source = "TopLeftRed",
+					Name = "Color",
+					ControlGroup = 29,
+					Default = 0.2841796875,
+				},
+				Green = InstanceInput {
+					SourceOp = "KeyColorSelection",
+					Source = "TopLeftGreen",
+					ControlGroup = 29,
+					Default = 0.3759765625,
+				},
+				Blue = InstanceInput {
+					SourceOp = "KeyColorSelection",
+					Source = "TopLeftBlue",
+					ControlGroup = 29,
+					Default = 0.75439453125,
+				},
+				DistanceMath = InstanceInput {
+					SourceOp = "Key3D",
+					Source = "DistanceMath",
+					Default = 0,
+				},
+				ColorSpace = InstanceInput {
+					SourceOp = "ColorSpaceConversion",
+					Source = "ColorSpace",
+					Default = 1,
+				},
+				Input27 = InstanceInput {
+					SourceOp = "DisregardSelectedComponents",
+					Source = "DisregardComponents",
+					Default = 0,
+				},
+				Disregard1st = InstanceInput {
+					SourceOp = "DisregardSelectedComponents",
+					Source = "ProcessRed",
+					Name = "1st",
+					Default = 0,
+				},
+				Disregard2nd = InstanceInput {
+					SourceOp = "DisregardSelectedComponents",
+					Source = "ProcessGreen",
+					Name = "2nd",
+					Default = 0,
+				},
+				Disregard3rd = InstanceInput {
+					SourceOp = "DisregardSelectedComponents",
+					Source = "ProcessBlue",
+					Name = "3rd",
+					Default = 0,
+				},
+
+				Filter = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Page = "Matte",
+					Source = "Filter",
+				},
+				MatteBlur = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "MatteBlur",
+					Default = 0,
+				},
+				Passes = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "Passes",
+					Default = 4,
+				},
+				ClippingMode = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "ClippingMode",
+				},
+				MatteContractExpand = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "MatteContractExpand",
+					Default = 0,
+				},
+				MatteGamma = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "MatteGamma",
+					Default = 1,
+				},
+				LowMatteThreshold = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "LowMatteThreshold",
+					ControlGroup = 8,
+					Default = 0,
+				},
+				High = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "High",
+					ControlGroup = 8,
+					Default = 1,
+				},
+				InvertMatte = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "InvertMatte",
+					Default = 0,
+				},
+				InvertGarbageMatte = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "InvertGarbageMatte",
+					Default = 0,
+				},
+				GarbageMatteMode = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "GarbageMatteMode",
+					Default = 0,
+				},
+				PostMultiplyImage = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "PostMultiplyImage",
+					Default = 1,
+				},
+				MultiplyGarbageMatte = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "MultiplyGarbageMatte",
+					Default = 1,
+				},
+				
+				SpillColor = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "SpillColor",
+					Page = "Spill",
+				},
+				SpillSuppression = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "SpillSuppression",
+					Default = 0,
+				},
+				SpillMethod = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "SpillMethod",
+				},
+				FringeGamma = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "FringeGamma",
+					Default = 1,
+				},
+				FringeSize = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "FringeSize",
+					Default = 0,
+				},
+				FringeShape = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "FringeShape",
+					Default = 1,
+				},
+				RedCyan = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "RedCyan",
+					Name = "Cyan",
+					Default = 0,
+				},
+				GreenMagenta = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "GreenMagenta",
+					Name = "Magenta",
+					Default = 0,
+				},
+				BlueYellow = InstanceInput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "BlueYellow",
+					Name = "Yellow",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "Key3D_MatteControl",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				Key3D_MatteControl = MatteControl {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						MatteCombine = Input { Value = 4, },
+						PostMultiplyImage = Input { Value = 1, },
+						Background = Input {
+							SourceOp = "ThreeDKeyer_Input",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Key3D",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, 577.5, }, },
+				},
+				DisregardSelectedComponents = ColorCorrector {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ProcessRed = Input { Value = 0, },
+						ProcessGreen = Input { Value = 0, },
+						ProcessBlue = Input { Value = 0, },
+						ProcessAlpha = Input { Value = 0, },
+						MasterRGBGain = Input { Value = 0, },
+						MasterRedBrightness = Input {
+							SourceOp = "KeyColorProbe",
+							Source = "Red",
+						},
+						MasterGreenBrightness = Input {
+							SourceOp = "KeyColorProbe",
+							Source = "Green",
+						},
+						MasterBlueBrightness = Input {
+							SourceOp = "KeyColorProbe",
+							Source = "Blue",
+						},
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.4, 0.2, },
+											{ 0.6, 0, },
+											{ 1, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0, 0, },
+											{ 0.4, 0, },
+											{ 0.6, 0.2, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+						Input = Input {
+							SourceOp = "ColorSpaceConversion",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 550, 643.5, }, },
+					UserControls = ordered() {
+						DisregardComponents = {
+							INP_Default = 0,
+							LINKID_DataType = "Number",
+							INP_External = false,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 0,
+							LBLC_NestLevel = 1,
+							INP_Passive = true,
+							LINKS_Name = "Disregard Components of Selected Color Space",
+						},
+					},
+				},
+				KeyColorProbe = Probe {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "Instance_ColorSpaceConversion",
+							Source = "Output",
+						},
+					},
+				},
+				Key3D = Custom {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							SourceOp = "KeyColorProbe",
+							Source = "Result",
+						},
+						NumberIn2 = Input {
+							SourceOp = "KeyColorProbe",
+							Source = "Green",
+						},
+						NumberIn3 = Input {
+							SourceOp = "KeyColorProbe",
+							Source = "Blue",
+						},
+						NumberIn4 = Input { Expression = "DistanceMath", },
+						LUTIn1 = Input {
+							SourceOp = "Key3DLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "Key3DLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "Key3DLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "Key3DLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input { Value = "min(1, abs(r1-n1)+abs(g1-n2)+abs(b1-n3))", },
+						Intermediate2 = Input { Value = "min(1, sqrt((r1-n1)^2 + (g1-n2)^2 + (b1-n3)^2))", },
+						AlphaExpression = Input { Value = "if(n4 == 0, i1, i2)", },
+						NumberControls = Input { Value = 1, },
+						NameforNumber1 = Input { Value = "Key Red", },
+						NameforNumber2 = Input { Value = "Key Green", },
+						NameforNumber3 = Input { Value = "Key Blue", },
+						NameforNumber4 = Input { Value = "Mode (0 = Manhattan, 1 = Euclidean)", },
+						ShowNumber5 = Input { Value = 0, },
+						ShowNumber6 = Input { Value = 0, },
+						ShowNumber7 = Input { Value = 0, },
+						ShowNumber8 = Input { Value = 0, },
+						ShowPoint1 = Input { Value = 0, },
+						ShowPoint2 = Input { Value = 0, },
+						ShowPoint3 = Input { Value = 0, },
+						ShowPoint4 = Input { Value = 0, },
+						ShowLUT1 = Input { Value = 0, },
+						ShowLUT2 = Input { Value = 0, },
+						ShowLUT3 = Input { Value = 0, },
+						ShowLUT4 = Input { Value = 0, },
+						Image1 = Input {
+							SourceOp = "DisregardSelectedComponents",
+							Source = "Output",
+						},
+						Comments = Input { Value = "v1.0 by Stefan Ihringer (www.bildfehler.de)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 660, 643.5, }, },
+					UserControls = ordered() {
+						DistanceMath = {
+							{ MBTNC_AddButton = "Sum (\"Manhattan\")", },
+							{ MBTNC_AddButton = "Euclidean", },
+							INP_Default = 0,
+							INP_Integer = true,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "MultiButtonControl",
+							IC_ControlPage = 0,
+							MBTNC_StretchToFit = true,
+							MBTNC_ShowToolTip = false,
+							LINKS_Name = "Distance Math",
+						},
+					},
+				},
+				Key3DLUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+				},
+				Key3DLUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+				},
+				Key3DLUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+				},
+				Key3DLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+				ColorSpaceConversion = ColorSpace {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ColorSpaceConversion = Input {
+							Value = 1,
+							Expression = "iif(ColorSpace == 0, 0, 1)",
+						},
+						ColorType = Input { Expression = "math.max(0, ColorSpace - 1)", },
+						Input = Input {
+							SourceOp = "ThreeDKeyer_Input",
+							Source = "Output",
+						},
+						ColorSpace = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 440, 643.5, }, },
+					UserControls = ordered() {
+						ColorSpace = {
+							{ MBTNC_AddButton = "RGB", },
+							{ MBTNC_AddButton = "HSV", },
+							{ MBTNC_AddButton = "YUV", },
+							{ MBTNC_AddButton = "YIQ", },
+							{ MBTNC_AddButton = "CMY", },
+							{ MBTNC_AddButton = "HLS", },
+							{ MBTNC_AddButton = "XYZ", },
+							LINKS_Name = "Color Space",
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							MBTNC_ShowToolTip = false,
+							INP_Default = 0,
+						},
+					},
+				},
+				Instance_ColorSpaceConversion = ColorSpace {
+					CtrlWShown = false,
+					NameSet = true,
+					SourceOp = "ColorSpaceConversion",
+					Inputs = {
+						ColorSpaceConversion = Input {
+							Value = 1,
+							Expression = "iif(ColorSpace == 0, 0, 1)",
+						},
+						ColorType = Input {
+							Expression = "math.max(0, ColorSpace - 1)",
+						},
+						Input = Input {
+							SourceOp = "KeyColorSelection",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input { },
+						EffectMask = Input { },
+					},
+					ViewInfo = OperatorInfo { Pos = { 440, 676.5, }, },
+					UserControls = ordered() {
+						ColorSpace = {
+							{ MBTNC_AddButton = "RGB", },
+							{ MBTNC_AddButton = "HSV", },
+							{ MBTNC_AddButton = "YUV", },
+							{ MBTNC_AddButton = "YIQ", },
+							{ MBTNC_AddButton = "CMY", },
+							{ MBTNC_AddButton = "HLS", },
+							{ MBTNC_AddButton = "XYZ", },
+							LINKS_Name = "Color Space",
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							MBTNC_ShowToolTip = false,
+							INP_Default = 0,
+						},
+					},
+				},
+				KeyColorSelection = Background {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Depth = Input { Value = 4, },
+						TopLeftRed = Input { Value = 0.2841796875, },
+						TopLeftGreen = Input { Value = 0.3759765625, },
+						TopLeftBlue = Input { Value = 0.75439453125, },
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 330, 676.5, }, },
+				},
+				ThreeDKeyer_Input = PipeRouter {
+					CtrlWShown = false,
+					NameSet = true,
+					ViewInfo = PipeRouterInfo { Pos = { 330, 577.5, }, },
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.368627450980392, B = 0.541176470588235, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	ActiveTool = "ThreeDKeyer",
+}

@@ -1,0 +1,26 @@
+{
+	Tools = ordered() {
+		BG_ColoredCorners = Background {
+			Inputs = {
+				UseFrameFormatSettings = Input {
+					Value = 1,
+				},
+				Type = Input {
+					Value = FuID { "Corner", },
+				},
+				TopLeftRed = Input {
+					Value = 1,
+				},
+				TopRightGreen = Input {
+					Value = 1,
+				},
+				BottomRightBlue = Input {
+					Value = 1,
+				},
+				Comments = Input {
+					Value = "Useful to test transformation and distortion tools when you need to see how much and what way the image is adjusted\nby Gregory Chalenko\nwww.compositing.ru",
+				},
+			},
+		},
+	},
+}

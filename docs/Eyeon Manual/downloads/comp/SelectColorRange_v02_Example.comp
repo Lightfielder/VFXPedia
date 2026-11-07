@@ -1,0 +1,777 @@
+Composition {
+	CurrentTime = 1,
+	RenderRange = { 1, 107, },
+	GlobalRange = { 1, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.31 build 78",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Rectangle1_2 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0287293,
+				},
+				PaintMode = Input {
+					Value = FuID { "Minimum", },
+				},
+				Invert = Input {
+					Value = 1,
+				},
+				MaskWidth = Input {
+					Value = 2048,
+				},
+				MaskHeight = Input {
+					Value = 1556,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				Center = Input {
+					Value = { 0.301482371794871, 0.32490878305409, },
+				},
+				Width = Input {
+					Value = 0.156067890442891,
+				},
+				Height = Input {
+					Value = 0.181780138233207,
+				},
+				EffectMask = Input {
+					SourceOp = "Bmp_Combine",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 586.372, 275.562, },
+			},
+		},
+		SelectColorRange = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "This is a kind of bitmap mask which selects a color range according to Hue, Saturation, Lightness or R, G, B, A values.\nby Gregory Chalenko\nwww.compositing.ru",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "Filter",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "SoftEdge",
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "Channel",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Bmp_Combine",
+					Source = "PaintMode",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "RangeHigh",
+					ControlGroup = 4,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "RangeLow",
+					ControlGroup = 4,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "LowDecay",
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Bmp_To",
+					Source = "HighDecay",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Bmp_Combine",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Bmp_Combine",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 586.96, 242.011, },
+			},
+			Tools = ordered() {
+				Bmp_From = BitmapMask {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						FromHigh = Input {
+							Value = 0.25,
+						},
+						FromLow = Input {
+							Value = 0.1,
+						},
+						Filter = Input {
+							Expression = "Bmp_To.Filter",
+						},
+						SoftEdge = Input {
+							Expression = "Bmp_To.SoftEdge",
+						},
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Image = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Hue", },
+							Expression = "Bmp_To.Channel",
+						},
+						High = Input {
+							Value = 0.25,
+							Expression = "Bmp_To.RangeLow",
+						},
+						Low = Input {
+							Value = 0.15,
+							Expression = "Bmp_To.RangeLow-Bmp_To.LowDecay",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -60.5, 9.87812, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					CtrlWShown = false,
+					Inputs = {
+						Input = Input {
+							SourceOp = "Background",
+							Source = "Output",
+						},
+					},
+					ViewInfo = PipeRouterInfo {
+						Pos = { -131.5, 33.8781, },
+					},
+				},
+				Bmp_Combine = BitmapMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Image = Input {
+							SourceOp = "Bmp_To",
+							Source = "Mask",
+						},
+						EffectMask = Input {
+							SourceOp = "Ellipse1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 131.5, 27, },
+					},
+				},
+				Bmp_To = BitmapMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						PaintMode = Input {
+							Value = FuID { "Subtract", },
+						},
+						MaskWidth = Input {
+							Value = 2048,
+						},
+						MaskHeight = Input {
+							Value = 1556,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Image = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Hue", },
+						},
+						High = Input {
+							Value = 0.5,
+							Expression = "RangeHigh+HighDecay",
+						},
+						Low = Input {
+							Value = 0.4,
+							Expression = "RangeHigh",
+						},
+						RangeHigh = Input {
+							Value = 0.4,
+						},
+						RangeLow = Input {
+							Value = 0.25,
+						},
+						LowDecay = Input {
+							Value = 0.1,
+						},
+						HighDecay = Input {
+							Value = 0.1,
+						},
+						EffectMask = Input {
+							SourceOp = "Bmp_From",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 30.5, 26.8781, },
+					},
+					UserControls = ordered() {
+						RangeHigh = {
+							LINKS_Name = "Range High",
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							IC_ControlGroup = 3,
+						},
+						RangeLow = {
+							IC_ControlGroup = 3,
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Range Low",
+						},
+						LowDecay = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Low Decay",
+							IC_ControlPage = 0,
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0.05,
+						},
+						HighDecay = {
+							LINKID_DataType = "Number",
+							INP_Default = 0.05,
+							IC_ControlPage = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "High Decay",
+						},
+					},
+				},
+			},
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0563536,
+				},
+				OutputSize = Input {
+					Value = FuID { "Custom", },
+				},
+				MaskWidth = Input {
+					Value = 384,
+				},
+				MaskHeight = Input {
+					Value = 288,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				Center = Input {
+					Value = { 0.28155637254902, 0.302083333333333, },
+				},
+				Width = Input {
+					Value = 0.327541486525417,
+				},
+				Height = Input {
+					Value = 0.327541486525417,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 587.119, 207.688, },
+			},
+		},
+		Background = Background {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 384,
+				},
+				Height = Input {
+					Value = 288,
+				},
+				Depth = Input {
+					Value = 4,
+				},
+				Type = Input {
+					Value = FuID { "Gradient", },
+				},
+				TopLeftAlpha = Input {
+					Value = 0,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 0.5, 0.5, 1, },
+							[0.5] = { 0, 1, 1, 1, },
+							[1] = { 0.9999999999999, 0.5, 1, 1, },
+						},
+					},
+				},
+				GradientInterpolationMethod = Input {
+					Value = FuID { "HLS", },
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 444, 242, },
+			},
+		},
+		ColorFill = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Solid Color Fill for Fusion 5.21 and above\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Image1",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Blend",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Red",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Green",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Blue",
+					ControlGroup = 3,
+					Default = 0,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Alpha",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "MultiplybyAlpfa",
+				},
+				Input13 = InstanceInput {
+					SourceOp = "_CF_CustomTool",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "_CF_CustomTool",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 586.213, 310.787, },
+			},
+			Tools = ordered() {
+				["_CF_CustomTool"] = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0.9,
+						},
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						NumberIn1 = Input {
+							Value = 0.5,
+							Expression = "Red",
+						},
+						NumberIn2 = Input {
+							Expression = "Green",
+						},
+						NumberIn3 = Input {
+							Expression = "Blue",
+						},
+						NumberIn4 = Input {
+							Value = 1,
+							Expression = "Alpha",
+						},
+						NumberIn5 = Input {
+							Value = 1,
+							Expression = "MultiplybyAlpfa",
+						},
+						RedExpression = Input {
+							Value = "if (n5=1,n1*a1,n1)",
+						},
+						GreenExpression = Input {
+							Value = "if (n5=1,n2*a1,n2)",
+						},
+						BlueExpression = Input {
+							Value = "if (n5=1,n3*a1,n3)",
+						},
+						AlphaExpression = Input {
+							Value = "if (n5=1,n4*a1,n4)",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						Image1 = Input {
+							SourceOp = "Background",
+							Source = "Output",
+						},
+						Red = Input {
+							Value = 0.5,
+						},
+						EffectMask = Input {
+							SourceOp = "Rectangle1_2",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 10.15, },
+					},
+					UserControls = ordered() {
+						Red = {
+							IC_ControlGroup = 1,
+							CLRC_ColorSpace = 1,
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							INPID_InputControl = "ColorControl",
+							INP_Default = 0,
+						},
+						Green = {
+							INP_Default = 0,
+							LINKID_DataType = "Number",
+							CLRC_ShowWheel = true,
+							INPID_InputControl = "ColorControl",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							CLRC_ColorSpace = 0,
+							IC_ControlGroup = 1,
+						},
+						Blue = {
+							INP_Default = 0,
+							INPID_InputControl = "ColorControl",
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							IC_ControlID = 2,
+							IC_ControlGroup = 1,
+						},
+						Alpha = {
+							INP_Default = 1,
+							INPID_InputControl = "ColorControl",
+							CLRC_ShowWheel = true,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlPage = 0,
+							IC_ControlID = 3,
+							IC_ControlGroup = 1,
+						},
+						MultiplybyAlpfa = {
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Multiply by Alpfa",
+						},
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 23,
+			Top = 23,
+			Width = 1255,
+			Height = 715,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							FullIndicator = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.61329,
+						Offset = { -44.2663, -52.484, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "ColorFill", Expanded = true, },
+							{ "_CF_CustomTool", Expanded = true, },
+							{ "SelectColorRange", Expanded = true, },
+							{ "Bmp_From", Expanded = true, },
+							{ "Bmp_To", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 605, },
+							ScaleX = 0.942333021666019,
+							OffsetX = -50.885983169965,
+							OffsetY = 0,
+							AutoScaling = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0036101083032491,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 1, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.815047021943574,
+					RatioY = 0.010377358490566,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.372865275142315,
+						{
+							ID = "Left",
+							RatioX = 0.61526599845798,
+							RatioY = 0.0101781170483461,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.38473400154202,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.575901328273245,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			AutoSave = {
+				Delay = 300,
+				OnRender = true,
+			},
+			Memory = {
+				Render = {
+					SimultaneousBranching = true,
+				},
+				Interactive = {
+					SimultaneousBranching = true,
+				},
+			},
+			NumberStyles = {
+				ClipFrame = 2,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						Channel = 4294967295,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+					},
+					SideB = {
+						Viewer = {
+							ScaleMode = 0,
+						},
+						ViewLUT = {
+						},
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "2K 2.35/1.77 25fps",
+				Rate = 25,
+				PerFeet = 1,
+				GuideY1 = 0.125,
+				GuideY2 = 0.875,
+				GuideRatio = 2.35,
+			},
+			LastFile = "D:\\=Bazelevs\\Black_Lightning\\BUS\\Res\\BUS-0060\\BUS-0060_Comp_v02_091007_Direction1.mov",
+			Unsorted = {
+				GlobalStart = 1,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				AutoSnap = false,
+				FullToolIndicator = true,
+				RemoveRouters = false,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

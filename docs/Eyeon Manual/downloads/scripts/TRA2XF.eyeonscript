@@ -1,0 +1,400 @@
+----------------------------------------------------------------------------------------
+-- TRA to XF
+--
+-- tool script
+--
+-- This script connects transform to selected tracer, bakes animation,
+-- and allows averaging keyframes or removing jitter.
+-- Also allows to change reference frame and scale transform values.
+--
+-- Portions from Destabilize Transform, Bake Animation and Attach Mask to path.. scripts
+-- by Isaac Guenard and Sean Konrad, thanks.
+--
+-- written by Jirka Sindelar, Avion Postproduction
+----------------------------------------------------------------------------------------
+
+-- compensate for reference frame and invert if stabilize is on
+function doTSR(num, refnum, mode, stab, scaling)
+local nout
+
+	if mode == "Center" then
+	  -- center
+	  nout = num+0.5-refnum
+	  nout = (nout-0.5)*scaling + 0.5
+	  if stab == 0 then
+		nout = -1*(nout-0.5)+0.5
+	  end
+    elseif mode == "Size" then
+      -- size
+	  nout = (1/refnum)*num*(1/scaling)
+	  if stab == 0 then
+		nout = 1/nout
+	  end
+    else
+      -- angle
+	  nout = (-1*refnum)+num
+	  nout = nout * scaling
+	  if stab == 0 then
+		nout = -1*nout
+	  end
+    end
+	return nout
+end
+
+
+-- average and jitter remove on tab
+function averageTab(tab, from, to, average, jitter, mode, stab, refframe, scaling) 	
+local sum, avei, aveo, i, j, jj, aveout, refnum = 0
+local delta, jout = 0
+local aveTab = {}
+
+	if average > 1 then
+		avei = math.floor(average/2)
+		aveo = average - avei - 1
+	else
+		avei = 0
+		aveo = 0
+	end
+	for i = from, to do
+		if avei+aveo > 0 then
+			sum = 0
+			for j=i-avei, i+aveo do
+				jj = j
+				if j < from then
+					jj = from
+				end
+				if j > to then
+					jj = to 
+				end
+				sum = sum + tab[jj]
+			end
+			aveout = sum / average
+		else
+			aveout = tab[i]
+		end
+		if jitter == 1 then
+			delta = aveout - tab[i]
+			jout = -1*delta
+			if mode == "Center" then
+				jout = jout + 0.5
+			elseif mode == "Size" then
+				jout = jout + 1
+			else
+				-- angle
+			end
+			aveTab[i] = jout
+		else
+			refnum = tab[refframe]
+			aveout = doTSR(aveout, refnum, mode, stab, scaling)
+			aveTab[i] = aveout
+		end
+	end
+	return aveTab
+end
+
+
+tracks = {}
+local names = {}
+local id = tool:GetID()
+
+-- tool script?
+if not tool then
+	tool = composition:GetAttrs().COMPH_ActiveTool
+	if not tool then
+		print("This is a tool script, you must select a tool in the flow to run this script")
+		return
+	end
+end
+
+
+-- check if inputs exist
+CenterExists = false
+SizeExists = false
+PivotExists = false
+AngleExists = false
+CommentsExists = false
+for key,inp in tool:GetInputList() do
+	attrs = inp:GetAttrs()
+	if attrs.INPS_Name == "Center" then 
+		CenterExists = true
+	end
+	if attrs.INPS_Name == "Size" then 
+		SizeExists = true
+	end
+	if attrs.INPS_Name == "Pivot" then 
+		PivotExists = true
+	end
+	if attrs.INPS_Name == "Angle" then 
+		AngleExists = true
+	end
+	if attrs.INPS_Name == "Comments" then 
+		CommentsExists = true
+	end
+end
+
+composition:Lock()
+composition:StartUndo("Tracker to Transform Tool Script")
+
+-- get trackers
+local toollist = comp:GetToolList()
+for i, v in pairs(toollist) do
+	if v:GetID() == "Tracker" then
+		table.insert(tracks, v)
+		table.insert(names, v:GetAttrs().TOOLS_Name)
+	end
+end
+if table.getn(tracks) == 0 then
+	print("There are no trackers in this comp!")
+end
+
+-- Get the range to process from render range
+compattrs = composition:GetAttrs()
+from = compattrs.COMPN_RenderStart
+to = compattrs.COMPN_RenderEnd
+
+-- set dialog prefs
+if composition:GetData("TRA2XFprefs") == nil then
+	-- script not used yet in this comp, set dialog prefs
+	pref = {TrselDef = 0, RefFrameDef = from, RefFrameMin = from, RefFrameMax = to, StabDef = 0,
+		CenDef = 1, CenJDef = 0, CenXYDef = 0, CenAveXDef = 1, CenAveYDef = 1,
+		SizDef = 0, SizJDef = 0, SizAveDef = 1,
+		AngDef = 0, AngJDef = 0, AngAveDef = 1,
+		CenSCX = 1, CenSCY = 1, SizSC = 1, AngSC = 1}
+else
+	
+	-- load last used values
+	pref = composition:GetData("TRA2XFprefs")
+	-- check for change in tracker tool number
+	if pref.TrselDef+1 > table.getn(tracks) then
+		pref.TrselDef = 0
+	end
+end
+-- now set dialog table
+dlgtbl = {
+	{"Tracker", "Dropdown", Default = TrselDef, Options = names },
+	{"Reference_Frame", "Slider", Integer = true, Default = pref.RefFrameDef, Min = pref.RefFrameMin, Max = pref.RefFrameMax},
+	{"Stabilize", "Checkbox", Default = pref.StabDef, NumAcross=2},
+	
+	{"Center", "Checkbox", Default = pref.CenDef, NumAcross=1},
+	{"Center_Jitter", "Checkbox", Default = pref.CenJDef, NumAcross=2},
+	{"Center_XY", "Checkbox", Default = pref.CenXYDef, NumAcross=2},
+	{"Center_Average_X", "Slider", Integer = true, Default = pref.CenAveXDef, Min = 1, Max = pref.CenAveXDef+24},
+	{"Center_Average_Y", "Slider", Integer = true, Default = pref.CenAveYDef, Min = 1, Max = pref.CenAveYDef+24},
+	
+	{"Size", "Checkbox", Default = pref.SizDef, NumAcross=2},
+	{"Size_Jitter", "Checkbox", Default = pref.SizJDef, NumAcross=2},
+	{"Size_Average", "Slider", Integer = true, Default = pref.SizAveDef, Min = 1, Max = pref.SizAveDef+24},
+
+	{"Angle", "Checkbox", Default = pref.AngDef, NumAcross=2},
+	{"Angle_Jitter", "Checkbox", Default = pref.AngJDef, NumAcross=2},
+	{"Angle_Average", "Slider", Integer = true, Default = pref.AngAveDef, Min = 1, Max = pref.AngAveDef+24},
+	
+	{"CenterScaleX", "Slider", Integer = false, Default = pref.CenSCX},
+	{"CenterScaleY", "Slider", Integer = false, Default = pref.CenSCY},
+	{"SizeScale", "Slider", Integer = false, Default = pref.SizSC},
+	{"AngleScale", "Slider", Integer = false, Default = pref.AngSC}
+	}
+
+-- Ask the user
+settings = composition:AskUser("Tracker to Transform", dlgtbl)
+	if settings == nil then
+		return
+	end
+
+-- save prefs
+pref = {TrselDef = settings.Tracker, RefFrameDef = settings.Reference_Frame, RefFrameMin = from, RefFrameMax = to, StabDef = settings.Stabilize,
+		CenDef = settings.Center, CenJDef = settings.Center_Jitter, CenXYDef = settings.Center_XY, CenAveXDef = settings.Center_Average_X, CenAveYDef = settings.Center_Average_Y,
+		SizDef = settings.Size, SizJDef = settings.Size_Jitter, SizAveDef = settings.Size_Average,
+		AngDef = settings.Angle, AngJDef = settings.Angle_Jitter, AngAveDef = settings.Angle_Average,
+		CenSCX = settings.CenterScaleX, CenSCY = settings.CenterScaleY, SizSC = settings.SizeScale, AngSC = settings.AngleScale}
+		
+composition:SetData("TRA2XFprefs", pref)
+	
+	
+tracker = tracks[settings.Tracker + 1]
+refoffsetX = 0
+refoffsetY = 0
+
+-- Size
+
+if settings.Size == 1 then
+	if SizeExists then
+
+	tool.Size:ConnectTo( tracker.SteadySize )
+	inpS = tool["Size"]
+	inpattrs = inpS:GetAttrs()
+	keyframesX = {}
+	kXave = {}
+	for i=from,to do
+		keyframesX[i] = inpS[i]
+	end
+	kXave = averageTab(keyframesX, from, to, settings.Size_Average, settings.Size_Jitter, "Size", settings.Stabilize, settings.Reference_Frame, settings.SizeScale)
+	tool.Size = BezierSpline({})
+	for i=from,to do
+		inpS[i] = kXave[i]
+	end
+	
+	-- set correct pivot
+	if PivotExists then
+	tool.Pivot:ConnectTo( tracker.SteadyAxis )
+	inpP = tool["Pivot"]
+	inpattrs = inpP:GetAttrs()
+	keyframesX = {}
+	keyframesY = {}
+	kXave = {}
+	kYave = {}
+	for i=from,to do
+		keyframesX[i] = inpP[i][1]
+		keyframesY[i] = inpP[i][2]
+	end
+	pointXY = {}
+    for i=from,to do
+      pointXY[i] = {}
+      for j=from,to do
+        pointXY[i][j] = 0
+      end
+    end
+	if settings.Stabilize == 1 then
+		-- set moving pivot
+		tool.Pivot = Path({})
+		for i=from,to do
+			pointXY[i][1] = keyframesX[i]
+			pointXY[i][2] = keyframesY[i]
+			inpP[i] = pointXY[i]
+		end
+		refoffsetX = keyframesX[settings.Reference_Frame]
+		refoffsetY = keyframesY[settings.Reference_Frame]
+	else
+		-- set pivot to reference frame
+		pointXY[1][1] = inpP[settings.Reference_Frame][1]
+		pointXY[1][2] = inpP[settings.Reference_Frame][2]
+		tool.Pivot = nil
+		inpP[TIME_UNDEFINED] = pointXY[1]
+	end
+	else
+		print("Warning, pivot input doesn't exist!")
+	end
+	else
+		print("Warning, size input doesn't exist!")
+	end
+end
+
+
+
+-- Center
+if settings.Center == 1 then
+	if CenterExists then
+	tool.Center:ConnectTo( tracker.SteadyPosition )
+	inp = tool["Center"]
+	inpattrs = inp:GetAttrs()
+	keyframesX = {}
+	keyframesY = {}
+	kXave = {}
+	kYave = {}
+	for i=from,to do
+		keyframesX[i] = inp[i][1]
+		keyframesY[i] = inp[i][2]
+	end
+	kXave = averageTab(keyframesX, from, to, settings.Center_Average_X, settings.Center_Jitter, "Center", settings.Stabilize, settings.Reference_Frame, settings.CenterScaleX)
+	kYave = averageTab(keyframesY, from, to, settings.Center_Average_Y, settings.Center_Jitter, "Center", settings.Stabilize, settings.Reference_Frame, settings.CenterScaleY)
+	if settings.Stabilize == 1 and refoffsetX ~= 0 and refoffsetY ~= 0 then
+		refreposX = kXave[settings.Reference_Frame]- refoffsetX + refoffsetX - 0.5
+		refreposY = kYave[settings.Reference_Frame]- refoffsetY + refoffsetY - 0.5
+		for i=from,to do
+			kXave[i] = kXave[i] + refreposX
+			kYave[i] = kYave[i] + refreposY
+		end
+	end
+	pointXY = {}
+    for i=from,to do
+      pointXY[i] = {}
+      for j=from,to do
+        pointXY[i][j] = 0
+      end
+    end
+	if settings.Center_XY == 0 then
+		tool.Center = Path({})
+		for i=from,to do
+			pointXY[i][1] = kXave[i]
+			pointXY[i][2] = kYave[i]
+			inp[i] = pointXY[i]
+		end
+	else
+		-- ripped from Attach Mask to path... script, may be done better with setdata?
+		offsetcount=0
+		offsetdump={}
+		offsetlist={}
+		-- Reset the toollist variable.  Because now that we've deleted any old offsets
+		-- the toollist will have to be refreshed in case Fusion's naming handlers see that 
+		-- the old offset position is the same name as the new one.
+		toollist=composition:GetToolList()
+		for i = 1, table.getn(toollist) do
+			k = toollist[i]:GetAttrs()
+			if k.TOOLS_RegID == "XYPath" then
+				offsetcount=offsetcount+1
+				offsetdump[offsetcount]=toollist[i]
+				offsetlist[offsetcount]=k.TOOLS_Name
+			end
+		end
+		xypmod = XYPath({})
+		tool.Center = xypmod
+		toollist2 = composition:GetToolList()
+		for m = 1, table.getn(toollist2) do
+			k = toollist2[m]:GetAttrs()
+			if k.TOOLS_RegID == "XYPath" then
+				inarray=false
+				for l = 1, offsetcount do
+					if k.TOOLS_Name == offsetlist[l] then
+						inarray=true
+					end
+				end
+				if inarray == true then
+				else
+					toollist2[m].X = BezierSpline({})
+					toollist2[m].Y = BezierSpline({})
+					for i=from,to do
+						toollist2[m].X[i] = kXave[i]
+						toollist2[m].Y[i] = kYave[i]
+					end
+				end
+			end
+		end
+	end
+	else
+		print("Warning, center input doesn't exist!")
+	end
+end
+
+
+-- Angle
+if settings.Angle == 1 then
+	if AngleExists then
+	tool.Angle:ConnectTo( tracker.SteadyAngle )
+	inpA = tool["Angle"]
+	inpattrs = inpA:GetAttrs()
+	keyframesX = {}
+	kXave = {}
+	for i=from,to do
+		keyframesX[i] = inpA[i]
+	end
+	kXave = averageTab(keyframesX, from, to, settings.Angle_Average, settings.Angle_Jitter, "Angle", settings.Stabilize, settings.Reference_Frame, settings.AngleScale)
+	tool.Angle = BezierSpline({})
+	for i=from,to do
+		inpA[i] = kXave[i]
+	end
+	else
+		print("Warning, angle input doesn't exist!")
+	end
+end
+
+-- write parameters to comments
+if CommentsExists then
+	oldcomm = tool.Comments[TIME_UNDEFINED]
+	prefLib.tableToString(pref)
+	tool.Comments = oldcomm.."\n TRA2XF script settings:"..prefLib.tableToString(pref)
+end
+	
+	
+composition:EndUndo(true)
+composition:Unlock()
+

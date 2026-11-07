@@ -1,0 +1,78 @@
+{
+	Tools = ordered() {
+		pRandomizeInitialPosition = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Randomizes particles' X, Y and Z initial position\nby Gregory Chalenko\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "pCustom",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "pCustom",
+					Source = "Randomize",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "pCustom",
+					Source = "RandomSeed",
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "pCustom",
+					Source = "NumberIn1",
+					Name = "X Strength",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "pCustom",
+					Source = "NumberIn2",
+					Name = "Y Strength",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "pCustom",
+					Source = "NumberIn3",
+					Name = "Z Strength",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "pCustom",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				pCustom = pCustom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 0.02,
+						},
+						NumberIn2 = Input {
+							Value = 0.02,
+						},
+						NumberIn3 = Input {
+							Value = 0.02,
+						},
+						PositionXExpression = Input {
+							Value = "if(age>0, px, px+rand(n1,-n1))",
+						},
+						PositionYExpression = Input {
+							Value = "if(age>0, py, py+rand(n2,-n2))",
+						},
+						PositionZExpression = Input {
+							Value = "if(age>0, pz, pz+rand(n3,-n3))",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 773, 249, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "pRandomizeInitialPosition",
+}

@@ -1,0 +1,1812 @@
+Composition {
+	CurrentTime = 47,
+	RenderRange = { 1, 300, },
+	GlobalRange = { 0, 300, },
+	CurrentID = 765,
+	HiQ = true,
+	Version = "Fusion x64 6.4 build 1118",
+	SavedOutputs = 0,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 1,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+		"C:\\Users\\User\\Desktop\\FU_Replicate3D\\Renders\\FU_Rep_C_1280x720_render.png",
+	},
+	Tools = {
+		pTurbulence1StrengthoverLifeLUT = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 192, Green = 128, Blue = 64, },
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		pEmitter1 = pEmitter {
+			ID = 1,
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				Lifespan = Input { Value = 1000, },
+				VelocityControls = Input { Value = 1, },
+				Velocity = Input { Value = 0.4137931, },
+				VelocityVariance = Input { Value = 0.3374384, },
+				Angle = Input { Value = 90, },
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["SphereRgn.Size"] = Input { Value = 23.7905759, },
+			},
+			ViewInfo = OperatorInfo { Pos = { -225.13, 172.966, }, },
+		},
+		Note1_2_1_2 = Note {
+			Inputs = {
+				Comments = Input { Value = "CAMERA TARGET SWITCHER ( CamTARGET )", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1586.19, 235.853, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 480.488, 31.5729, },
+			},
+		},
+		CoordTransform3D2 = CoordTransform3D {
+			CtrlWZoom = false,
+			Inputs = {
+				["Transform3DOp.Translate.Y"] = Input { Value = 0.5810056, },
+				TargetObject = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				SubID = Input {
+					Value = 2,
+					Expression = "Current_Locator3D.SubID",
+				},
+				SceneInput = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+			},
+		},
+		Replicate3D1 = Replicate3D {
+			Inputs = {
+				Destination = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				Input1 = Input {
+					SourceOp = "Shape3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 610.901, 169.959, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+			Colors = { TileColor = { R = 0.498039215686275, G = 0, B = 1, }, },
+		},
+		Calculation2 = Calculation {
+			Inputs = {
+				FirstOperand = Input {
+					Value = -6.95828819274902,
+					Expression = "BLANK_Locator.Transform3DOp.Translate.Y",
+				},
+				SecondOperand = Input {
+					SourceOp = "Shake2",
+					Source = "X",
+				},
+				FirstOperandTimeScale = Input { Expression = "Calculation3.FirstOperandTimeScale", },
+				FirstOperandTimeOffset = Input { Expression = "Calculation3.FirstOperandTimeOffset", },
+				SecondOperandTimeScale = Input { Expression = "Calculation3.SecondOperandTimeScale", },
+				SecondOperandTimeOffset = Input { Expression = "Calculation3.SecondOperandTimeOffset", },
+			},
+		},
+		Shape3D2 = Shape3D {
+			Inputs = {
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input { Value = 6, },
+				["SurfaceCubeInputs.Width"] = Input { Value = 2.3560209, },
+				["SurfaceCubeInputs.ObjectID.ObjectID"] = Input { Value = 7, },
+				["SurfaceCubeInputs.SubdivisionWidth"] = Input { Value = 9, },
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "CoordTransform3D6",
+					Source = "Position.X",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "CoordTransform3D6",
+					Source = "Position.Y",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "CoordTransform3D6",
+					Source = "Position.Z",
+				},
+				Shape = Input { Value = FuID { "SurfaceTorusInputs", }, },
+				["MtlStdInputs.MaterialID"] = Input { Value = 4, },
+				["SurfaceTorusInputs.Radius"] = Input { Value = 3.3246073, },
+				["SurfaceTorusInputs.Section"] = Input { Value = 0.104712, },
+				["SurfaceTorusInputs.SubdivisionLevelBase"] = Input { Value = 79, },
+				["SurfaceTorusInputs.SubdivisionLevelHeight"] = Input { Value = 79, },
+				["SurfaceTorusInputs.EndLat"] = Input { Value = 78.6754967, },
+				["SurfaceTorusInputs.ObjectID.ObjectID"] = Input { Value = 2, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 539.664, 430.005, }, },
+		},
+		Note1_2 = Note {
+			Inputs = {
+				Comments = Input { Value = "<-----BACKGROUND------->", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1717, 718.505, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 383.552, 36.2203, },
+			},
+		},
+		Merge6 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Renderer3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1966.79, 670.199, }, },
+		},
+		Note1_2_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "LIGHTS", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1359.46, 390.311, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 204.241, 35.1336, },
+			},
+		},
+		PipeRouter1 = PipeRouter {
+			Inputs = {
+				Input = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = PipeRouterInfo { Pos = { 1067.29, 530.62, }, },
+		},
+		Note1_2_1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "Text & Shape positions are got by using the CoordTransform3D modifier", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 743.28, 460.949, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 215.108, 66.6489, },
+			},
+		},
+		Text1 = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Center = Input { Value = { 0.133692865940943, 0.0608695652173913, }, },
+				Size = Input { Value = 0.0471204, },
+				Font = Input { Value = "Intro ", },
+				StyledText = Input {
+					Value = "SHOT 2",
+					Expression = "Text(\"SHOT \"..Cam_Controls.Offset_CamTARGET)",
+				},
+				Style = Input { Value = "Regular", },
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input { Disabled = true, },
+				DPTType = Input { Disabled = true, },
+				DPTResolution = Input { Disabled = true, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 2103.98, 778.341, }, },
+		},
+		BLANK_Locator = Locator3D {
+			NameSet = true,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "CoordTransform3D3",
+					Source = "Position.X",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "CoordTransform3D3",
+					Source = "Position.Y",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "CoordTransform3D3",
+					Source = "Position.Z",
+				},
+				Size = Input { Value = 0.0144231, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1029.03, 86.1525, }, },
+			Colors = { TileColor = { R = 0.498039215686275, G = 0.498039215686275, B = 0, }, },
+		},
+		Note1_1_1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "Using Modifiers on the XYZ Offset and a CoordTransform3D Modifier on the Camera Position", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1418.92, 110.674, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 202.169, 65.4445, },
+			},
+		},
+		Merge2 = Merge {
+			Inputs = {
+				Blend = Input { Value = 0.565445, },
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Merge6",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2105.17, 670.113, }, },
+		},
+		pRender1 = pRender {
+			Inputs = {
+				["_MotionBlurWarning"] = Input { Disabled = true, },
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				OutputMode = Input { Disabled = true, },
+				IntegrationMethod = Input { Value = FuID { "RK4", }, },
+				["MaterialID.MaterialID"] = Input { Value = 1, },
+				["ObjectID.ObjectID"] = Input { Value = 1, },
+				Input = Input {
+					SourceOp = "pTurbulence1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 140.007, 172.599, }, },
+		},
+		CoordTransform3D3 = CoordTransform3D {
+			CtrlWZoom = false,
+			Inputs = {
+				TargetObject = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				SubID = Input {
+					Value = 1,
+					Expression = "Current_Locator3D.SubID-1",
+				},
+				SceneInput = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+			},
+		},
+		Note1_1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "Getting the Previous and Current position on the Replicate node using CoordTransform3D Modifier", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 787.555, 22.7902, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 352.273, 49.7576, },
+			},
+		},
+		Shake3 = Shake {
+			Inputs = {
+				RandomSeed = Input { Value = 32097, },
+				Smoothness = Input {
+					Value = 30,
+					Expression = "Shake1.Smoothness",
+				},
+			},
+		},
+		Camera3D1 = Camera3D {
+			Locked = true,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "Calculation1",
+					Source = "Result",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "Calculation2",
+					Source = "Result",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "Calculation3",
+					Source = "Result",
+				},
+				["Transform3DOp.Rotation"] = Input { Value = 0, },
+				["Transform3DOp.UseTarget"] = Input { Value = 1, },
+				["Transform3DOp.Target.X"] = Input {
+					SourceOp = "CoordTransform3D1",
+					Source = "Position.X",
+				},
+				["Transform3DOp.Target.Y"] = Input {
+					SourceOp = "CoordTransform3D1",
+					Source = "Position.Y",
+				},
+				["Transform3DOp.Target.Z"] = Input {
+					SourceOp = "CoordTransform3D1",
+					Source = "Position.Z",
+				},
+				FLength = Input { Value = 6.50922674900596, },
+				["Stereo.Method"] = Input { Value = FuID { "Parallel", }, },
+				FilmBack = Input { Value = 1, },
+				FilmGate = Input { Value = FuID { "HD", }, },
+				ApertureW = Input { Value = 0.3775, },
+				ApertureH = Input { Value = 0.2123, },
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input { Value = 4, },
+				["MtlStdInputs.MaterialID"] = Input { Value = 3, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1441.8, 187.905, }, },
+		},
+		Merge3D4 = Merge3D {
+			Inputs = {
+				PassThroughLights = Input { Value = 1, },
+				SceneInput1 = Input {
+					SourceOp = "B",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "Shape3D2",
+					Source = "Output",
+				},
+				SceneInput3 = Input {
+					SourceOp = "PointLight1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 681.428, 426.749, }, },
+		},
+		Previous_Locator3D = Locator3D {
+			NameSet = true,
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				Size = Input { Value = 0, },
+				ColorGreen = Input { Value = 0, },
+				ColorBlue = Input { Value = 0, },
+				SubID = Input {
+					Value = 1,
+					Expression = "Current_Locator3D.SubID-Cam_Controls.Offset_CamBASE",
+				},
+				Target = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				MakeRenderable = Input { Value = 1, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 821.658, 89.3191, }, },
+			Colors = { TileColor = { R = 1, G = 0.498039215686275, B = 0.250980392156863, }, },
+		},
+		CoordTransform3D1 = CoordTransform3D {
+			CtrlWZoom = false,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input { Value = 0.435284443615508, },
+				["Transform3DOp.Translate.Y"] = Input { Value = 0.3798883, },
+				TargetObject = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				SubID = Input {
+					Value = 2,
+					Expression = "Current_Locator3D.SubID",
+				},
+				SceneInput = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+			},
+		},
+		Transform3D2_1 = Transform3D {
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "ReplaceMaterial3D1",
+					Source = "Output",
+				},
+				["Transform3DOp.Translate.Y"] = Input { Value = 1.6089385, },
+				["Transform3DOp.Rotate.X"] = Input { Value = -90.5027933, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 464.439, -27.47, }, },
+		},
+		Gradient1 = TexGradient {
+			Inputs = {
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0.305882352941176] = { 0.669421487603306, 1, 1, 1, },
+							[0.313725490196078] = { 0, 0, 0.0909090909090909, 1, },
+							[0.698039215686274] = { 0.239669421487603, 0, 0.0909090909090909, 1, },
+							[0.980392156862745] = { 1, 0, 0, 1, },
+							[1] = { 0, 1, 0.980903952697082, 1, },
+						},
+					},
+				},
+				Scale = Input { Value = 3.9894179, },
+				Offset = Input { Value = -4.3227512, },
+				Repeat = Input { Value = FuID { "Repeat", }, },
+				MaterialID = Input { Value = 2, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 317.624, -109.28, }, },
+		},
+		Rectangle2 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input { Value = 0.052356, },
+				BorderWidth = Input { Value = 0.0645833, },
+				Invert = Input { Value = 1, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.85314091680815, },
+				Height = Input { Value = 0.722886863613705, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 2606.09, 536.01, }, },
+		},
+		Shape3D1 = Shape3D {
+			Inputs = {
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input { Value = 2, },
+				SceneInput = Input {
+					SourceOp = "Transform3D2_1",
+					Source = "Output",
+				},
+				Shape = Input { Value = FuID { "SurfaceSphereInputs", }, },
+				["MtlStdInputs.MaterialID"] = Input { Value = 2, },
+				["SurfaceSphereInputs.Radius"] = Input { Value = 0.08, },
+				["SurfaceSphereInputs.ObjectID.ObjectID"] = Input { Value = 3, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 612.941, -29.0764, }, },
+		},
+		Shake2 = Shake {
+			Inputs = {
+				RandomSeed = Input { Value = 29001, },
+				Smoothness = Input {
+					Value = 30,
+					Expression = "Shake1.Smoothness",
+				},
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				SceneInput1 = Input {
+					SourceOp = "Current_Locator3D",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "Camera3D1",
+					Source = "Output",
+				},
+				SceneInput3 = Input {
+					SourceOp = "Previous_Locator3D",
+					Source = "Output",
+				},
+				SceneInput5 = Input {
+					SourceOp = "BLANK_Locator",
+					Source = "Output",
+				},
+				SceneInput6 = Input {
+					SourceOp = "Merge3D4",
+					Source = "Output",
+				},
+				SceneInput4 = Input {
+					SourceOp = "Cam_Controls",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1032.91, 244.77, }, },
+		},
+		ReplaceMaterial3D1 = ReplaceMaterial3D {
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "UVMap3D1",
+					Source = "Output",
+				},
+				MaterialInput = Input {
+					SourceOp = "Gradient1",
+					Source = "MaterialOutput",
+				},
+				["MtlStdInputs.MaterialID"] = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 315.959, -27.904, }, },
+		},
+		Merge3 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Background2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2234.06, 669.106, }, },
+		},
+		Current_Locator3D = Locator3D {
+			NameSet = true,
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				Size = Input { Value = 0, },
+				ColorRed = Input { Value = 0, },
+				SubID = Input {
+					Value = 2,
+					Expression = "Cam_Controls.Offset_CamTARGET",
+				},
+				Target = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				MakeRenderable = Input { Value = 1, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 816.794, 253.644, }, },
+			Colors = { TileColor = { R = 0.498039215686275, G = 0, B = 0.498039215686275, }, },
+		},
+		B = Text3D {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					SourceOp = "CoordTransform3D2",
+					Source = "Position.X",
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					SourceOp = "CoordTransform3D2",
+					Source = "Position.Y",
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					SourceOp = "CoordTransform3D2",
+					Source = "Position.Z",
+				},
+				LayoutRotation = Input { Value = 1, },
+				Size = Input { Value = 2.1153846, },
+				Font = Input { Value = "Intro ", },
+				StyledText = Input {
+					Value = "2",
+					Expression = "Text(Current_Locator3D.SubID)",
+				},
+				Style = Input { Value = "Regular", },
+				Extrusion = Input { Value = 1, },
+				ExtrusionDepth = Input { Value = 0.0696133, },
+				ExtrusionSubdivisions = Input { Value = 3, },
+				BevelDepth = Input { Value = 0.0033149, },
+				BevelWidth = Input { Value = 0.0071823, },
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 630.493, 510.073, }, },
+		},
+		PointLight1 = LightPoint {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input { Value = 12.3581227945213, },
+				["Transform3DOp.Translate.Y"] = Input { Value = 1.58722264664593, },
+				["Transform3DOp.Translate.Z"] = Input { Value = 3.40333488226979, },
+				Red = Input { Value = 0.916666666666667, },
+				Intensity = Input { Value = 0.3089005, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 610.994, 375.618, }, },
+		},
+		CoordTransform3D6 = CoordTransform3D {
+			CtrlWZoom = false,
+			Inputs = {
+				TargetObject = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+				SubID = Input {
+					Value = 2,
+					Expression = "Current_Locator3D.SubID",
+				},
+				SceneInput = Input {
+					SourceOp = "Replicate3D1",
+					Source = "Data3D",
+				},
+			},
+		},
+		Renderer3D1 = Renderer3D {
+			Inputs = {
+				["RendererSoftware.ShadowsEnabled"] = Input { Value = 1, },
+				["RendererSoftware.LightingEnabled"] = Input { Value = 1, },
+				["RendererSoftware.Lighting"] = Input { Value = 1, },
+				GlobalOut = Input { Value = 300, },
+				UseFrameFormatSettings = Input { Value = 1, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				SceneInput = Input {
+					SourceOp = "Merge3D1_1",
+					Source = "Output",
+				},
+				CameraSelector = Input { Value = FuID { "Camera3D1", }, },
+				RendererType = Input { Value = FuID { "RendererOpenGL", }, },
+				["RendererOpenGL.Channels.Nest"] = Input { Value = 1, },
+				["RendererOpenGL.Channels.RGBA"] = Input { Disabled = true, },
+				["RendererOpenGL.Supersampling"] = Input { Value = 1, },
+				["RendererOpenGL.EnableSupersampling"] = Input { Value = 1, },
+				["RendererOpenGL.SSRateX"] = Input { Value = 13, },
+				["RendererOpenGL.LightingEnabled"] = Input { Value = 1, },
+				["RendererOpenGL.ShadowsEnabled"] = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1879.15, 528.704, }, },
+			Colors = { TileColor = { R = 0.498039215686275, G = 0, B = 0.250980392156863, }, },
+		},
+		Rectangle1_1 = RectangleMask {
+			Inputs = {
+				BorderWidth = Input { Value = 0.005, },
+				Solid = Input { Value = 0, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.868349249658936, },
+				Height = Input { Value = 0.713596022524878, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 2424.32, 777.937, }, },
+		},
+		Pattern1 = KomkomDoorn.KD_Pattern {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Type = Input { Value = 2, },
+				Size = Input { Value = 0.005, },
+				Thickness = Input { Value = 0.3874346, },
+				ColorFill1Red = Input { Value = 0, },
+				ColorFill1Green = Input { Value = 0, },
+				ColorFill1Blue = Input { Value = 0, },
+				EffectMask = Input {
+					SourceOp = "Rectangle1_2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2603.22, 627.453, }, },
+		},
+		Note1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "Line with Gradient texture", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 115.168, 15.1001, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 213.478, 35.3852, },
+			},
+		},
+		LightGroup1 = GroupOperator {
+			NameSet = true,
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "RootNode",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1353.82, 447.353, },
+				Flags = {
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true,
+				},
+				Size = { 456.939, 198.179, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -444.529, -16.361, },
+			},
+			Tools = ordered() {
+				Light5 = LightPoint {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input { Value = -2.8421709430404e-013, },
+						["Transform3DOp.Translate.Y"] = Input { Value = -19.6255688285601, },
+						["Transform3DOp.Translate.Z"] = Input { Value = -5.95062615160949e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = -90.0000042120254, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -2.4265697453419e-020, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = -8.14221770963657e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.999999720603222, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.999999720603222, },
+						Green = Input { Value = 0.820866107940674, },
+						Blue = Input { Value = 0.283464550971985, },
+						Intensity = Input { Value = 0.489999979734421, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 280, 159.061, }, },
+				},
+				Light4 = LightPoint {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input { Value = -3.41060513164848e-013, },
+						["Transform3DOp.Translate.Y"] = Input { Value = -19.6255688285601, },
+						["Transform3DOp.Translate.Z"] = Input { Value = -5.95062615160949e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = -90.0000042120254, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -2.4265697453419e-020, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = -8.14221770963657e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.999999720603222, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.999999720603222, },
+						Red = Input { Value = 0.338582694530487, },
+						Green = Input { Value = 0.702362298965454, },
+						Intensity = Input { Value = 0.489999979734421, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 280, 125.121, }, },
+				},
+				Light3 = LightPoint {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input { Value = -2.8421709430404e-013, },
+						["Transform3DOp.Translate.Y"] = Input { Value = -19.6255688285601, },
+						["Transform3DOp.Translate.Z"] = Input { Value = -5.95062615160949e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = -90.0000042120254, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -2.4265697453419e-020, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = -8.14221770963657e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.999999720603222, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.999999720603222, },
+						Green = Input { Value = 0.621259808540344, },
+						Blue = Input { Value = 0.385826766490936, },
+						Intensity = Input { Value = 0.489999979734421, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 279.06, 91.182, }, },
+				},
+				Light = LightPoint {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input { Value = -2.27373675443232e-013, },
+						["Transform3DOp.Translate.Y"] = Input { Value = -19.6255688285601, },
+						["Transform3DOp.Translate.Z"] = Input { Value = -5.95062615160949e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = -90.0000042120254, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -2.4265697453419e-020, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = -8.14221770963657e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.999999720603222, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.999999720603222, },
+						Red = Input { Value = 0.330708682537079, },
+						Green = Input { Value = 0.564960598945618, },
+						Intensity = Input { Value = 0.280000001192093, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 280, 27.061, }, },
+				},
+				Light2 = LightPoint {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input { Value = -3.41060513164848e-013, },
+						["Transform3DOp.Translate.Y"] = Input { Value = -19.6255688285601, },
+						["Transform3DOp.Translate.Z"] = Input { Value = -5.95062615160949e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = -90.0000042120254, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -2.4265697453419e-020, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = -8.14221770963657e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.999999720603222, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.999999720603222, },
+						Green = Input { Value = 0.338582694530487, },
+						Blue = Input { Value = 0.338582694530487, },
+						Intensity = Input { Value = 0.280000001192093, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 280, 61, }, },
+				},
+				Softbox = Merge3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.Z"] = Input { Value = 2.50565608439501e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = 1.70754729250319e-006, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -1.34701730287175e-036, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = 8.1422199845466e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.639999985694885, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.639999985694886, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.639999985694886, },
+						PassThroughLights = Input { Value = 1, },
+						SceneInput1 = Input {
+							SourceOp = "Light",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 387.181, 28.94, }, },
+				},
+				Softbox5 = Merge3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.Z"] = Input { Value = 2.50565608439501e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = 1.70754729250319e-006, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -1.34701730287175e-036, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = 8.1422199845466e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.639999985694885, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.639999985694886, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.639999985694886, },
+						PassThroughLights = Input { Value = 1, },
+						SceneInput1 = Input {
+							SourceOp = "Light5",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 389.06, 160.94, }, },
+				},
+				Softbox4 = Merge3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.Z"] = Input { Value = 2.50565608439501e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = 1.70754729250319e-006, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -1.34701730287175e-036, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = 8.1422199845466e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.639999985694885, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.639999985694886, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.639999985694886, },
+						PassThroughLights = Input { Value = 1, },
+						SceneInput1 = Input {
+							SourceOp = "Light4",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 390, 126.061, }, },
+				},
+				Softbox3 = Merge3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.Z"] = Input { Value = 2.50565608439501e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = 1.70754729250319e-006, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -1.34701730287175e-036, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = 8.1422199845466e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.639999985694885, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.639999985694886, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.639999985694886, },
+						PassThroughLights = Input { Value = 1, },
+						SceneInput1 = Input {
+							SourceOp = "Light3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 390.939, 93.061, }, },
+				},
+				Softbox2 = Merge3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.Translate.Z"] = Input { Value = 2.50565608439501e-005, },
+						["Transform3DOp.Rotate.X"] = Input { Value = 1.70754729250319e-006, },
+						["Transform3DOp.Rotate.Y"] = Input { Value = -1.34701730287175e-036, },
+						["Transform3DOp.Rotate.Z"] = Input { Value = 8.1422199845466e-013, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.639999985694885, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.639999985694886, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.639999985694886, },
+						PassThroughLights = Input { Value = 1, },
+						SceneInput1 = Input {
+							SourceOp = "Light2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 390, 59.121, }, },
+				},
+				OverheadSoftbox3 = Transform3D {
+					CtrlWShown = false,
+					Inputs = {
+						SceneInput = Input {
+							SourceOp = "Softbox3",
+							Source = "Output",
+						},
+						["Transform3DOp.Translate.X"] = Input { Value = -2.77579345703125, },
+						["Transform3DOp.Translate.Y"] = Input { Value = 6.99334045410156, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.01, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 499.999, 93.061, }, },
+				},
+				OverheadSoftbox5 = Transform3D {
+					CtrlWShown = false,
+					Inputs = {
+						SceneInput = Input {
+							SourceOp = "Softbox5",
+							Source = "Output",
+						},
+						["Transform3DOp.Translate.X"] = Input { Value = 0.411913986206055, },
+						["Transform3DOp.Translate.Y"] = Input { Value = 6.99334045410156, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.01, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 499.999, 159.061, }, },
+				},
+				OverheadSoftbox4 = Transform3D {
+					CtrlWShown = false,
+					Inputs = {
+						SceneInput = Input {
+							SourceOp = "Softbox4",
+							Source = "Output",
+						},
+						["Transform3DOp.Translate.X"] = Input { Value = 3.53323822021484, },
+						["Transform3DOp.Translate.Y"] = Input { Value = 6.99334045410156, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.01, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 499.999, 126.061, }, },
+				},
+				OverheadSoftbox2 = Transform3D {
+					CtrlWShown = false,
+					Inputs = {
+						SceneInput = Input {
+							SourceOp = "Softbox2",
+							Source = "Output",
+						},
+						["Transform3DOp.Translate.X"] = Input { Value = -5.99410095214844, },
+						["Transform3DOp.Translate.Y"] = Input { Value = 6.99334045410156, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.01, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 499.999, 60.061, }, },
+				},
+				OverheadSoftbox = Transform3D {
+					CtrlWShown = false,
+					Inputs = {
+						SceneInput = Input {
+							SourceOp = "Softbox",
+							Source = "Output",
+						},
+						["Transform3DOp.Translate.X"] = Input { Value = 6.69217834472656, },
+						["Transform3DOp.Translate.Y"] = Input { Value = 6.99334045410156, },
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						["Transform3DOp.Scale.X"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Y"] = Input { Value = 0.01, },
+						["Transform3DOp.Scale.Z"] = Input { Value = 0.01, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 499.06, 28, }, },
+				},
+				RootNode = Merge3D {
+					CtrlWShown = false,
+					Inputs = {
+						["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+						PassThroughLights = Input { Value = 1, },
+						SceneInput1 = Input {
+							SourceOp = "OverheadSoftbox5",
+							Source = "Output",
+						},
+						SceneInput2 = Input {
+							SourceOp = "OverheadSoftbox4",
+							Source = "Output",
+						},
+						SceneInput5 = Input {
+							SourceOp = "OverheadSoftbox",
+							Source = "Output",
+						},
+						SceneInput3 = Input {
+							SourceOp = "OverheadSoftbox3",
+							Source = "Output",
+						},
+						SceneInput4 = Input {
+							SourceOp = "OverheadSoftbox2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 609.999, 93.061, }, },
+				},
+			},
+		},
+		Merge4 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Merge3",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Background3",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2423.84, 672.349, }, },
+		},
+		pTurbulence1 = pTurbulence {
+			ID = 72,
+			Inputs = {
+				XStrength = Input { Value = 1, },
+				YStrength = Input { Value = 1, },
+				ZStrength = Input { Value = 0.3269231, },
+				StrengthOverLifeLUT = Input {
+					SourceOp = "pTurbulence1StrengthoverLifeLUT",
+					Source = "Value",
+				},
+				Density = Input { Value = 37.5, },
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { -64.437, 173.115, }, },
+		},
+		Cam_Controls = Merge3D {
+			NameSet = true,
+			Inputs = {
+				Offset_CamTARGET = Input {
+					SourceOp = "WaveModifier1",
+					Source = "Result",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1453.03, 243.376, }, },
+			Colors = { TileColor = { R = 0, G = 0.498039215686275, B = 0.498039215686275, }, },
+			UserControls = ordered() {
+				Offset_CamBASE = {
+					INP_Integer = true,
+					INP_MinScale = 1,
+					INP_MinAllowed = 1,
+					INPID_InputControl = "ScrewControl",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 1,
+					INP_MaxScale = 100,
+					INP_Default = 1,
+				},
+				Offset_CamTARGET = {
+					INP_MinScale = 1,
+					INP_Integer = true,
+					INP_MinAllowed = 1,
+					INPID_InputControl = "ScrewControl",
+					LINKID_DataType = "Number",
+					IC_ControlPage = 1,
+					INP_MaxScale = 100,
+					INP_Default = 1,
+				},
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { Red = 233, Green = 206, Blue = 78, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 100, RH = { 0.333333333333333, 66.6666666666667, }, Flags = { Linear = true, }, },
+				[1] = { 0, LH = { 0.666666666666667, 33.3333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Merge3D1_1 = Merge3D {
+			CtrlWZoom = false,
+			Inputs = {
+				SceneInput1 = Input {
+					SourceOp = "PipeRouter1",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "Transform3D2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1562.36, 529.408, }, },
+		},
+		Background1 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				Type = Input { Value = FuID { "Gradient", }, },
+				TopLeftRed = Input { Value = 0.506666666666667, },
+				TopLeftGreen = Input { Value = 0.493675213675214, },
+				TopLeftBlue = Input { Value = 0.398404558404558, },
+				GradientType = Input { Value = FuID { "Radial", }, },
+				Start = Input { Value = { 0.462050599201065, 0.490521327014218, }, },
+				End = Input { Value = { 1.08921438082557, 0.495260663507109, }, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0.686666666666667, 0.376965013991602, 0, 1, },
+							[0.992156862745098] = { 0.2, 0.00219514392521201, 0, 1, },
+						},
+					},
+				},
+				Offset = Input { Value = 0.0846561, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1547.94, 671.197, }, },
+		},
+		Calculation3 = Calculation {
+			Inputs = {
+				FirstOperand = Input {
+					Value = -0.422993004322052,
+					Expression = "BLANK_Locator.Transform3DOp.Translate.Z",
+				},
+				SecondOperand = Input {
+					SourceOp = "Shake1",
+					Source = "X",
+				},
+			},
+		},
+		WaveModifier1 = Fuse.WaveModifier {
+			CtrlWZoom = false,
+			Inputs = {
+				Wave = Input { Value = FuID { "Line", }, },
+				Period = Input { Value = 25, },
+				Limit = Input { Value = 0, },
+			},
+		},
+		Note1 = Note {
+			Inputs = {
+				Comments = Input { Value = "Particles + Forces used for Replicate3D. Destination", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { -109.99, 215.048, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 290.587, 60.0387, },
+			},
+		},
+		Locator3D1 = Locator3D {
+			Inputs = {
+				["Transform3DOp.ScaleLock"] = Input { Value = 0, },
+				["Transform3DOp.Scale.X"] = Input { Value = 0.001, },
+				["Transform3DOp.Scale.Y"] = Input {
+					Value = 0.001,
+					Expression = "Transform3DOp.Scale.X",
+				},
+				["Transform3DOp.Scale.Z"] = Input { Value = 6, },
+				Size = Input { Value = 0.5235602, },
+				MakeRenderable = Input { Value = 1, },
+				Thickness = Input { Value = 32, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 55.776, -29.331, }, },
+		},
+		UVMap3D1 = UVMap {
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "Locator3D1",
+					Source = "Output",
+				},
+				Orientation = Input { Value = 2, },
+				RefTime = Input { Value = 135, },
+				["Size.X"] = Input { Value = 0.00992186367511749, },
+				["Size.Y"] = Input { Value = 0.0123800812289119, },
+				["Size.Z"] = Input { Value = 0.549834787845612, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 201.769, -29.033, }, },
+		},
+		Background3 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				TopLeftAlpha = Input { Value = 0.558333333333333, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2425.33, 726.582, }, },
+		},
+		Calculation1 = Calculation {
+			Inputs = {
+				FirstOperand = Input {
+					Value = 5.48355054855347,
+					Expression = "BLANK_Locator.Transform3DOp.Translate.X",
+				},
+				SecondOperand = Input {
+					SourceOp = "Shake3",
+					Source = "X",
+				},
+				FirstOperandTimeScale = Input { Expression = "Calculation3.FirstOperandTimeScale", },
+				FirstOperandTimeOffset = Input { Expression = "Calculation3.FirstOperandTimeOffset", },
+				SecondOperandTimeScale = Input { Expression = "Calculation3.SecondOperandTimeScale", },
+				SecondOperandTimeOffset = Input { Expression = "Calculation3.SecondOperandTimeOffset", },
+			},
+		},
+		Rectangle1_2 = RectangleMask {
+			Inputs = {
+				BorderWidth = Input { Value = 0.01875, },
+				PaintMode = Input { Value = FuID { "Subtract", }, },
+				Invert = Input { Value = 1, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.868349249658936, },
+				Height = Input { Value = 0.713596022524878, },
+				EffectMask = Input {
+					SourceOp = "Rectangle2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2605.18, 578.459, }, },
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Blend = Input { Value = 0.6806283, },
+				ApplyMode = Input { Value = FuID { "Overlay", }, },
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Merge4",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Pattern1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2600.94, 673.549, }, },
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.333333333333333, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.666666666666667, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 0, },
+		},
+		Shake1 = Shake {
+			Inputs = {
+				Smoothness = Input { Value = 30, },
+				XMaximum = Input { Value = 8, },
+			},
+		},
+		Rectangle1 = RectangleMask {
+			Inputs = {
+				BorderWidth = Input { Value = 0.01875, },
+				Invert = Input { Value = 1, },
+				MaskWidth = Input { Value = 1280, },
+				MaskHeight = Input { Value = 720, },
+				PixelAspect = Input { Value = { 1, 1, }, },
+				ClippingMode = Input { Value = FuID { "None", }, },
+				Width = Input { Value = 0.868349249658936, },
+				Height = Input { Value = 0.713596022524878, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 2235.83, 569.084, }, },
+		},
+		Saver1 = Saver {
+			Inputs = {
+				ProcessWhenBlendIs00 = Input { Value = 0, },
+				Clip = Input {
+					Value = Clip {
+						Filename = "C:\\Users\\User\\Desktop\\FU_Replicate3D\\Renders\\FU_Rep_C_1280x720_render.png",
+						FormatID = "PNGFormat",
+						Length = 0,
+						Saving = true,
+						TrimIn = 0,
+						ExtendFirst = 0,
+						ExtendLast = 0,
+						Loop = 1,
+						AspectMode = 0,
+						Depth = 0,
+						TimeCode = 0,
+						GlobalStart = -1000000000,
+						GlobalEnd = 0,
+					},
+				},
+				OutputFormat = Input { Value = FuID { "PNGFormat", }, },
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2892.53, 678.681, }, },
+		},
+		Background2 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 300, },
+				Width = Input { Value = 1280, },
+				Height = Input { Value = 720, },
+				TopLeftAlpha = Input { Value = 0.325, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 2235.83, 602.084, }, },
+		},
+		Transform3D2 = Transform3D {
+			Inputs = {
+				SceneInput = Input {
+					SourceOp = "RootNode",
+					Source = "Output",
+				},
+				["Transform3DOp.Rotate.Y"] = Input { Value = 132.7374302, },
+				["Transform3DOp.Rotate.Z"] = Input { Value = -20.1117318, },
+				["Transform3DOp.Scale.X"] = Input { Value = 12.3758066, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1562.38, 448.755, }, },
+		},
+		Note2 = Note {
+			Inputs = {
+				Comments = Input { Value = "FONT: http://fontfabric.com/intro-free-font/", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 2093.75, 807.097, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 464.795, 40.3077, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1337,
+			Height = 413,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							AutoHideNavigator = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.38991,
+						Offset = { -16.015, -101.963, },
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 415, },
+							ScaleX = 0.297833935018051,
+							OffsetX = -44.0794223826715,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.00343642611683849,
+						OffsetX = 292.4,
+						OffsetY = -0.639175257731959,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = true,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView { Active = "Tools", },
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.779635258358663,
+					RatioY = 0.0107238605898123,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.400544959128065,
+						{ ID = "Left", RatioX = 0.234604105571848, RatioY = 0.0136054421768707, Pop = true, },
+						{ ID = "Right", RatioX = 0.765395894428152, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.452316076294278, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 288,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+					Viewer = {
+						ScaleMode = 1,
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+						},
+						CamFront = {
+							Rotation = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamLeft = {
+							Rotation = {
+								Y = 90,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamRight = {
+							Rotation = {
+								Y = -90,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamTop = {
+							Rotation = {
+								Y = 0,
+								X = 90,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamPersp = {
+							FovY = 45,
+							AdaptiveFar = false,
+							Scale = 0.0397274270653725,
+							Separation = 0.100000001490116,
+							Near = 0.0500000007450581,
+							Rotation = {
+								Y = 272.800018310547,
+								X = 31.4000053405762,
+								Z = 0,
+							},
+							Position = {
+								Y = 0.0965152159333229,
+								X = -0.0392243415117264,
+								Z = -0.404003441333771,
+							},
+							AdaptiveNear = false,
+							Convergence = 0,
+							Far = 100000,
+						},
+						CameraName = "Perspective",
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 1,
+					},
+					Guides = {
+						Show = false,
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+							Grid = false,
+						},
+						CamFront = {
+							Rotation = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamLeft = {
+							Rotation = {
+								Y = 90,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamRight = {
+							Rotation = {
+								Y = -90,
+								X = 0,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CamPersp = {
+							FovY = 45,
+							AdaptiveFar = false,
+							Scale = 0.0739653930068016,
+							Separation = 0.100000001490116,
+							Near = 0.0500000007450581,
+							Rotation = {
+								Y = -77.8000030517578,
+								X = 22,
+								Z = 0,
+							},
+							Position = {
+								Y = -4.2922215461731,
+								X = -2.36120939254761,
+								Z = -3.92775678634644,
+							},
+							AdaptiveNear = false,
+							Convergence = 0,
+							Far = 100000,
+						},
+						CamTop = {
+							Rotation = {
+								Y = 0,
+								X = 90,
+								Z = 0,
+							},
+							Position = {
+								Y = 0,
+								X = 0,
+								Z = 0,
+							},
+							AdaptiveFar = false,
+							Scale = 1,
+							Far = 100000,
+							AdaptiveNear = false,
+							Near = -100000,
+						},
+						CameraName = "Perspective",
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+				Configs = {
+					t1 = {
+						RulersShow = true,
+						PrevCtrlInactiveColor = 65280,
+						PickW = 1,
+						PrevCtrlActiveColor = 255,
+						PickH = 1,
+						Viewer = {
+							EnableLUTs = true,
+							LUTPlugin = "FusionViewLUT",
+							FarZ = -1000,
+							NearZ = 0,
+						},
+						Toolbar = {
+							Style = 0,
+							Size = 0,
+						},
+						OpToolbar = {
+							Style = 0,
+							Size = 0,
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 30,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "C:\\Users\\Public\\Documents\\eyeon\\Fusion\\Psd\\basketball-frame_BG.png",
+			Unsorted = {
+				GlobalEnd = 300,
+				RenderSettings = {
+					Configs = {
+						Final = {
+							StepRender = false,
+							PriorityClasses = "all",
+							SizeType = 1,
+							MotionBlur = true,
+							CustomAspect = true,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							StepSize = 5,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+						Preview = {
+							StepRender = false,
+							PriorityClasses = "all",
+							SizeType = 1,
+							MotionBlur = true,
+							CustomAspect = true,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							StepSize = 5,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = false,
+						},
+					},
+					PreviewConfig = "Preview",
+					CurrentConfig = "Final",
+				},
+			},
+			AVI = {
+				Preview = {
+					Handler = 4294967295,
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,103 @@
+{
+	Tools = ordered() {
+		Turn1 = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "_TurnXf",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "_TurnXf",
+					Source = "Turn",
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "_TurnFlipFlop",
+					Source = "FlipHoriz",
+					Name = "Flip Horizontally",
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "_TurnFlipFlop",
+					Source = "FlipVert",
+					Name = "Flip Vertically",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "_TurnFlipFlop",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "Turn",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				["_TurnXf"] = Transform {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Angle = Input {
+							Value = -180,
+							Expression = "Turn * -90",
+						},
+						FilterMethod = Input { Value = 0, },
+						Comments = Input { Value = "Turn macro by stefan@bildfehler.de", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 660, 82.5, }, },
+					UserControls = ordered() {
+						Turn = {
+							{ MBTNCD_ButtonWidth = 0.5, MBTNC_AddButton = "None", },
+							{ MBTNCD_ButtonWidth = 0.5, MBTNC_AddButton = "90 clockwise", },
+							{ MBTNCD_ButtonWidth = 0.5, MBTNC_AddButton = "180 degrees", },
+							{ MBTNCD_ButtonWidth = 0.5, MBTNC_AddButton = "90 counter-clockwise", },
+							LINKID_DataType = "Number",
+							INPID_InputControl = "MultiButtonControl",
+							IC_ControlPage = 0,
+							MBTNC_ShowToolTip = false,
+							INP_Default = 0,
+						},
+					},
+				},
+				["_TurnCrop"] = Crop {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XOffset = Input { Value = 420, },
+						YOffset = Input { Value = -420, },
+						XSize = Input {
+							Value = 1080,
+							Expression = "iif(_TurnXf.Turn % 2 == 0, Input.OriginalWidth, Input.OriginalHeight)",
+						},
+						YSize = Input {
+							Value = 1920,
+							Expression = "iif(_TurnXf.Turn % 2 == 0, Input.OriginalHeight, Input.OriginalWidth)",
+						},
+						KeepCentered = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "_TurnXf",
+							Source = "Output",
+						},
+						ClippingMode = Input { Value = FuID { "None", }, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, 82.5, }, },
+				},
+				["_TurnFlipFlop"] = Transform {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Input = Input {
+							SourceOp = "_TurnCrop",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 880, 82.5, }, },
+				},
+			},
+		},
+	},
+	ActiveTool = "Turn1",
+}

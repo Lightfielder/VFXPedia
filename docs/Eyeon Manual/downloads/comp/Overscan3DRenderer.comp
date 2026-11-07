@@ -1,0 +1,1000 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 0, },
+	GlobalRange = { 0, 0, },
+	CurrentID = 40,
+	Version = "Fusion x64 6.14 build 761",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 1,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Akademy2K_100pxOverscan = Background {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 0, },
+				Width = Input { Value = 2248, },
+				Height = Input { Value = 1756, },
+				TopLeftRed = Input { Value = 0.45, },
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input { Value = "This is a 2K Akademy format with 100 pixels of overscan on each side.", },
+			},
+			ViewInfo = OperatorInfo { Pos = { 165, 577.5, }, },
+		},
+		Merge2 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input { Value = 0, },
+				Background = Input {
+					SourceOp = "Akademy2K_100pxOverscan",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "CheckerCrp",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 275, 577.5, }, },
+		},
+		CameraOverscan = Camera3D {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				AoV = Input { Value = 33.5015095408494, },
+				FLength = Input {
+					SourceOp = "CameraOverscanFocalLength",
+					Source = "Value",
+				},
+				["Stereo.Method"] = Input { Value = FuID { "Parallel", }, },
+				FilmBack = Input { Value = 1, },
+				FilmGate = Input { Value = FuID { "FullAperture", }, },
+				ApertureW = Input { Value = 1.075703125, },
+				ApertureH = Input { Value = 0.829473007712082, },
+				ResolutionGateFit = Input { Value = FuID { "Width", }, },
+				ConvergenceDistanceVis = Input { Value = 0, },
+				Fit = Input { Value = FuID { "Width", }, },
+				IDepth = Input { Value = 5, },
+				["SurfacePlaneInputs.Lighting.Nest"] = Input { Value = 1, },
+				["SurfacePlaneInputs.Lighting.IsAffectedByLights"] = Input { Value = 0, },
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input { Value = 1, },
+				ImageInput = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				["MtlStdInputs.MaterialID"] = Input { Value = 1, },
+				Comments = Input { Value = "This camera has its film gate adjusted from 0.98/0.735 to 1.0757/0.8295", },
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, 841.5, }, },
+		},
+		CameraOverscanFocalLength = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 35, Flags = { Linear = true, }, },
+			},
+		},
+		Instance_CameraAkademy = Camera3D {
+			NameSet = true,
+			SourceOp = "CameraAkademy",
+			Inputs = {
+				SceneInput = Input { },
+				["Transform3DOp.Translation"] = Input { },
+				["Transform3DOp.Rotation"] = Input { },
+				["Transform3DOp.PivotNest"] = Input { },
+				["Transform3DOp.ScaleNest"] = Input { },
+				["Transform3DOp.TargetNest"] = Input { },
+				["Stereo.Nest"] = Input { },
+				["Stereo.RightCamera"] = Input { },
+				FilmBack = Input {
+					Value = 1,
+				},
+				ControlVis = Input { },
+				["SurfacePlaneInputs.Visibility.Nest"] = Input { },
+				["SurfacePlaneInputs.Lighting.Nest"] = Input { },
+				["SurfacePlaneInputs.Matte.Nest"] = Input { },
+				["SurfacePlaneInputs.BlendMode.Nest"] = Input { },
+				["SurfacePlaneInputs.ObjectID.Nest"] = Input { },
+				ImageInput = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				["MtlStdInputs.Diffuse.Nest"] = Input {
+					Value = 0,
+				},
+				["MtlStdInputs.Specular.Nest"] = Input { },
+				["MtlStdInputs.Transmittance.Nest"] = Input { },
+				["MtlStdInputs.MaterialIDNest"] = Input { },
+				StartEndRenderScripts = Input { },
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, 577.5, }, },
+		},
+		Merge3D1_1_1 = Merge3D {
+			Inputs = {
+				SceneInput1 = Input {
+					SourceOp = "Instance_CameraAkademy",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, 577.5, }, },
+		},
+		WRONG_Renderer_Overscan = Renderer3D {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 0, },
+				Width = Input { Value = 2248, },
+				Height = Input { Value = 1756, },
+				SceneInput = Input {
+					SourceOp = "Merge3D1_1_1",
+					Source = "Output",
+				},
+				["RendererSoftware.Channels.RGBA"] = Input { Disabled = true, },
+				["RendererSoftware.LightingEnabled"] = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1045, 577.5, }, },
+			Colors = {
+				TileColor = { R = 0.803921568627451, G = 0.109803921568627, B = 0.133333333333333, },
+				TextColor = { R = 0, G = 0, B = 0, },
+			},
+		},
+		CheckerPlusPlus1 = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "GlobalIn",
+					MaxScale = 1000,
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "GlobalOut",
+					MaxScale = 1000,
+					ControlGroup = 1,
+					Default = 300,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "CheckerDummyBG",
+					Source = "UseFrameFormatSettings",
+					Default = 0,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "CheckerDummyBG",
+					Source = "Width",
+					Default = 720,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "CheckerDummyBG",
+					Source = "Height",
+					Default = 486,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "CheckerRsz",
+					Source = "PixelAspect",
+					DefaultX = 1,
+					DefaultY = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopLeftRed",
+					Name = "Color1",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopLeftGreen",
+					Name = "Color1 Green",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopLeftBlue",
+					Name = "Color1 Blue",
+					ControlGroup = 2,
+					Default = 0,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopLeftAlpha",
+					Name = "Color1 Alpha",
+					ControlGroup = 2,
+					Default = 1,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopRightRed",
+					Name = "Color2",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopRightGreen",
+					Name = "Color2 Green",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopRightBlue",
+					Name = "Color2 Blue",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "CheckerBG",
+					Source = "TopRightAlpha",
+					Name = "Color2 Alpha",
+					ControlGroup = 3,
+					Default = 1,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "CheckerXf",
+					Source = "FlipHoriz",
+					Name = "Flip Horizontally",
+					Default = 0,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "CheckerXf",
+					Source = "FlipVert",
+					Name = "Flip Vertically",
+					Default = 0,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "CheckerXf",
+					Source = "Center",
+				},
+				Input18 = InstanceInput {
+					SourceOp = "CheckerXf",
+					Source = "Size",
+					Default = 0.5,
+				},
+				Input19 = InstanceInput {
+					SourceOp = "CheckerXf",
+					Source = "Aspect",
+					Default = 1,
+				},
+				Input20 = InstanceInput {
+					SourceOp = "CheckerXf",
+					Source = "Angle",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "CheckerCrp",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 165, 247.5, }, },
+			Tools = ordered() {
+				CheckerBG = Background {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalOut = Input { Value = 0, },
+						Width = Input { Value = 2, },
+						Height = Input { Value = 2, },
+						Type = Input { Value = FuID { "Corner", }, },
+						TopLeftRed = Input { Value = 0.333333333333333, },
+						TopLeftGreen = Input { Value = 0.333333333333333, },
+						TopLeftBlue = Input { Value = 0.333333333333333, },
+						TopRightRed = Input { Value = 0.713333333333333, },
+						TopRightGreen = Input { Value = 0.713333333333333, },
+						TopRightBlue = Input { Value = 0.713333333333333, },
+						BottomLeftRed = Input { Value = 1, },
+						BottomLeftGreen = Input { Value = 1, },
+						BottomLeftBlue = Input { Value = 1, },
+						BottomLeftAlpha = Input { Value = 0.7843137383461, },
+						BottomRightRed = Input { Value = 0.294117659330368, },
+						BottomRightGreen = Input { Value = 0.062745101749897, },
+						BottomRightBlue = Input { Value = 0.10196078568697, },
+						BottomRightAlpha = Input { Value = 0.7843137383461, },
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						FrameRenderScript = Input { Value = "BottomLeftRed = TopRightRed\r\nBottomLeftGreen = TopRightGreen\r\nBottomLeftBlue = TopRightBlue\r\nBottomLeftAlpha = TopRightAlpha\r\nBottomRightRed = TopLeftRed\r\nBottomRightGreen = TopLeftGreen\r\nBottomRightBlue = TopLeftBlue\r\nBottomRightAlpha = TopLeftAlpha\r\n", },
+						Comments = Input { Value = "Creates a 2x2 checker pattern", },
+						EffectMask = Input {
+							SourceOp = "CheckerDummyBG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -165, 74.65, }, },
+				},
+				CheckerCrp = Crop {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						YOffset = Input { Value = 246, },
+						XSize = Input { Value = 1, },
+						YSize = Input { Value = 1, },
+						KeepCentered = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "CheckerXf",
+							Source = "Output",
+						},
+						FrameRenderScript = Input { Value = "XSize = CheckerDummyBG.Width\r\nYSize = CheckerDummyBG.Height\r\n", },
+						Comments = Input { Value = "Crops to final size (from CheckerDummyBG)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 165, 74.65, }, },
+					Colors = {
+						TileColor = { R = 0.454901960784314, G = 0.792156862745098, B = 0.180392156862745, },
+						TextColor = { R = 0, G = 0, B = 0, },
+					},
+				},
+				CheckerDummyBG = Background {
+					PassThrough = true,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalOut = Input { Value = 0, },
+						Width = Input { Value = 2048, },
+						Height = Input { Value = 1556, },
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Comments = Input { Value = "This is used only as a source for Width/Height controls. It is connected to the source BG in order to force re-renders when the dimensions change, but disabled to prevent any masking from occurring.", },
+					},
+					ViewInfo = OperatorInfo { Pos = { -165, 41.65, }, },
+				},
+				CheckerRsz = BetterResize {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input { Value = 700, },
+						Height = Input { Value = 200, },
+						ChangePixelAspect = Input { Value = 1, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						FilterMethod = Input { Value = 0, },
+						Input = Input {
+							SourceOp = "CheckerBG",
+							Source = "Output",
+						},
+						FrameRenderScript = Input { Value = "Width = math.max(CheckerDummyBG.Width, CheckerDummyBG.Height)\r\nHeight = math.max(CheckerDummyBG.Width, CheckerDummyBG.Height)\r\n", },
+						Comments = Input { Value = "Resize up the Checker pattern (with Nearest Neighbour)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { -55, 74.65, }, },
+				},
+				CheckerXf = Transform {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Edges = Input { Value = 1, },
+						Size = Input { Value = 0.25, },
+						Input = Input {
+							SourceOp = "CheckerRsz",
+							Source = "Output",
+						},
+						Comments = Input { Value = "All transformations done here", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 55, 74.65, }, },
+				},
+			},
+		},
+		CameraAkademy = Camera3D {
+			NameSet = true,
+			Inputs = {
+				AoV = Input { Value = 29.8664004540354, },
+				["Stereo.Method"] = Input { Value = FuID { "Parallel", }, },
+				FilmBack = Input { Value = 1, },
+				FilmGate = Input { Value = FuID { "FullAperture", }, },
+				ApertureW = Input { Value = 0.98, },
+				ApertureH = Input { Value = 0.735, },
+				ResolutionGateFit = Input { Value = FuID { "Width", }, },
+				ConvergenceDistanceVis = Input { Value = 0, },
+				Fit = Input { Value = FuID { "Width", }, },
+				IDepth = Input { Value = 5, },
+				["SurfacePlaneInputs.Lighting.IsAffectedByLights"] = Input { Value = 0, },
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input { Value = 1, },
+				ImageInput = Input {
+					SourceOp = "CheckerCrp",
+					Source = "Output",
+				},
+				["MtlStdInputs.Diffuse.Nest"] = Input { Value = 0, },
+				["MtlStdInputs.MaterialID"] = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, 247.5, }, },
+		},
+		TorusShape = Shape3D {
+			NameSet = true,
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input { Value = -4.1340782, },
+				["Transform3DOp.Rotate.X"] = Input { Value = 38.2122905, },
+				["Transform3DOp.Scale.X"] = Input { Value = 0.485, },
+				Shape = Input { Value = FuID { "SurfaceTorusInputs", }, },
+				["MtlStdInputs.Diffuse.Opacity"] = Input { Value = 0.5, },
+				["MtlStdInputs.MaterialID"] = Input { Value = 2, },
+				Comments = Input { Value = "Torus is scaled so its width is exactly 4 checker squares.", },
+				["SurfacePlaneInputs.ObjectID.ObjectID"] = Input { Value = 2, },
+				["SurfaceTorusInputs.SubdivisionLevelBase"] = Input { Value = 50, },
+				["SurfaceTorusInputs.SubdivisionLevelHeight"] = Input { Value = 40, },
+				["SurfaceTorusInputs.ObjectID.ObjectID"] = Input { Value = 3, },
+				["SurfaceIcoInputs.ObjectID.ObjectID"] = Input { Value = 4, },
+				["SurfaceConeInputs.ObjectID.ObjectID"] = Input { Value = 5, },
+				["SurfaceCylinderInputs.ObjectID.ObjectID"] = Input { Value = 6, },
+				["SurfaceSphereInputs.ObjectID.ObjectID"] = Input { Value = 7, },
+				["SurfaceCubeInputs.ObjectID.ObjectID"] = Input { Value = 8, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, 49.5, }, },
+		},
+		DirectionalLight1 = LightDirectional {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input { Value = -0.309347827933816, },
+				["Transform3DOp.Translate.Y"] = Input { Value = 0.559466133128366, },
+				["Transform3DOp.Translate.Z"] = Input { Value = -0.166700943958244, },
+				["Transform3DOp.Rotate.X"] = Input { Value = -32.178771, },
+				["Transform3DOp.Rotate.Y"] = Input { Value = -48.2681564, },
+				Green = Input { Value = 0.6, },
+				Blue = Input { Value = 0.125, },
+				Intensity = Input { Value = 0.8848168, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, 49.5, }, },
+		},
+		AmbientLight1 = LightAmbient {
+			Inputs = {
+				Red = Input { Value = 0.0794038518518518, },
+				Green = Input { Value = 0.089003030338045, },
+				Blue = Input { Value = 0.113333333333333, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 880, 49.5, }, },
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				SceneInput2 = Input {
+					SourceOp = "TorusShape",
+					Source = "Output",
+				},
+				SceneInput3 = Input {
+					SourceOp = "DirectionalLight1",
+					Source = "Output",
+				},
+				SceneInput4 = Input {
+					SourceOp = "AmbientLight1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, 181.5, }, },
+		},
+		Merge3D1_1_2 = Merge3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input { Value = -0.0293363177572821, },
+				["Transform3DOp.Translate.Y"] = Input { Value = -0.00724685966039557, },
+				["Transform3DOp.Translate.Z"] = Input { Value = 0.00418397349288039, },
+				SceneInput1 = Input {
+					SourceOp = "CameraOverscan",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, 841.5, }, },
+		},
+		Renderer_Overscan_Correct = Renderer3D {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 0, },
+				Width = Input { Value = 2248, },
+				Height = Input { Value = 1756, },
+				SceneInput = Input {
+					SourceOp = "Merge3D1_1_2",
+					Source = "Output",
+				},
+				["RendererSoftware.Channels.RGBA"] = Input { Disabled = true, },
+				["RendererSoftware.LightingEnabled"] = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1045, 841.5, }, },
+			Colors = {
+				TileColor = { R = 0.454901960784314, G = 0.792156862745098, B = 0.180392156862745, },
+				TextColor = { R = 0, G = 0, B = 0, },
+			},
+		},
+		Merge3D1_1 = Merge3D {
+			Inputs = {
+				SceneInput1 = Input {
+					SourceOp = "CameraAkademy",
+					Source = "Output",
+				},
+				SceneInput2 = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, 247.5, }, },
+		},
+		Renderer_2KAkademy = Renderer3D {
+			NameSet = true,
+			Inputs = {
+				GlobalOut = Input { Value = 0, },
+				Width = Input { Value = 2048, },
+				Height = Input { Value = 1556, },
+				SceneInput = Input {
+					SourceOp = "Merge3D1_1",
+					Source = "Output",
+				},
+				["RendererSoftware.Channels.RGBA"] = Input { Disabled = true, },
+				["RendererSoftware.Lighting"] = Input { Value = 1, },
+				["RendererSoftware.LightingEnabled"] = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1045, 247.5, }, },
+		},
+		Note1 = Note {
+			Inputs = {
+				Comments = Input { Value = "Your background plate. Akademy2K format (2048x1556 pixels)", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 55, 148.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 208.728, 179.3, },
+			},
+		},
+		Note1_1 = Note {
+			Inputs = {
+				Comments = Input { Value = "A 2K background plate with 100 pixels of overscan on each side (now 2248x1756 pixels)", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 54.9999, 478.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 314.794, 179.3, },
+			},
+		},
+		Note1_2 = Note {
+			Inputs = {
+				Comments = Input { Value = "This renderer shows how the plate should be aligned with the scene geometry before overscan is introduced. The donut should be 4 squares wide.", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1155, 148.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 424, 179.3, },
+			},
+		},
+		Note1_3 = Note {
+			Inputs = {
+				Comments = Input { Value = "The overscan plate is piped into the same camera and the Renderer3D is set to the new overscan format. This, however, is wrong. You can see that the scene geometry (the donut) no longer matches the background plate. It's larger than 4 squares now.", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1155, 478.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 428.024, 179.3, },
+			},
+		},
+		Note1_4 = Note {
+			Inputs = {
+				Comments = Input { Value = "The key is to also increase the camera's film gate by the right amount. The necessary multiplication factor is simply OverscanWidth/PlateWidth, in this case 2248/2048, for the aperture width.\r\nIf the resolution gate fit is horizontal, this is enough, but to be safe, you should also adjust the aperture height. Caution: The factor is most certainly a different one (1756/1556)", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1155, 775.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 432.794, 195.3, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1377,
+			Height = 565,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							ForceSource = true,
+							GridSnap = true,
+							AutoSnap = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.5,
+						Offset = { 553.552, -197.169, },
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "CameraOverscan", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = true,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 415, },
+							ScaleX = 0.0070556239737274,
+							OffsetX = -2.58235837438423,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 205,
+						ScaleX = 0.2,
+						ScaleY = 12.1864111498258,
+						OffsetX = -22.6,
+						OffsetY = -2096.06271777003,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ToolStates = {
+							Current = {
+								Editable = { "CameraOverscanFocalLength", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView { Active = "Tools", },
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.782127031019202,
+					RatioY = 0.00965250965250965,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.448416887870013,
+						{ ID = "Left", RatioX = 0.549703264094956, RatioY = 0.00873362445414847, Pop = true, },
+						{ ID = "Right", RatioX = 0.450296735905044, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.446114362129987, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			AutoSave = {
+				Delay = 60,
+				OnRender = true,
+			},
+			Boxx = {
+				ErrorDiffusion = true,
+				VideoOut = {
+					Standard = -1,
+					["10Bit"] = false,
+				},
+			},
+			Paths = {
+			},
+			Tabasco = {
+				Uncompressed = false,
+				Scale_16_9 = false,
+				ErrorDiffusion = true,
+				DoAlpha = false,
+				DataRateAlpha = 5000,
+				Scale_Type = 1,
+				VideoOut = {
+					Scale = false,
+					SDTI = false,
+				},
+				UncompressedAlpha = false,
+				DataRate = 5000,
+			},
+			FlowView = {
+				ForceSource = true,
+				GridSnap = true,
+				FullToolIndicator = true,
+			},
+			Bluefish = {
+				ErrorDiffusion = true,
+				VideoOut = {
+					Standard = -1,
+					["10Bit"] = false,
+					YUV = false,
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Splines = {
+				PolyLineEditMode = "ModifyOnly",
+				TrackerPath = "XYPath",
+			},
+			FrameFormat = {
+				GuideRatio = 1.77777777777778,
+				PerFeet = 1,
+				Rate = 25,
+				Width = 1920,
+				Name = "HDTV 1080",
+				Height = 1080,
+			},
+			Unsorted = {
+				GlobalEnd = 0,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						ScaleMode = 1,
+						DoD = {
+							Show = false,
+						},
+					},
+					View3D = {
+						CamPersp = {
+							Position = {
+								X = 0.370497286319733,
+								Y = 0.18900953233242,
+								Z = 3.81172728538513,
+							},
+							Rotation = {
+								X = 25,
+								Y = -26.6000022888184,
+								Z = 0,
+							},
+							Scale = 0.25,
+							FovY = 45,
+							Near = 0.0500000007450581,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+							Separation = 0.100000001490116,
+							Convergence = 0,
+						},
+						CamFront = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						CamTop = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 90,
+								Y = 0,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						CamRight = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 0,
+								Y = -90,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						CamLeft = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 0,
+								Y = 90,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						Options = {
+							Lighting = true,
+						},
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 1,
+					},
+					View3D = {
+						CameraName = "Right",
+						CamPersp = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 30,
+								Y = 0,
+								Z = 0,
+							},
+							Scale = 1,
+							FovY = 45,
+							Near = 0.0500000007450581,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+							Separation = 0.100000001490116,
+							Convergence = 0,
+						},
+						CamFront = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						CamTop = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 90,
+								Y = 0,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						CamRight = {
+							Position = {
+								X = -0.780876994132996,
+								Y = -0.104935094714165,
+								Z = 2.17465448379517,
+							},
+							Rotation = {
+								X = 1.0000011920929,
+								Y = -4.80000448226929,
+								Z = 0,
+							},
+							Scale = 0.5,
+							Near = 0.0500000007450581,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						CamLeft = {
+							Position = {
+								X = 0,
+								Y = 0,
+								Z = 0,
+							},
+							Rotation = {
+								X = 0,
+								Y = 90,
+								Z = 0,
+							},
+							Scale = 1,
+							Near = -100000,
+							Far = 100000,
+							AdaptiveNear = false,
+							AdaptiveFar = false,
+						},
+						SortMethod = "ZBuffer",
+						Options = {
+							Grid = false,
+							Lighting = false,
+							Shadows = false,
+						},
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+			},
+			QuickTime = {
+				DataCheck = false,
+				KeyRate = 15,
+				Compressor = "Cinepak_cvid",
+				Quality = 75,
+				DataRate = 300,
+				KeyCheck = true,
+			},
+		},
+	},
+}
+
+ 

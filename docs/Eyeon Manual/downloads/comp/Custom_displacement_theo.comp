@@ -1,0 +1,852 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 1000, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.31 build 74",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = true,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		FastNoise1 = FastNoise {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 206,
+				},
+				Height = Input {
+					Value = 512,
+				},
+				Depth = Input {
+					Value = 3,
+				},
+				Center = Input {
+					Value = { 0.5, -0.505859375, },
+				},
+				Detail = Input {
+					Value = 2.7306273,
+				},
+				XScale = Input {
+					Value = 3.358396,
+				},
+				YScale = Input {
+					Disabled = true,
+				},
+				Angle = Input {
+					Value = 271.5479115,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input {
+					Value = "remember to use float images so your filtering when doing extreme displacements looks good.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 115.5, },
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 512,
+				},
+				Height = Input {
+					Value = 512,
+				},
+				Size = Input {
+					Value = 0.3837638,
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "displace!",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				CharacterSpacing = Input {
+					Value = 0.900369,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				RenderToDPTFile = Input {
+					Disabled = true,
+				},
+				DPTType = Input {
+					Disabled = true,
+				},
+				DPTResolution = Input {
+					Disabled = true,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 214.5, },
+			},
+		},
+		CustomTool1 = Custom {
+			CtrlWZoom = false,
+			Inputs = {
+				PointIn1 = Input {
+					Value = { 0, 0, },
+				},
+				NumberIn1 = Input {
+					Value = 0.2183908,
+				},
+				Intermediate1 = Input {
+					Value = "x-(getr2b(x,y))*n1",
+				},
+				Intermediate2 = Input {
+					Value = "y-(getr2b(x,y))*n2",
+				},
+				RedExpression = Input {
+					Value = "getr1b(i1, i2)",
+				},
+				GreenExpression = Input {
+					Value = "getg1b(i1, i2)",
+				},
+				BlueExpression = Input {
+					Value = "getb1b(i1, i2)",
+				},
+				AlphaExpression = Input {
+					Value = "geta1b(i1, i2)",
+				},
+				NameforNumber1 = Input {
+					Value = "Displace X",
+				},
+				NameforNumber2 = Input {
+					Value = "Displace Y",
+				},
+				ShowNumber3 = Input {
+					Value = 0,
+				},
+				ShowNumber4 = Input {
+					Value = 0,
+				},
+				ShowNumber5 = Input {
+					Value = 0,
+				},
+				ShowNumber6 = Input {
+					Value = 0,
+				},
+				ShowNumber7 = Input {
+					Value = 0,
+				},
+				ShowNumber8 = Input {
+					Value = 0,
+				},
+				PointControls = Input {
+					Value = 1,
+				},
+				ShowPoint1 = Input {
+					Value = 0,
+				},
+				ShowPoint2 = Input {
+					Value = 0,
+				},
+				ShowPoint3 = Input {
+					Value = 0,
+				},
+				ShowPoint4 = Input {
+					Value = 0,
+				},
+				Image1 = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+				Image2 = Input {
+					SourceOp = "FastNoise1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "magic",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 214.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 192,
+			Top = 192,
+			Width = 1552,
+			Height = 760,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							ForceSource = true,
+							GridSnap = true,
+							AutoSnap = true,
+							Thumbnails = false,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.32343,
+						Offset = { -482.932, -12.4613, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 530, },
+							ScaleX = 0.742741390952059,
+							OffsetX = -49.763673193788,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.762924281984334,
+					RatioY = 105.285968028419,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.476785714285714,
+						{
+							ID = "Left",
+							RatioX = 0.499702519294116,
+							RatioY = 113,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.500297480705884,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.475,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 452,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Info = {
+				Comments = "custom displacement tool by theodor groeneboom\r\ntheo@euqahuba.com\r\nwww.euqahuba.com",
+			},
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				View1 = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+					},
+					PickW = 1,
+					ViewLUT = {
+					},
+					PickH = 1,
+					Guides = {
+						Show = true,
+						Center = false,
+						SafeImage = false,
+						Film = true,
+						SafeTitle = false,
+					},
+					SubView = {
+						Enabled = true,
+						Navigator = false,
+						ID = "GLImageInfo",
+						Magnifier = false,
+					},
+					View3D = {
+						SortMethod = "BSP",
+						Options = {
+							Shadows = false,
+						},
+						CameraName = "Perspective",
+					},
+					QuadView = false,
+					Toolbar = {
+						Style = 0,
+						Size = 4294967295,
+					},
+					OpToolbar = {
+						Style = 0,
+						Size = 0,
+					},
+				},
+				Configs = {
+					Quad_Rgb_Bottom = {
+						PickW = 1,
+						ViewLUT = {
+							Tools = ordered() {
+								LUTOperator2 = LUTOperator {
+									Tools = {
+										ColorCurves1Red = LUTBezier {
+											SplineColor = { Green = 0, Blue = 0, Red = 255, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										ColorCurves1Green = LUTBezier {
+											SplineColor = { Green = 255, Blue = 0, Red = 0, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										LUTBezier1_1 = LUTBezier {
+											SplineColor = { Green = 192, Blue = 192, Red = 192, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0, 0.50915969733174, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.594086021505376, 0.822993923688679, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										ColorCurves1Blue = LUTBezier {
+											SplineColor = { Green = 0, Blue = 255, Red = 0, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+									},
+									Inputs = {
+										Blue = Input {
+											SourceOp = "ColorCurves1Blue",
+											Source = "Value",
+										},
+										Green = Input {
+											SourceOp = "ColorCurves1Green",
+											Source = "Value",
+										},
+										Gamma = Input {
+											Value = 2.2,
+										},
+										Alpha = Input {
+											SourceOp = "LUTBezier1_1",
+											Source = "Value",
+										},
+										Red = Input {
+											SourceOp = "ColorCurves1Red",
+											Source = "Value",
+										},
+									},
+									CtrlWZoom = false,
+								},
+							},
+						},
+						PickH = 1,
+						Guides = {
+							Show = true,
+							Center = false,
+							SafeImage = false,
+							Film = true,
+							SafeTitle = false,
+						},
+						Viewer = {
+							EnableLUTs = true,
+							LUTPlugin = "FusionViewLUT",
+							FarZ = -1000,
+							ScaleMode = 0,
+							NearZ = 0,
+						},
+						View3D = {
+							SortMethod = "BSP",
+							Options = {
+								Shadows = false,
+							},
+							CameraName = "Perspective",
+						},
+						QuadView = true,
+						View1 = {
+							Viewer = {
+								ID = "GLImageViewer",
+								ScaleMode = 1,
+								Channel = 0,
+							},
+							ViewLUT = {
+							},
+						},
+						View3 = {
+							Viewer = {
+								ID = "GLImageViewer",
+								ScaleMode = 1,
+								Channel = 2,
+							},
+							ViewLUT = {
+							},
+						},
+						Toolbar = {
+							Style = 0,
+							Size = 0,
+						},
+						QuadLayoutName = "Bottom 3",
+						View2 = {
+							Viewer = {
+								ID = "GLImageViewer",
+								ScaleMode = 1,
+								Channel = 1,
+							},
+							ViewLUT = {
+							},
+						},
+						OpToolbar = {
+							Style = 0,
+							Size = 0,
+						},
+					},
+					Quad_Inspect = {
+						PickW = 1,
+						ViewLUT = {
+						},
+						PickH = 1,
+						Guides = {
+							Show = true,
+							Center = false,
+							SafeImage = false,
+							Film = true,
+							SafeTitle = false,
+						},
+						Viewer = {
+							EnableLUTs = true,
+							LUTPlugin = "FusionViewLUT",
+							FarZ = -1000,
+							ScaleMode = 0,
+							NearZ = 0,
+						},
+						View3D = {
+							SortMethod = "BSP",
+							Options = {
+								Shadows = false,
+							},
+							CameraName = "Perspective",
+						},
+						QuadView = true,
+						View1 = {
+							Viewer = {
+								ID = "GL3DHistogramViewer",
+							},
+						},
+						View3 = {
+							Viewer = {
+								ID = "GLWaveformViewer",
+							},
+						},
+						Toolbar = {
+							Style = 0,
+							Size = 0,
+						},
+						QuadLayoutName = "Left 3",
+						View2 = {
+							Viewer = {
+								ID = "GLHistogramViewer",
+							},
+						},
+						OpToolbar = {
+							Style = 0,
+							Size = 0,
+						},
+					},
+					Quad_inspect_top = {
+						PickW = 1,
+						ViewLUT = {
+							Tools = ordered() {
+								LUTOperator2 = LUTOperator {
+									Tools = {
+										ColorCurves1Red = LUTBezier {
+											SplineColor = { Green = 0, Blue = 0, Red = 255, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										ColorCurves1Green = LUTBezier {
+											SplineColor = { Green = 255, Blue = 0, Red = 0, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										LUTBezier1_1 = LUTBezier {
+											SplineColor = { Green = 192, Blue = 192, Red = 192, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0, 0.50915969733174, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.594086021505376, 0.822993923688679, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										ColorCurves1Blue = LUTBezier {
+											SplineColor = { Green = 0, Blue = 255, Red = 0, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+									},
+									Inputs = {
+										Blue = Input {
+											SourceOp = "ColorCurves1Blue",
+											Source = "Value",
+										},
+										Green = Input {
+											SourceOp = "ColorCurves1Green",
+											Source = "Value",
+										},
+										Gamma = Input {
+											Value = 2.2,
+										},
+										Alpha = Input {
+											SourceOp = "LUTBezier1_1",
+											Source = "Value",
+										},
+										Red = Input {
+											SourceOp = "ColorCurves1Red",
+											Source = "Value",
+										},
+									},
+									CtrlWZoom = false,
+								},
+							},
+						},
+						PickH = 1,
+						Guides = {
+							Show = true,
+							Center = false,
+							SafeImage = false,
+							Film = true,
+							SafeTitle = false,
+						},
+						Viewer = {
+							EnableLUTs = true,
+							LUTPlugin = "FusionViewLUT",
+							FarZ = -1000,
+							ScaleMode = 0,
+							NearZ = 0,
+						},
+						View3D = {
+							SortMethod = "BSP",
+							Options = {
+								Shadows = false,
+							},
+							CameraName = "Perspective",
+						},
+						QuadView = true,
+						View1 = {
+							Viewer = {
+								ID = "GL3DHistogramViewer",
+							},
+						},
+						View3 = {
+							Viewer = {
+								ID = "GLWaveformViewer",
+							},
+						},
+						Toolbar = {
+							Style = 0,
+							Size = 0,
+						},
+						QuadLayoutName = "Top 3",
+						View2 = {
+							Viewer = {
+								ID = "GLHistogramViewer",
+							},
+						},
+						OpToolbar = {
+							Style = 0,
+							Size = 0,
+						},
+					},
+					Quad_inspect_bottom = {
+						PickW = 1,
+						ViewLUT = {
+							Tools = ordered() {
+								LUTOperator2 = LUTOperator {
+									Tools = {
+										ColorCurves1Red = LUTBezier {
+											SplineColor = { Green = 0, Blue = 0, Red = 255, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										ColorCurves1Green = LUTBezier {
+											SplineColor = { Green = 255, Blue = 0, Red = 0, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										LUTBezier1_1 = LUTBezier {
+											SplineColor = { Green = 192, Blue = 192, Red = 192, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0, 0.50915969733174, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.594086021505376, 0.822993923688679, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+										ColorCurves1Blue = LUTBezier {
+											SplineColor = { Green = 0, Blue = 255, Red = 0, },
+											KeyColorSplines = {
+												[0] = {
+													[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+													[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+												},
+											},
+											CtrlWShown = false,
+										},
+									},
+									Inputs = {
+										Blue = Input {
+											SourceOp = "ColorCurves1Blue",
+											Source = "Value",
+										},
+										Green = Input {
+											SourceOp = "ColorCurves1Green",
+											Source = "Value",
+										},
+										Gamma = Input {
+											Value = 2.2,
+										},
+										Alpha = Input {
+											SourceOp = "LUTBezier1_1",
+											Source = "Value",
+										},
+										Red = Input {
+											SourceOp = "ColorCurves1Red",
+											Source = "Value",
+										},
+									},
+									CtrlWZoom = false,
+								},
+							},
+						},
+						PickH = 1,
+						Guides = {
+							Show = true,
+							Center = false,
+							SafeImage = false,
+							Film = true,
+							SafeTitle = false,
+						},
+						Viewer = {
+							EnableLUTs = true,
+							LUTPlugin = "FusionViewLUT",
+							FarZ = -1000,
+							ScaleMode = 0,
+							NearZ = 0,
+						},
+						View3D = {
+							SortMethod = "BSP",
+							Options = {
+								Shadows = false,
+							},
+							CameraName = "Perspective",
+						},
+						QuadView = true,
+						View1 = {
+							Viewer = {
+								ID = "GL3DHistogramViewer",
+							},
+						},
+						View3 = {
+							Viewer = {
+								ID = "GLWaveformViewer",
+							},
+						},
+						Toolbar = {
+							Style = 0,
+							Size = 0,
+						},
+						QuadLayoutName = "Bottom 3",
+						View2 = {
+							Viewer = {
+								ID = "GLHistogramViewer",
+							},
+						},
+						OpToolbar = {
+							Style = 0,
+							Size = 0,
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.31619537275064,
+			},
+			LastFile = "\\\\datastore2\\DIraid1\\DI\\ONGOING\\9_Miles_Down_14694\\Fusion\\BR_063\\BR_063_090\\RENDERS\\16_02_09\\BR_063_090_comp_v001_.dpx",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 2766,
+					Top = 536,
+				},
+			},
+			Paths = {
+			},
+			LastLUTFile = "C:\\Program Files (x86)\\eyeon\\Fusion 5.3\\LUTs\\9MD_Desert.alut",
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,402 @@
+Composition {
+	CurrentTime = 135,
+	RenderRange = { 0, 250, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.2 build 54",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		UNDOD = Crop {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				XOffset = Input {
+					Value = -720,
+					Expression = "DOD.XOffset*-1",
+				},
+				YOffset = Input {
+					Value = -501,
+					Expression = "DOD.YOffset*-1",
+				},
+				XSize = Input {
+					Value = 1,
+				},
+				YSize = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "DOD",
+					Source = "Output",
+				},
+				FrameRenderScript = Input {
+					Value = "XSize = DOD.Input.Width\r\nYSize = DOD.Input.Height",
+				},
+				StartEndRenderScripts = Input {
+					Value = 1,
+				},
+				StartRenderScript = Input {
+					Value = "fusion = Fusion()\r\ncomp = fusion:GetCurrentComp()",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 2475, 346.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		RESULT = Merge {
+			NameSet = true,
+			Inputs = {
+				Background = Input {
+					SourceOp = "ChannelBooleans2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "UNDOD",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 2475, 445.5, },
+			},
+		},
+		INPUT_TOOL_HERE = PipeRouter {
+			NameSet = true,
+			ViewInfo = PipeRouterInfo {
+				Pos = { 660, 346.5, },
+			},
+		},
+		DOD = Crop {
+			NameSet = true,
+			Inputs = {
+				XOffset = Input {
+					Value = 720,
+				},
+				YOffset = Input {
+					Value = 501,
+				},
+				XSize = Input {
+					Value = 341,
+				},
+				YSize = Input {
+					Value = 295,
+				},
+				Input = Input {
+					SourceOp = "INPUT_TOOL_HERE",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 825, 346.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		REPLACE_DOD_ALPHA = GroupOperator {
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "ChannelBooleans2",
+					Source = "Background",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Background",
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "ChannelBooleans2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 825, 445.5, },
+				Flags = {
+					AllowPan = false,
+					AutoSnap = true,
+				},
+				Size = { 246.589, 153.893, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -1570.17, -215.734, },
+			},
+			Tools = ordered() {
+				Instance_Crop1 = Crop {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					SourceOp = "UNDOD",
+					Inputs = {
+						XOffset = Input {
+							Value = -720,
+							Expression = "DOD.XOffset*-1",
+						},
+						YOffset = Input {
+							Value = -501,
+							Expression = "DOD.YOffset*-1",
+						},
+						Input = Input {
+							SourceOp = "ChannelBooleans1",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1628.42, 315.554, },
+					},
+				},
+				ChannelBooleans1 = ChannelBoolean {
+					CtrlWShown = false,
+					Inputs = {
+						Operation = Input {
+							Value = 11,
+						},
+						Background = Input {
+							SourceOp = "DOD",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1509.87, 316.027, },
+					},
+				},
+				ChannelBooleans2 = ChannelBoolean {
+					CtrlWShown = false,
+					Inputs = {
+						Operation = Input {
+							Value = 6,
+						},
+						Background = Input {
+							SourceOp = "INPUT_TOOL_HERE",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "ChannelBooleans3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1630.46, 226.434, },
+					},
+				},
+				ChannelBooleans3 = ChannelBoolean {
+					CtrlWShown = false,
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						Background = Input {
+							SourceOp = "Instance_Crop1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1628.42, 266.905, },
+					},
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 44,
+			Top = 44,
+			Width = 1248,
+			Height = 734,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.5845,
+						Offset = { -187.894, 106.531, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+							"dump a",
+							"dump \"a\"",
+							"dump a",
+							"dump",
+							"dump = a",
+							"dump = a",
+							"dump",
+							"comp[\"ChannelBooleans1\"]:GetAttrs()",
+							"dump comp[\"ChannelBooleans1\"]:GetAttrs()",
+							"dump ChannelBooleans1:GetAttrs()",
+							"== ChannelBooleans1:GetAttrs()",
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "REPLACE_DOD_ALPHA", Expanded = true, },
+							{ "Instance_Crop1", Expanded = true, },
+							{ "UNDOD", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 622, },
+							ScaleX = 1.8499762857754,
+							OffsetX = -101.748695717647,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = 27,
+						OffsetY = 0,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.729554655870445,
+					RatioY = 98.5460992907801,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.376251788268956,
+						{
+							ID = "Left",
+							RatioX = 0.755011135857461,
+							RatioY = 104.501901140684,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.244988864142539,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.546494992846924,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 332,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						Channel = 4294967295,
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			Preview = {
+				OutputDevice = "Left.A",
+			},
+			FrameFormat = {
+				Name = "2K 1.85",
+				Height = 1107,
+				GuideRatio = 1.8502024291498,
+				DepthFull = 1,
+				DepthPreview = 1,
+				DepthInteractive = 1,
+			},
+			LastFile = "",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

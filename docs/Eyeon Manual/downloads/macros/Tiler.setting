@@ -1,0 +1,336 @@
+{
+	Tools = ordered() {
+		TilePlusPlus = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "TileScale",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "TileScale",
+					Source = "XSize",
+					Default = 2,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "TileScale",
+					Source = "YSize",
+					Default = 2,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "TileScale",
+					Source = "FilterMethod",
+					Default = 2,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "TileScale",
+					Source = "WindowMethod",
+					Default = 0,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "TileXf",
+					Source = "FlipHoriz",
+					Name = "Flip Horizontally",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "TileXf",
+					Source = "FlipVert",
+					Name = "Flip Vertically",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "TileXf",
+					Source = "Center",
+				},
+				Input9 = InstanceInput {
+					SourceOp = "TileXf",
+					Source = "Angle",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "TileSwitch",
+					Source = "ProcessWhenBlendIs00",
+					Name = "Do Tile Mirroring",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "TileXf",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				TileEdgeMatch = GroupOperator {
+					NameSet = true,
+					Inputs = ordered() {
+						Input1 = InstanceInput {
+							SourceOp = "Quad",
+							Source = "Input",
+						},
+						Comments = Input {
+							Value = "This group does tile mirroring",
+						},
+					},
+					Outputs = {
+						Output1 = InstanceOutput {
+							SourceOp = "Combine2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = GroupInfo {
+						Pos = { 1045, 82.5, },
+					},
+					Tools = ordered() {
+						Quad = Transform {
+							CtrlWShown = false,
+							NameSet = true,
+							Inputs = {
+								Edges = Input {
+									Value = 1,
+								},
+								Pivot = Input {
+									Value = { 0, 0, },
+								},
+								Size = Input {
+									Value = 0.5,
+								},
+								Input = Input {
+									SourceOp = "TileScale",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 990, 49.5, },
+							},
+						},
+						Rectangle1 = RectangleMask {
+							CtrlWShown = false,
+							Inputs = {
+								Center = Input {
+									Value = { 0.24, 0.76, },
+								},
+								Width = Input {
+									Value = 0.52,
+								},
+								Height = Input {
+									Value = 0.52,
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 990, 148.5, },
+							},
+						},
+						Combine1 = Dissolve {
+							Transitions = {
+								[0] = "DFTDissolve",
+							},
+							CtrlWShown = false,
+							NameSet = true,
+							Inputs = {
+								ApplyMaskInverted = Input {
+									Value = 1,
+								},
+								Background = Input {
+									SourceOp = "Quad",
+									Source = "Output",
+								},
+								Foreground = Input {
+									SourceOp = "FlipH",
+									Source = "Output",
+								},
+								EffectMask = Input {
+									SourceOp = "Rectangle2",
+									Source = "Mask",
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 1100, 82.5, },
+							},
+						},
+						Combine2 = Dissolve {
+							Transitions = {
+								[0] = "DFTDissolve",
+							},
+							CtrlWShown = false,
+							NameSet = true,
+							Inputs = {
+								Background = Input {
+									SourceOp = "Combine1",
+									Source = "Output",
+								},
+								Foreground = Input {
+									SourceOp = "FlipV",
+									Source = "Output",
+								},
+								EffectMask = Input {
+									SourceOp = "Rectangle3",
+									Source = "Mask",
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 1210, 115.5, },
+							},
+						},
+						Rectangle2 = RectangleMask {
+							CtrlWShown = false,
+							Inputs = {
+								Center = Input {
+									Value = { 0.76, 0.24, },
+								},
+								Width = Input {
+									Value = { 0.52, },
+								},
+								Height = Input {
+									Value = { 0.52, },
+								},
+								EffectMask = Input {
+									SourceOp = "Rectangle1",
+									Source = "Mask",
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 1100, 148.5, },
+							},
+						},
+						Rectangle3 = RectangleMask {
+							CtrlWShown = false,
+							Inputs = {
+								Center = Input {
+									Value = { 0.5, 0.24, },
+								},
+								Width = Input {
+									Value = 1.02,
+								},
+								Height = Input {
+									Value = 0.52,
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 1210, 148.5, },
+							},
+						},
+						FlipH = Transform {
+							CtrlWShown = false,
+							NameSet = true,
+							Inputs = {
+								FlipHoriz = Input {
+									Value = 1,
+								},
+								Input = Input {
+									SourceOp = "Quad",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 1100, 49.5, },
+							},
+						},
+						FlipV = Transform {
+							CtrlWShown = false,
+							NameSet = true,
+							Inputs = {
+								FlipVert = Input {
+									Value = 1,
+								},
+								Input = Input {
+									SourceOp = "Combine1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo {
+								Pos = { 1210, 82.5, },
+							},
+						},
+					},
+				},
+				TileScale = Scale {
+					NameSet = true,
+					Inputs = {
+						LockXY = Input {
+							Value = 0,
+						},
+						XSize = Input {
+							Value = 2,
+						},
+						YSize = Input {
+							Value = 2,
+						},
+						Comments = Input {
+							Value = "Increase image dimensions",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 880, 16.5, },
+					},
+				},
+				TileSwitch = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "TileScale",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Combine2",
+							Source = "Output",
+						},
+						FrameRenderScript = Input {
+							Value = "Mix = ProcessWhenBlendIs00",
+						},
+						Comments = Input {
+							Value = "FG/BG slider is wired to a spare (renamed) checkbox",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1211, 15.5, },
+					},
+				},
+				TileXf = Transform {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Edges = Input {
+							Value = 1,
+						},
+						Pivot = Input {
+							Value = { 0, 0, },
+						},
+						UseSizeAndAspect = Input {
+							Value = 0,
+						},
+						XSize = Input {
+							Value = 0.5,
+						},
+						YSize = Input {
+							Value = 0.5,
+						},
+						Input = Input {
+							SourceOp = "TileSwitch",
+							Source = "Output",
+						},
+						FrameRenderScript = Input {
+							Value = "XSize = 1/TileScale.XSize\r\nYSize = 1/TileScale.YSize\r\n",
+						},
+						Comments = Input {
+							Value = "Transformations done here",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1320, 16.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "TilePlusPlus",
+	Name = "TilePlusPlus",
+	IsMacro = true,
+}

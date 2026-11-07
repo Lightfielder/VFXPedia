@@ -1,0 +1,85 @@
+--###################################
+-- a little tool script that increases 
+-- the version count on Loaders and Savers
+--
+-- michael vorberg (mv@empty98.de)
+-- 17 Aug 2008
+--######################################
+fusion = Fusion()
+
+composition = fusion:GetCurrentComp()
+
+
+if not tool then
+	print("Error: This script must be run as a Tool Script.")
+	return
+end
+
+if (tool:GetAttrs().TOOLS_RegID == "Saver") or (tool:GetAttrs().TOOLS_RegID == "Loader") then
+	-- get saver's output location
+
+	output_old = tool.Clip[TIME_UNDEFINED]
+	if output_old == "" then
+		local err  = "This script can only update the render location if an output filename has already been specified."
+		comp:AskUser("Error", {{"", "Text", ReadOnly=true, Default=err, Wrap=true, Lines=2}})
+		return
+	end
+	pf = eyeon.parseFilename(output_old)
+
+	-- get current file name w/o sequence numbers (distinguish between movie files and image sequences!)
+
+	isMovie = false
+	if pf.Extension == ".mov" or pf.Extension == ".avi" then
+		isMovie = true
+		fileName = pf.Name
+		extraChars = ""
+	else
+		fileName = pf.CleanName
+		extraChars = ""
+		-- strip some characters ("extraChars") that might be found between file name and sequence number
+		c = string.sub(fileName, string.len(fileName), string.len(fileName))
+		while c == "." or c == "_" or c == "-" do
+			extraChars = c..extraChars
+			fileName = string.sub(fileName, 1, string.len(fileName)-1)
+			c = string.sub(fileName, string.len(fileName), string.len(fileName))
+		end
+	end
+	local seq = {}
+
+	string.gsub(fileName,     "^(.-)(%d+)$", function(name, SNum) seq.CleanName = name seq.SNum = SNum end)
+
+		if seq.SNum then 
+			seq.Number = tonumber( seq.SNum ) 
+			seq.Padding = string.len( seq.SNum )
+		else
+		   seq.SNum = ""
+		   seq.CleanName = seq.Name
+		end
+
+	if seq.Number == nil then
+			seq.Number =  1
+		else
+			seq.Number = seq.Number + 1
+		end
+
+	-- set new name for output clip, keeping sequence info
+	-- dot at the end has to be added again
+	if isMovie then
+		output_new = pf.Path..seq.CleanName..string.format("%0"..seq.Padding.."d", seq.Number)..pf.Extension
+	else
+		output_new = pf.Path..seq.CleanName..string.format("%0"..seq.Padding.."d", seq.Number)..extraChars..pf.SNum..pf.Extension
+	end
+
+	composition:StartUndo("Update Render Location")
+	tool.Clip[TIME_UNDEFINED] = output_new
+	composition:EndUndo(true)
+
+	print("\nUpdate Render Location successful for "..tool:GetAttrs().TOOLS_Name)
+	print("old output: "..output_old)
+	print("new output: "..output_new)
+	print();
+else
+	local err  = "This script can only be run on a Saver tool."
+	comp:AskUser("Error", {{"", "Text", ReadOnly=true, Default=err, Wrap=true, Lines=1}})
+	return
+end

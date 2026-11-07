@@ -1,0 +1,773 @@
+{
+	Tools = ordered() {
+		ColorRange = MacroOperator {
+			CtrlWZoom = false,
+			CustomData = {
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/ColorRange_Description",
+			},
+			Inputs = ordered() {
+				Comments = Input { Value = "Color Range Analyzer for Fusion 5.21 and above\r\n\r\nIn v06-1: Area masking, Fixed the Probe width bug, The white contours are rendered better, No dark edge around the on-screen text box anymore\r\n\r\nby Gregory Chalenko\r\nwww.compositing.ru", },
+				Input = InstanceInput {
+					SourceOp = "Bol",
+					Source = "Background",
+				},
+				AreaCenter = InstanceInput {
+					SourceOp = "Rct_AreaMask",
+					Source = "Center",
+					Name = "Area Center",
+				},
+				AreaWidth = InstanceInput {
+					SourceOp = "Rct_AreaMask",
+					Source = "Width",
+					Name = "Area Width",
+					Default = 1,
+				},
+				AreaHeight = InstanceInput {
+					SourceOp = "Rct_AreaMask",
+					Source = "Height",
+					Name = "Area Height",
+					Default = 1,
+				},
+				MeasuredData = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "MeasuredData",
+				},
+				RedMinimum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "RedMinimum",
+				},
+				RedMaximum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "RedMaximum",
+				},
+				GreenMinimum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "GreenMinimum",
+				},
+				GreenMaximum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "GreenMaximum",
+				},
+				BlueMinimum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "BlueMinimum",
+				},
+				BlueMaximum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "BlueMaximum",
+				},
+				AlphaMinimum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "AlphaMinimum",
+				},
+				AlphaMaximum = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "AlphaMaximum",
+				},
+				OnScreenColorIndicationControls = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "OnScreenColorIndicationControls",
+					Default = 0,
+				},
+				DetectColorsBelow = InstanceInput {
+					SourceOp = "MagentaGamut",
+					Source = "MaskClipWhite",
+					Name = "Detect Colors Below",
+					Default = 1,
+				},
+				DetectColorsAbove = InstanceInput {
+					SourceOp = "GreenGamut",
+					Source = "MaskClipWhite",
+					Name = "Detect Colors Above",
+					Default = 1,
+				},
+				Below = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "Below",
+					ControlGroup = 6,
+					Default = 0,
+				},
+				Above = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "Above",
+					MinScale = -0.5,
+					MaxScale = 1.5,
+					ControlGroup = 6,
+					Default = 1,
+				},
+				DrawContours = InstanceInput {
+					SourceOp = "WhiteContour",
+					Source = "ProcessWhenBlendIs00",
+					Name = "Draw Contours",
+					Default = 1,
+				},
+				OnScreenTextControls = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "AdvancedFontControls",
+					Name = "On-Screen Output Text Controls",
+					Default = 0,
+				},
+				DisplayOnScreenText = InstanceInput {
+					SourceOp = "ColorRangeMacro",
+					Source = "DisplayOnScreenText",
+					Default = 1,
+				},
+				OnscreenTextCenter = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "Center",
+				},
+				OnscreenTextSize = InstanceInput {
+					SourceOp = "TextOutput",
+					Source = "LayoutSize",
+					Name = "Size",
+					MaxScale = 2,
+					Default = 1,
+				},
+				AreaBorderWidth = InstanceInput {
+					SourceOp = "Instance_Rct_AreaMask",
+					Source = "BorderWidth",
+					Name = "Area Border Width",
+					MinScale = 0.0,
+					MaxScale = 0.025,
+					Default = 0.0025,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "ColorRangeMacro",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1316.67, 237, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 386.101, 427.693, },
+				Direction = "Vertical",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { 9.39886, 99.9211, },
+			},
+			Tools = ordered() {
+				Box = RectangleMask {
+					Inputs = {
+						Center = Input {
+							Expression = "TextOutput.Center",
+						},
+						Width = Input {
+							Expression = "0.36*TextOutput.LayoutSize",
+						},
+						Height = Input {
+							Expression = "0.17*TextOutput.LayoutSize*Bol.Background.OriginalWidth*Bol.Background.OriginalXScale/Bol.Background.OriginalHeight/Bol.Background.OriginalYScale",
+						},
+						CornerRadius = Input {
+							Expression = "0.12*TextOutput.LayoutSize",
+						},
+						EffectMask = Input {
+							SourceOp = "Instance_Rct_AreaMask",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -42.8641, 190.528, }, },
+				},
+				Bol = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 4, },
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 4, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 120.24, -78.5537, }, },
+					Colors = { TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, }, },
+				},
+				CT_Masks = Custom {
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input { Expression = "Below", },
+						NumberIn2 = Input {
+							Value = 1,
+							Expression = "Above",
+						},
+						RedExpression = Input { Value = "if(min(r1,min(g1,b1))<n1,1,0)", },
+						GreenExpression = Input { Value = "if(max(r1,max(g1,b1))>n2,1,0)", },
+						AuxChannelNest = Input { Value = 1, },
+						Image1 = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -58.1421, -25.1971, }, },
+				},
+				TextOutput = TextPlus {
+					NameSet = true,
+					Inputs = {
+						Green2 = Input {
+							SourceOp = "ProbeMax",
+							Source = "Result",
+						},
+						Red2 = Input {
+							SourceOp = "ProbeMin",
+							Source = "Result",
+						},
+						GlobalIn = Input { Value = 1, },
+						Width = Input {
+							Value = 1920,
+							Expression = "Bol.Background.OriginalWidth",
+						},
+						Height = Input {
+							Value = 1080,
+							Expression = "Bol.Background.OriginalHeight",
+						},
+						PixelAspect = Input { Expression = "Point(Bol.Background.OriginalXScale, Bol.Background.OriginalYScale)", },
+						Center = Input { Value = { 0.4, 0.6, }, },
+						Red = Input { Value = 0.4, },
+						Green = Input { Value = 0.4, },
+						Blue = Input { Value = 0.4, },
+						Alpha = Input { Value = 1, },
+						Size = Input { Value = 0.04, },
+						Font = Input { Value = "Arial", },
+						Style = Input { Value = "Regular", },
+						AdvancedFontControls = Input { Value = 1, },
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input { Value = 1, },
+						HorizontalJustification = Input { Value = 0, },
+						VerticalJustification = Input { Value = 1, },
+						SelectTransform = Input { Value = 2, },
+						LineSpacing = Input { Value = 0.9, },
+						SelectElement = Input { Value = 1, },
+						Select = Input { Value = 1, },
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input { Value = -0.13, },
+						Tab1Alignment = Input { Value = 1, },
+						Tab2Position = Input { Value = -0.11, },
+						Tab2Alignment = Input { Value = -1, },
+						Tab3Position = Input { Value = 0.03, },
+						Tab3Alignment = Input { Value = -1, },
+						RenderToDPTFile = Input { Disabled = true, },
+						DPTType = Input { Disabled = true, },
+						DPTResolution = Input { Disabled = true, },
+						FrameRenderScript = Input { Value = "StyledText = \"\\t\\t\"..\"Minimum\"..\"\\t\"..\"Maximum\"..\"\\n\"..\"\\t\"..\r\n\"R:\"..\"\\t\"..math.floor(ProbeMin.Red*10000+0.5)/10000 ..\"\\t\"..math.floor(ProbeMax.Red*10000+0.5)/10000 ..\"\\n\"..\"\\t\"..\r\n\"G:\"..\"\\t\"..math.floor(ProbeMin.Green*10000+0.5)/10000 ..\"\\t\"..math.floor(ProbeMax.Green*10000+0.5)/10000 ..\"\\n\"..\"\\t\"..\r\n\"B:\"..\"\\t\"..math.floor(ProbeMin.Blue*10000+0.5)/10000 ..\"\\t\"..math.floor(ProbeMax.Blue*10000+0.5)/10000 ..\"\\n\"..\"\\t\"..\r\n\"A:\"..\"\\t\"..math.floor(ProbeMin.Alpha*10000+0.5)/10000 ..\"\\t\"..math.floor(ProbeMax.Alpha*10000+0.5)/10000\n\nRedMinimum = ProbeMin.Red RedMaximum = ProbeMax.Red\nGreenMinimum = ProbeMin.Green GreenMaximum = ProbeMax.Green\nBlueMinimum = ProbeMin.Blue BlueMaximum = ProbeMax.Blue\nAlphaMinimum = ProbeMin.Alpha AlphaMaximum = ProbeMax.Alpha", },
+						EffectMask = Input {
+							SourceOp = "Box",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -41.7631, 228.107, }, },
+					UserControls = ordered() {
+						Below = {
+							INP_Default = 0,
+							INPID_InputControl = "RangeControl",
+							LINKID_DataType = "Number",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							IC_ControlGroup = 3,
+							LINKS_Name = "Below",
+						},
+						Above = {
+							IC_ControlGroup = 3,
+							INPID_InputControl = "RangeControl",
+							LINKID_DataType = "Number",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							INP_Default = 1,
+							LINKS_Name = "Above",
+						},
+						MeasuredData = {
+							INP_Default = 1,
+							IC_ControlPage = 0,
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 8,
+							LBLC_NestLevel = 1,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Measured Data. Display the node to get the values",
+						},
+						RedMinimum = {
+							ICD_Width = 0.5,
+							LINKID_DataType = "Text",
+							INPB_External = 1,
+							INPS_DefaultText = "",
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Red Minimum",
+						},
+						RedMaximum = {
+							ICD_Width = 0.5,
+							LINKID_DataType = "Text",
+							INPS_DefaultText = "",
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Red Maximum",
+						},
+						GreenMinimum = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							ICD_Width = 0.5,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Green Minimum",
+						},
+						GreenMaximum = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							ICD_Width = 0.5,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Green Maximum",
+						},
+						BlueMinimum = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							ICD_Width = 0.5,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Blue Minimum",
+						},
+						BlueMaximum = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							ICD_Width = 0.5,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Blue Maximum",
+						},
+						AlphaMinimum = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							ICD_Width = 0.5,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Alpha Minimum",
+						},
+						AlphaMaximum = {
+							TEC_ReadOnly = true,
+							LINKID_DataType = "Text",
+							INPID_InputControl = "TextEditControl",
+							INPS_DefaultText = "",
+							ICD_Width = 0.5,
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							LINKS_Name = "Alpha Maximum",
+						},
+						OnScreenColorIndicationControls = {
+							INP_Default = 1,
+							IC_ControlPage = 0,
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 5,
+							LBLC_NestLevel = 1,
+							LINKID_DataType = "Number",
+							LINKS_Name = "On-Screen Color Indication Controls",
+						},
+					},
+				},
+				ProbeMin = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						RedMinimum = Input { Expression = "ProbeMin.Red", },
+						ImageToProbe = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						ProbeRectangle = Input { Value = 1, },
+						Position = Input {
+							Expression = "Rct_AreaMask.Center",
+						},
+						Width = Input {
+							Expression = "Rct_AreaMask.Width/2",
+						},
+						Height = Input {
+							Expression = "Rct_AreaMask.Height/2",
+						},
+						Evaluation = Input { Value = 1, },
+					},
+				},
+				ProbeMax = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						Position = Input { Expression = "ProbeMin.Position", },
+						ProbeRectangle = Input { Value = 1, },
+						Width = Input {
+							Value = 1,
+							Expression = "ProbeMin.Width",
+						},
+						Height = Input {
+							Value = 1,
+							Expression = "ProbeMin.Height",
+						},
+						Evaluation = Input { Value = 2, },
+					},
+				},
+				Bmp_Red_Blur = BitmapMask {
+					NameSet = true,
+					Inputs = {
+						Level = Input { Expression = "MagentaGamut.Blend*WhiteContour.Blend", },
+						Filter = Input { Value = FuID { "Multi-box", }, },
+						SoftEdge = Input {
+							Value = 0.01,
+							Expression = "Bmp_Green_Blur.SoftEdge",
+						},
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Image = Input {
+							SourceOp = "CT_Masks",
+							Source = "Output",
+						},
+						Channel = Input { Value = FuID { "Red", }, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -77.1834, 15.2011, }, },
+				},
+				Bmp_Green_Blur = BitmapMask {
+					NameSet = true,
+					Inputs = {
+						Level = Input { Expression = "GreenGamut.Blend*WhiteContour.Blend", },
+						Filter = Input { Value = FuID { "Multi-box", }, },
+						SoftEdge = Input { Value = 0.01, },
+						PaintMode = Input { Value = FuID { "Maximum", }, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Image = Input {
+							SourceOp = "CT_Masks",
+							Source = "Output",
+						},
+						Channel = Input { Value = FuID { "Green", }, },
+						EffectMask = Input {
+							SourceOp = "Bmp_Red_Blur",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -46.2541, 53.9596, }, },
+				},
+				ContourDetect = ColorCurves {
+					PickColor = true,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "WhiteContour.Blend", },
+						Red = Input {
+							SourceOp = "ContourDetectRed",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ContourDetectGreen",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ContourDetectBlue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ContourDetectAlpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Bmp_Green_Blur",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -59.6003, 86.1547, }, },
+					Tools = {
+						ContourDetectBlue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.0005, 0, }, },
+									[0.0015] = { 1, LH = { 0.001, 1, }, RH = { 0.00433333333333333, 1, }, },
+									[0.01] = { 0, LH = { 0.00716666666666667, 0, }, },
+								},
+							},
+							SplineColor = { Red = 68, Green = 68, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ContourDetectAlpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.0005, 0, }, },
+									[0.0015] = { 1, LH = { 0.001, 1, }, RH = { 0.00433333333333333, 1, }, },
+									[0.01] = { 0, LH = { 0.00716666666666667, 0, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ContourDetectGreen = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.0005, 0, }, },
+									[0.0015] = { 1, LH = { 0.001, 1, }, RH = { 0.00433333333333333, 1, }, },
+									[0.01] = { 0, LH = { 0.00716666666666667, 0, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ContourDetectRed = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.0005, 0, }, },
+									[0.0015] = { 1, LH = { 0.001, 1, }, RH = { 0.00433333333333333, 1, }, },
+									[0.01] = { 0, LH = { 0.00716666666666667, 0, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 52, Blue = 52, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+					Colors = { TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, }, },
+				},
+				WhiteContour = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "ProcessWhenBlendIs00*math.max(MagentaGamut.Blend,GreenGamut.Blend)", },
+						ProcessWhenBlendIs00 = Input { Value = 1, },
+						MaskHigh = Input { Value = 0.7, },
+						MaskLow = Input { Value = 0.3, },
+						ToRed = Input { Value = 16, },
+						ToGreen = Input { Value = 16, },
+						ToBlue = Input { Value = 16, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "GreenGamut",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ContourDetect",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 58.5843, 86.6298, }, },
+					Colors = { TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, }, },
+				},
+				GreenGamut = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "MaskClipWhite", },
+						MaskChannel = Input { Value = 1, },
+						ToRed = Input { Value = 15, },
+						ToGreen = Input { Value = 16, },
+						ToBlue = Input { Value = 15, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "MagentaGamut",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "CT_Masks",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 59.4425, 39.8186, }, },
+					Colors = { TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, }, },
+				},
+				MagentaGamut = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "MaskClipWhite", },
+						MaskChannel = Input { Value = 0, },
+						ToRed = Input { Value = 16, },
+						ToGreen = Input { Value = 15, },
+						ToBlue = Input { Value = 16, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "CT_Masks",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 53.8053, -12.3373, }, },
+					Colors = { TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, }, },
+				},
+				BC_ClipRange = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						ClipBlack = Input { Value = 1, },
+						ClipWhite = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "DX_AreaMask",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Box",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 95.0362, 188.329, }, },
+					Colors = { TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, }, },
+				},
+				ColorRangeMacro = Merge {
+					Inputs = {
+						Background = Input {
+							SourceOp = "BC_ClipRange",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "TextOutput",
+							Source = "Output",
+						},
+						Blend = Input {
+							Expression = "DisplayOnScreenText/2",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 90.0209, 228.858, }, },
+					UserControls = ordered() {
+						DisplayOnScreenText = {
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+							IC_ControlPage = 2,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Display On-Screen Text",
+						},
+					},
+				},
+				DX_AreaMask = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "iif(Rct_AreaMask.Center.X+Rct_AreaMask.Center.Y+Rct_AreaMask.Width+Rct_AreaMask.Height==3,0,1)",
+						},
+						Background = Input {
+							SourceOp = "WhiteContour",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Rct_AreaMask",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 96.3392, 116.878, }, },
+				},
+				Rct_AreaMask = RectangleMask {
+					NameSet = true,
+					Inputs = {
+						Level = Input {
+							Value = 0,
+							Expression = "DX_AreaMask.Blend",
+						},
+						Invert = Input { Value = 1, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						ClippingMode = Input { Value = FuID { "None", }, },
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -10.2793, 117.014, }, },
+				},
+				Instance_Rct_AreaMask = RectangleMask {
+					NameSet = true,
+					SourceOp = "Rct_AreaMask",
+					Inputs = {
+						Level = Input { Expression = "DX_AreaMask.Blend", },
+						BorderWidth = Input { Value = 0.0025, },
+						Invert = Input { },
+						Solid = Input { Value = 0, },
+						StartEndRenderScripts = Input { },
+						EffectMask = Input {
+							SourceOp = "Ply_Line",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -42.6714, 164.91, }, },
+				},
+				Ply_Line = PolylineMask {
+					DrawMode = "ModifyOnly",
+					DrawMode2 = "InsertAndModify",
+					NameSet = true,
+					Inputs = {
+						Level = Input {
+							Value = 0,
+							Expression = "DX_AreaMask.Blend",
+						},
+						Filter = Input { Value = FuID { "Multi-box", }, },
+						BorderWidth = Input {
+							Value = 0.0025,
+							Expression = "Instance_Rct_AreaMask.BorderWidth",
+						},
+						PaintMode = Input { Value = FuID { "Multiply", }, },
+						Solid = Input { Value = 0, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						Polyline = Input {
+							Value = Polyline {
+								Points = {
+									{ Linear = true, X = -0.1, Y = 0.1, RX = 0.0333333333333333, RY = -0.0333333333333333, PublishID = "Point0", },
+									{ Linear = true, X = 0, Y = 0, LX = -0.0333333333333333, LY = 0.0333333333333333, PublishID = "Point1", },
+								},
+							},
+						},
+						Polyline2 = Input {
+							Value = Polyline {
+							},
+							Disabled = true,
+						},
+						Point0 = Input {
+							Value = { 0.4, 0.6, },
+							Expression = "TextOutput.Center",
+						},
+						Point1 = Input {
+							Value = { 0.5, 0.5, },
+							Expression = "Rct_AreaMask.Center",
+						},
+						EffectMask = Input {
+							SourceOp = "Rct_AreaMask",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -42.1198, 137.823, }, },
+				},
+			},
+		},
+	},
+	ActiveTool = "ColorRange",
+}

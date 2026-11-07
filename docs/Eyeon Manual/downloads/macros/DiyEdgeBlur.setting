@@ -1,0 +1,571 @@
+{
+	Tools = ordered() {
+		diyEdgeBlur = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "diyTools - simple but handy macros\r\nfind more @ pigs fly forum (by sh4dow)\r\n(Andreas Opferkuch - http://www.variations-of-shadow.com)",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "blurdilateparameters",
+					Source = "BlurSize",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "blurdilateparameters",
+					Source = "AdvancedFineTuning",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "blurdilateparameters",
+					Source = "BlurInside",
+					Default = 0.75,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "blurdilateparameters",
+					Source = "DilateOutside",
+					Default = 0.01,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "blurdilateparameters",
+					Source = "DilateInside",
+					Default = 0.01,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Merge1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				Merge1_1 = Merge {
+					Inputs = {
+						PerformDepthMerge = Input { Value = 0, },
+						Background = Input {
+							SourceOp = "Blur1_3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "ChannelBooleans3_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1760, 577.5, }, },
+				},
+				Premultiply_1 = MacroOperator {
+					Inputs = ordered() {
+						MainInput1 = InstanceInput {
+							SourceOp = "ChannelBooleans3_1",
+							Source = "Background",
+						},
+					},
+					Outputs = {
+						MainOutput1 = InstanceOutput {
+							SourceOp = "ChannelBooleans3_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = GroupInfo { Pos = { 1650, 577.5, }, },
+					Tools = ordered() {
+						ChannelBooleans3_1 = ChannelBoolean {
+							CtrlWZoom = false,
+							CtrlWShown = false,
+							Inputs = {
+								Operation = Input { Value = 6, },
+								ToRed = Input { Value = 8, },
+								ToGreen = Input { Value = 8, },
+								ToBlue = Input { Value = 8, },
+								ToAlpha = Input { Value = 4, },
+								Background = Input {
+									SourceOp = "Blur3_1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { 0, 10.15, }, },
+						},
+					},
+				},
+				Blur3_1 = Blur {
+					Inputs = {
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XBlurSize = Input {
+							Value = 0.25,
+							Expression = "(Blur1_3.XBlurSize / 3) * blurdilateparameters.BlurInside",
+						},
+						Input = Input {
+							SourceOp = "ErodeDilate3_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1540, 577.5, }, },
+				},
+				Blur1_3 = Blur {
+					Inputs = {
+						XBlurSize = Input { Expression = "blurdilateparameters.BlurSize", },
+						Input = Input {
+							SourceOp = "ErodeDilate2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1540, 511.5, }, },
+				},
+				ErodeDilate2_1 = ErodeDilate {
+					Inputs = {
+						XAmount = Input {
+							Value = 5e-005,
+							Expression = "(Blur1_3.XBlurSize / 200) * blurdilateparameters.DilateOutside",
+						},
+						Input = Input {
+							SourceOp = "MatteControl1_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1430, 511.5, }, },
+				},
+				ErodeDilate3_1 = ErodeDilate {
+					Inputs = {
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XAmount = Input {
+							Value = -0.0005,
+							Expression = "(Blur3_1.XBlurSize / -5) * blurdilateparameters.DilateInside",
+						},
+						Input = Input {
+							SourceOp = "ChannelBooleans1_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1430, 577.5, }, },
+				},
+				Unpremultiply_1 = MacroOperator {
+					Inputs = ordered() {
+						MainInput1 = InstanceInput {
+							SourceOp = "ChannelBooleans1_3",
+							Source = "Background",
+						},
+					},
+					Outputs = {
+						MainOutput1 = InstanceOutput {
+							SourceOp = "ChannelBooleans1_3",
+							Source = "Output",
+						},
+					},
+					ViewInfo = GroupInfo { Pos = { 1320, 577.5, }, },
+					Tools = ordered() {
+						ChannelBooleans1_3 = ChannelBoolean {
+							CtrlWZoom = false,
+							CtrlWShown = false,
+							Inputs = {
+								Operation = Input { Value = 7, },
+								ToRed = Input { Value = 8, },
+								ToGreen = Input { Value = 8, },
+								ToBlue = Input { Value = 8, },
+								ToAlpha = Input { Value = 4, },
+								Background = Input {
+									SourceOp = "PipeRouter1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { 0, 10.15, }, },
+						},
+					},
+				},
+				Bitmap1_1 = BitmapMask {
+					Inputs = {
+						MaskWidth = Input { Value = 1920, },
+						MaskHeight = Input { Value = 1080, },
+						PixelAspect = Input { Value = { 1, 1, }, },
+						ClippingMode = Input { Value = FuID { "None", }, },
+						Image = Input {
+							SourceOp = "ChannelBooleans1_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1320, 412.5, }, },
+				},
+				MatteControl1_3 = MatteControl {
+					Inputs = {
+						High = Input { Value = 0.6423841, },
+						InvertGarbageMatte = Input { Value = 1, },
+						Background = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						GarbageMatte = Input {
+							SourceOp = "Bitmap1_1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1320, 511.5, }, },
+				},
+				blurdilateparameters = Custom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						LUTIn1 = Input {
+							SourceOp = "blurdilateparametersLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "blurdilateparametersLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "blurdilateparametersLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "blurdilateparametersLUTIn4",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1540, 379.5, }, },
+					Colors = {
+						TileColor = { R = 1, G = 0.498039215686275, B = 1, },
+						TextColor = { R = 0, G = 0, B = 0, },
+					},
+					UserControls = ordered() {
+						BlurSize = {
+							INP_MaxAllowed = 50,
+							LINKS_Name = "Blur Size",
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 5,
+							INP_Default = 1,
+						},
+						AdvancedFineTuning = {
+							INP_Default = 0,
+							INPID_InputControl = "LabelControl",
+							LBLC_DropDownButton = true,
+							LINKID_DataType = "Number",
+							LBLC_NumInputs = 3,
+							IC_ControlPage = 0,
+							LBLC_NestLevel = 1,
+							LINKS_Name = "Advanced Fine-Tuning",
+						},
+						BlurInside = {
+							INP_MaxAllowed = 50,
+							LINKS_Name = "Blur Inside",
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 5,
+							INP_Default = 0.75,
+						},
+						DilateOutside = {
+							INP_MaxAllowed = 10,
+							LINKS_Name = "Dilate Outside",
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							ICD_Center = 0.1,
+							INP_Default = 0.01,
+						},
+						DilateInside = {
+							INP_MaxAllowed = 10,
+							INP_Default = 0.01,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							ICD_Center = 0.1,
+							LINKS_Name = "Dilate Inside",
+						},
+					},
+				},
+				blurdilateparametersLUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+				},
+				blurdilateparametersLUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+				},
+				blurdilateparametersLUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+				},
+				blurdilateparametersLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+				},
+				AlphaEdgeCCv_2_1 = MacroOperator {
+					Inputs = ordered() {
+						Comments = Input { Value = "Based on AlphaEdgeCCv\r\nIf you want a more technical/detailed approach, use that and be sure to read the comments about it on the pigsfly forum.", },
+						MainInput1 = InstanceInput {
+							SourceOp = "Blur1_2_1",
+							Source = "Input",
+						},
+						PreBlurSize = InstanceInput {
+							SourceOp = "Blur1_2_1",
+							Source = "XBlurSize",
+							Name = "Pre-Blur Size",
+							Default = 0,
+						},
+						Input12 = InstanceInput {
+							SourceOp = "ColorCurves2_2_1",
+							Source = "Alpha",
+							ControlGroup = 9,
+						},
+						Gain = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "Gain",
+							Default = 1,
+						},
+						Gamma = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "Gamma",
+							Default = 1,
+						},
+						Contrast = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "Contrast",
+							Default = 0,
+						},
+						Low = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "Low",
+							ControlGroup = 4,
+							Default = 0,
+						},
+						High = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "High",
+							ControlGroup = 4,
+							Default = 1,
+						},
+						ClipBlack = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "ClipBlack",
+							Default = 1,
+						},
+						ClipWhite = InstanceInput {
+							SourceOp = "BrightnessContrast1_2_1",
+							Source = "ClipWhite",
+							Default = 1,
+						},
+						PostBlurSize = InstanceInput {
+							SourceOp = "MatteControl1_2_1",
+							Source = "MatteBlur",
+							Name = "Post-Blur Size",
+							Default = 0,
+						},
+						InvertBrightnessMap = InstanceInput {
+							SourceOp = "MatteControl1_2_1",
+							Source = "InvertGarbageMatte",
+							Name = "Invert Brightness Map",
+							Default = 1,
+						},
+						BrightnessMap = InstanceInput {
+							SourceOp = "MatteControl1_2_1",
+							Source = "GarbageMatte",
+							Name = "Brightness Map",
+						},
+					},
+					Outputs = {
+						MainOutput1 = InstanceOutput {
+							SourceOp = "ChannelBooleans1_2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = GroupInfo { Pos = { 1320, 379.5, }, },
+					Tools = ordered() {
+						BrightnessContrast1_2_1 = BrightnessContrast {
+							CtrlWShown = false,
+							Inputs = {
+								Alpha = Input { Value = 1, },
+								Gain = Input { Value = 5, },
+								ClipBlack = Input { Value = 1, },
+								ClipWhite = Input { Value = 1, },
+								Input = Input {
+									SourceOp = "ColorCurves2_2_1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { 1.505, 74.645, }, },
+							Colors = {
+								TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+								TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+							},
+						},
+						Blur1_2_1 = Blur {
+							CtrlWShown = false,
+							Inputs = {
+								Filter = Input { Value = FuID { "Multi-box", }, },
+								XBlurSize = Input { Value = 0.1, },
+								Input = Input {
+									SourceOp = "PipeRouter1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { -1.505, 10.15, }, },
+							Colors = {
+								TileColor = { R = 0.423529411764706, G = 0.505882352941176, B = 0.337254901960784, },
+								TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+							},
+						},
+						ColorCurves2_2_1 = ColorCurves {
+							PickColor = true,
+							CtrlWShown = false,
+							Inputs = {
+								Red = Input {
+									SourceOp = "ColorCurves2_2_1Red",
+									Source = "Value",
+								},
+								Green = Input {
+									SourceOp = "ColorCurves2_2_1Green",
+									Source = "Value",
+								},
+								Blue = Input {
+									SourceOp = "ColorCurves2_2_1Blue",
+									Source = "Value",
+								},
+								Alpha = Input {
+									SourceOp = "ColorCurves2_2_1Alpha",
+									Source = "Value",
+								},
+								Input = Input {
+									SourceOp = "Blur1_2_1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { -0.234994, 42.478, }, },
+							Tools = {
+								ColorCurves2_2_1Red = LUTBezier {
+									KeyColorSplines = {
+										[0] = {
+											[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+											[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+											[1] = { 0, LH = { 0.833333333333333, 0, }, },
+										},
+									},
+									SplineColor = { Red = 255, Green = 52, Blue = 52, },
+									CtrlWShown = false,
+									NameSet = true,
+								},
+								ColorCurves2_2_1Alpha = LUTBezier {
+									KeyColorSplines = {
+										[0] = {
+											[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+											[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+											[1] = { 1, LH = { 0.833333333333333, 1, }, },
+										},
+									},
+									SplineColor = { Red = 204, Green = 204, Blue = 204, },
+									CtrlWShown = false,
+									NameSet = true,
+								},
+								ColorCurves2_2_1Blue = LUTBezier {
+									KeyColorSplines = {
+										[0] = {
+											[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+											[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+											[1] = { 0, LH = { 0.833333333333333, 0, }, },
+										},
+									},
+									SplineColor = { Red = 68, Green = 68, Blue = 255, },
+									CtrlWShown = false,
+									NameSet = true,
+								},
+								ColorCurves2_2_1Green = LUTBezier {
+									KeyColorSplines = {
+										[0] = {
+											[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+											[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+											[1] = { 0, LH = { 0.833333333333333, 0, }, },
+										},
+									},
+									SplineColor = { Red = 0, Green = 255, Blue = 0, },
+									CtrlWShown = false,
+									NameSet = true,
+								},
+							},
+							Colors = {
+								TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+								TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+							},
+						},
+						ChannelBooleans1_2_1 = ChannelBoolean {
+							CtrlWZoom = false,
+							CtrlWShown = false,
+							Inputs = {
+								ToRed = Input { Value = 8, },
+								ToGreen = Input { Value = 8, },
+								ToBlue = Input { Value = 8, },
+								ToAlpha = Input { Value = 8, },
+								Background = Input {
+									SourceOp = "MatteControl1_2_1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { -0.234994, 108.478, }, },
+							Colors = {
+								TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+								TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+							},
+						},
+						MatteControl1_2_1 = MatteControl {
+							CtrlWZoom = false,
+							CtrlWShown = false,
+							Inputs = {
+								InvertGarbageMatte = Input { Value = 1, },
+								Background = Input {
+									SourceOp = "BrightnessContrast1_2_1",
+									Source = "Output",
+								},
+							},
+							ViewInfo = OperatorInfo { Pos = { -0.234994, 141.478, }, },
+							Colors = {
+								TileColor = { R = 0.443137254901961, G = 0.333333333333333, B = 0.505882352941176, },
+								TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+							},
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.443137254901961, G = 0.337254901960784, B = 0.509803921568627, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					ViewInfo = PipeRouterInfo { Pos = { 1155, 379.5, }, },
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.376470588235294, B = 0.549019607843137, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	ActiveTool = "diyEdgeBlur",
+}

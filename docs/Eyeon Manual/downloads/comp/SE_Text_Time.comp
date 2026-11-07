@@ -1,0 +1,607 @@
+Composition {
+	CurrentTime = 99,
+	RenderRange = { 0, 150, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 104",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				Center = Input {
+					SourceOp = "XYPath1",
+					Source = "Value",
+				},
+				Size = Input {
+					Value = 0.25,
+				},
+				Font = Input {
+					Value = "Times New Roman",
+				},
+				StyledText = Input {
+					Value = "Time",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				SelectElement = Input {
+					Value = 7,
+				},
+				Select = Input {
+					Value = 1,
+				},
+				Opacity1 = Input {
+					Value = 0.5,
+				},
+				Type1 = Input {
+					Value = 2,
+				},
+				Red1 = Input {
+					Value = 0.715555555555556,
+				},
+				Green1 = Input {
+					Value = 0.825209374123406,
+				},
+				Alpha1 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient1 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform1 = Input {
+					Value = 1,
+				},
+				Enabled2 = Input {
+					Value = 1,
+				},
+				Opacity2 = Input {
+					Value = 0.5,
+				},
+				PriorityBack2 = Input {
+					Value = 10,
+				},
+				ElementShape2 = Input {
+					Value = 0,
+				},
+				Type2 = Input {
+					Value = 2,
+				},
+				Red2 = Input {
+					Value = 0.715555555555556,
+				},
+				Green2 = Input {
+					Value = 0.825209374123406,
+				},
+				Blue2 = Input {
+					Value = 1,
+				},
+				Alpha2 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient2 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform2 = Input {
+					Value = 1,
+				},
+				Offset2 = Input {
+					Value = { 1, -0.07, },
+				},
+				OffsetZ2 = Input {
+					Value = -3,
+				},
+				Enabled3 = Input {
+					Value = 1,
+				},
+				Enabled4 = Input {
+					Value = 1,
+				},
+				Enabled5 = Input {
+					Value = 1,
+				},
+				Enabled6 = Input {
+					Value = 1,
+				},
+				Enabled7 = Input {
+					Value = 1,
+				},
+				Enabled8 = Input {
+					Value = 1,
+				},
+				Opacity3 = Input {
+					Value = 0.5,
+				},
+				Type3 = Input {
+					Value = 2,
+				},
+				Red3 = Input {
+					Value = 0.715555555555556,
+				},
+				Green3 = Input {
+					Value = 0.825209374123406,
+				},
+				Blue3 = Input {
+					Value = 1,
+				},
+				Alpha3 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient3 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				SoftnessX3 = Input {
+					Value = 0,
+				},
+				SoftnessY3 = Input {
+					Value = 0,
+				},
+				Transform3 = Input {
+					Value = 1,
+				},
+				Offset3 = Input {
+					Value = { 0, 1, },
+				},
+				OffsetZ3 = Input {
+					Value = 3,
+				},
+				Opacity4 = Input {
+					Value = 0.5,
+				},
+				ElementShape4 = Input {
+					Value = 0,
+				},
+				Type4 = Input {
+					Value = 2,
+				},
+				Red4 = Input {
+					Value = 0.715555555555556,
+				},
+				Green4 = Input {
+					Value = 0.825209374123406,
+				},
+				Alpha4 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient4 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform4 = Input {
+					Value = 1,
+				},
+				Offset4 = Input {
+					Value = { 1, -0.5, },
+				},
+				OffsetZ4 = Input {
+					Value = -1.5,
+				},
+				Opacity5 = Input {
+					Value = 0.5,
+				},
+				Type5 = Input {
+					Value = 2,
+				},
+				Red5 = Input {
+					Value = 0.715555555555556,
+				},
+				Green5 = Input {
+					Value = 0.825209374123406,
+				},
+				Alpha5 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient5 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform5 = Input {
+					Value = 1,
+				},
+				Offset5 = Input {
+					Value = { 1, 0.3, },
+				},
+				OffsetZ5 = Input {
+					Value = 1,
+				},
+				Opacity6 = Input {
+					Value = 0.5,
+				},
+				Type6 = Input {
+					Value = 2,
+				},
+				Red6 = Input {
+					Value = 0.715555555555556,
+				},
+				Green6 = Input {
+					Value = 0.825209374123406,
+				},
+				Alpha6 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient6 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform6 = Input {
+					Value = 1,
+				},
+				Offset6 = Input {
+					Value = { 2, 1.5, },
+				},
+				OffsetZ6 = Input {
+					Value = 4,
+				},
+				Opacity7 = Input {
+					Value = 0.5,
+				},
+				Type7 = Input {
+					Value = 2,
+				},
+				Red7 = Input {
+					Value = 0.715555555555556,
+				},
+				Green7 = Input {
+					Value = 0.825209374123406,
+				},
+				Alpha7 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient7 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform7 = Input {
+					Value = 1,
+				},
+				Offset7 = Input {
+					Value = { 2, -0.5, },
+				},
+				OffsetZ7 = Input {
+					Value = 0.5,
+				},
+				Opacity8 = Input {
+					Value = 0.5,
+				},
+				Type8 = Input {
+					Value = 2,
+				},
+				Red8 = Input {
+					Value = 0.715555555555556,
+				},
+				Green8 = Input {
+					Value = 0.825209374123406,
+				},
+				Alpha8 = Input {
+					Value = 0.5,
+				},
+				ShadingGradient8 = Input {
+					SourceOp = "Publish1",
+					Source = "Value",
+				},
+				Transform8 = Input {
+					Value = 1,
+				},
+				Offset8 = Input {
+					Value = { 2, 0.2, },
+				},
+				OffsetZ8 = Input {
+					Value = -0.8,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -605, 82.5, },
+			},
+		},
+		XYPath1 = XYPath {
+			Inputs = {
+				X = Input {
+					SourceOp = "XYPath1X",
+					Source = "Value",
+				},
+				Y = Input {
+					SourceOp = "XYPath1Y",
+					Source = "Value",
+				},
+				Z = Input {
+					SourceOp = "XYPath1Z",
+					Source = "Value",
+				},
+				Displacement = Input {
+					SourceOp = "XYPath1Displacement",
+					Source = "Value",
+				},
+			},
+		},
+		Publish1 = PublishGradient {
+			Inputs = {
+				Value = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 0.65, 0.85, 1, 1, },
+						},
+					},
+				},
+			},
+		},
+		XYPath1X = BezierSpline {
+			SplineColor = { 0, 1, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1.57696183146446, RH = { 50, 0.649339812428644, }, },
+				[150] = { -1.20590422564299, LH = { 100, -0.278282206607175, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPath1Y = BezierSpline {
+			SplineColor = { 1, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 33.3333333333333, 0.5, }, },
+				[100] = { 0.5, LH = { 66.6666666666667, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPath1Z = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, },
+			},
+		},
+		XYPath1Displacement = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, },
+			},
+		},
+		TimeSpeed1 = TimeSpeed {
+			Inputs = {
+				Delay = Input {
+					Value = 30,
+				},
+				InterpolateBetweenFrames = Input {
+					Value = 0,
+				},
+				SampleSpread = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -385, -16.5, },
+			},
+		},
+		Transform1 = Transform {
+			Inputs = {
+				Center = Input {
+					Value = { 0.5, 0.682352941176471, },
+				},
+				Input = Input {
+					SourceOp = "TimeSpeed1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -385, 16.5, },
+			},
+		},
+		Merge1 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { -385, 82.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 730,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { 730, 190, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "Text1", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 509, },
+							ScaleX = 0.2,
+							OffsetX = -49.2,
+							OffsetY = 0,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -3.59999999999999,
+						OffsetY = -1.28321678321678,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = true,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "XYPath1X", "XYPath1Y", "XYPath1Z", "XYPath1Displacement", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.809800128949065,
+					RatioY = 100.142653352354,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.461870503597122,
+						{
+							ID = "Left",
+							RatioX = 0.500399042298484,
+							RatioY = 107,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.499600957701516,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.460431654676259,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						ScaleMode = 0,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			FrameFormat = {
+				GuideRatio = 1.33333333333333,
+			},
+			LastFile = "E:\\Erics\\FusionSupport\\vfxpedia\\th_setting2.jpg",
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

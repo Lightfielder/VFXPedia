@@ -1,0 +1,28 @@
+{
+	Tools = ordered() {
+		BG_VerticalGrayscale = Background {
+			Inputs = {
+				UseFrameFormatSettings = Input {
+					Value = 1,
+				},
+				Type = Input {
+					Value = FuID { "Gradient", },
+				},
+				Start = Input {
+					Value = { 1, 0, },
+				},
+				End = Input {
+					Value = { 1, 1, },
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+		},
+	},
+}

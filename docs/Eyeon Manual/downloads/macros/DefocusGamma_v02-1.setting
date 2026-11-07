@@ -1,0 +1,174 @@
+{
+	Tools = ordered() {
+		DefocusGamma = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Correct Defocus for gamma-corrected images (i.e. sRGB)\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "ChangeDepth",
+					Source = "Input",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "LockXY",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "XDefocusSize",
+					Default = 5,
+				},
+				Input4 = InstanceInput {
+					Disabled = true,
+					SourceOp = "Defocus",
+					Source = "YDefocusSize",
+					Default = 5,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "LensType",
+					Default = 3,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "LensAngle",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "LensSides",
+					Default = 5,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "LensShape",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "BC_Regamma",
+					Source = "Gamma",
+					Name = "Image Gamma",
+					Default = 2.2,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "ChangeDepth",
+					Source = "Depth",
+					Name = "Set Depth",
+					Default = 5,
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "Defocus",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "BC_Regamma",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 86, 14, },
+				Flags = {
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true,
+				},
+				Size = { 538.75, 307.794, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -97, 0, },
+			},
+			Tools = ordered() {
+				BC_Degamma = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Gamma = Input {
+							Expression = "1/BC_Regamma.Gamma",
+						},
+						Input = Input {
+							SourceOp = "ChangeDepth",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 33.625, 124.15, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Defocus = Defocus {
+					NameSet = true,
+					Inputs = {
+						Filter = Input {
+							Value = 1,
+						},
+						YDefocusSize = Input {
+							Disabled = true,
+						},
+						BloomLevel = Input {
+							Value = 0,
+						},
+						BloomThreshold = Input {
+							Value = 0,
+						},
+						LensType = Input {
+							Value = 3,
+						},
+						Input = Input {
+							SourceOp = "BC_Degamma",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 141.625, 124.644, },
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.537254901960784, B = 0.368627450980392, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				BC_Regamma = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Gamma = Input {
+							Value = 2.2,
+						},
+						Input = Input {
+							SourceOp = "Defocus",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 265.625, 124.644, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ChangeDepth = ChangeDepth {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Depth = Input {
+							Value = 4,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -92.375, 125.15, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.423529411764706, G = 0.541176470588235, B = 0.372549019607843, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

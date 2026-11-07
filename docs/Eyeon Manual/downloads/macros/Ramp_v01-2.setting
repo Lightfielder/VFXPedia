@@ -1,0 +1,350 @@
+{
+	Tools = ordered() {
+		Ramp = MacroOperator {
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "Background",
+					Name = "Input",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "EffectMask",
+				},
+				Start = InstanceInput {
+					SourceOp = "__RampBG",
+					Source = "Start",
+					DefaultX = 0,
+					DefaultY = 0.5,
+				},
+				End = InstanceInput {
+					SourceOp = "__RampBG",
+					Source = "End",
+					DefaultX = 1,
+					DefaultY = 0.5,
+				},
+				Red = InstanceInput {
+					SourceOp = "__RampColor",
+					Source = "Red",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				Green = InstanceInput {
+					SourceOp = "__RampColor",
+					Source = "Green",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				Blue = InstanceInput {
+					SourceOp = "__RampColor",
+					Source = "Blue",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				Alpha = InstanceInput {
+					SourceOp = "__RampColor",
+					Source = "Alpha",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				Interpolation = InstanceInput {
+					SourceOp = "__RampCT",
+					Source = "Interpolation",
+					Default = 0,
+				},
+				DrawInsideAlphaChannel = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "DrawInsideAlphaChannel",
+					Default = 0,
+				},
+				Blend = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "ApplyMaskInverted",
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "__RampMrg",
+					Source = "MultiplyByMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "__RampMrg",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "Ramp",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				["__RampBG"] = Background {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GlobalOut = Input { Value = 100, },
+						Width = Input {
+							Value = 2100,
+							Expression = "__RampMrg.Background.OriginalWidth",
+						},
+						Height = Input {
+							Value = 1260,
+							Expression = "__RampMrg.Background.OriginalHeight",
+						},
+						PixelAspect = Input { Expression = "Point(__RampMrg.Background.XScale, __RampMrg.Background.YScale)", },
+						Depth = Input { Value = 4, },
+						Type = Input { Value = FuID { "Gradient", }, },
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 0, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, -49.5, }, },
+				},
+				["__RampCT"] = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "(Interpolation == 0) and 0 or 1",
+						},
+						ProcessGreen = Input { Value = 0, },
+						ProcessBlue = Input { Value = 0, },
+						ProcessAlpha = Input { Value = 0, },
+						NumberIn1 = Input { Expression = "Interpolation", },
+						NumberIn2 = Input { Value = 1, },
+						NumberIn3 = Input { Value = 1, },
+						NumberIn4 = Input { Value = 1, },
+						NumberIn5 = Input { Value = 1, },
+						LUTIn1 = Input {
+							SourceOp = "__RampCTLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "__RampCTLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "__RampCTLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "__RampCTLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input { Value = "r1 ^ 3", },
+						Intermediate2 = Input { Value = "r1 * r1 * (2 - r1)", },
+						Intermediate3 = Input { Value = "r1 * (1 + r1 * (1 - r1))", },
+						Intermediate4 = Input { Value = "r1 * r1 * (3 - 2 * r1)", },
+						RedExpression = Input { Value = "if(n1 == 1, i1, \r\nif(n1 == 2, i2,\r\nif(n1 == 3, i3,\r\nif(n1 == 4, i4, x))))", },
+						GreenExpression = Input { Value = "", },
+						BlueExpression = Input { Value = "", },
+						AlphaExpression = Input { Value = "", },
+						Image1 = Input {
+							SourceOp = "__RampBG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, 49.5, }, },
+					UserControls = ordered() {
+						Interpolation = {
+							{ CCS_AddString = "Linear", },
+							{ CCS_AddString = "Perceptually Linear", },
+							{ CCS_AddString = "Smooth Start", },
+							{ CCS_AddString = "Smooth End", },
+							{ CCS_AddString = "Smoothstep", },
+							INP_MaxAllowed = 4,
+							INP_Integer = true,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "ComboControl",
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+					},
+				},
+				["__RampCTLUTIn1"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+				},
+				["__RampCTLUTIn2"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+				},
+				["__RampCTLUTIn3"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+				},
+				["__RampCTLUTIn4"] = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+				["__RampRGBA"] = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 5, },
+						ToGreen = Input { Value = 5, },
+						ToBlue = Input { Value = 5, },
+						ToAlpha = Input { Value = 5, },
+						Background = Input {
+							SourceOp = "__RampCT",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, 82.5, }, },
+				},
+				["__RampColor"] = ColorGain {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						GainRed = Input { Expression = "Red", },
+						GainGreen = Input { Expression = "Green", },
+						GainBlue = Input { Expression = "Blue", },
+						GainAlpha = Input { Expression = "Alpha", },
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.125, 0.75, },
+											{ 0.375, 0.25, },
+											{ 0.5, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0.5, 0, },
+											{ 0.625, 0.25, },
+											{ 0.875, 0.75, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+						Input = Input {
+							SourceOp = "__RampRGBA",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, 115.5, }, },
+					UserControls = ordered() {
+						Red = {
+							LINKS_Name = "Gradient Color",
+							INP_Default = 1,
+							INPID_InputControl = "ColorControl",
+							IC_ControlID = 0,
+							LINKID_DataType = "Number",
+							CLRC_ColorSpace = 0,
+							IC_ControlGroup = 1,
+						},
+						Green = {
+							IC_ControlGroup = 1,
+							INPID_InputControl = "ColorControl",
+							IC_ControlID = 1,
+							CLRC_ColorSpace = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						Blue = {
+							INP_Default = 1,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							LINKID_DataType = "Number",
+							IC_ControlID = 2,
+							IC_ControlGroup = 1,
+						},
+						Alpha = {
+							IC_ControlGroup = 1,
+							INPID_InputControl = "ColorControl",
+							CLRC_ColorSpace = 0,
+							IC_ControlID = 3,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+					},
+				},
+				["__RampMrg"] = Merge {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						RespectAlphaChannel = Input { Value = 1, },
+						Operator = Input { Expression = "iif(DrawInsideAlphaChannel == 0, \"Over\", \"Atop\")", },
+						PerformDepthMerge = Input { Value = 0, },
+						Foreground = Input {
+							SourceOp = "__RampColor",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 770, 181.5, }, },
+					UserControls = ordered() {
+						DrawInsideAlphaChannel = {
+							INP_Default = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKID_DataType = "Number",
+							LINKS_Name = "Draw Inside Alpha Channel",
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "Ramp1",
+}

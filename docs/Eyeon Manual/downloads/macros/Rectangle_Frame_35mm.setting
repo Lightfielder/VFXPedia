@@ -1,0 +1,21 @@
+{
+	Tools = ordered() {
+		Rectangle1 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.001,
+				},
+				Width = Input {
+					Value = 0.99,
+				},
+				Height = Input {
+					Value = 0.995,
+				},
+				CornerRadius = Input {
+					Value = 0.0883978,
+				},
+			},
+		},
+	},
+}

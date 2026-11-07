@@ -1,0 +1,198 @@
+{
+	Tools = ordered() {
+		WPPConverter = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/WPPConverter_Description",
+			}, 
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "WPP_Convert_Input",
+					Source = "Input",
+				},
+				ConversionMode = InstanceInput {
+					SourceOp = "ChooseMode",
+					Source = "ConversionMode",
+					Default = 0,
+				},
+				Channels = InstanceInput {
+					SourceOp = "WPP_Convert",
+					Source = "Channels",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "WPP_Convert",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "WPP Converter",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				WPP2RGB = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "WPP_Convert.Channels",
+						},
+						ToRed = Input { Value = 35, },
+						ToGreen = Input { Value = 36, },
+						ToBlue = Input { Value = 37, },
+						Background = Input {
+							SourceOp = "WPP_Convert_Input",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1540, 16.5, }, },
+				},
+				Matrix_ZUp_to_YUp = CustomColorMatrix {
+					NameSet = true,
+					Inputs = {
+						Matrix = Input {
+							Value = LookUpTable {
+								NumEntries = 54,
+								Type = 10,
+								Offset = 0,
+								Minimum = 0,
+								Maximum = 1,
+								MinimumValue = 0,
+								MaximumValue = 1,
+								StartSlope = 1,
+								EndSlope = 1,
+								StartIn = 0,
+								EndIn = 1,
+								Table = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, },
+							},
+						},
+						Input = Input {
+							SourceOp = "WPP2RGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1705, 49.5, }, },
+				},
+				Matrix_YUp_to_ZUp = CustomColorMatrix {
+					NameSet = true,
+					Inputs = {
+						Matrix = Input {
+							Value = LookUpTable {
+								NumEntries = 54,
+								Type = 10,
+								Offset = 0,
+								Minimum = 0,
+								Maximum = 1,
+								MinimumValue = 0,
+								MaximumValue = 1,
+								StartSlope = 1,
+								EndSlope = 1,
+								StartIn = 0,
+								EndIn = 1,
+								Table = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, },
+							},
+						},
+						Input = Input {
+							SourceOp = "WPP2RGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1705, 16.5, }, },
+				},
+				WPP_Convert_Input = PipeRouter {
+					NameSet = true,
+					ViewInfo = PipeRouterInfo { Pos = { 1375, 115.5, }, },
+				},
+				RGB2WPP = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToRed = Input { Value = 4, },
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 4, },
+						EnableExtraChannels = Input { Value = 1, },
+						ToXPosition = Input { Value = 0, },
+						ToYPosition = Input { Value = 1, },
+						ToZPosition = Input { Value = 2, },
+						Background = Input {
+							SourceOp = "WPP_Convert_Input",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "ChooseMode",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1870, 115.5, }, },
+				},
+				ChooseMode = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "ConversionMode",
+						},
+						Background = Input {
+							SourceOp = "Matrix_ZUp_to_YUp",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Matrix_YUp_to_ZUp",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1870, 16.5, }, },
+					UserControls = ordered() {
+						ConversionMode = {
+							{ MBTNC_AddButton = "Max (Z-Up) to Fusion", },
+							{ MBTNC_AddButton = "Fusion (Y-Up) to Max", },
+							INPID_InputControl = "MultiButtonControl",
+							INP_Default = 0,
+							MBTNC_StretchToFit = true,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Conversion Mode",
+						},
+					},
+				},
+				WPP_Convert = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "Channels",
+						},
+						Background = Input {
+							SourceOp = "ChooseMode",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "RGB2WPP",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 2035, 115.5, }, },
+					UserControls = ordered() {
+						Channels = {
+							{ MBTNC_AddButton = "RGB Channels", },
+							{ MBTNC_AddButton = "XYZ Pos Channels", },
+							INPID_InputControl = "MultiButtonControl",
+							INP_Default = 0,
+							MBTNC_StretchToFit = true,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Take Position Pass From",
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "WPPConverter",
+}

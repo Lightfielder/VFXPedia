@@ -1,0 +1,217 @@
+{
+	Tools = ordered() {
+		WPPNoise = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "Image1",
+					Name = "Input",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "XScale",
+					Default = 1,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "YScale",
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "ZScale",
+					Default = 1,
+				},
+				Input1 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "NumberIn4",
+					Default = 1.0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "NumberIn5",
+					Default = 0.5,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "NumberIn6",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "NumberIn7",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "WPP_Noise",
+					Source = "NumberIn8",
+				},
+				Input9 = InstanceInput {
+					SourceOp = "WPP_Noise_Postmult",
+					Source = "PostMultiply",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "WPP_Noise_Postmult",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "WPP Noise",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				WPP_Noise = Custom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						PointIn1 = Input { Value = { 0.58433734939759, 0.666666666666667, }, },
+						NumberIn1 = Input {
+							Value = 1,
+							Expression = "XScale",
+						},
+						NumberIn2 = Input {
+							Value = 1,
+							Expression = "YScale",
+						},
+						NumberIn3 = Input {
+							Value = 1,
+							Expression = "ZScale",
+						},
+						NumberIn4 = Input { Value = 1, },
+						NumberIn5 = Input { Value = 0.5, },
+						LUTIn1 = Input {
+							SourceOp = "WPP_NoiseLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "WPP_NoiseLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "WPP_NoiseLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "WPP_NoiseLUTIn4",
+							Source = "Value",
+						},
+						Intermediate1 = Input { Value = "noise3(px1 * n1 + n6,py1 * n2 +n7,pz1 * n3 + n8) * n4 + n5", },
+						RedExpression = Input { Value = "i1", },
+						GreenExpression = Input { Value = "i1", },
+						BlueExpression = Input { Value = "i1", },
+						NumberControls = Input { Value = 1, },
+						NameforNumber1 = Input { Value = "X Scale", },
+						NameforNumber2 = Input { Value = "Y Scale", },
+						NameforNumber3 = Input { Value = "Z Scale", },
+						NameforNumber4 = Input { Value = "Gain", },
+						NameforNumber5 = Input { Value = "Offset", },
+						NameforNumber6 = Input { Value = "Move X", },
+						NameforNumber7 = Input { Value = "Move Y", },
+						NameforNumber8 = Input { Value = "Move Z", },
+						PointControls = Input { Value = 1, },
+						ShowPoint1 = Input { Value = 0, },
+						ShowPoint2 = Input { Value = 0, },
+						ShowPoint3 = Input { Value = 0, },
+						ShowPoint4 = Input { Value = 0, },
+						ShowLUT1 = Input { Value = 0, },
+						ShowLUT2 = Input { Value = 0, },
+						ShowLUT3 = Input { Value = 0, },
+						ShowLUT4 = Input { Value = 0, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 935, 247.5, }, },
+					UserControls = ordered() {
+						XScale = {
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							INP_MaxScale = 10,
+							INPID_InputControl = "SliderControl",
+							ICD_Center = 1,
+							LINKS_Name = "X Scale",
+						},
+						YScale = {
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							INP_MaxScale = 10,
+							INPID_InputControl = "SliderControl",
+							ICD_Center = 1,
+							LINKS_Name = "Y Scale",
+						},
+						ZScale = {
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							INP_MaxScale = 10,
+							INPID_InputControl = "SliderControl",
+							ICD_Center = 1,
+							LINKS_Name = "Z Scale",
+						},
+					},
+				},
+				WPP_NoiseLUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+				},
+				WPP_NoiseLUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+				},
+				WPP_NoiseLUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+				},
+				WPP_NoiseLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+				},
+				WPP_Noise_Postmult = ChannelBoolean {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "PostMultiply", },
+						Operation = Input { Value = 6, },
+						ToRed = Input { Value = 3, },
+						ToGreen = Input { Value = 3, },
+						ToBlue = Input { Value = 3, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "WPP_Noise",
+							Source = "Output",
+						},
+						PostMultiply = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 1045, 247.5, }, },
+					UserControls = ordered() {
+						PostMultiply = {
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Post Multiply By Alpha",
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "WPPNoise",
+}

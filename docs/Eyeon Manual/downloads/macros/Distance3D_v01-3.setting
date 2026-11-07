@@ -1,0 +1,435 @@
+{
+	Tools = ordered() {
+		Distance3D = MacroOperator {
+			CustomData = {
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/Distance3D_Description",
+			},
+			Inputs = ordered() {
+				Comments = Input { Value = "Measures the distance between two 3D objects\n\nby Gregory Chalenko for Parasol Island\nwww.compositing.ru", },
+				Object1 = InstanceInput {
+					SourceOp = "CoordTransform3D1",
+					Source = "TargetObject",
+					Name = "Object 1",
+				},
+				Object1Transformed = InstanceInput {
+					SourceOp = "CoordTransform3D1",
+					Source = "SceneInput",
+					Name = "Object 1 Transformations (optional)",
+				},
+				Object2 = InstanceInput {
+					SourceOp = "CoordTransform3D2",
+					Source = "TargetObject",
+					Name = "Object 2",
+				},
+				Object2Transformed = InstanceInput {
+					SourceOp = "CoordTransform3D2",
+					Source = "SceneInput",
+					Name = "Object 2 Transformations (optional)",
+				},
+				MeasuredData = InstanceInput {
+					SourceOp = "TM3D_TextOutput",
+					Source = "LayoutRotation",
+					Name = "Measured Data. Display the node to get the values",
+					Default = 1,
+				},
+				DistanceXText = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceXText",
+					DefaultText = "Distance X",
+				},
+				DistanceYText = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceYText",
+					DefaultText = "Distance Y",
+				},
+				DistanceZText = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceZText",
+					DefaultText = "Distance Z",
+				},
+				DistanceText = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceText",
+					DefaultText = "Distance",
+				},
+				TextSize = InstanceInput {
+					SourceOp = "TM3D_TextOutput",
+					Source = "LayoutSize",
+					Name = "Text Size",
+					Default = 1,
+				},
+				TargetObjectsCoordinates = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "TargetObjectsCoordinates",
+					Page = "Sliders",
+					Default = 0,
+				},
+				Object1XPosition = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D2",
+					Source = "Transform3DOp.Target.X",
+					Name = "Object 1 - X Position",
+				},
+				Object1YPosition = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D2",
+					Source = "Transform3DOp.Target.Y",
+					Name = "Object 1 - Y Position",
+				},
+				Object1ZPosition = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D2",
+					Source = "Transform3DOp.Target.Z",
+					Name = "Object 1 - Z Position",
+				},
+				Object2XPosition = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D2",
+					Source = "Transform3DOp.Translate.X",
+					Name = "Object 2 - X Position",
+				},
+				Object2YPosition = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D2",
+					Source = "Transform3DOp.Translate.Y",
+					Name = "Object 2 - Y Position",
+				},
+				Object2ZPosition = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D2",
+					Source = "Transform3DOp.Translate.Z",
+					Name = "Object 2 - Z Position",
+				},
+				MeasuredDataSliders = InstanceInput {
+					SourceOp = "TM3D_TextOutput",
+					Source = "LayoutRotation",
+					Name = "Measured Data (output only)",
+					Default = 1,
+				},
+				DistanceX = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceX",
+				},
+				DistanceY = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceY",
+				},
+				DistanceZ = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "DistanceZ",
+				},
+				Distance = InstanceInput {
+					SourceOp = "Lo_TapeMeasure3D1",
+					Source = "Distance",
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "Distance3DMacro",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				TM3D_TextOutput = Text3D {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input {
+							Expression = "(Lo_TapeMeasure3D1.Transform3DOp.Translate.X+Lo_TapeMeasure3D2.Transform3DOp.Translate.X)/2",
+						},
+						["Transform3DOp.Translate.Y"] = Input {
+							Expression = "(Lo_TapeMeasure3D1.Transform3DOp.Translate.Y+Lo_TapeMeasure3D2.Transform3DOp.Translate.Y)/2",
+						},
+						["Transform3DOp.Translate.Z"] = Input {
+							Expression = "(Lo_TapeMeasure3D1.Transform3DOp.Translate.Z+Lo_TapeMeasure3D2.Transform3DOp.Translate.Z)/2",
+						},
+						Size = Input { Value = 0.25, },
+						Font = Input { Value = "Arial", },
+						StyledText = Input {
+							Expression = "Text(\"Distance = \"..TapeMeasure3D_Distance.NumberResult)",
+						},
+						Style = Input { Value = "Bold", },
+						Red1 = Input { Value = 0.35, },
+						Green1 = Input { Value = 0.7, },
+						Blue1 = Input { Value = 0.8, },
+						LayoutRotation = Input { Value = 1, },
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input { Value = 1, },
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -4894.29, -2131.92, }, },
+				},
+				Lo_TapeMeasure3D1 = Locator3D {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						["Transform3DOp.Translate.X"] = Input {
+							SourceOp = "CoordTransform3D1",
+							Source = "Position.X",
+						},
+						["Transform3DOp.Translate.Y"] = Input {
+							SourceOp = "CoordTransform3D1",
+							Source = "Position.Y",
+						},
+						["Transform3DOp.Translate.Z"] = Input {
+							SourceOp = "CoordTransform3D1",
+							Source = "Position.Z",
+						},
+						["Transform3DOp.UseTarget"] = Input { Value = 1, },
+						["Transform3DOp.Target.X"] = Input {
+							SourceOp = "CoordTransform3D2",
+							Source = "Position.X",
+						},
+						["Transform3DOp.Target.Y"] = Input {
+							SourceOp = "CoordTransform3D2",
+							Source = "Position.Y",
+						},
+						["Transform3DOp.Target.Z"] = Input {
+							SourceOp = "CoordTransform3D2",
+							Source = "Position.Z",
+						},
+						FrameRenderScript = Input { Value = "DistanceXText = TapeMeasure3D_DistanceX.Result\r\nDistanceYText = TapeMeasure3D_DistanceY.Result\r\nDistanceZText = TapeMeasure3D_DistanceZ.Result\r\nDistanceText = TapeMeasure3D_Distance.NumberResult", },
+						DistanceX = Input {
+							SourceOp = "TapeMeasure3D_DistanceX",
+							Source = "Result",
+						},
+						DistanceY = Input {
+							SourceOp = "TapeMeasure3D_DistanceY",
+							Source = "Result",
+						},
+						DistanceZ = Input {
+							SourceOp = "TapeMeasure3D_DistanceZ",
+							Source = "Result",
+						},
+						Distance = Input {
+							SourceOp = "TapeMeasure3D_Distance",
+							Source = "NumberResult",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -5134.84, -2034.44, }, },
+					UserControls = ordered() {
+						DistanceXText = {
+							TEC_ReadOnly = true,
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							INP_External = false,
+							LINKID_DataType = "Text",
+							INP_Passive = true,
+							INPS_DefaultText = "Distance X",
+							LINKS_Name = "Distance X",
+						},
+						DistanceYText = {
+							TEC_ReadOnly = true,
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							INP_External = false,
+							LINKID_DataType = "Text",
+							INP_Passive = true,
+							INPS_DefaultText = "Distance Y",
+							LINKS_Name = "Distance Y",
+						},
+						DistanceZText = {
+							TEC_ReadOnly = true,
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							INP_External = false,
+							LINKID_DataType = "Text",
+							INP_Passive = true,
+							INPS_DefaultText = "Distance Z",
+							LINKS_Name = "Distance Z",
+						},
+						DistanceText = {
+							TEC_ReadOnly = true,
+							INPID_InputControl = "TextEditControl",
+							IC_ControlPage = 0,
+							TEC_Lines = 1,
+							INP_External = false,
+							LINKID_DataType = "Text",
+							INP_Passive = true,
+							INPS_DefaultText = "Distance",
+							LINKS_Name = "Distance",
+						},
+						DistanceX = {
+							INPID_InputControl = "ScrewControl",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Distance X",
+							INP_Default = 0,
+						},
+						DistanceY = {
+							INPID_InputControl = "ScrewControl",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Distance Y",
+							INP_Default = 0,
+						},
+						DistanceZ = {
+							INPID_InputControl = "ScrewControl",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Distance Z",
+							INP_Default = 0,
+						},
+						Distance = {
+							INPID_InputControl = "ScrewControl",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						TargetObjectsCoordinates = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "LabelControl",
+							IC_ControlPage = 0,
+							LINKS_Name = "Target Objects Coordinates (output only)",
+							LBLC_DropDownButton = true,
+							LBLC_NumInputs = 6,
+							INP_Default = 0,
+						},
+					},
+				},
+				CoordTransform3D1 = CoordTransform3D {
+					CtrlWZoom = false,
+				},
+				TapeMeasure3D_DistanceX = Calculation {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						FirstOperand = Input {
+							Expression = "Lo_TapeMeasure3D1.Transform3DOp.Translate.X",
+						},
+						Operator = Input { Value = 15, },
+						SecondOperand = Input {
+							Expression = "Lo_TapeMeasure3D2.Transform3DOp.Translate.X",
+						},
+					},
+				},
+				TapeMeasure3D_DistanceY = Calculation {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						FirstOperand = Input {
+							Value = -0.20683428645134,
+							Expression = "Lo_TapeMeasure3D1.Transform3DOp.Translate.Y",
+						},
+						Operator = Input { Value = 15, },
+						SecondOperand = Input {
+							Value = -0.440694749355316,
+							Expression = "Lo_TapeMeasure3D2.Transform3DOp.Translate.Y",
+						},
+					},
+				},
+				TapeMeasure3D_DistanceZ = Calculation {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						FirstOperand = Input {
+							Expression = "Lo_TapeMeasure3D1.Transform3DOp.Translate.Z",
+						},
+						Operator = Input { Value = 15, },
+						SecondOperand = Input {
+							Expression = "Lo_TapeMeasure3D2.Transform3DOp.Translate.Z",
+						},
+					},
+				},
+				TapeMeasure3D_Distance = Expression {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						n1 = Input {
+							Value = 1.51672899723053,
+							Expression = "Lo_TapeMeasure3D1.Transform3DOp.Translate.X",
+						},
+						n2 = Input {
+							Value = -0.20683428645134,
+							Expression = "Lo_TapeMeasure3D1.Transform3DOp.Translate.Y",
+						},
+						n3 = Input {
+							Value = 1.92326414585114,
+							Expression = "Lo_TapeMeasure3D1.Transform3DOp.Translate.Z",
+						},
+						n4 = Input {
+							Value = 1.25864410400391,
+							Expression = "Lo_TapeMeasure3D2.Transform3DOp.Translate.X",
+						},
+						n5 = Input {
+							Value = -0.440694749355316,
+							Expression = "Lo_TapeMeasure3D2.Transform3DOp.Translate.Y",
+						},
+						n6 = Input {
+							Value = 1.0654593706131,
+							Expression = "Lo_TapeMeasure3D2.Transform3DOp.Translate.Z",
+						},
+						NumberExpression = Input { Value = "dist3d(n1,n2,n3,n4,n5,n6)", },
+					},
+				},
+				Lo_TapeMeasure3D2 = Locator3D {
+					NameSet = true,
+					Inputs = {
+						SceneInput = Input {
+							SourceOp = "Lo_TapeMeasure3D1",
+							Source = "Output",
+						},
+						["Transform3DOp.Translate.X"] = Input {
+							SourceOp = "CoordTransform3D2",
+							Source = "Position.X",
+						},
+						["Transform3DOp.Translate.Y"] = Input {
+							SourceOp = "CoordTransform3D2",
+							Source = "Position.Y",
+						},
+						["Transform3DOp.Translate.Z"] = Input {
+							SourceOp = "CoordTransform3D2",
+							Source = "Position.Z",
+						},
+						["Transform3DOp.Scale.X"] = Input {
+							SourceOp = "TapeMeasure3D_Distance",
+							Source = "NumberResult",
+						},
+						["Transform3DOp.UseTarget"] = Input { Value = 1, },
+						["Transform3DOp.Target.X"] = Input {
+							SourceOp = "CoordTransform3D1",
+							Source = "Position.X",
+						},
+						["Transform3DOp.Target.Y"] = Input {
+							SourceOp = "CoordTransform3D1",
+							Source = "Position.Y",
+						},
+						["Transform3DOp.Target.Z"] = Input {
+							SourceOp = "CoordTransform3D1",
+							Source = "Position.Z",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -5015.17, -2033.05, }, },
+				},
+				CoordTransform3D2 = CoordTransform3D {
+					CtrlWZoom = false,
+				},
+				Distance3DMacro = Merge3D {
+					NameSet = true,
+					Inputs = {
+						SceneInput1 = Input {
+							SourceOp = "Lo_TapeMeasure3D2",
+							Source = "Output",
+						},
+						SceneInput2 = Input {
+							SourceOp = "TM3D_TextOutput",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -4894.05, -2033.63, }, },
+				},
+			},
+		},
+	},
+}

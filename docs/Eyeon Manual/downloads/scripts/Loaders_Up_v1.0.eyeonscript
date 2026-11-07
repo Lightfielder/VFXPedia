@@ -1,0 +1,178 @@
+-----------------------------------------------------------------------------------------------------------------------------
+-- Loaders_Up.eyeonscript
+--
+-- quick script that searches for _v##### in your path and filename to find the current version # of your loaders
+-- script cycles through all loaders and checks for a newer version of the same element by looking for an identical path 
+-- 		were current version has been replaced with currentVersion+1
+--
+-- has only been tested with image sequences, and they must include a string _v####, 
+-- 		sub-versions or decimal version #'s not tested
+--
+-- example fileName = 
+-- 		[[Z:\project\shots\Ep215\VFX-01\elements\VFX-01_v02\1920x1080\AC_Element_v02.0000.dpx]]
+--
+-- 
+-- written by : Fred Pienkos (fpienkos@gmail.com)
+-- written    : October 16, 2012 for Eden FX (www.edenfx.com)
+--
+-- Updates
+-- October 17, 2012 - Script now retains Global In and ClipstartTime settings.  Some loader settings get reset
+--						when a loader's clip is refreshed.  These two I have hard coded to retain.
+--
+--
+-----------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+count = 0
+changed_count = 0
+verbose = 0
+SetActiveComp(comp)
+
+print("")
+print("#####################################################################################################")
+print("-----------------------------------------------------------------------------------------------------")
+print("					Loaders Up! by Fred Pienkos 2012")
+print("-----------------------------------------------------------------------------------------------------")
+loaders = GetLoaders(composition)
+
+	for i=1, table.getn(loaders) do
+		gIn = loaders[i]:GetAttrs().TOOLNT_Clip_Start[1]
+		cliptimeStart = loaders[i]:GetAttrs().TOOLIT_Clip_TrimIn[1]
+		skipped_increments = false
+		fileName = loaders[i]:GetAttrs().TOOLST_Clip_Name[1]
+		count = count+1
+		if verbose == 1 then
+			print("")
+			print("Checking file : "..loaders[i]:GetAttrs().TOOLS_Name)
+		end
+		oldfile = eyeon.parseFilename(fileName)
+		
+		--find the _v in the filename, and extract the character location for the version number inside the string.
+		vposStart, vposEnd = string.find(fileName, "_v%d+")
+		vStart = string.find(fileName, "%d+", vposStart)
+
+		--Set current version # in string (currently deducted by the first _v found in path string, which is preferrable to us.
+		version = string.sub(fileName, vStart, vposEnd)
+		newVersion = string.format("%0"..string.len(version).."d", version+1)
+		newfileName = string.gsub(fileName, "_v"..version, "_v"..newVersion)
+
+		newfileName2 = string.gsub(newfileName, "\\", "\\\\")
+		newfile = eyeon.parseFilename (newfileName)
+		if verbose == 1 then
+			print("Old:"..fileName)
+			print("New:"..newfileName)
+		end
+		
+		-- Check to see if new version exists
+		if fileexists(newfileName) then
+		
+			while fileexists(newfileName) do
+				newVersion = string.format("%0"..string.len(version).."d", newVersion+1)
+				newfileName = string.gsub(fileName, "_v"..version, "_v"..newVersion)
+				newfileName2 = string.gsub(newfileName, "\\", "\\\\")
+				
+				if verbose == 1 then
+					print("New:"..newfileName)
+				end
+				
+				newfile = eyeon.parseFilename (newfileName)
+				skipped_increments = true
+			end
+
+	
+			if skipped_increments then
+				newVersion = string.format("%0"..string.len(version).."d", newVersion-1)
+				newfileName = string.gsub(fileName, "_v"..version, "_v"..newVersion)
+				newfileName2 = string.gsub(newfileName, "\\", "\\\\")
+				
+				if verbose == 1 then
+					print("New:"..newfileName)
+				end 
+				
+				newfile = eyeon.parseFilename (newfileName)
+				
+				if (newVersion+0) >= (version+2) then
+					ret = composition:AskUser("Multiple new versions exist!", {
+						{"Description", "Text", 
+						Default = "For "..loaders[i]:GetAttrs().TOOLS_Name.."\nOriginal version was v"..version.."\nNext available version is v"..newVersion.."\n\n"..
+						"Do you want to increment to this version?", 
+						ReadOnly = true,  Lines = 6 , Wrap=true} 
+						} )
+					if ret == nil then
+						print("Aborted.")
+						return
+					end
+				end
+			end
+		else
+			print(loaders[i]:GetAttrs().TOOLS_Name .."	:	NO NEW VERSION.")
+		end
+		
+	if verbose == 1 then
+		print(fileName.. " and " ..newfileName)
+	end
+
+	if fileexists(newfileName2) then
+		print(loaders[i]:GetAttrs().TOOLS_Name .."	:	**NEW VERSION** (v"..newVersion..")")
+				--Check current file count in Original directory
+		o = readdir(oldfile.Path.."\\*.*")
+		oNum = table.getn(o)
+		--Check current file count in new directory
+		n = readdir(newfile.Path.."\\*.*")
+		nNum = table.getn(n)
+		
+		if nNum == oNum then
+			print("			Frame count is equal between versions ("..oNum..").  Repathing from v"..version.." to v"..newVersion)
+			changed_count = changed_count +1
+			comp:Lock()
+			loaders[i].Clip = newfileName
+			-- These lines reset the Global In and CLip Start time to previous settings
+			loaders[i].GlobalIn[TIME_UNDEFINED] = gIn
+			loaders[i].ClipTimeStart[TIME_UNDEFINED] = cliptimeStart
+				
+			comp:Unlock()
+		else
+			s = comp:AskUser("FRAME COUNT DOESN'T MATCH", {{"Error", "Text", Default = 
+				"For "..loaders[i]:GetAttrs().TOOLS_Name.."\n			Frame count differs from v"..version.." ("..oNum..") to  v"..newVersion.." ("..nNum..").\nClick OK to version up anyway.\nCancel aborts this process.", Lines = 6 }})
+			if s then 
+				comp:Lock()
+				loaders[i].Clip = newfileName
+				-- These lines reset the Global In and CLip Start time to previous settings
+				loaders[i].GlobalIn[TIME_UNDEFINED] = gIn
+				loaders[i].ClipTimeStart[TIME_UNDEFINED] = cliptimeStart
+				changed_count = changed_count + 1
+				comp:Unlock()
+				print("		Repathing from v"..version.." to v"..newVersion.." ***Clip Length Changed! (" ..nNum.." frames)***")
+			else
+			--print("frame count is different from version "..version.." ("..oNum..") and "..newVersion.." ("..nNum..").  Changing nothing.")
+			end
+		end
+	else
+		--print(loaders[i]:GetAttrs().TOOLS_Name .." does not have a new version. v"..version.." is the most recent version.")		
+	end
+print("-----------------------------------------------------------------------------------------------------")		
+end
+
+if changed_count == 0 then
+		ret = composition:AskUser("LoaderUp Results", {
+				{"Description", "Text", 
+				Default = changed_count.. " out of " ..count.. " loaders we LoaderUp'd.", 
+				ReadOnly = true,  Lines = 4 , Wrap=true} 
+				} )
+			if ret == nil then
+				print("Aborted.")
+				--dofile [[S:\2d\eyeon\scripts\Comp\.EdenFX\.SubVersion_Up_Comp.eyeonscript]]
+				return
+			end
+		else
+		ret = composition:AskUser("LoaderUp Results", {
+				{"Description", "Text", 
+				Default = changed_count.. " out of " ..count.. " loaders we LoaderUp'd. \nSee console window for statistics\n\n", 
+				ReadOnly = true,  Lines = 5 , Wrap=true} 
+				} )
+			if ret == nil then
+				print("Aborted.")
+				return
+			end
+		end
+		
+print("#####################################################################################################")

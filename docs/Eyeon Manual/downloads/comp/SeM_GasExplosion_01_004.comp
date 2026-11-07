@@ -1,0 +1,1966 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 300, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.2 build 54",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Fire_EmitterSizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.131944444444444, RH = { 0.0473958333333333, 0.25083912037037, }, Flags = { Linear = true, }, },
+					[0.1421875] = { 0.488628472222222, LH = { 0.0947916666666666, 0.369733796296296, }, RH = { 0.428125, 0.492418981481482, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7140625, 0.496209490740741, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			NameSet = true,
+		},
+		pTangentForce1_2 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = 0.413682029261359,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.368168755893226,
+				},
+				ZStrength = Input {
+					SourceOp = "pTangentForce1_2ZStrength",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pDirectionalForce1_1",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 0.252731303047125,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.557887725142381,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 49.5, },
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				Gamma = Input {
+					Value = 0.4666667,
+				},
+				Saturation = Input {
+					Value = 0.4666667,
+				},
+				Input = Input {
+					SourceOp = "Fire_Noise",
+					Source = "Output",
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -346.5, },
+			},
+		},
+		SMOKE = pRender {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Quality = Input {
+					Value = 3,
+				},
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1107,
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 3,
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_1_1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 247.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pTangentForce1_1_1_2XStrength = BezierSpline {
+			SplineColor = { 0, 0.498039215686275, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.6, RH = { 116.666666666667, 0.4718232, }, },
+				[150] = { 0.2154696, LH = { 133.333333333333, 0.3436464, }, Flags = { Linear = true, }, },
+			},
+		},
+		FIRE = pRender {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Quality = Input {
+					Value = 3,
+				},
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1107,
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 3,
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 247.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		BrightnessContrast2Blend = BezierSpline {
+			SplineColor = { 0, 0.705882352941177, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[-203] = { 0, RH = { -93.6666666666667, 0.333333333333333, }, Flags = { Linear = true, }, },
+				[125] = { 1, LH = { 15.6666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Ellipse1_2 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.1569061,
+				},
+				Width = Input {
+					Value = 0.693466653848619,
+				},
+				Height = Input {
+					Value = 0.693466653848619,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -478.5, },
+			},
+		},
+		Burst_EmitterSizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.131944444444444, RH = { 0.0473958333333333, 0.25083912037037, }, Flags = { Linear = true, }, },
+					[0.1421875] = { 0.488628472222222, LH = { 0.0947916666666666, 0.369733796296296, }, RH = { 0.428125, 0.492418981481482, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7140625, 0.496209490740741, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.737254901960784, 0.498039215686275, 0.250980392156863, },
+			NameSet = true,
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "SMOKE",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Camera3D1",
+					Source = "Output",
+				},
+				Data3D4 = Input {
+					SourceOp = "BURST",
+					Source = "Output",
+				},
+				Data3D3 = Input {
+					SourceOp = "FIRE",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 346.5, },
+			},
+		},
+		Glow1Glow = BezierSpline {
+			SplineColor = { 0.705882352941177, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[5] = { 0.9558011, RH = { 6.66666666666667, 0.878453033333333, }, },
+				[10] = { 0.7237569, LH = { 8.33333333333333, 0.801104966666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Glow3 = Glow {
+			Inputs = {
+				Blend = Input {
+					Value = 0.6022099,
+				},
+				XGlowSize = Input {
+					Value = 0,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Glow = Input {
+					SourceOp = "Glow3Glow",
+					Source = "Value",
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				ColorScale = Input {
+					Value = 1,
+				},
+				RedScale = Input {
+					Value = 0.6315789,
+				},
+				GreenScale = Input {
+					Value = 1.0877193,
+				},
+				BlueScale = Input {
+					Value = 2,
+				},
+				Input = Input {
+					SourceOp = "Renderer3D1",
+					Source = "Output",
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse3",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 445.5, },
+			},
+		},
+		pTangentForce1_1_2ZStrength = BezierSpline {
+			SplineColor = { 1, 1, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { -0.6, RH = { 116.666666666667, -0.4902394, }, },
+				[150] = { -0.2707182, LH = { 133.333333333333, -0.3804788, }, Flags = { Linear = true, }, },
+			},
+		},
+		Ellipse2 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.1502762,
+				},
+				Invert = Input {
+					Value = 1,
+				},
+				Center = Input {
+					Value = { 0.5, 0.91, },
+				},
+				Width = Input {
+					Value = 1.5,
+				},
+				Height = Input {
+					Value = 1.05,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -346.5, },
+			},
+		},
+		pDirectionalForce1 = pDirectionalForce {
+			Inputs = {
+				Strength = Input {
+					Value = 0.05,
+				},
+				Direction = Input {
+					Value = 90,
+				},
+				Input = Input {
+					SourceOp = "pFriction1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -49.5, },
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 0.333333333333333, 166.666666666667, }, },
+				[1] = { 500, LH = { 0.666666666666667, 333.333333333333, }, RH = { 4, 333.333333333333, }, Flags = { Linear = true, }, },
+				[10] = { 0, LH = { 7, 166.666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Blur1 = Blur {
+			Inputs = {
+				XBlurSize = Input {
+					SourceOp = "Blur1BlurSize",
+					Source = "Value",
+				},
+				YBlurSize = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -247.5, },
+			},
+		},
+		pEmitter1_2Velocity = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1, RH = { 1.66666666666667, 1.03333333333333, }, },
+				[5] = { 1.1, LH = { 3.33333333333333, 1.06666666666667, }, RH = { 6.66666666666667, 0.733333333333333, }, Flags = { Linear = true, }, },
+				[10] = { 0, LH = { 8.33333333333333, 0.366666666666667, }, RH = { 21, 0, }, Flags = { Linear = true, }, },
+				[43] = { 0, LH = { 32, 0, }, Flags = { Linear = true, }, },
+			},
+		},
+		pFriction1_2VelocityFriction = BezierSpline {
+			SplineColor = { 0.705882352941177, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[15] = { 0.14, RH = { 16.6666666666667, 0.122933333333333, }, },
+				[20] = { 0.0887999999999999, LH = { 18.3333333333333, 0.105866666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pFriction1_1 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					SourceOp = "pFriction1_1VelocityFriction",
+					Source = "Value",
+				},
+				SpinFriction = Input {
+					Value = 0.1,
+				},
+				Input = Input {
+					SourceOp = "Burst_Emitter",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -82.5, },
+			},
+		},
+		pFriction1VelocityFriction = BezierSpline {
+			SplineColor = { 0.705882352941177, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[15] = { 0.15, RH = { 16.6666666666667, 0.1296, }, },
+				[20] = { 0.0887999999999999, LH = { 18.3333333333333, 0.1092, }, Flags = { Linear = true, }, },
+			},
+		},
+		pTangentForce1_1_2 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = -0.418681215623589,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.421221751212372,
+				},
+				ZStrength = Input {
+					SourceOp = "pTangentForce1_1_2ZStrength",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_2",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = -0.314536023215626,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.583958838121222,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 82.5, },
+			},
+		},
+		Ellipse3 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.1325967,
+				},
+				Center = Input {
+					Value = { 0.501953125, 0.370036101083032, },
+				},
+				Width = Input {
+					Value = 0.255859375,
+				},
+				Height = Input {
+					Value = 0.26459767484753,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 445.5, },
+			},
+		},
+		Glow2 = Glow {
+			Inputs = {
+				Blend = Input {
+					Value = 0.2,
+				},
+				LockXY = Input {
+					Value = 0,
+				},
+				XGlowSize = Input {
+					Value = 3.3149171,
+				},
+				YGlowSize = Input {
+					Value = 0,
+				},
+				Glow = Input {
+					Value = 0.7624309,
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "Burst_Noise",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -247.5, },
+			},
+		},
+		pFriction1_2 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					SourceOp = "pFriction1_2VelocityFriction",
+					Source = "Value",
+				},
+				SpinFriction = Input {
+					Value = 0.1,
+				},
+				Input = Input {
+					SourceOp = "Smoke_Emitter",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -82.5, },
+			},
+		},
+		Fire_Emitter = pEmitter {
+			NameSet = true,
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 300,
+				},
+				LifespanVariance = Input {
+					Value = 68.5082873,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					SourceOp = "pEmitter1Velocity",
+					Source = "Value",
+				},
+				Angle = Input {
+					Value = 90,
+				},
+				AngleVariance = Input {
+					Value = 180,
+				},
+				AngleZVariance = Input {
+					Value = 180,
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				RotationMode = Input {
+					Value = 1,
+				},
+				Rotation = Input {
+					Value = 1,
+				},
+				Spin = Input {
+					Value = 1,
+				},
+				SpinZ = Input {
+					Value = 10,
+				},
+				SpinVariance = Input {
+					Value = 1,
+				},
+				SpinZVariance = Input {
+					Value = 20,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Alpha"] = Input {
+					Value = 0.281818181818182,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 0.935283685873061, 0.325155555555556, 1, },
+							[0.234042553191489] = { 1, 0.64807494056191, 0, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.2748538,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.371345,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "Fire_EmitterSizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "Fire_EmitterBluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 1,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Blur1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -214.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		Filter1 = Filter {
+			Inputs = {
+				Blend = Input {
+					Value = 0.15,
+				},
+				FilterType = Input {
+					Value = 1,
+				},
+				Power = Input {
+					Value = 2,
+				},
+				Randomize = Input {
+					Disabled = true,
+				},
+				Seed = Input {
+					Disabled = true,
+				},
+				Animated = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "Glow3",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 478.5, },
+			},
+		},
+		Glow3Glow = BezierSpline {
+			SplineColor = { 0, 0, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[25] = { 0.1767956, RH = { 33.6666666666667, 0.1786372, }, Flags = { Linear = true, }, },
+				[51] = { 0.1823204, LH = { 42.3333333333333, 0.1804788, }, RH = { 92.3333333333333, 0.416206233333333, }, Flags = { Linear = true, }, },
+				[175] = { 0.8839779, LH = { 133.666666666667, 0.650092066666667, }, RH = { 216.666666666667, 0.843462233333333, }, Flags = { Linear = true, }, },
+				[300] = { 0.7624309, LH = { 258.333333333333, 0.802946566666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Burst_Noise = FastNoise {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 250,
+				},
+				Height = Input {
+					Value = 250,
+				},
+				Discontinuous = Input {
+					Value = 1,
+				},
+				Brightness = Input {
+					Value = -0.5359116,
+				},
+				Contrast = Input {
+					Value = 2.0989011,
+				},
+				XScale = Input {
+					Value = 1.4364641,
+				},
+				YScale = Input {
+					Disabled = true,
+				},
+				SeetheRate = Input {
+					Value = 0.5911602,
+				},
+				Color1Red = Input {
+					Value = 0.506666666666667,
+				},
+				Color1Green = Input {
+					Value = 0.386759059911737,
+				},
+				Color1Blue = Input {
+					Value = 0.284634074074074,
+				},
+				Color1Alpha = Input {
+					Value = 1,
+				},
+				Color2Red = Input {
+					Value = 0.94,
+				},
+				Color2Green = Input {
+					Value = 0.788925604886056,
+				},
+				Color2Blue = Input {
+					Value = 0.183822222222222,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -445.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pEmitter1_1Number = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 250, RH = { 3.33333333333333, 166.666666666667, }, },
+				[10] = { 0, LH = { 6.66666666666667, 83.3333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		Burst_EmitterBluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.737254901960784, 0.498039215686275, 0.250980392156863, },
+			NameSet = true,
+		},
+		Fire_Noise = FastNoise {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 250,
+				},
+				Height = Input {
+					Value = 250,
+				},
+				Discontinuous = Input {
+					Value = 1,
+				},
+				Brightness = Input {
+					Value = -0.5359116,
+				},
+				Contrast = Input {
+					Value = 2.0989011,
+				},
+				XScale = Input {
+					Value = 1.4364641,
+				},
+				YScale = Input {
+					Disabled = true,
+				},
+				SeetheRate = Input {
+					Value = 0.5911602,
+				},
+				Color1Red = Input {
+					Value = 0.506666666666667,
+				},
+				Color1Green = Input {
+					Value = 0.386759059911737,
+				},
+				Color1Blue = Input {
+					Value = 0.284634074074074,
+				},
+				Color1Alpha = Input {
+					Value = 1,
+				},
+				Color2Red = Input {
+					Value = 0.78,
+				},
+				Color2Green = Input {
+					Value = 0.518655275720395,
+				},
+				Color2Blue = Input {
+					Value = 0.265685333333333,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -445.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		LumaKeyer1MatteGamma = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1, RH = { 40, 1.66666666666667, }, },
+				[120] = { 3, LH = { 80, 2.33333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		LumaKeyer1MatteContrast = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 40, 0.333333333333333, }, Flags = { Linear = true, }, },
+				[120] = { 1, LH = { 80, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pTangentForce1_1ZStrength = BezierSpline {
+			SplineColor = { 1, 1, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { -0.7127072, RH = { 116.666666666667, -0.565377533333333, }, },
+				[150] = { -0.2707182, LH = { 133.333333333333, -0.418047866666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pDirectionalForce1_1 = pDirectionalForce {
+			Inputs = {
+				Strength = Input {
+					Value = 0.05,
+				},
+				Direction = Input {
+					Value = 90,
+				},
+				Input = Input {
+					SourceOp = "pFriction1_2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -49.5, },
+			},
+		},
+		BrightnessContrast2 = BrightnessContrast {
+			Inputs = {
+				Blend = Input {
+					SourceOp = "BrightnessContrast2Blend",
+					Source = "Value",
+				},
+				Gamma = Input {
+					Value = 0.2444444,
+				},
+				Saturation = Input {
+					Value = 0.4555556,
+				},
+				Input = Input {
+					SourceOp = "Glow1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -280.5, },
+			},
+		},
+		pTangentForce1_1_1_2 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = 0.0228895015453426,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.522237135467259,
+				},
+				["Translate.Z"] = Input {
+					Value = 0.449699812525372,
+				},
+				XStrength = Input {
+					SourceOp = "pTangentForce1_1_1_2XStrength",
+					Source = "Value",
+				},
+				ZStrength = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_1_2",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 0.069899266425326,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.567070051677722,
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					Value = 0.381197074739042,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 115.5, },
+			},
+		},
+		SoftGlow1 = SoftGlow {
+			CtrlWZoom = false,
+			Inputs = {
+				Blend = Input {
+					Value = 0.2,
+				},
+				XGlowSize = Input {
+					Value = 1.6574586,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "Filter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 511.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		Renderer3D1 = Renderer3D {
+			ExtentSet = false,
+			Inputs = {
+				Quality = Input {
+					Value = 3,
+				},
+				Width = Input {
+					Value = 1024,
+				},
+				Height = Input {
+					Value = 554,
+				},
+				Camera = Input {
+					Value = FuID { "Camera3D1", },
+				},
+				RendererType = Input {
+					Value = FuID { "RendererOpenGL", },
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+				["RendererOpenGL.Lighting"] = Input {
+					Value = 1,
+				},
+				["RendererOpenGL.TransparencySorting"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 412.5, },
+			},
+		},
+		BURST = pRender {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Quality = Input {
+					Value = 3,
+				},
+				Width = Input {
+					Value = 2048,
+				},
+				Height = Input {
+					Value = 1107,
+				},
+				OutputMode = Input {
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pFriction1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 247.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pFriction1_1VelocityFriction = BezierSpline {
+			SplineColor = { 0.705882352941177, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[8] = { 0.15, RH = { 12, 0.1296, }, },
+				[20] = { 0.0887999999999999, LH = { 16, 0.1092, }, Flags = { Linear = true, }, },
+			},
+		},
+		Smoke_EmitterSizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.131944444444444, RH = { 0.02265625, 0.25083912037037, }, Flags = { Linear = true, }, },
+					[0.06796875] = { 0.488628472222222, LH = { 0.0453125, 0.369733796296296, }, RH = { 0.378645833333333, 0.492418981481481, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.689322916666667, 0.496209490740741, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			NameSet = true,
+		},
+		pTangentForce1_1_1_1_1XStrength = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { -0.56, RH = { 116.666666666667, -0.474622466666667, }, },
+				[150] = { -0.3038674, LH = { 133.333333333333, -0.389244933333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		pTangentForce1_2ZStrength = BezierSpline {
+			SplineColor = { 1, 0, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.55, RH = { 116.666666666667, 0.434806633333333, }, },
+				[150] = { 0.2044199, LH = { 133.333333333333, 0.319613266666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Glow1 = Glow {
+			Inputs = {
+				Blend = Input {
+					Value = 0.2,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Glow = Input {
+					SourceOp = "Glow1Glow",
+					Source = "Value",
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -313.5, },
+			},
+		},
+		Burst_Emitter = pEmitter {
+			NameSet = true,
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1_1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 8,
+				},
+				LifespanVariance = Input {
+					Value = 12,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					SourceOp = "pEmitter1_1Velocity",
+					Source = "Value",
+				},
+				VelocityVariance = Input {
+					Value = 0.1578947,
+				},
+				Angle = Input {
+					Value = 90,
+				},
+				AngleVariance = Input {
+					Value = 180,
+				},
+				AngleZVariance = Input {
+					Value = 180,
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				RotationMode = Input {
+					Value = 1,
+				},
+				AlwaysFaceCamera = Input {
+					Value = 0,
+				},
+				Rotation = Input {
+					Value = 1,
+				},
+				Spin = Input {
+					Value = 1,
+				},
+				SpinVariance = Input {
+					Value = 1,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Alpha"] = Input {
+					Value = 0.281818181818182,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 0.935283685873061, 0.325155555555556, 1, },
+							[0.234042553191489] = { 1, 0.64807494056191, 0, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.2748538,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.371345,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "Burst_EmitterSizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "Burst_EmitterBluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 1,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "Glow2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -214.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		Ellipse1_1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.1569061,
+				},
+				Width = Input {
+					Value = 0.693466653848619,
+				},
+				Height = Input {
+					Value = 0.0669456066945607,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, -478.5, },
+			},
+		},
+		Smoke_Emitter = pEmitter {
+			NameSet = true,
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1_2Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 300,
+				},
+				LifespanVariance = Input {
+					Value = 68.5082873,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				Velocity = Input {
+					SourceOp = "pEmitter1_2Velocity",
+					Source = "Value",
+				},
+				Angle = Input {
+					Value = 90,
+				},
+				AngleVariance = Input {
+					Value = 180,
+				},
+				AngleZVariance = Input {
+					Value = 180,
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				RotationMode = Input {
+					Value = 1,
+				},
+				Rotation = Input {
+					Value = 1,
+				},
+				Spin = Input {
+					Value = 1,
+				},
+				SpinZ = Input {
+					Value = 10,
+				},
+				SpinVariance = Input {
+					Value = 1,
+				},
+				SpinZVariance = Input {
+					Value = 20,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Alpha"] = Input {
+					Value = 0.281818181818182,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0.206666666666667, 0.026490074074074, 0.0314046219886368, 1, },
+							[0.234042553191489] = { 0.153333333333333, 0.0597402842910617, 0.0165463703703704, 1, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 0.3187135,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.371345,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "Smoke_EmitterSizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeIn"] = Input {
+					Value = 0.5319149,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.5319149,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "Smoke_EmitterBluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 1,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "LumaKeyer1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -214.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		Camera3D1 = Camera3D {
+			Inputs = {
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 0.467625158878046,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 4.00165417439556,
+				},
+				AoV = Input {
+					Value = 24.3265863475745,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 346.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pTangentForce1_1_1XStrength = BezierSpline {
+			SplineColor = { 0, 0.498039215686275, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.6685083, RH = { 116.666666666667, 0.5174954, }, },
+				[150] = { 0.2154696, LH = { 133.333333333333, 0.3664825, }, Flags = { Linear = true, }, },
+			},
+		},
+		Smoke_EmitterBluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			NameSet = true,
+		},
+		pTangentForce1_1_1 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = 0.0228895015453426,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.522237135467259,
+				},
+				["Translate.Z"] = Input {
+					Value = 0.449699812525372,
+				},
+				XStrength = Input {
+					SourceOp = "pTangentForce1_1_1XStrength",
+					Source = "Value",
+				},
+				ZStrength = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_1",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 0.069899266425326,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.567070051677722,
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					Value = 0.381197074739042,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 115.5, },
+			},
+		},
+		pTangentForce1_1 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = -0.418681215623589,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.421221751212372,
+				},
+				ZStrength = Input {
+					SourceOp = "pTangentForce1_1ZStrength",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = -0.314536023215626,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.583958838121222,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 82.5, },
+			},
+		},
+		pTangentForce1ZStrength = BezierSpline {
+			SplineColor = { 1, 0, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { 0.679558, RH = { 116.666666666667, 0.521178633333333, }, },
+				[150] = { 0.2044199, LH = { 133.333333333333, 0.362799266666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pTangentForce1 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = 0.413682029261359,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.368168755893226,
+				},
+				ZStrength = Input {
+					SourceOp = "pTangentForce1ZStrength",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pDirectionalForce1",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 0.252731303047125,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.557887725142381,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 49.5, },
+			},
+		},
+		pFriction1 = pFriction {
+			Inputs = {
+				VelocityFriction = Input {
+					SourceOp = "pFriction1VelocityFriction",
+					Source = "Value",
+				},
+				SpinFriction = Input {
+					Value = 0.1,
+				},
+				Input = Input {
+					SourceOp = "Fire_Emitter",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -82.5, },
+			},
+		},
+		pEmitter1_1Velocity = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1.2, RH = { 1.66666666666667, 1.2, }, },
+				[5] = { 1.2, LH = { 3.33333333333333, 1.2, }, RH = { 6.66666666666667, 0.8, }, Flags = { Linear = true, }, },
+				[10] = { 0, LH = { 8.33333333333333, 0.4, }, RH = { 21, 0, }, Flags = { Linear = true, }, },
+				[43] = { 0, LH = { 32, 0, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1Velocity = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1, RH = { 1.66666666666667, 1, }, },
+				[5] = { 1, LH = { 3.33333333333333, 1, }, RH = { 6.66666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				[10] = { 0, LH = { 8.33333333333333, 0.333333333333333, }, RH = { 21, 0, }, Flags = { Linear = true, }, },
+				[43] = { 0, LH = { 32, 0, }, Flags = { Linear = true, }, },
+			},
+		},
+		Blur1BlurSize = BezierSpline {
+			SplineColor = { 0, 1, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[6] = { 150, RH = { 12.3333333333333, 100, }, },
+				[25] = { 0, LH = { 18.6666666666667, 50, }, Flags = { Linear = true, }, },
+			},
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.1569061,
+				},
+				Width = Input {
+					Value = 0.693466653848619,
+				},
+				Height = Input {
+					Value = 0.693466653848619,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, -478.5, },
+			},
+		},
+		pTangentForce1_1_1_1 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = 0.0228895015453426,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.559233267108556,
+				},
+				["Translate.Z"] = Input {
+					Value = -0.295421650566948,
+				},
+				XStrength = Input {
+					SourceOp = "pTangentForce1_1_1_1XStrength",
+					Source = "Value",
+				},
+				ZStrength = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_1_1",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 0.069899266425326,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.535102412093901,
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					Value = -0.380157901707357,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 148.5, },
+			},
+		},
+		Fire_EmitterBluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			NameSet = true,
+		},
+		pTangentForce1_1_1_1_1 = pTangentForce {
+			Inputs = {
+				["Translate.X"] = Input {
+					Value = 0.0228895015453426,
+				},
+				["Translate.Y"] = Input {
+					Value = 0.559233267108556,
+				},
+				["Translate.Z"] = Input {
+					Value = -0.295421650566948,
+				},
+				XStrength = Input {
+					SourceOp = "pTangentForce1_1_1_1_1XStrength",
+					Source = "Value",
+				},
+				ZStrength = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "pTangentForce1_1_1_2",
+					Source = "Output",
+				},
+				Probability = Input {
+					Value = 0.2707182,
+				},
+				RegionMode = Input {
+					Value = FuID { "Inside", },
+				},
+				Region = Input {
+					Value = FuID { "SphereRgn", },
+				},
+				["SphereRgn.Translate.X"] = Input {
+					Value = 0.069899266425326,
+				},
+				["SphereRgn.Translate.Y"] = Input {
+					Value = 0.535102412093901,
+				},
+				["SphereRgn.Translate.Z"] = Input {
+					Value = -0.380157901707357,
+				},
+				["SphereRgn.Size"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 148.5, },
+			},
+		},
+		LumaKeyer1 = LumaKeyer {
+			Inputs = {
+				High = Input {
+					Value = 0.02649,
+				},
+				Low = Input {
+					Value = 0.013245,
+				},
+				MatteBlur = Input {
+					Value = 4.4198895,
+				},
+				MatteContrast = Input {
+					SourceOp = "LumaKeyer1MatteContrast",
+					Source = "Value",
+				},
+				MatteGamma = Input {
+					SourceOp = "LumaKeyer1MatteGamma",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "Smoke_Noise",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -346.5, },
+			},
+		},
+		Smoke_Noise = FastNoise {
+			ExtentSet = false,
+			NameSet = true,
+			Inputs = {
+				Width = Input {
+					Value = 250,
+				},
+				Height = Input {
+					Value = 250,
+				},
+				Discontinuous = Input {
+					Value = 1,
+				},
+				Brightness = Input {
+					Value = -0.5359116,
+				},
+				Contrast = Input {
+					Value = 2.0989011,
+				},
+				XScale = Input {
+					Value = 7.8453039,
+				},
+				YScale = Input {
+					Disabled = true,
+				},
+				SeetheRate = Input {
+					Value = 0.5911602,
+				},
+				Color1Red = Input {
+					Value = 0.00512,
+				},
+				Color1Green = Input {
+					Value = 0.0128309770656363,
+				},
+				Color1Blue = Input {
+					Value = 0.04,
+				},
+				Color1Alpha = Input {
+					Value = 1,
+				},
+				Color2Red = Input {
+					Value = 0.740444444444444,
+				},
+				Color2Green = Input {
+					Value = 0.796157627439627,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				EffectMask = Input {
+					SourceOp = "Ellipse1_2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, -445.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		pEmitter1_2Number = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 0.333333333333333, 166.666666666667, }, },
+				[1] = { 500, LH = { 0.666666666666667, 333.333333333333, }, RH = { 4, 333.333333333333, }, Flags = { Linear = true, }, },
+				[10] = { 0, LH = { 7, 166.666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pTangentForce1_1_1_1XStrength = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[100] = { -0.7016575, RH = { 116.666666666667, -0.5690608, }, },
+				[150] = { -0.3038674, LH = { 133.333333333333, -0.4364641, }, Flags = { Linear = true, }, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 760,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Vertical",
+						PipeStyle = "Direct",
+						Scale = 0.820565,
+						Offset = { 695.458, -136.58, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 360, },
+							ScaleX = 0.194779383470653,
+							OffsetX = -49.0844046346046,
+							OffsetY = 9,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -13.6,
+						OffsetY = 0.933566433566435,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ToolStates = {
+							Current = {
+								Editable = { "LumaKeyer1MatteContrast", },
+								NonEditable = { },
+							},
+						},
+						ShowOneToolOnly = true,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 0.00987432675044883,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.530685920577617,
+						{
+							ID = "Left",
+							RatioX = 0.210265924551639,
+							RatioY = 0.00867052023121387,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.789734075448361,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.42057761732852,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Auto = false,
+				},
+			},
+			Memory = {
+				Interactive = {
+					SimultaneousBranching = true,
+				},
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+					ViewLUT = {
+					},
+					View3D = {
+						SortMethod = "ZBuffer",
+						Options = {
+							Shadows = false,
+						},
+						CameraName = "Perspective",
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = true,
+					},
+					View3D = {
+						CameraName = "Perspective",
+						Options = {
+							Lighting = true,
+							Shadows = false,
+						},
+						SortMethod = "BSP",
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			Preview = {
+				OutputDevice = "Left.A",
+			},
+			FrameFormat = {
+				Name = "2K 1.85",
+				Height = 1107,
+				PerFeet = 1,
+				GuideRatio = 1.8502024291498,
+				DepthFull = 1,
+				DepthPreview = 1,
+				DepthInteractive = 1,
+			},
+			LastFile = "S:\\Downloads\\temp\\BijnaVoorPieter.jpg",
+			AVI = {
+				Preview = {
+					Handler = 541215044,
+				},
+				Saver = {
+					Handler = 892490830,
+					Quality = 100,
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			FlowView = {
+				Direction = 1,
+				GridSnap = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

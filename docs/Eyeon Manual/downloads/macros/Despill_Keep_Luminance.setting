@@ -1,0 +1,299 @@
+{
+	Tools = ordered() {
+		Tint_Spill = ColorCorrector {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				ColorRanges = Input {
+					Value = ColorCurves {
+						Curves = {
+							{
+								Points = {
+									{ 0, 1, },
+									{ 0.4, 0.2, },
+									{ 0.6, 0, },
+									{ 1, 0, },
+								},
+							},
+							{
+								Points = {
+									{ 0, 0, },
+									{ 0.4, 0, },
+									{ 0.6, 0.2, },
+									{ 1, 1, },
+								},
+							},
+						},
+					},
+				},
+				Input = Input {
+					SourceOp = "Desaturate",
+					Source = "Output",
+				},
+				Comments = Input { Value = "Tint the spill area using the color wheel.\r\nYou can also use other sliders like gain and gamma, but be aware that the luminance of the despilled area will in this case no longer stay the same.", },
+			},
+			ViewInfo = OperatorInfo { Pos = { 825, 346.5, }, },
+		},
+		Restore_Luminance = ChannelBoolean {
+			NameSet = true,
+			Inputs = {
+				Operation = Input { Value = 1, },
+				ToAlpha = Input { Value = 4, },
+				Background = Input {
+					SourceOp = "HueCurves1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Tint_Spill",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 935, 247.5, }, },
+		},
+		Desaturate = BrightnessContrast {
+			NameSet = true,
+			Inputs = {
+				Saturation = Input { Value = 0, },
+				Input = Input {
+					SourceOp = "SpillDifference",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 715, 346.5, }, },
+		},
+		HueCurves1 = HueCurves {
+			Inputs = {
+				Hue = Input {
+					SourceOp = "HueCurves2Hue",
+					Source = "Value",
+				},
+				Sat = Input {
+					SourceOp = "HueCurves2Sat",
+					Source = "Value",
+				},
+				Lum = Input {
+					SourceOp = "HueCurves2Lum",
+					Source = "Value",
+				},
+				Red = Input {
+					SourceOp = "HueCurves2Red",
+					Source = "Value",
+				},
+				Green = Input {
+					SourceOp = "HueCurves2Green",
+					Source = "Value",
+				},
+				Blue = Input {
+					SourceOp = "HueCurves2Blue",
+					Source = "Value",
+				},
+				RedSuppress = Input {
+					SourceOp = "HueCurves1RedSuppress",
+					Source = "Value",
+				},
+				GreenSuppress = Input {
+					SourceOp = "HueCurves1GreenSuppress",
+					Source = "Value",
+				},
+				BlueSuppress = Input {
+					SourceOp = "HueCurves1BlueSuppress",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "Despill",
+					Source = "Output",
+				},
+				Comments = Input { Value = "desaturate more spill or fix discoloration introduced by previous tool.", },
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, 247.5, }, },
+			Tools = {
+				HueCurves2Hue = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 204, },
+					NameSet = true,
+				},
+				HueCurves2Sat = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 0, },
+					NameSet = true,
+				},
+				HueCurves2Lum = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					NameSet = true,
+				},
+				HueCurves2Red = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 42, Blue = 42, },
+					NameSet = true,
+				},
+				HueCurves2Green = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					NameSet = true,
+				},
+				HueCurves2Blue = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 54, Green = 54, Blue = 204, },
+					NameSet = true,
+				},
+				HueCurves1RedSuppress = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 102, Blue = 102, },
+					NameSet = true,
+				},
+				HueCurves1GreenSuppress = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 102, Green = 204, Blue = 102, },
+					NameSet = true,
+				},
+				HueCurves1BlueSuppress = LUTBezier {
+					SmoothEndsTransition = true,
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 1, RH = { 0.333, 1, }, },
+							[1] = { 1, LH = { 0.667, 1, }, RH = { 1.333, 1, }, },
+							[2] = { 1, LH = { 1.667, 1, }, RH = { 2.333, 1, }, },
+							[3] = { 1, LH = { 2.667, 1, }, RH = { 3.333, 1, }, },
+							[4] = { 1, LH = { 3.667, 1, }, RH = { 4.333, 1, }, },
+							[5] = { 1, LH = { 4.667, 1, }, RH = { 5.333, 1, }, },
+							[6] = { 1, LH = { 5.667, 1, }, },
+						},
+					},
+					SplineColor = { Red = 134, Green = 134, Blue = 204, },
+					NameSet = true,
+				},
+			},
+		},
+		SpillDifference = ChannelBoolean {
+			NameSet = true,
+			Inputs = {
+				Operation = Input { Value = 2, },
+				ToAlpha = Input { Value = 4, },
+				Background = Input {
+					SourceOp = "PipeRouter1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "HueCurves1",
+					Source = "Output",
+				},
+				Comments = Input { Value = "This is the amount of color that was removed during the despill process.", },
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, 346.5, }, },
+		},
+		Despill = MatteControl {
+			NameSet = true,
+			Inputs = {
+				Background = Input {
+					SourceOp = "PipeRouter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 550, 247.5, }, },
+		},
+		PipeRouter1 = PipeRouter {
+			Inputs = {
+				Input = Input {
+					SourceOp = "Foreground_goes_in_here",
+					Source = "Output",
+				},
+			},
+			ViewInfo = PipeRouterInfo { Pos = { 440, 247.5, }, },
+		},
+		Foreground_goes_in_here = ChannelBoolean {
+			CtrlWZoom = false,
+			NameSet = true,
+			ViewInfo = OperatorInfo { Pos = { 330, 247.5, }, },
+		},
+	},
+	ActiveTool = "Foreground_goes_in_here",
+}

@@ -1,0 +1,119 @@
+--[[--
+Crop Corners.Fuse
+
+This Fuse is a variation on the crop tool. It initially presents an uncropped
+version of the image, with two onscreen crosshair controls that represents the
+corners of the cropping region.
+
+Selecting the "Show Crop" option will output the cropped image instead.
+
+Written By : Isaac Guenard [izyk@eyeonline.com]
+Written On : November 29nd, 2007
+Version 1
+--]]--
+
+
+FuRegisterClass("CropCorners", CT_Tool, {
+    REGS_Name = "Crop Corners",
+    REGS_Category = "Transform",
+    REGS_OpIconString = "CrpC",
+    REGS_OpDescription = "Crops image using two corners",
+    REG_NoAutoProxy = true,
+    REG_NoMotionBlurCtrls = true,
+    REG_NoObjMatCtrls = true,
+    REG_NoBlendCtrls = true,
+    REG_OpNoMask = true,
+    })
+    
+function Create()
+    InOperation = self:AddInput("Show", "Show", {
+        LINKID_DataType = "Number",
+        INPID_InputControl = "MultiButtonControl",
+        INP_Default = 0.0,
+        { MBTNC_AddButton = "Uncropped", MBTNCD_ButtonWidth = 0.5, },
+        { MBTNC_AddButton = "Show Crop", MBTNCD_ButtonWidth = 0.5, },
+        INP_DoNotifyChanged = true,
+    })
+    
+    InCorner1 = self:AddInput("Corner 1", "Corner1", {
+        LINKID_DataType = "Point",
+        INPID_InputControl = "OffsetControl",
+        INPID_PreviewControl = "CrosshairControl",
+        INP_DefaultX = 0.25,
+        INP_DefaultY = 0.25,
+        })
+        
+    InCorner2 = self:AddInput("Corner 2", "Corner2", {
+        LINKID_DataType = "Point",
+        INPID_InputControl = "OffsetControl",
+        INPID_PreviewControl = "CrosshairControl",
+        INP_DefaultX = 0.75,
+        INP_DefaultY = 0.75,
+        })
+        
+    InImage = self:AddInput("Input", "Input", {
+        LINKID_DataType = "Image",
+        LINK_Main = 1,
+        })
+
+    OutImage = self:AddOutput("Output", "Output", {
+        LINKID_DataType = "Image",
+        LINK_Main = 1,
+        })                
+        
+end
+
+function Process(req)
+    local img = InImage:GetValue(req)
+    local corner1 = InCorner1:GetValue(req)
+    local corner2 = InCorner2:GetValue(req)
+    local operation = InOperation:GetValue(req).Value
+    
+    
+    if operation == 0 then
+        -- we are looking at the original, and doing nothing
+        img:Use() -- increment the images Use count
+        OutImage:Set(req, img)
+        
+    else
+        -- we are doing the actual crop
+        
+        --which has the lowest X
+        pointX = math.min(corner1.X, corner2.X)
+        pointY = math.min(corner1.Y, corner2.Y)
+        
+        -- what is the top left corner in pixels
+        x_offset = math.floor(img.Width  * pointX + 0.5)
+        y_offset = math.floor(img.Height * pointY + 0.5)
+        
+        --position of top left in pixels
+        
+        width = math.floor( img.Width * math.abs(corner1.X - corner2.X) + 0.5 )
+        height = math.floor( img.Height * math.abs( corner1.Y - corner2.Y) + 0.5 )
+        
+        if (width < 1) or (height < 1) then
+            -- too small
+            width = 1
+            height = 1
+        end
+
+        out = img:Crop(nil, {
+            CROP_Width = width,
+            CROP_Height = height,
+            CROP_XOffset = x_offset,
+            CROP_YOffset = y_offset,
+        })
+        
+        OutImage:Set(req, out)
+    end
+end
+
+function NotifyChanged(inp, param, time)
+
+    if inp == InOperation then
+        
+        InCorner1:SetAttrs({ PC_Visible = (param.Value < 1) })
+        InCorner2:SetAttrs({ PC_Visible = (param.Value < 1) })
+    end
+    
+end

@@ -1,0 +1,157 @@
+-- Loader from Saver
+-- by Stefan Ihringer <stefan@bildfehler.de>
+--
+-- Creates a loader for the selected saver.
+-- Copies the Path of a saver to a loader if both are selected.
+--
+-- version 0.7, 2013-03-23: don't force file numbers for mov and avi files
+-- version 0.6, 2013-03-16: a bug prevented the script from working with path maps that didn't contain a backslash
+-- version 0.5, 2012-04-11: no longer uses Lock() and Unlock() since these commands clear caches
+-- version 0.4, 2011-11-11: now uses eyeon.MoveClip to fix a problem with clip positioning
+-- version 0.3, 2010-11-11: optionally colors the new loader
+-- version 0.2, 2010-10-09: works with path mappings
+--                          detects first frame of rendered sequence amd shifts loader's global in to match saver
+-- version 0.1, 2010-09-25: initial release
+--
+-- ideas for improvement:
+-- * display dialog box if more than one saver is selected?
+
+-- comment this line if you don't want the loader's color changed
+COLORED = {bg = {R=60/255, G=120/255, B=180/255}, fg = {R=1, G=1, B=1}}
+
+---------------
+-- helper function to update a loader with a new file name and global in frame
+function update_loader(ld, new_clip, new_in)
+	ld.Clip[TIME_UNDEFINED] = ""
+	ld.Clip[TIME_UNDEFINED] = new_clip
+	ld:SetAttrs({TOOLB_PassThrough = true})
+	ld:SetAttrs({TOOLB_PassThrough = false})
+	if new_in ~= nil then
+		eyeon.MoveClip(ld, comp:GetAttrs().COMPN_GlobalStart, new_in)
+	end
+end
+
+-- helper function to scan a file sequence and return its smallest frame number
+function getFirstFrameOfSequence(clip)
+	local smallest = nil
+	local fp = eyeon.parseFilename(composition:MapPath(clip))
+	local dirlist = eyeon.readdir(fp.Path .. fp.CleanName .. "*" .. fp.Extension)
+	for i, f in ipairs(dirlist) do
+		if not f.IsDir then
+			-- find smallest frame number
+			string.gsub(f.Name, "(%d+)"..fp.Extension.."$", function(n) if smallest == nil or tonumber(n) < smallest then smallest = tonumber(n) end end)
+		end
+	end
+	return smallest
+end
+------------------------------------------------
+
+
+if composition == nil then
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	print("This is a composition script, it should be run from within Fusion.")
+	exit()
+end
+
+local savers = composition:GetToolList(true, "Saver")
+local loaders = composition:GetToolList(true, "Loader")
+
+if savers == nil or #savers < 1 then
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	print("Please select a saver or a saver and a loader first.")
+	exit()
+end
+
+local the_saver = savers[1]
+
+-- saver needs its path set
+local clipname = the_saver.Clip[TIME_UNDEFINED]
+if clipname == "" then
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	print("The saver needs to have an output filename.")
+	exit()
+end
+
+-- for eyeon.parseFilename to work, there has to be a backslash after the path map entry.
+-- let's add one if it is missing:
+clipname = clipname:gsub(":([^\\])", ":\\%1", 1)
+-- if clipname doesn't include a frame counter, add one to look for
+local fp = eyeon.parseFilename(clipname)
+
+if fp.Extension:lower() ~= ".avi" and fp.Extension:lower() ~= ".mov" then
+	dump(fp)
+	if fp.SNum == "" then
+		clipname = fp.Path .. fp.CleanName .. "0000" .. fp.Extension
+		fp.SNum = "0000"
+		fp.Number = 0
+		fp.Padding = 4
+	end
+
+	-- calculate correct in point for the loader, so the clip will be in sync with the saver
+	-- instead of being placed at frame 0 (or whatever is set in the preferences).
+	-- First, detect the first frame number of the rendered sequence (nil = not rendered or other error occured):
+	local firstframe = getFirstFrameOfSequence(clipname)
+	if firstframe ~= nil then
+		-- build new clip name with correct frame number
+		clipname = fp.Path .. fp.CleanName .. string.format("%0" .. fp.Padding .. "d", firstframe) .. fp.Extension
+		--print("Rendered sequence starts at frame "..firstframe)
+		--print("new clip name: ", clipname)
+	end
+
+	-- Next, do the frame offset calculation
+	local globalin = firstframe
+	if globalin ~= nil then
+		globalin = globalin - the_saver.SequenceStartFrame[TIME_UNDEFINED]
+		if the_saver.SetSequenceStart[TIME_UNDEFINED] == 1 then
+			globalin = globalin + composition:GetAttrs().COMPN_GlobalStart
+		end
+	end
+else
+	-- mov or avi files:
+	globalin = composition:GetAttrs().COMPN_GlobalStart
+	firstframe = 0
+end
+
+composition:StartUndo("Loader from Saver script")
+
+if loaders == nil or #loaders < 1 then
+	-- no loader selected: create a new one next to the selected saver
+	local posX, posY = composition.CurrentFrame.FlowView:GetPos(the_saver)
+
+	-- disable file requester popup
+	autobrowse = fusion:GetPrefs("Global.UserInterface.AutoClipBrowse")
+	fusion:SetPrefs("Global.UserInterface.AutoClipBrowse", false)
+	local new_loader = composition:AddTool("Loader", posX + 2, posY)
+	print("Created Loader from " .. the_saver:GetAttrs()['TOOLS_Name'])
+	if firstframe ~= nil and globalin ~= firstframe then
+		print("First frame at ".. globalin)
+	end
+	fusion:SetPrefs("Global.UserInterface.AutoClipBrowse", autobrowse)
+
+	update_loader(new_loader, clipname, globalin)
+	new_loader:SetAttrs({TOOLS_Name = "Loader_" .. the_saver:GetAttrs()['TOOLS_Name'], TOOLB_NameSet = true})
+
+	-- set color?
+	if COLORED ~= nil then
+		new_loader.TileColor = COLORED.bg
+		new_loader.TextColor = COLORED.fg
+	end
+	composition:SetActiveTool(new_loader)
+else
+	-- update all selected loaders
+	for n, the_loader in ipairs(loaders) do
+		update_loader(the_loader, clipname, globalin)
+		-- set color?
+		if COLORED ~= nil then
+			the_loader.TileColor = COLORED.bg
+			the_loader.TextColor = COLORED.fg
+		end
+		print("Updated " .. the_loader:GetAttrs()['TOOLS_Name'] .. " to " .. clipname)
+		if firstframe ~= nil and globalin ~= firstframe then
+			print("First frame at ".. globalin)
+		end
+	end
+end
+
+composition:EndUndo(true)
+

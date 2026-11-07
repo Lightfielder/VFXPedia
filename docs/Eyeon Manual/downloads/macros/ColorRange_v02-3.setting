@@ -1,0 +1,547 @@
+{
+	Tools = ordered() {
+		ColorRange = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Color Range Analyzer for Fusion 5.21 and above\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Bol",
+					Source = "Background",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "ProbeMin",
+					Source = "Position",
+					Name = "Area Center",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "ProbeMin",
+					Source = "Width",
+					Name = "Area Width",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "ProbeMin",
+					Source = "Height",
+					Name = "Area Height",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "GreenGamut",
+					Source = "DetectColors",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Bitmap1",
+					Source = "DetectColorsabove",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { -17.1582, 76.5398, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 257.784, 318.181, },
+				Direction = "Vertical",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { 6.34264, 25, },
+			},
+			Tools = ordered() {
+				Rectangle1 = RectangleMask {
+					CtrlWShown = false,
+					Inputs = {
+						Width = Input {
+							Value = 0.3719512,
+						},
+						Height = Input {
+							Value = 0.1402439,
+						},
+						CornerRadius = Input {
+							Value = 0.121547,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -79.316, 121.829, },
+					},
+				},
+				Bol = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "Loader1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 59.4425, -5.1967, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Text = TextPlus {
+					ExtentSet = false,
+					NameSet = true,
+					Inputs = {
+						Alpha3 = Input {
+							Value = 0.5,
+						},
+						Green2 = Input {
+							SourceOp = "ProbeMax",
+							Source = "Result",
+						},
+						Red2 = Input {
+							SourceOp = "ProbeMin",
+							Source = "Result",
+						},
+						ShadingGradient3 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						ShadingGradient2 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						GlobalIn = Input {
+							Value = 1,
+						},
+						GlobalOut = Input {
+							Value = 500,
+						},
+						Width = Input {
+							Value = 2048,
+							Expression = "Bol.Background.Width",
+						},
+						Height = Input {
+							Value = 2048,
+							Expression = "Bol.Background.Width",
+						},
+						Center = Input {
+							Value = { 0.37, 0.555, },
+						},
+						Red = Input {
+							Value = 0.1,
+						},
+						Green = Input {
+							Value = 0.1,
+						},
+						Blue = Input {
+							Value = 0.1,
+						},
+						Alpha = Input {
+							Value = 0.555,
+						},
+						Size = Input {
+							Value = 0.04,
+						},
+						Font = Input {
+							Value = "Arial",
+						},
+						StyledText = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Style = Input {
+							Value = "Regular",
+						},
+						AdvancedFontControls = Input {
+							Value = 1,
+						},
+						ManualFontKerningPlacement = Input {
+							Value = StyledText {
+								Array = {
+								},
+								Value = "",
+							},
+						},
+						Alignment = Input {
+							Value = 1,
+						},
+						HorizontalJustification = Input {
+							Value = 0,
+						},
+						VerticalJustification = Input {
+							Value = 0,
+						},
+						SelectTransform = Input {
+							Value = 2,
+						},
+						LineSpacing = Input {
+							Value = 0.9,
+						},
+						SelectElement = Input {
+							Value = 1,
+						},
+						Select = Input {
+							Value = 1,
+						},
+						ShadingGradient1 = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						Tab1Position = Input {
+							Value = 0,
+						},
+						Tab1Alignment = Input {
+							Value = 1,
+						},
+						Tab2Position = Input {
+							Value = 0.0192308,
+						},
+						Tab2Alignment = Input {
+							Value = -1,
+						},
+						Tab3Position = Input {
+							Value = 0.157974683544303,
+						},
+						Tab3Alignment = Input {
+							Value = -1,
+						},
+						RenderToDPTFile = Input {
+							Disabled = true,
+						},
+						DPTType = Input {
+							Disabled = true,
+						},
+						DPTResolution = Input {
+							Disabled = true,
+						},
+						FrameRenderScript = Input {
+							Value = "local r1 = ProbeMin.Red\r\nlocal g1 = ProbeMin.Green\r\nlocal b1 = ProbeMin.Blue\r\nlocal r2 = ProbeMax.Red\r\nlocal g2 = ProbeMax.Green\r\nlocal b2 = ProbeMax.Blue\r\n\r\nStyledText = \"\\t\\t\"..\"Minimum\"..\"\\t\"..\"Maximum\"..\"\\n\"..\"\\t\"..\"R:\"..\"\\t\"..string.sub(r1,1,7)..\"\\t\"..string.sub(r2,1,7)..\"\\n\"..\"\\t\"..\"G:\"..\"\\t\"..string.sub(g1,1,7)..\"\\t\"..string.sub(g2,1,7)..\"\\n\"..\"\\t\"..\"B:\"..\"\\t\"..string.sub(b1,1,7)..\"\\t\"..string.sub(b2,1,7)",
+						},
+						EffectMask = Input {
+							SourceOp = "Rectangle1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -78.215, 159.408, },
+					},
+				},
+				ProbeMin = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						ProbeRectangle = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1,
+						},
+						Height = Input {
+							Value = 1,
+						},
+						Evaluation = Input {
+							Value = 1,
+						},
+					},
+				},
+				ProbeMax = Probe {
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						Position = Input {
+							Expression = "ProbeMin.Position",
+						},
+						ProbeRectangle = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 1,
+							Expression = "ProbeMin.Width",
+						},
+						Height = Input {
+							Value = 1,
+							Expression = "ProbeMin.Height",
+						},
+						Evaluation = Input {
+							Value = 2,
+						},
+					},
+				},
+				Merge1 = Merge {
+					CtrlWShown = false,
+					Inputs = {
+						SubtractiveAdditive = Input {
+							Value = 0,
+						},
+						PerformDepthMerge = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "WhiteContour",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Text",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 53.569, 160.159, },
+					},
+				},
+				Bitmap2 = BitmapMask {
+					CtrlWShown = false,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.015,
+						},
+						Image = Input {
+							SourceOp = "Bitmap1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -55.3091, 57.8251, },
+					},
+				},
+				ContourDetect = ColorCurves {
+					PickColor = true,
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							SourceOp = "ColorCurvesRed",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ColorCurvesGreen",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ColorCurvesBlue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ContourDetectAlpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Bitmap2",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -59.6003, 86.1547, },
+					},
+					Tools = {
+						ColorCurvesGreen = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.000497824667397241, 0.331883111598161, }, },
+									[0.0006] = { 1, LH = { 0.000283444620821831, 0.999020185731115, }, RH = { 0.0014728548112308, 1.00270169346333, }, },
+									[0.0137] = { 0.022, LH = { 0.0098475513907838, 0.324113075143795, }, },
+								},
+							},
+							SplineColor = { 0, 1, 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurvesBlue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.000497824667397241, 0.331883111598161, }, },
+									[0.0006] = { 1, LH = { 0.000283444620821831, 0.999020185731115, }, RH = { 0.0014728548112308, 1.00270169346333, }, },
+									[0.0137] = { 0.022, LH = { 0.0098475513907838, 0.324113075143795, }, },
+								},
+							},
+							SplineColor = { 0, 0, 1, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ContourDetectAlpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.000497824667397241, 0.331883111598161, }, },
+									[0.0006] = { 1, LH = { 0.000283444620821831, 0.999020185731115, }, RH = { 0.0014728548112308, 1.00270169346333, }, },
+									[0.0137] = { 0.022, LH = { 0.0098475513907838, 0.324113075143795, }, },
+								},
+							},
+							SplineColor = { 0.8, 0.8, 0.8, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurvesRed = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.000497824667397241, 0.331883111598161, }, },
+									[0.0006] = { 1, LH = { 0.000283444620821831, 0.999020185731115, }, RH = { 0.0014728548112308, 1.00270169346333, }, },
+									[0.0137] = { 0.022, LH = { 0.0098475513907838, 0.324113075143795, }, },
+								},
+							},
+							SplineColor = { 1, 0, 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				WhiteContour = ChannelBoolean {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "GreenGamut.DetectColors",
+						},
+						ToRed = Input {
+							Value = 16,
+						},
+						ToGreen = Input {
+							Value = 16,
+						},
+						ToBlue = Input {
+							Value = 16,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "GreenGamut",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "ContourDetect",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 58.5843, 86.6298, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				GreenGamut = ChannelBoolean {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "DetectColors",
+						},
+						ToRed = Input {
+							Value = 15,
+						},
+						ToGreen = Input {
+							Value = 16,
+						},
+						ToBlue = Input {
+							Value = 15,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Bitmap1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 59.4425, 39.8186, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						DetectColors = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Detect Colors",
+							IC_ControlPage = 2,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 1,
+						},
+					},
+				},
+				Bitmap1 = BitmapMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						Image = Input {
+							SourceOp = "Bol",
+							Source = "Output",
+						},
+						Channel = Input {
+							Value = FuID { "Luminance", },
+						},
+						High = Input {
+							Expression = "DetectColorsabove",
+						},
+						Low = Input {
+							Value = 1,
+							Expression = "DetectColorsabove",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -36.428, 25.2121, },
+					},
+					UserControls = ordered() {
+						DetectColorsabove = {
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							INP_MaxScale = 5,
+							INPID_InputControl = "SliderControl",
+							ICD_Center = 1,
+							LINKS_Name = "Detect Colors above",
+						},
+					},
+				},
+			},
+		},
+	},
+}

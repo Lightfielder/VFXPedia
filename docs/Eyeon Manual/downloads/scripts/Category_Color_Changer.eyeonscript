@@ -1,0 +1,89 @@
+------------------------------------------------------------------------------
+-- Category Color Changer
+--
+-- $Revision: 1.0.1 $
+--
+-- Uses a hard-coded table of RGB color values to color code tools by their
+-- category.  This allows you to define a color scheme and apply it to older
+-- comps that might have little or no color-coding.
+--
+-- Written by : Casey Visco (casey [at] cvisco [dot] com)
+--
+-- Changelog :  2006-12-19 Created.
+--		2006-12-20 Cleaned up for loops and table structure
+------------------------------------------------------------------------------
+-- NOTES
+--
+-- The initial color scheme is admittedly ugly, modify as you see fit.  Also
+-- take note of the fact that no I/O scheme has been defined.  I like my 
+-- loaders and savers to have different colors...and the defaults are fine.
+--
+------------------------------------------------------------------------------
+
+ColorSchemes = {
+	["3D"]            = { tile = { R = 20,  G = 35,  B = 54  }, text = { R = 185, G = 202, B = 231 } },
+	["3D\\Light"]     = { tile = { R = 20,  G = 35,  B = 54  }, text = { R = 221, G = 202, B = 74  } },
+	["Blur"]          = { tile = { R = 144, G = 150, B = 137 }, text = { R = 137, G = 37,  B = 19  } },
+	["Color"]         = { tile = { R = 68,  G = 0,   B = 75  }, text = { R = 190, G = 187, B = 188 } },	
+	["Composite"]     = { tile = { R = 255, G = 255, B = 255 }, text = { R = 72,  G = 75,  B = 68  } },	
+	["Creator"]       = { tile = { R = 129, G = 177, B = 152 }, text = { R = 0,   G = 0,   B = 0   } },	
+	["Deep Pixel"]    = { tile = { R = 35,  G = 30,  B = 29  }, text = { R = 170, G = 167, B = 154 } },	
+	["Effect"]        = { tile = { R = 184, G = 199, B = 178 }, text = { R = 0,   G = 40,  B = 0   } },	
+	["Film"]          = { tile = { R = 72,  G = 75,  B = 68  }, text = { R = 144, G = 150, B = 137 } },	
+	["Filter"]        = { tile = { R = 53,  G = 103, B = 125 }, text = { R = 48,  G = 10,  B = 14  } },	
+	["Mask"]          = { tile = { R = 170, G = 140, B = 110 }, text = { R = 0,   G = 0,   B = 0   } },	
+	["Matte"]         = { tile = { R = 103, G = 193, B = 52  }, text = { R = 0,   G = 0,   B = 0   } },	
+	["Miscellaneous"] = { tile = { R = 10,  G = 8,   B = 12  }, text = { R = 240, G = 60,  B = 0   } },	
+	["Paint"]         = { tile = { R = 161, G = 191, B = 199 }, text = { R = 81,  G = 53,  B = 21  } },	
+	["Particles"]     = { tile = { R = 218, G = 114, B = 198 }, text = { R = 30,  G = 25,  B = 35  } },	
+	["Tracking"]      = { tile = { R = 57,  G = 34,  B = 25  }, text = { R = 156, G = 143, B = 117 } },	
+	["Transform"]     = { tile = { R = 0,   G = 57,  B = 0   }, text = { R = 184, G = 199, B = 178 } },	
+	["Warp"]          = { tile = { R = 99,  G = 86,  B = 81  }, text = { R = 124, G = 186, B = 198 } }			
+}
+
+-- Normalize all of our "8-Bit" color values to a range of 0 to 1 so they 
+-- make sense to Fusion.
+---[[
+for k,v in pairs(ColorSchemes) do
+
+	-- Normalize each of the values for the tile color.
+	for i,j in pairs (v.tile) do
+		v.tile[i] = j / 255
+	end
+	
+	-- Normalize each of the values for the text color.
+	for i,j in pairs (v.text) do
+		v.text[i] = j / 255
+	end
+end
+--]]
+
+-- Run through all of the tools in the flow, checking their Category value
+-- against our color table and assign the appropriate colors.
+---[[
+local tools = composition:GetToolList()
+
+-- Iterate through every tool in the comp.
+for i = 1, table.getn(tools) do
+
+	-- Figure out the RegID, and pass it along to the Registry to
+	-- determine the Category the tool belongs to.
+	local ID = tools[i]:GetAttrs().TOOLS_RegID
+	local Cat = ColorSchemes[fusion:GetRegAttrs(ID).REGS_Category]
+	
+	-- The REGS_Category value will occasionally be nil because the 
+	-- tool list contains some items that aren't strictly tools (maybe
+	-- this is a Fusion bug?).  In addition, it's possible REGS_Category
+	-- will be valid, but no Category color scheme was defined in the
+	-- color table, resulting in nil.  Simply testing Cat at this point
+	-- weeds out both of those cases.
+	if (Cat) then
+		tools[i].TileColor = Cat.tile
+		tools[i].TextColor = Cat.text
+	end
+end
+--]]
+
+
+
+

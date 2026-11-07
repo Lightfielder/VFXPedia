@@ -1,0 +1,51 @@
+--Based on Rocket_Science_Saver_Clip_Rename.eyeonscript by Brian Sinasac, reworked by Gregory Chalenko
+
+--This edition puts output files to a defined subfolder in the project relative to the composition path.
+
+if (tool==nil) then
+   print("It's a tool script. Please select a Saver tool before running this script")
+   return
+end
+
+if tool:GetAttrs().TOOLS_RegID~="Saver" then
+   print("It's a tool script. Please select a Saver tool before running this script")
+   return 
+end 
+
+CompName = string.gsub(comp:GetAttrs().COMPS_Name, "%.comp", "")
+
+--Path to the composition
+--string.gsub(COMPS_FileName, "(.+\\).+", function(s) CompPath = s end) 
+--Print(CompPath)
+
+toolName = tool:GetAttrs().TOOLS_Name
+NodeName = string.gsub(toolName, "Saver", "")
+
+----Definind names for the output folder and file--------
+FileName = CompName..NodeName--.."_"..os.date("%Y.%m.%d")
+Padding = ".0000"
+RenderFolderName = "Render_2D"
+---------------------------------------------------------
+
+--Extension
+ext="."
+string.gsub(tool.Clip[TIME_UNDEFINED], "%.(%w+)$", function (arg) ext=ext..arg end, 1)
+
+RenderFolderPathName = eyeon.getfilepath(comp:GetAttrs().COMPS_FileName).."..\\"..RenderFolderName
+
+if (ext==".mov" or ext==".avi") then
+	--Movie Files
+	
+	--Folder Creation.
+	os.execute("mkdir ".."\""..RenderFolderPathName.."\"")
+
+	tool.Clip[TIME_UNDEFINED] = "Comp:..\\"..RenderFolderName.."\\"..FileName..ext
+
+else
+	--Sequences
+	
+	--Folder Creation. Creates a subfolder level higher for the new sequence
+	os.execute("mkdir ".."\""..RenderFolderPathName.."\\"..FileName..ext.."\"")
+
+	tool.Clip[TIME_UNDEFINED]="Comp:..\\"..RenderFolderName.."\\"..FileName..ext.."\\"..FileName..Padding..ext
+end

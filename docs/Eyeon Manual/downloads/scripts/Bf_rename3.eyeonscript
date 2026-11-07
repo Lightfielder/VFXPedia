@@ -1,0 +1,207 @@
+------------------------------------------------------------
+-- bf_rename -- $Revision: 3.1$
+--
+-- flow script
+--
+-- This script is used to rename tools with the OpIconString
+-- alias short tool name.
+-- It uses iup for the interface.
+--
+-- KNOWN ISSUES
+--
+-- TODO
+--
+-- RELEASE NOTES
+-- October 26th, 2009 - Rev 3.1
+--   Fixed prefix when there is no opIconString
+--	 Show the current tool
+-- October 26th, 2009 - Rev 3.0
+--   Fixed multiple selections
+--	 Cancel works for multiple selection
+--	 Added current tool name to title 
+--   CRTL-A uses the current name for rest of the selected tools
+-- May 4th, 2007 - Rev 2.3
+--   Fusions rename default behaviour on multiple selections
+--   TOOLB_NameSet = true prevents adding stuff to the name
+-- April 30st, 2007 - Rev 2.2
+--   Workaround for Fusion bug in GetToolList(true)
+-- March 31st, 2007 - Rev 2.1
+--   First release
+
+--
+-- written by Blazej Floch (mail: labs bfloch com)
+-- Last Update: October 26th, 2009
+------------------------------------------------------------
+function bf_rename3(cComp)
+	-- get all selected tools
+	local oToollist = cComp:GetToolList(true)
+	local curIDX
+	
+	-- We only rename the last selected
+	local idx = table.getn(oToollist)
+		
+	-- Got any tools at all?
+	if idx > 0 then
+
+		-- TODO: Workaround for Fusions way of selecting not only tools in GetToolList (hidden Tools get selected)
+		local iHidden = 0 -- How many Hidden Tools
+		
+		local toToRename = {}	--Table with tools to rename
+		
+		for i = 1, table.getn(oToollist) do
+		dump(oToollist[i]:GetAttrs())
+			if oToollist[i]:GetAttrs().TOOLB_Visible == true then
+				table.insert(toToRename,i)
+				idx = i
+			else
+				iHidden = iHidden + 1
+			end
+		end
+		if iHidden < table.getn(oToollist) then
+	
+			-- User Interface
+			local toolname = iup.text{"",	expand="HORIZONTAL"}
+			local ok = iup.button{title = "OK", size=50, expand="NO"}
+			local cancel = iup.button{title = "Cancel", size=50, expand="NO"}
+			local canceled = false
+			local doall = false
+			local lasttool = ""
+			
+			local dlg = iup.dialog
+			{
+				title = "bf_rename: ",
+				foreground = "YES",
+				margin = "10x10",
+				defaultenter = ok, 
+				defaultesc = cancel,
+				border = "NO", minbox = "NO", maxbox = "NO", menubox = "NO", resize = "NO",
+				
+				iup.vbox
+				{
+					toolname,
+					iup.fill{size=5},
+					iup.label{title = "CRTL-A to rename all/rest of the tools.", FGCOLOR = ok.FGCOLOR},
+					iup.fill{size=5},
+					iup.hbox
+					{
+						margin = "0x0",
+						ok,	iup.fill{SIZE=50}, cancel,
+					},
+				},
+			}
+
+			iup.SetAttribute(dlg, "NATIVEPARENT", touserdata(fu:GetMainWindow()))
+
+			function cancel:action()
+				canceled = true
+				return iup.CLOSE
+			end
+			
+			function ok:action()
+				-- Prevents adding stuff on Loaders etc. to the name
+				oToollist[curIDX]:SetAttrs({TOOLB_NameSet = true})
+				oToollist[curIDX]:SetAttrs({TOOLS_Name = (sToolPrefix .. toolname.value)})
+				lasttool = toolname.value
+				return iup.CLOSE
+			end
+			
+			
+			function toolname:action(key, text)
+				
+				-- use the same name for all tools
+				if key == iup.K_cA then	-- Ctrl+A
+					doall = true
+					
+					oToollist[curIDX]:SetAttrs({TOOLB_NameSet = true})
+					oToollist[curIDX]:SetAttrs({TOOLS_Name = (sToolPrefix .. toolname.value)})
+					lasttool = toolname.value
+					return iup.CLOSE
+				end 
+				
+				return iup.DEFAULT
+			end
+			
+			flow = composition.CurrentFrame.FlowView
+			
+			for curToolIdx = 1, table.getn(toToRename) do
+
+				-- Select current tool
+				flow:Select()
+				flow:Select(oToollist[toToRename[curToolIdx]])
+			
+				if canceled == false then
+			
+					curIDX = curToolIdx
+				
+					sToolPrefix = fusion:GetRegAttrs(oToollist[toToRename[curToolIdx]]:GetID()).REGS_OpIconString
+					
+					if sToolPrefix == nil then
+						sToolFullName = fusion:GetRegAttrs(oToollist[toToRename[curToolIdx]]:GetID()).REGS_Name
+						
+						if sToolFullName == nil then
+							sToolPrefix = "__"
+						else
+							sToolPrefix = string.sub(sToolFullName, 0, 4)
+						end
+					end
+				
+					-- Get the Prefix .. "_" for the Tool
+					sToolPrefix = (sToolPrefix .. "_")
+					
+					-- Replace strange characters e.g. Txt+ -> Txt
+					sToolPrefix = string.gsub(sToolPrefix, "[%^%$%(%)%%%.%[%]%*%+%-%?]", "")
+					
+					-- Thats the name of our Tool
+					local sToolName = oToollist[toToRename[curToolIdx]]:GetAttrs().TOOLS_Name
+					oldToolName = sToolName
+					
+					-- If the tool already has a short begining don't diplay it
+					if ((string.sub(sToolName, 0, string.len(sToolPrefix))) == sToolPrefix) then
+						sToolName = string.sub(sToolName, (string.len(sToolPrefix)+1), string.len(sToolName))
+					end
+
+					toolname.value = sToolName
+					
+					if doall == false then
+						
+						iup.SetFocus(toolname)
+
+						dlg:show()
+						dlg.title = "bf_rename: " .. oldToolName
+
+						toolname.selection = "1:1000"
+
+						status,err = pcall(iup.MainLoop)
+					else
+					
+						oToollist[curIDX]:SetAttrs({TOOLB_NameSet = true})
+						oToollist[curIDX]:SetAttrs({TOOLS_Name = (sToolPrefix .. lasttool)})
+
+					end
+					
+				end
+
+				
+
+				if not status then
+					print(err)
+				end
+			end -- do
+			
+			dlg:destroy()
+			
+			-- Restore selection
+			flow:Select()
+			for curToolIdx = 1, table.getn(toToRename) do
+				
+				flow:Select(oToollist[toToRename[curToolIdx]])
+				
+			end
+			
+		end -- Workaround
+	end -- idx
+
+
+end
+
+bf_rename3(composition)

@@ -1,0 +1,371 @@
+Composition {
+	CurrentTime = 69,
+	RenderRange = { 0, 100, },
+	GlobalRange = { 0, 100, },
+	CurrentID = 14,
+	Version = "Fusion 6.14 build 760",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = true,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Deflicker_Tool = Custom {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = {
+				NumberIn1 = Input {
+					SourceOp = "Probe1",
+					Source = "Red",
+				},
+				NumberIn2 = Input {
+					SourceOp = "Probe1",
+					Source = "Green",
+				},
+				NumberIn3 = Input {
+					SourceOp = "Probe1",
+					Source = "Blue",
+				},
+				LUTIn1 = Input {
+					SourceOp = "Deflicker_ToolLUTIn1",
+					Source = "Value",
+				},
+				LUTIn2 = Input {
+					SourceOp = "Deflicker_ToolLUTIn2",
+					Source = "Value",
+				},
+				LUTIn3 = Input {
+					SourceOp = "Deflicker_ToolLUTIn3",
+					Source = "Value",
+				},
+				LUTIn4 = Input {
+					SourceOp = "Deflicker_ToolLUTIn4",
+					Source = "Value",
+				},
+				Setup1 = Input { Value = "n1_at(n4)", },
+				Setup2 = Input { Value = "n2_at(n4)", },
+				Setup3 = Input { Value = "n3_at(n4)", },
+				RedExpression = Input { Value = "r1 *s1/n1", },
+				GreenExpression = Input { Value = "g1 * s2/n2", },
+				BlueExpression = Input { Value = "b1 * s3/n3", },
+				NumberControls = Input { Value = 1, },
+				NameforNumber1 = Input { Value = "probe red", },
+				NameforNumber2 = Input { Value = "probe green", },
+				NameforNumber3 = Input { Value = "probe blue", },
+				NameforNumber4 = Input { Value = "reference frame", },
+				ShowNumber5 = Input { Value = 0, },
+				ShowNumber6 = Input { Value = 0, },
+				ShowNumber7 = Input { Value = 0, },
+				ShowNumber8 = Input { Value = 0, },
+				ShowPoint1 = Input { Value = 0, },
+				ShowPoint2 = Input { Value = 0, },
+				ShowPoint3 = Input { Value = 0, },
+				ShowPoint4 = Input { Value = 0, },
+				Image1 = Input {
+					SourceOp = "Blur1",
+					Source = "Output",
+				},
+				Comments = Input { Value = "Deflicker an image in linear gamma (float recommended). Connect probe modifier to this tool's input image.", },
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, 115.5, }, },
+		},
+		Probe1 = Probe {
+			CtrlWZoom = false,
+			Inputs = {
+				ImageToProbe = Input {
+					SourceOp = "Blur1",
+					Source = "Output",
+				},
+				ProbeRectangle = Input { Value = 1, },
+				Width = Input { Value = 0.2, },
+				Height = Input { Value = 0.2, },
+			},
+		},
+		Deflicker_ToolLUTIn1 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 204, Green = 0, Blue = 0, },
+			NameSet = true,
+		},
+		Deflicker_ToolLUTIn2 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 204, Blue = 0, },
+			NameSet = true,
+		},
+		Deflicker_ToolLUTIn3 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 0, Green = 0, Blue = 204, },
+			NameSet = true,
+		},
+		Deflicker_ToolLUTIn4 = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { Red = 204, Green = 204, Blue = 204, },
+			NameSet = true,
+		},
+		Note1 = Note {
+			Inputs = {
+				Comments = Input { Value = "The flickering source footage has to be in linear gamma and in float. Otherwise, the math of the custom tool isn't correct.\r\nAlso, the math used is simplistic. It works fine for a single light source but might not work on the whole image if the flickering is caused by other means (clouds in time-lapse-footage, different light sources).\r\nHowever, it's useful to match a setextension to a set that has pulsating lights (\"fake candle light\")", },
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 165, 247.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 319, 190.3, },
+			},
+		},
+		FlickeringStuff = GroupOperator {
+			NameSet = true,
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "Blur1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 278.5, 115.5, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					GridSnap = true,
+					AutoSnap = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 353, 127.3, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -278.5, -104.8, },
+			},
+			Tools = ordered() {
+				Blur1 = Blur {
+					Inputs = {
+						Filter = Input { Value = FuID { "Box", }, },
+						XBlurSize = Input { Value = 1500, },
+						Input = Input {
+							SourceOp = "ChannelBooleans1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 385, 115.5, }, },
+				},
+				Plasma1 = Plasma {
+					Inputs = {
+						GlobalOut = Input { Value = 100, },
+						Depth = Input { Value = 3, },
+						Circle2Type = Input { Value = 1, },
+						Circle3Type = Input { Value = 1, },
+						Circle4Type = Input { Value = 1, },
+						Phase = Input {
+							Value = 0.2,
+							Expression = "time/10",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 165, 115.5, }, },
+				},
+				ChannelBooleans1 = ChannelBoolean {
+					CtrlWZoom = false,
+					Inputs = {
+						ToAlpha = Input { Value = 16, },
+						Background = Input {
+							SourceOp = "Plasma1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 275, 115.5, }, },
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1347,
+			Height = 600,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							AutoHideNavigator = true,
+							ForceSource = true,
+							GridSnap = true,
+							AutoSnap = true,
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1,
+						Offset = { 0, -66, },
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 418, },
+							ScaleX = 0.090311986863711,
+							OffsetX = -4.96715927750411,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = false,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 205,
+						ScaleX = 0.2,
+						ScaleY = 0.00348432055749129,
+						OffsetX = -3.6,
+						OffsetY = 0.0452961672473866,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView { Active = "Tools", },
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.777190332326284,
+					RatioY = 0.0108499095840868,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.451553930530165,
+						{ ID = "Left", RatioX = 0.5, RatioY = 0.00809716599190283, Pop = true, },
+						{ ID = "Right", RatioX = 0.5, Pop = true, },
+						Pop = true,
+					},
+					{ ID = "Main", RatioY = 0.449725776965265, Pop = true, },
+					{ ID = "Time", SnapY = 52, Flat = true, },
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{ ID = "Controls", RatioX = 1, RatioY = 1, },
+					{ ID = "Transport", FixedY = -2, },
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			AutoSave = {
+				Delay = 60,
+				OnRender = true,
+			},
+			Paths = {
+			},
+			FlowView = {
+				ForceSource = true,
+				FullToolIndicator = true,
+				GridSnap = true,
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+			},
+			Splines = {
+				PolyLineEditMode = "ModifyOnly",
+				TrackerPath = "XYPath",
+			},
+			FrameFormat = {
+				GuideRatio = 1.77777777777778,
+				DepthInteractive = 2,
+				DepthPreview = 2,
+				Rate = 25,
+				Width = 1920,
+				Name = "HDTV 1080",
+				Height = 1080,
+				DepthFull = 2,
+				PerFeet = 1,
+			},
+			Unsorted = {
+				GlobalEnd = 100,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						Channel = 4294967295,
+						CheckerUnderlay = false,
+						ShowControls = true,
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						Normalise = false,
+						ScaleMode = 0,
+					},
+				},
+				Defaults = {
+					View3D = {
+						Options = {
+							SelectionBoxStippleHidden = 52416,
+							SelectionBoxStipple = 65520,
+						},
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

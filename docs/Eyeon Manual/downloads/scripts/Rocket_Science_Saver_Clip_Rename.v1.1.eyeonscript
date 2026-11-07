@@ -1,0 +1,216 @@
+print("****************************************************************************************************\n")
+
+print("  Script:\t\t\tSaver Clip Rename")
+print("  Version:\t\t\t1.1")
+print("  Written:\t\t\tBrian Sinasac")
+print("  Date:\t\t\tDecember 7, 2006")
+print("  Requested by:\t\tRobert Crowther, Rocket Science VFX\n")
+
+print("This script will rename the selected saver clip value based on comp name and saver parameters.\n")
+--			This script is run from within Fusion.
+
+--			Assumptions:
+--			Each saver has only a single output in the clip
+
+--  Required Actions:
+
+--  1.  Extract the comp name 
+--  2.  Identify the selected savers
+--  3.  Apply the new saver name based on saver data
+--  4.  
+
+--  Changes for version 1.1
+--  Customer noticed that on some systems the comp extension .comp was not included and would demand the user 
+--  save the comp.  The fail safe was removed and anow allows the script to be run on unsaved comps.
+
+print("****************************************************************************************************\n")
+--						DEBUG  TOOLS
+
+-- theTool = a tool
+function showInputs(theTool)
+	inputList=theTool:GetInputList()
+	count=table.getn(inputList)
+	for i=1, count do
+		print(i.."  "..inputList[i]:GetAttrs().INPS_Name.."  "..inputList[i]:GetAttrs().INPS_ID)
+	end
+end
+
+
+function showAttributes(theTool)
+	table.foreach(theTool:GetAttrs(),print)
+end
+
+
+function showAttributesFull(theTool)  -- shows all attributes of the tool
+	theAttrs=theTool:GetAttrs()
+	for iterator, key in pairs(theAttrs) do
+		if(type(key)=="table") then
+			print(iterator)
+			print("****************************")
+			dump(key)
+			print("****************************")
+		else
+			print(iterator.."\t"..tostring(key))
+		end
+	end
+end
+
+--						DEBUG  TOOLS
+--****************************************************************************************************
+--						SCRIPT  TOOLS
+
+function stripPath(thePath, theDelimitor)
+-- find the last delimitor in the given string
+	for i=string.len(thePath), 1, -1 do
+		if string.byte(thePath, i) == string.byte(theDelimitor,1) then
+			return(string.sub(thePath,1,i))
+		end
+	end
+	return(false)
+end
+
+
+function extensionDetermination(outputFormat)
+	if outputFormat == "PIXFormat" then
+		return("pix")
+	elseif outputFormat == "IFLFormat" then
+		return("ifl")
+	elseif outputFormat == "BoxFormat" then
+		return("boxx")
+	elseif outputFormat == "OMFFormat" then
+		return("omf")
+	elseif outputFormat == "AVIFormat" then
+		return("avi")
+	elseif outputFormat == "BluefishFormat" then
+		return("blue")
+	elseif outputFormat == "FITSFormat" then
+		return("fts")
+	elseif outputFormat == "CineonFormat" then
+		return("cin")
+	elseif outputFormat == "DPXFormat" then
+		return("dpx")
+	elseif outputFormat == "PandoraFormat" then
+		return("piyuv10")
+	elseif outputFormat == "OpenEXRFormat" then
+		return("exr")
+	elseif outputFormat == "Flipbook Format" then
+		return("fb")
+	elseif outputFormat == "MayaIFFFormat" then
+		return("iff")
+	elseif outputFormat == "IFFFormat" then
+		return("iff")
+	elseif outputFormat == "RawFormat" then
+		return("raw")
+	elseif outputFormat == "SixRNFormat" then
+		return("6rn")
+	elseif outputFormat == "HDRFormat" then
+		return("hdr")
+	elseif outputFormat == "QuickTimeMovies" then
+		return("mov")
+	elseif outputFormat == "PNGFormat" then
+		return("png")
+	elseif outputFormat == "VPBFormat" then
+		return("vpb")
+	elseif outputFormat == "RawFormat" then
+		return("blu")
+	elseif outputFormat == "TargaFormat" then
+		return("tga")
+	elseif outputFormat == "TarFormat" then
+		return("tar")
+	elseif outputFormat == "SUNFormat" then
+		return("ras")
+	elseif outputFormat == "SGIFormat" then
+		return("sgi")
+	elseif outputFormat == "StampFormat" then
+		return("fustamp")
+	elseif outputFormat == "PICFormat" then
+		return("pic")
+	elseif outputFormat == "YUVFormat" then
+		return("yuv")
+	elseif outputFormat == "TiffFormat" then
+		return("tif")
+	elseif outputFormat == "BMPFormat" then
+		return("bmp")
+	elseif outputFormat == "rlaFormat" then
+		return("rla")
+	elseif outputFormat == "IPLFormat" then
+		return("ipl")
+	elseif outputFormat == "JpegFormat" then
+		return("jpg")
+	end
+end
+
+
+--						SCRIPT  TOOLS
+--****************************************************************************************************
+
+-- global variables
+selectedSavers = false
+nilFiles = false
+nilList = {}
+
+-- 1.  Extract the comp name
+fusion=Fusion()
+comp=fusion:GetCurrentComp()
+compName=stripPath(comp:GetAttrs().COMPS_Name, ".")
+
+--  Removed from version 1.1 
+
+--if compName == false then
+--	print("Please save the comp before continuing.")
+--else
+
+--  The following section was added for version 1.1
+if compName == false then
+	print("Warning, either this comp has not been saved or the extension is missing from the file name.")
+	print("The following saver clip name will be used:")
+	compName=comp:GetAttrs().COMPS_Name.."."
+	print(compName)
+	print("\n")
+end
+--  Above added for version 1.1
+	
+--  2.  Identify the selected savers
+	saverList = {} -- create an empty table that will contain the selected savers
+	completeToolList = composition:GetToolList()  -- list of all tools in comp
+
+--  identify the savers and populate saverList
+	for i=1, table.getn(completeToolList) do
+		if completeToolList[i]:GetAttrs().TOOLS_RegID == "Saver" then
+			if (completeToolList[i]:GetAttrs().TOOLB_Selected) then
+				table.insert(saverList,completeToolList[i])
+				selectedSavers = true
+			end
+		end
+	end
+
+-- script works based on selected savers, if none are selected then fail out	
+	if not selectedSavers then
+		print("No savers were selected within the comp.")
+		print("No changes were made to the savers of "..compName)
+	else
+		for i=1, table.getn(saverList) do
+-- strip out the currently set path and create the new saver clip
+			makePath = stripPath(saverList[i]:GetAttrs().TOOLST_Clip_Name[1], "\\")
+			if makePath == false then
+				makePath = stripPath(comp:GetAttrs().COMPS_FileName,"\\")
+				nilFiles = true
+				table.insert(nilList,saverList[i])
+			end
+-- 3.  Create the new saver clip
+			saverList[i].Clip = makePath..compName..extensionDetermination(saverList[i]:GetAttrs().TOOLST_Clip_FormatName[1])
+		end
+		
+-- if the expected info was not available	
+		if nilFiles then
+			print("One or more savers did not contain a file path:")
+			for i=1, table.getn(nilList) do
+				print(nilList[i]:GetAttrs().TOOLS_Name)
+			end
+			print("\nA default file path was used:")
+			print(stripPath(comp:GetAttrs().COMPS_FileName,"\\"))
+		end
+--	end  --Removed for version 1.1
+end
+
+

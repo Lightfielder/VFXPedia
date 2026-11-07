@@ -1,0 +1,185 @@
+{
+	Tools = ordered() {
+		LuminanceControl = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Adjusts only luminance preserving saturation\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				Input = InstanceInput {
+					SourceOp = "CS_FromRGB",
+					Source = "Input",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "EffectMask",
+				},
+				Gain = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "Gain",
+					Default = 1,
+				},
+				Gamma = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "Gamma",
+					Default = 1,
+				},
+				Contrast = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "Contrast",
+					Default = 0,
+				},
+				Brightness = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "Brightness",
+					Default = 0,
+				},
+				Low = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "Low",
+					ControlGroup = 7,
+					Default = 0,
+				},
+				High = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "High",
+					ControlGroup = 7,
+					MinScale = -0.5,
+					MaxScale = 1.5,
+					Default = 1,
+				},
+				ClipBlack = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "ClipBlack",
+					Default = 0,
+				},
+				ClipWhite = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "ClipWhite",
+					Default = 0,
+				},
+				PreDividePostMultiply = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "PreDividePostMultiply",
+					Default = 0,
+				},
+				LuminanceSubtractionMode = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "LuminanceSubtractionMode",
+					Name = "Luminance Subtraction Mode",
+					Default = 0,
+				},
+				Blend = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "ProcessWhenBlendIs00",
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "ApplyMaskInverted",
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "MultiplyByMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "MaskChannel",
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "MaskHigh",
+					ControlGroup = 4,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "BC_LuminanceControl",
+					Source = "MaskLow",
+					ControlGroup = 4,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "CS_ToRGB",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				CS_FromRGB = ColorSpace {
+					NameSet = true,
+					Inputs = {
+						ColorSpaceConversion = Input { Value = 1, },
+						ColorType = Input {
+							Value = 4,
+							Expression = "iif(BC_LuminanceControl.LuminanceSubtractionMode<2, BC_LuminanceControl.LuminanceSubtractionMode, 4)",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 55, 17.05, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				BC_LuminanceControl = BrightnessContrast {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Red = Input { Expression = "iif(LuminanceSubtractionMode==1,1,0)", },
+						Green = Input { Expression = "iif(LuminanceSubtractionMode==2,1,0)", },
+						Blue = Input { Expression = "iif(LuminanceSubtractionMode==0,1,0)", },
+						Input = Input {
+							SourceOp = "CS_FromRGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 165, 17.05, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						LuminanceSubtractionMode = {
+							{ MBTNC_AddButton = "HSV", },
+							{ MBTNC_AddButton = "YUV", },
+							{ MBTNC_AddButton = "HLS", },
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							IC_ControlPage = 0,
+							INPS_Name = "Luminance Subtraction Mode",
+							INP_Default = 0,
+						},
+					},
+				},
+				CS_ToRGB = ColorSpace {
+					NameSet = true,
+					Inputs = {
+						ColorSpaceConversion = Input { Value = 2, },
+						ColorType = Input { Value = 4, },
+						Input = Input {
+							SourceOp = "BC_LuminanceControl",
+							Source = "Output",
+						},
+						ColorType = Input {
+							Value = 4,
+							Expression = "CS_FromRGB.ColorType",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 272.18, 17.3717, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

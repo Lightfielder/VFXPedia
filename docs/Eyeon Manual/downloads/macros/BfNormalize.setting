@@ -1,0 +1,165 @@
+{
+	Tools = ordered() {
+		bfNormalize = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Dummy",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Dummy",
+					Source = "SourceTime",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "ProbeMin",
+					Source = "Red",
+				},
+				Output2 = InstanceOutput {
+					SourceOp = "ProbeMin",
+					Source = "Green",
+				},
+				Output3 = InstanceOutput {
+					SourceOp = "ProbeMin",
+					Source = "Blue",
+				},
+				Output4 = InstanceOutput {
+					SourceOp = "ProbeMin",
+					Source = "Alpha",
+				},
+				MainOutput1 = InstanceOutput {
+					SourceOp = "BC_Max",
+					Source = "Output",
+				},
+				Output5 = InstanceOutput {
+					SourceOp = "ProbeMax",
+					Source = "Red",
+				},
+				Output6 = InstanceOutput {
+					SourceOp = "ProbeMax",
+					Source = "Green",
+				},
+				Output7 = InstanceOutput {
+					SourceOp = "ProbeMax",
+					Source = "Blue",
+				},
+				Output8 = InstanceOutput {
+					SourceOp = "ProbeMax",
+					Source = "Alpha",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				Dummy = AutoGain {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Value = 0, },
+						SourceTime = Input { Value = 1, },
+						ValidTime = Input { Expression = "self:GetValue(\"Low\", SourceTime)", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 715, 313.5, }, },
+					UserControls = ordered() {
+						SourceTime = {
+							LINKS_Name = "Source Time",
+							INP_MinScale = 1,
+							INP_Integer = true,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 1000,
+							INP_Default = 0,
+						},
+						ValidTime = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+					},
+				},
+				BC_Min = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Brightness = Input {
+							Value = 0.863201677799225,
+							Expression = "-1*ProbeMin:GetValue(\"Result\", Dummy.SourceTime)",
+						},
+						Input = Input {
+							SourceOp = "Dummy",
+							Source = "Output",
+						},
+						Min = Input {
+							SourceOp = "ProbeMin",
+							Source = "Result",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 825, 313.5, }, },
+					UserControls = ordered() {
+						Min = {
+							INP_Default = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+						},
+					},
+				},
+				ProbeMin = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "Dummy",
+							Source = "Output",
+						},
+						Channel = Input { Value = 4, },
+						ProbeRectangle = Input { Value = 1, },
+						Width = Input { Value = 1, },
+						Height = Input { Value = 1, },
+						Evaluation = Input { Value = 1, },
+					},
+				},
+				BC_Max = BrightnessContrast {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Gain = Input {
+							Value = 0.490514196807304,
+							Expression = "1 / ProbeMax:GetValue(\"Result\", Dummy.SourceTime)",
+						},
+						Input = Input {
+							SourceOp = "BC_Min",
+							Source = "Output",
+						},
+						Max = Input {
+							SourceOp = "ProbeMax",
+							Source = "Result",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 935, 313.5, }, },
+					UserControls = ordered() {
+						Max = {
+							INP_Default = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+						},
+					},
+				},
+				ProbeMax = Probe {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						ImageToProbe = Input {
+							SourceOp = "BC_Min",
+							Source = "Output",
+						},
+						Channel = Input { Value = 4, },
+						ProbeRectangle = Input { Value = 1, },
+						Width = Input { Value = 1, },
+						Height = Input { Value = 1, },
+						Evaluation = Input { Value = 2, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "bfNormalize",
+}

@@ -1,0 +1,237 @@
+{
+	Tools = ordered() {
+		JoshPinesLogLin = MacroOperator {
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/JoshPinesLogLin_Description",
+			}, 
+			Inputs = ordered() {
+				Input = InstanceInput {
+					SourceOp = "__jp_bitdepth",
+					Source = "Input",
+				},
+				Comments = Input {
+					Value = "This macro is an implementation of a slightly different log2lin conversion developed by Josh Pines. It prevents negative values from appearing in the result.",
+				},
+				Depth = InstanceInput {
+					SourceOp = "__jp_bitdepth",
+					Source = "Depth",
+					Default = 4,
+				},
+				Mode = InstanceInput {
+					SourceOp = "__jp_switch",
+					Source = "Mode",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "__jp_switch",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				["__jp_log2lin"] = Custom {
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 0.6,
+						},
+						NumberIn2 = Input {
+							Value = 445,
+						},
+						NumberIn3 = Input {
+							Value = 0.18,
+						},
+						Setup1 = Input {
+							Value = "0.002 / n1",
+						},
+						RedExpression = Input {
+							Value = "10^((c1 * 1023 - n2) * s1) * n3",
+						},
+						GreenExpression = Input {
+							Value = "10^((c1 * 1023 - n2) * s1) * n3",
+						},
+						BlueExpression = Input {
+							Value = "10^((c1 * 1023 - n2) * s1) * n3",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Gamma",
+						},
+						NameforNumber2 = Input {
+							Value = "LogReference",
+						},
+						NameforNumber3 = Input {
+							Value = "LinReference",
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "__jp_bitdepth",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 387, 247, },
+					},
+				},
+				["__jp_bitdepth"] = ChangeDepth {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Depth = Input {
+							Value = 4,
+						},
+						Comments = Input {
+							Value = "Macro by Stefan Ihringer",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 245, 309, },
+					},
+				},
+				["__jp_lin2log"] = Custom {
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 0.6,
+						},
+						NumberIn2 = Input {
+							Value = 445,
+						},
+						NumberIn3 = Input {
+							Value = 0.18,
+						},
+						Setup1 = Input {
+							Value = "n1 / 0.002",
+						},
+						RedExpression = Input {
+							Value = "(n2 + log(max(c1, 0.00000001) / n3) * s1) / 1023",
+						},
+						GreenExpression = Input {
+							Value = "(n2 + log(max(c1, 0.00000001) / n3) * s1) / 1023",
+						},
+						BlueExpression = Input {
+							Value = "(n2 + log(max(c1, 0.00000001) / n3) * s1) / 1023",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Gamma",
+						},
+						NameforNumber2 = Input {
+							Value = "LogReference",
+						},
+						NameforNumber3 = Input {
+							Value = "LinReference",
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "__jp_bitdepth",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 387, 309, },
+					},
+				},
+				["__jp_switch"] = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Mix = Input {
+							Value = 0,
+							Expression = "Mode",
+						},
+						Background = Input {
+							SourceOp = "__jp_log2lin",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "__jp_lin2log",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 507, 309, },
+					},
+					UserControls = ordered() {
+						Mode = {
+							{ MBTNC_AddButton = "Log to Lin", },
+							{ MBTNC_AddButton = "Lin to Log", },
+							INP_MaxAllowed = 1,
+							INP_Integer = true,
+							INPID_InputControl = "MultiButtonControl",
+							IC_ControlPage = 0,
+							INP_Default = 0,
+							INP_MinAllowed = 0,
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "JoshPinesLogLin",
+}

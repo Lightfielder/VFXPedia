@@ -1,0 +1,1180 @@
+Composition {
+	CurrentTime = 0,
+	RenderRange = { 0, 50, },
+	GlobalRange = { 0, 50, },
+	HiQ = true,
+	Version = "Fusion 5.3 build 66",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Camera3D1_1 = Camera3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = -5.13327330386733,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 2.08641395933718,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 13.9952074132549,
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = 0.2,
+				},
+				["Transform3DOp.Rotate.Y"] = Input {
+					Value = -0.4,
+				},
+				["Transform3DOp.UseTarget"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Target.X"] = Input {
+					Value = -0.28198905625106,
+				},
+				["Transform3DOp.Target.Y"] = Input {
+					Value = 0.32955084486713,
+				},
+				AoV = Input {
+					Value = 9.3111111,
+				},
+				FLength = Input {
+					Value = 92.6369022243131,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1617.3, -72.3306, },
+			},
+		},
+		Shape3D1_2_1_1 = Shape3D {
+			Inputs = {
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = -90,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 3,
+				},
+				["MtlStdInputs.SpecularIntensity"] = Input {
+					Value = 0,
+				},
+				["SurfacePlaneInputs.Width"] = Input {
+					Value = 5,
+				},
+				["SurfacePlaneInputs.SubdivisionWidth"] = Input {
+					Value = 5,
+				},
+				["SurfacePlaneInputs.Lighting"] = Input {
+					Value = 1,
+				},
+				["SurfacePlaneInputs.IsShadowCaster"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1164.24, -118.687, },
+			},
+		},
+		Text3D1_1_1 = Text3D {
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 0.573169791519204,
+				},
+				Path = Input {
+					SourceOp = "Text3D1_1_1Path",
+					Source = "Value",
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "or occlusion?",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				Extrusion = Input {
+					Value = 1,
+				},
+				ExtrusionDepth = Input {
+					Value = 0.1,
+				},
+				BevelDepth = Input {
+					Value = 0.0081871,
+				},
+				BevelWidth = Input {
+					Value = 0.0122807,
+				},
+				SmoothingAngle = Input {
+					Value = 5.9649123,
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1166.36, -247.501, },
+			},
+		},
+		Text3D1_1_1Path = BezierSpline {
+			SplineColor = { Red = 255, Green = 180, Blue = 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+						Points = {
+						},
+					}, },
+			},
+		},
+		Bender3D1_1_1 = Bender3D {
+			Inputs = {
+				Amount = Input {
+					Value = -0.1933702,
+				},
+				Axis = Input {
+					Value = 0,
+				},
+				Angle = Input {
+					Value = 90,
+				},
+				Group = Input {
+					Value = 1,
+				},
+				Data3D = Input {
+					SourceOp = "Text3D1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1166.36, -214.501, },
+			},
+		},
+		Transform3D1_1 = Transform3D {
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 0.691118600447129,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 0.3225731,
+				},
+				Data3D = Input {
+					SourceOp = "Bender3D1_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1166.36, -181.501, },
+			},
+		},
+		Text3D1_2 = Text3D {
+			Inputs = {
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = 0.573169791519204,
+				},
+				Path = Input {
+					SourceOp = "Text3D1_2Path",
+					Source = "Value",
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "FakeGlobal",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				Extrusion = Input {
+					Value = 1,
+				},
+				ExtrusionDepth = Input {
+					Value = 0.1,
+				},
+				BevelDepth = Input {
+					Value = 0.0081871,
+				},
+				BevelWidth = Input {
+					Value = 0.0122807,
+				},
+				SmoothingAngle = Input {
+					Value = 5.9649123,
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1276.36, -247.501, },
+			},
+		},
+		Text3D1_2Path = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, Flags = { Linear = true, LockedY = true, }, Value = Polyline {
+						Points = {
+						},
+					}, },
+			},
+		},
+		Bender3D1_2 = Bender3D {
+			Inputs = {
+				Amount = Input {
+					Value = -0.4033149,
+				},
+				Axis = Input {
+					Value = 0,
+				},
+				Angle = Input {
+					Value = 90,
+				},
+				Group = Input {
+					Value = 1,
+				},
+				Data3D = Input {
+					SourceOp = "Text3D1_2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1276.36, -214.501, },
+			},
+		},
+		Merge3D2_1 = Merge3D {
+			CtrlWZoom = false,
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Shape3D1_2_1_1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Transform3D1_1",
+					Source = "Output",
+				},
+				Data3D3 = Input {
+					SourceOp = "Bender3D1_2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1276.36, -115.501, },
+			},
+		},
+		Shape3D1 = Shape3D {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 0.164266201559688,
+				},
+				["Transform3DOp.Translate.Y"] = Input {
+					Value = 0.660747330662247,
+				},
+				["Transform3DOp.Translate.Z"] = Input {
+					Value = -1.01149776809123,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 0.7,
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceSphereInputs", },
+				},
+				["MtlStdInputs.DiffuseRed"] = Input {
+					Value = 0.553333333333333,
+				},
+				["MtlStdInputs.DiffuseGreen"] = Input {
+					Value = 0.553333333333333,
+				},
+				["MtlStdInputs.DiffuseBlue"] = Input {
+					Value = 0.553333333333333,
+				},
+				["MtlStdInputs.SpecularIntensity"] = Input {
+					Value = 0,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelBase"] = Input {
+					Value = 32,
+				},
+				["SurfaceSphereInputs.SubdivisionLevelHeight"] = Input {
+					Value = 24,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1471.78, -177.821, },
+			},
+		},
+		SpotLight1_1_1 = LightSpot {
+			Inputs = {
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 5,
+				},
+				["Transform3DOp.PivotNest"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.UseTarget"] = Input {
+					Value = 1,
+				},
+				Red = Input {
+					SourceOp = "Probe2",
+					Source = "Red",
+				},
+				Green = Input {
+					SourceOp = "Probe2",
+					Source = "Green",
+				},
+				Blue = Input {
+					SourceOp = "Probe2",
+					Source = "Blue",
+				},
+				Intensity = Input {
+					Value = 0.025,
+					Expression = "4 / (Duplicate3D1.Copies*Duplicate3D1_1.Copies)",
+				},
+				ConeAngle = Input {
+					Value = 45,
+				},
+				PenumbraAngle = Input {
+					Value = 8,
+				},
+				["ShadowLightInputs3D.Shadows"] = Input {
+					Value = 1,
+				},
+				["ShadowLightInputs3D.ShadowDensity"] = Input {
+					Value = 1,
+				},
+				["ShadowLightInputs3D.ShadowMapSize"] = Input {
+					Value = 256,
+				},
+				["ShadowLightInputs3D.MultiplicativeBias"] = Input {
+					Value = 2,
+				},
+				["ShadowLightInputs3D.ShadowMapSampleType"] = Input {
+					Value = FuID { "Low", },
+				},
+				["ShadowLightInputs3D.SoftnessType"] = Input {
+					Value = FuID { "Constant", },
+				},
+				["ShadowLightInputs3D.ConstantSoftness"] = Input {
+					Value = 0.016,
+				},
+				["ShadowLightInputs3D.Spread"] = Input {
+					Value = 15,
+				},
+				["ShadowLightInputs3D.MinSoftness"] = Input {
+					Value = 2,
+				},
+				Comments = Input {
+					Value = "try biger shadowmaps for more precise result",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1655.5, -344.371, },
+			},
+		},
+		Probe2 = Probe {
+			CtrlWZoom = false,
+			Inputs = {
+				ImageToProbe = Input {
+					SourceOp = "BrightnessContrast2",
+					Source = "Output",
+				},
+				Position = Input {
+					SourceOp = "Expression1",
+					Source = "PointResult",
+				},
+				ProbeRectangle = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 0.05,
+					Expression = "1/Duplicate3D1_1.Copies",
+				},
+				Height = Input {
+					Value = 0.125,
+					Expression = "1/Duplicate3D1.Copies",
+				},
+			},
+		},
+		Expression1 = Expression {
+			CtrlWZoom = false,
+			Inputs = {
+				n1 = Input {
+					Value = 8,
+					Expression = "Duplicate3D1.Copies",
+				},
+				n2 = Input {
+					Value = 20,
+					Expression = "Duplicate3D1_1.Copies",
+				},
+				n3 = Input {
+					Value = 0.001,
+					Expression = "Duplicate3D1.TimeOffset",
+				},
+				n4 = Input {
+					Value = 1,
+				},
+				PointExpressionX = Input {
+					Value = "(1/n2*(time-int(time))/(n3*n1) + 0.5/n2) % 1",
+				},
+				PointExpressionY = Input {
+					Value = "(1/n1*time/n3 + 0.5/n1) %  1",
+				},
+				NumberControls = Input {
+					Value = 1,
+				},
+				NameforNumber1 = Input {
+					Value = "n1 - X duplicates",
+				},
+				NameforNumber2 = Input {
+					Value = "n2 - Y duplicates",
+				},
+				NameforNumber3 = Input {
+					Value = "n3 - time increment",
+				},
+				ShowNumber5 = Input {
+					Value = 0,
+				},
+				ShowNumber6 = Input {
+					Value = 0,
+				},
+				ShowNumber7 = Input {
+					Value = 0,
+				},
+				ShowNumber8 = Input {
+					Value = 0,
+				},
+				ShowNumber9 = Input {
+					Value = 0,
+				},
+				ShowPoint1 = Input {
+					Value = 0,
+				},
+				ShowPoint2 = Input {
+					Value = 0,
+				},
+				ShowPoint3 = Input {
+					Value = 0,
+				},
+				ShowPoint4 = Input {
+					Value = 0,
+				},
+				ShowPoint5 = Input {
+					Value = 0,
+				},
+				ShowPoint6 = Input {
+					Value = 0,
+				},
+				ShowPoint7 = Input {
+					Value = 0,
+				},
+				ShowPoint8 = Input {
+					Value = 0,
+				},
+				ShowPoint9 = Input {
+					Value = 0,
+				},
+			},
+		},
+		Shape3D1_1 = Shape3D {
+			Inputs = {
+				["SurfaceIcoInputs.Size"] = Input {
+					Value = 0.1,
+				},
+				["SurfaceIcoInputs.Visibility"] = Input {
+					Value = 1,
+				},
+				["SurfaceIcoInputs.IsUnseenByCameras"] = Input {
+					Value = 1,
+				},
+				["SurfaceIcoInputs.Lighting"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Translate.X"] = Input {
+					Value = 5,
+				},
+				["Transform3DOp.Rotate.X"] = Input {
+					Value = -90,
+				},
+				["Transform3DOp.PivotNest"] = Input {
+					Value = 1,
+				},
+				["Transform3DOp.Scale.X"] = Input {
+					Value = 0.2348713,
+				},
+				["Transform3DOp.UseTarget"] = Input {
+					Value = 1,
+				},
+				Shape = Input {
+					Value = FuID { "SurfaceConeInputs", },
+				},
+				["MtlStdInputs.DiffuseRed"] = Input {
+					SourceOp = "Probe1",
+					Source = "Red",
+				},
+				["MtlStdInputs.DiffuseGreen"] = Input {
+					SourceOp = "Probe1",
+					Source = "Green",
+				},
+				["MtlStdInputs.DiffuseBlue"] = Input {
+					SourceOp = "Probe1",
+					Source = "Blue",
+				},
+				["MtlStdInputs.SpecularExponent"] = Input {
+					Value = 23.4,
+				},
+				["MtlStdInputs.ReceivesLighting"] = Input {
+					Value = 0,
+				},
+				["MtlStdInputs.ReceivesShadows"] = Input {
+					Value = 0,
+				},
+				["SurfaceConeInputs.Radius"] = Input {
+					Value = 1.160221,
+				},
+				["SurfaceConeInputs.SubdivisionLevelBase"] = Input {
+					Value = 6,
+				},
+				["SurfaceConeInputs.Wireframe"] = Input {
+					Value = 1,
+				},
+				["SurfaceConeInputs.Lighting"] = Input {
+					Value = 1,
+				},
+				["SurfaceConeInputs.IsAffectedByLights"] = Input {
+					Value = 0,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1540, -346.5, },
+			},
+		},
+		Probe1 = Probe {
+			CtrlWZoom = false,
+			Inputs = {
+				ImageToProbe = Input {
+					SourceOp = "BrightnessContrast2",
+					Source = "Output",
+				},
+				Position = Input {
+					SourceOp = "Expression1",
+					Source = "PointResult",
+				},
+				ProbeRectangle = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 0.05,
+					Expression = "1/Duplicate3D1_1.Copies",
+				},
+				Height = Input {
+					Value = 0.125,
+					Expression = "1/Duplicate3D1.Copies",
+				},
+			},
+		},
+		Merge3D1 = Merge3D {
+			Inputs = {
+				PassThroughLights = Input {
+					Value = 1,
+				},
+				Data3D1 = Input {
+					SourceOp = "SpotLight1_1_1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Shape3D1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -313.5, },
+			},
+		},
+		Transform3D1 = Transform3D {
+			Inputs = {
+				["Transform3DOp.Rotate.Z"] = Input {
+					Value = 5.625,
+					Expression = "45/Duplicate3D1.Copies",
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -280.5, },
+			},
+		},
+		Duplicate3D1 = Duplicate3D {
+			Inputs = {
+				Copies = Input {
+					Value = 8,
+				},
+				TimeOffset = Input {
+					Value = 0.001,
+				},
+				["Rotate.X"] = Input {
+					Value = 2.25,
+					Expression = "360/Duplicate3D1_1.Copies/Copies",
+				},
+				["Rotate.Y"] = Input {
+					Value = 2.25,
+					Expression = "360/Duplicate3D1_1.Copies/Copies",
+				},
+				["Rotate.Z"] = Input {
+					Value = 11.25,
+					Expression = "90/Copies",
+				},
+				PivotNest = Input {
+					Value = 1,
+				},
+				ScaleNest = Input {
+					Value = 0,
+				},
+				["Scale.Y"] = Input {
+					Disabled = true,
+				},
+				["Scale.Z"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Y"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Z"] = Input {
+					Disabled = true,
+				},
+				Data3D = Input {
+					SourceOp = "Transform3D1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "vertical samples: Copies\r\nset the time offset here\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1597.13, -244.125, },
+			},
+		},
+		Duplicate3D1_1 = Duplicate3D {
+			Inputs = {
+				Copies = Input {
+					Value = 20,
+				},
+				TimeOffset = Input {
+					Value = 0.008,
+					Expression = "Duplicate3D1.TimeOffset*Duplicate3D1.Copies",
+				},
+				["Rotate.Y"] = Input {
+					Value = 18,
+					Expression = "360/Copies",
+				},
+				["Scale.Y"] = Input {
+					Disabled = true,
+				},
+				["Scale.Z"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Y"] = Input {
+					Disabled = true,
+				},
+				["JitterScale.Z"] = Input {
+					Disabled = true,
+				},
+				Data3D = Input {
+					SourceOp = "Duplicate3D1",
+					Source = "Data3D",
+				},
+				Comments = Input {
+					Value = "horizontal samples: Copies",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1598.56, -214.5, },
+			},
+		},
+		Merge3D1_3 = Merge3D {
+			Inputs = {
+				Data3D1 = Input {
+					SourceOp = "Camera3D1_1",
+					Source = "Output",
+				},
+				Data3D2 = Input {
+					SourceOp = "Merge3D2_1",
+					Source = "Output",
+				},
+				Data3D8 = Input {
+					SourceOp = "Shape3D1",
+					Source = "Output",
+				},
+				Data3D7 = Input {
+					SourceOp = "Duplicate3D1_1",
+					Source = "Data3D",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -118.101, },
+			},
+		},
+		Renderer3D1_2 = Renderer3D {
+			ExtentSet = false,
+			Inputs = {
+				["RendererOpenGL.Lighting"] = Input {
+					Value = 1,
+				},
+				["RendererOpenGL.LightingEnabled"] = Input {
+					Value = 1,
+				},
+				["RendererOpenGL.ShadowsEnabled"] = Input {
+					Value = 1,
+				},
+				["RendererOpenGL.LightingMode"] = Input {
+					Value = 1,
+				},
+				Quality = Input {
+					Value = 7,
+				},
+				ShutterAngle = Input {
+					Value = 360,
+				},
+				GlobalOut = Input {
+					Value = 50,
+				},
+				UseFrameFormatSettings = Input {
+					Value = 1,
+				},
+				Width = Input {
+					Value = 720,
+				},
+				Height = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				OutputChannels = Input {
+					Value = 1,
+				},
+				Data3D = Input {
+					SourceOp = "Merge3D1_3",
+					Source = "Output",
+				},
+				["RendererSoftware.Lighting"] = Input {
+					Value = 1,
+				},
+				["RendererSoftware.LightingEnabled"] = Input {
+					Value = 1,
+				},
+				["RendererSoftware.ShadowsEnabled"] = Input {
+					Value = 1,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1784.82, -118.377, },
+			},
+		},
+		Note1 = Note {
+			Inputs = {
+				Comments = Input {
+					Value = "read notes on tools for more info !",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { 1712.93, -299.311, },
+				Size = { 196, 179.3, },
+			},
+		},
+		DaySky1 = DaySky {
+			ExtentSet = false,
+			Inputs = {
+				GlobalOut = Input {
+					Value = 50,
+				},
+				Width = Input {
+					Value = 256,
+				},
+				Height = Input {
+					Value = 64,
+				},
+				Depth = Input {
+					Value = 3,
+				},
+				Latitude = Input {
+					Value = 44.2105263,
+				},
+				Longitude = Input {
+					Value = 83.1578947,
+				},
+				Day = Input {
+					Value = FuID { "15", },
+				},
+				Month = Input {
+					Value = FuID { "June", },
+				},
+				Time = Input {
+					Value = 15.1578947,
+				},
+				Turbidity = Input {
+					Value = 0.480663,
+				},
+				DoToneMapping = Input {
+					Value = 0,
+				},
+				Exposure = Input {
+					Value = 1,
+				},
+				["Circumsolar.Intensity"] = Input {
+					Value = 5,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -610.5, },
+			},
+		},
+		BrightnessContrast3 = BrightnessContrast {
+			Inputs = {
+				Gamma = Input {
+					Value = 0.5,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "light power ^2  conversion",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -477.254, },
+			},
+		},
+		Polygon1 = PolylineMask {
+			DrawMode = "InsertAndModify",
+			DrawMode2 = "InsertAndModify",
+			PolyLine2Disabled = true,
+			Inputs = {
+				MaskWidth = Input {
+					Value = 720,
+				},
+				MaskHeight = Input {
+					Value = 576,
+				},
+				PixelAspect = Input {
+					Value = { 1, 0.9375, },
+				},
+				Polyline = Input {
+					Value = Polyline {
+						Closed = true,
+						Points = {
+							{ Linear = true, LockPF = true, LockP = true, X = -0.526785731315613, Y = -1.13571429252625, },
+							{ Linear = true, LockP = true, X = -0.54107, Y = -0.5, },
+							{ Linear = true, LockP = true, X = 0.54107141494751, Y = -0.5, },
+							{ Linear = true, LockP = true, X = 0.532142877578735, Y = -1.09285712242126, },
+						},
+					},
+				},
+				Polyline2 = Input {
+					Value = Polyline {
+						Closed = true,
+						Points = {
+							{ Linear = true, LockPF = true, LockP = true, X = -0.55759541644038, Y = -1.27190344006514, },
+							{ Linear = true, LockP = true, X = -0.577971752854518, Y = 0.5, },
+							{ Linear = true, LockP = true, X = 0.576898545412047, Y = 0.5, },
+							{ Linear = true, LockP = true, X = 0.563924974758904, Y = -1.22651304284845, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1485, -445.5, },
+			},
+		},
+		BrightnessContrast2 = BrightnessContrast {
+			Inputs = {
+				ApplyMaskInverted = Input {
+					Value = 1,
+				},
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast3",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "this gradient compensates the intensity grow because of the density of lightsources ",
+				},
+				EffectMask = Input {
+					SourceOp = "Polygon1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -445.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				Gain = Input {
+					Value = 0.07,
+				},
+				Input = Input {
+					SourceOp = "DaySky1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "change this to your spherical HDRI halfdome",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, -577.5, },
+				Flags = {
+					ShowPic = true,
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1434,
+			Height = 647,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							FullIndicator = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 0.939364,
+						Offset = { -994.384, 544.691, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = true,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 493, },
+							ScaleX = 0.0096696212731668,
+							OffsetX = -1.01531023368251,
+							OffsetY = 0,
+							AutoScaling = true,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.00348432055749129,
+						OffsetX = -11.4,
+						OffsetY = 0,
+						AutoScaling = true,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = false,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 50, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.792399718508093,
+					RatioY = 0.00970873786407767,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.483660130718954,
+						{
+							ID = "Left",
+							RatioX = 0.732704624892982,
+							RatioY = 0.0101351351351351,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = 0.267295375107018,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.428104575163399,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Interactive = {
+				Proxy = {
+					Scale = 2,
+					AutoScale = 4,
+					Auto = false,
+				},
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						ScaleMode = 1,
+						CheckerUnderlay = false,
+						Normalise = false,
+						Channel = 4294967295,
+					},
+					View3D = {
+						Options = {
+							Lighting = true,
+						},
+						CameraName = "Perspective",
+					},
+					Guides = {
+						Show = false,
+					},
+					ViewLUT = {
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 0,
+						CheckerUnderlay = false,
+						Normalise = false,
+						Channel = 4294967295,
+					},
+					ViewLUT = {
+					},
+					SideB = {
+						Viewer = {
+							ScaleMode = 0,
+							CheckerUnderlay = false,
+						},
+						ViewLUT = {
+						},
+					},
+					Guides = {
+						Show = false,
+					},
+					View3D = {
+						SortMethod = "ZBuffer",
+						Options = {
+							Lighting = false,
+							Shadows = false,
+							Wireframe = false,
+							Grid = true,
+							RenderPath = 1,
+							ShowVertexNormals = false,
+						},
+						CameraName = "Perspective",
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "PAL / SECAM (D1)",
+				Width = 720,
+				Height = 576,
+				Rate = 25,
+				AspectY = 0.9375,
+				PerFeet = 1,
+				GuideRatio = 1.33333333333333,
+			},
+			Unsorted = {
+				GlobalEnd = 50,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

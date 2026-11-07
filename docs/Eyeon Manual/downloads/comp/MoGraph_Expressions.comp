@@ -1,0 +1,1247 @@
+Composition {
+	CurrentTime = 11,
+	RenderRange = { 0, 61, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 6.0 build 511",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Note1 = Note {
+			Inputs = {
+				Comments = Input {
+					Value = "Just another approach using less and simpler expressions...;-)",
+				},
+			},
+			ViewInfo = StickyNoteInfo {
+				Pos = { -220, 445.5, },
+				Flags = {
+					Expanded = true,
+				},
+				Size = { 262.434, 328.112, },
+			},
+		},
+		Transform1 = Transform {
+			CtrlWZoom = false,
+			Inputs = {
+				Angle = Input {
+					SourceOp = "Shake1",
+					Source = "X",
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 280.5, },
+			},
+		},
+		Shake1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 15115,
+				},
+				Smoothness = Input {
+					Value = 8,
+				},
+				XMinimum = Input {
+					Value = 20,
+				},
+				XMaximum = Input {
+					Value = 90,
+				},
+			},
+		},
+		Rectangle1 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.01,
+				},
+				Invert = Input {
+					Value = 1,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.125, },
+				},
+				Width = Input {
+					Value = 0.01,
+				},
+				Height = Input {
+					Value = 0.25,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 280.5, },
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 214.5, },
+			},
+		},
+		Merge3 = Merge {
+			Inputs = {
+				Angle = Input {
+					Value = -20.6358383,
+					Expression = "-Transform1.Angle",
+				},
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 214.5, },
+			},
+		},
+		Background1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1000,
+				},
+				Height = Input {
+					Value = 1000,
+				},
+				TopLeftRed = Input {
+					Value = 0.277333333333333,
+				},
+				TopLeftGreen = Input {
+					Value = 0.642389441185788,
+				},
+				TopLeftBlue = Input {
+					Value = 0.866666666666667,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 110, 181.5, },
+			},
+		},
+		Rectangle1_1_1_1 = RectangleMask {
+			Inputs = {
+				Invert = Input {
+					Value = 1,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.494469087369696, },
+				},
+				Width = Input {
+					Value = 1,
+				},
+				Height = Input {
+					Value = 0.2802303,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 16.5, },
+			},
+		},
+		Rectangle2_1 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.5,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.686646828983101, },
+				},
+				Width = Input {
+					Value = 2.48377281947262,
+				},
+				Height = Input {
+					Value = 0.731237322515213,
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1_1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 49.5, },
+			},
+		},
+		Rectangle1_1_3 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.01,
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.359770114942529, },
+				},
+				Width = Input {
+					Value = 1000000,
+				},
+				Height = Input {
+					Value = 0.0134357,
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle2_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 82.5, },
+			},
+		},
+		Rectangle1_1_2_1 = RectangleMask {
+			Inputs = {
+				Level = Input {
+					Value = 0.3723608,
+				},
+				SoftEdge = Input {
+					Value = 0.005,
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.631821255147827, },
+				},
+				Width = Input {
+					Value = 1,
+				},
+				Height = Input {
+					Value = 0.005,
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1_3",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 115.5, },
+			},
+		},
+		BrightnessContrast2_1 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1_2_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 330, 148.5, },
+			},
+		},
+		Transform2 = Transform {
+			Inputs = {
+				UseSizeAndAspect = Input {
+					Value = 0,
+				},
+				XSize = Input {
+					Value = 0.409928051620469,
+					Expression = "Transform1.Angle/180",
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast2_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 148.5, },
+			},
+		},
+		CoordinateSpace1 = CoordSpace {
+			CtrlWZoom = false,
+			Inputs = {
+				Shape = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "Transform2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 148.5, },
+			},
+		},
+		Ellipse1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0103647,
+				},
+				BorderWidth = Input {
+					Value = 0.0444444,
+				},
+				Solid = Input {
+					Value = 0,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Width = Input {
+					SourceOp = "Ellipse1Width",
+					Source = "Value",
+				},
+				Height = Input {
+					Value = 0.456029268558618,
+					Expression = "Width",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 495, 181.5, },
+			},
+		},
+		Ellipse1Width = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.0596656162295921, Flags = { Linear = true, Loop = true, }, },
+				[26] = { 1.0902111, Flags = { Linear = true, }, },
+				[27] = { 0, Flags = { Linear = true, }, },
+				[38] = { 0, Flags = { Linear = true, Loop = true, }, },
+			},
+		},
+		Glow1 = Glow {
+			Inputs = {
+				Blend = Input {
+					Value = 0.3857965,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "CoordinateSpace1",
+					Source = "Output",
+				},
+				GlowMask = Input {
+					SourceOp = "Ellipse1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 181.5, },
+			},
+		},
+		Merge2 = Merge {
+			Inputs = {
+				Angle = Input {
+					Value = -90,
+				},
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Merge3",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Glow1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 660, 214.5, },
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			CtrlWZoom = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				Center = Input {
+					Value = { 0.5, 0.00433878468130766, },
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "86°",
+					Expression = "Text(math.abs(math.floor(Merge3:GetValue(\"Angle\", time))*2)..\"°\")",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Alignment = Input {
+					Value = 1,
+				},
+				Red1 = Input {
+					Value = 0.274509787559509,
+				},
+				Green1 = Input {
+					Value = 0.643137216567993,
+				},
+				Blue1 = Input {
+					Value = 0.866666615009308,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 880, 148.5, },
+			},
+		},
+		Merge4 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 880, 214.5, },
+			},
+		},
+		Transform3 = Transform {
+			Inputs = {
+				FlipHoriz = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "MasterXF",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 742.5, },
+			},
+		},
+		Rectangle1_1 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.01,
+				},
+				Invert = Input {
+					Value = 1,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.125, },
+				},
+				Width = Input {
+					Value = 0.01,
+				},
+				Height = Input {
+					Value = 0.25,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 742.5, },
+			},
+		},
+		BrightnessContrast1_1 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Background1_1",
+					Source = "Output",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 676.5, },
+			},
+		},
+		MasterXF = Transform {
+			NameSet = true,
+			Inputs = {
+				Angle = Input {
+					SourceOp = "Shake1_1",
+					Source = "X",
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 676.5, },
+			},
+		},
+		Shake1_1 = Shake {
+			CtrlWZoom = false,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 15115,
+				},
+				Smoothness = Input {
+					Value = 8,
+				},
+				XMinimum = Input {
+					Value = 20,
+				},
+				XMaximum = Input {
+					Value = 90,
+				},
+			},
+		},
+		Merge3_1 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Transform3",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "MasterXF",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 676.5, },
+			},
+		},
+		Background1_1 = Background {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1000,
+				},
+				Height = Input {
+					Value = 1000,
+				},
+				TopLeftRed = Input {
+					Value = 0.277333333333333,
+				},
+				TopLeftGreen = Input {
+					Value = 0.642389441185788,
+				},
+				TopLeftBlue = Input {
+					Value = 0.866666666666667,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 55, 643.5, },
+			},
+		},
+		Rectangle1_1_1_1_1 = RectangleMask {
+			Inputs = {
+				Invert = Input {
+					Value = 1,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.494469087369696, },
+				},
+				Width = Input {
+					Value = 1,
+				},
+				Height = Input {
+					Value = 0.2802303,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 478.5, },
+			},
+		},
+		Rectangle2_1_1 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.5,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.686646828983101, },
+				},
+				Width = Input {
+					Value = 2.48377281947262,
+				},
+				Height = Input {
+					Value = 0.731237322515213,
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1_1_1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 511.5, },
+			},
+		},
+		Rectangle1_1_3_1 = RectangleMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.01,
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.359770114942529, },
+				},
+				Width = Input {
+					Value = 1000000,
+				},
+				Height = Input {
+					Value = 0.0134357,
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle2_1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 544.5, },
+			},
+		},
+		Rectangle1_1_2_1_1 = RectangleMask {
+			Inputs = {
+				Level = Input {
+					Value = 0.3723608,
+				},
+				SoftEdge = Input {
+					Value = 0.005,
+				},
+				PaintMode = Input {
+					Value = FuID { "Subtract", },
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Center = Input {
+					Value = { 0.5, 0.631821255147827, },
+				},
+				Width = Input {
+					Value = 1,
+				},
+				Height = Input {
+					Value = 0.005,
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1_3_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 577.5, },
+			},
+		},
+		BrightnessContrast2_1_1 = BrightnessContrast {
+			Inputs = {
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Background1_1",
+					Source = "Output",
+				},
+				EffectMask = Input {
+					SourceOp = "Rectangle1_1_2_1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 275, 610.5, },
+			},
+		},
+		Transform2_1 = Transform {
+			Inputs = {
+				UseSizeAndAspect = Input {
+					Value = 0,
+				},
+				XSize = Input {
+					Value = 0.409928051620469,
+					Expression = "MasterXF.Angle/180",
+				},
+				Input = Input {
+					SourceOp = "BrightnessContrast2_1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 610.5, },
+			},
+		},
+		CoordinateSpace1_1 = CoordSpace {
+			Inputs = {
+				Shape = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "Transform2_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 610.5, },
+			},
+		},
+		Ellipse1_1 = EllipseMask {
+			Inputs = {
+				SoftEdge = Input {
+					Value = 0.0103647,
+				},
+				BorderWidth = Input {
+					Value = 0.0444444,
+				},
+				Solid = Input {
+					Value = 0,
+				},
+				MaskWidth = Input {
+					Value = 1280,
+				},
+				MaskHeight = Input {
+					Value = 720,
+				},
+				PixelAspect = Input {
+					Value = { 1, 1, },
+				},
+				ClippingMode = Input {
+					Value = FuID { "None", },
+				},
+				Width = Input {
+					SourceOp = "Ellipse1_1Width",
+					Source = "Value",
+				},
+				Height = Input {
+					Value = 0.337120169552394,
+					Expression = "Width",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 643.5, },
+			},
+		},
+		Ellipse1_1Width = BezierSpline {
+			SplineColor = { Red = 0, Green = 255, Blue = 255, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.0596656162295921, Flags = { Linear = true, Loop = true, }, },
+				[26] = { 1.0902111, Flags = { Linear = true, }, },
+				[27] = { 0, Flags = { Linear = true, }, },
+				[38] = { 0, Flags = { Linear = true, Loop = true, }, },
+			},
+		},
+		Glow1_1 = Glow {
+			Inputs = {
+				Blend = Input {
+					Value = 0.3857965,
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Low = Input {
+					Disabled = true,
+				},
+				High = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "CoordinateSpace1_1",
+					Source = "Output",
+				},
+				GlowMask = Input {
+					SourceOp = "Ellipse1_1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 643.5, },
+			},
+		},
+		Merge2_1 = Merge {
+			Inputs = {
+				Angle = Input {
+					Value = -90,
+				},
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Merge3_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Glow1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 676.5, },
+			},
+		},
+		Text1_1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				Center = Input {
+					Value = { 0.5, 0.00433878468130766, },
+				},
+				Font = Input {
+					Value = "Arial",
+				},
+				StyledText = Input {
+					Value = "95°",
+					Expression = "Text(math.floor(MasterXF.Angle*2)..\"°\")",
+				},
+				Style = Input {
+					Value = "Regular",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Alignment = Input {
+					Value = 1,
+				},
+				Red1 = Input {
+					Value = 0.274509787559509,
+				},
+				Green1 = Input {
+					Value = 0.643137216567993,
+				},
+				Blue1 = Input {
+					Value = 0.866666615009308,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 610.5, },
+			},
+		},
+		Merge4_1 = Merge {
+			Inputs = {
+				PerformDepthMerge = Input {
+					Value = 0,
+				},
+				Background = Input {
+					SourceOp = "Merge2_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Text1_1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 676.5, },
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 732,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							AutoHideNavigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						NavigatorSize = { 100, 100, },
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.12506,
+						Offset = { 296.663, -403.718, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+							"=Transform1.Angle",
+							"=Transform1.Angle.Value",
+							"=Transform1.Angle[CurrentTime]",
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 415, },
+							ScaleX = 0.739744451916611,
+							OffsetX = -50.3026227303295,
+							OffsetY = 0,
+							AutoScaling = "scroll",
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesGrabEnabled = true,
+							GuidelinesSnapTo = "none",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.00342465753424658,
+						OffsetX = -3.59999999999999,
+						OffsetY = 0,
+						AutoScaling = "scroll",
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						GuidelinesGrabEnabled = true,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+					[""] = ChatView {
+						History = {
+						},
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.748825065274151,
+					RatioY = 0.0101289134438306,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.561111111111111,
+						{
+							ID = "Left",
+							RatioX = 1,
+							RatioY = 101,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = -2,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.388888888888889,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 479,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Views = {
+				Right = {
+					Viewer = {
+						CheckerUnderlay = false,
+					},
+				},
+				Left = {
+					Viewer = {
+						ScaleMode = 1,
+						CheckerUnderlay = false,
+					},
+				},
+				Defaults = {
+					View3D = {
+						CamPersp = {
+							Separation = 0.1,
+						},
+					},
+				},
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 25,
+				PerFeet = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "Comp:\\Out\\OGL0000.jpg",
+			FreehandPrecDlg = {
+				Window = {
+					Left = 698,
+					Top = 453,
+				},
+			},
+			Paths = {
+				EnableReverseMapping = true,
+				Map = {
+				},
+			},
+			DiskCache = {
+				CacheLoaders = {
+					MaxSize = 100,
+				},
+			},
+			LastLUTFile = "LUTs:\\EricsLUT.alut3",
+			QuickTime = {
+				Compressor = "H.264_avc1",
+			},
+		},
+	},
+}
+
+ 

@@ -1,0 +1,552 @@
+{
+	Tools = ordered() {
+		diyEdgeTool = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Edge Enhance not tested thoroughly, seems to work great in some situations but not so much in others. Everything else is really just the straightforward stuff that does exactly what it says.\r\n\r\ndiyTools - simple but handy macros\r\nfind more @ pigs fly forum (by sh4dow)\r\n(Andreas Opferkuch - http://www.variations-of-shadow.com)",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "EdgeEnhance",
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "ClipMin",
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "ClipMax",
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "ErodeDilatePixels",
+				},
+				Input99 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "Sharpen",
+				},
+				Input8 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "Size",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "Gain",
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "Low",
+					ControlGroup = 10,
+					Default = 0,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "High",
+					ControlGroup = 10,
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "BlurPixels",
+					Default = 0,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "IsolateEdge",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "inparam",
+					Source = "InputisPremultiplied",
+					Default = 1,
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "unpremult",
+					Source = "Background",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "premult",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				ChannelBooleans2_1 = ChannelBoolean {
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.IsolateEdge",
+						},
+						Operation = Input { Value = 10, },
+						ToRed = Input { Value = 4, },
+						ToGreen = Input { Value = 4, },
+						ToBlue = Input { Value = 4, },
+						ToAlpha = Input { Value = 8, },
+						Background = Input {
+							SourceOp = "Blur1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1595, 313.5, }, },
+				},
+				premult = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.InputisPremultiplied",
+						},
+						Operation = Input { Value = 6, },
+						ToRed = Input { Value = 8, },
+						ToGreen = Input { Value = 8, },
+						ToBlue = Input { Value = 8, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "ChannelBooleans2_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1760, 313.5, }, },
+				},
+				Blur1_1 = Blur {
+					Inputs = {
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XBlurSize = Input {
+							Value = 0,
+							Expression = "inparam.BlurPixels * 720 / Input.OriginalWidth",
+						},
+						Input = Input {
+							SourceOp = "UnsharpMask1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1430, 313.5, }, },
+				},
+				Note1 = Note {
+					CtrlWShown = false,
+					Inputs = {
+						Comments = Input { Value = "isolate edge", },
+					},
+					ViewInfo = StickyNoteInfo {
+						Pos = { 1595, 247.5, },
+						Flags = {
+							Expanded = true,
+						},
+						Size = { 86, 52.3, },
+					},
+				},
+				Note1_1_1_1 = Note {
+					CtrlWShown = false,
+					Inputs = {
+						Comments = Input { Value = "premultiply", },
+					},
+					ViewInfo = StickyNoteInfo {
+						Pos = { 1760, 247.5, },
+						Flags = {
+							Expanded = true,
+						},
+						Size = { 86, 47.3, },
+					},
+				},
+				UnsharpMask1 = UnsharpMask {
+					Inputs = {
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XSize = Input { Expression = "inparam.Size", },
+						Gain = Input { Expression = "inparam.Gain", },
+						Low = Input { Expression = "inparam.Low", },
+						High = Input { Expression = "inparam.High", },
+						Input = Input {
+							SourceOp = "Instance_UnsharpMask1_1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1210, 313.5, }, },
+				},
+				Note2 = Note {
+					CtrlWShown = false,
+					Inputs = {
+						Comments = Input { Value = "EDGE ENHANCE PART", },
+					},
+					ViewInfo = StickyNoteInfo {
+						Pos = { 352.627, 232.414, },
+						Flags = {
+							Expanded = true,
+						},
+						Size = { 787, 122.3, },
+					},
+				},
+				Instance_UnsharpMask1_1_1 = UnsharpMask {
+					SourceOp = "UnsharpMask1_1_1",
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.EdgeEnhance",
+						},
+						Input = Input {
+							SourceOp = "Instance_Blur1_4_1_1_1",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input { },
+						EffectMask = Input { },
+					},
+					ViewInfo = OperatorInfo { Pos = { 1012.63, 298.414, }, },
+				},
+				Instance_Blur1_4_1_1_1 = Blur {
+					SourceOp = "Blur1_4_1_1_1",
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.EdgeEnhance",
+						},
+						BlendClone = Input { Expression = "inparam.EdgeEnhance", },
+						Input = Input {
+							SourceOp = "Instance_ErodeDilate1_1_1_1_1",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input { },
+						EffectMask = Input { },
+					},
+					ViewInfo = OperatorInfo { Pos = { 902.627, 298.414, }, },
+				},
+				Instance_ErodeDilate1_1_1_1_1 = ErodeDilate {
+					SourceOp = "ErodeDilate1_1_1_1_1",
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.EdgeEnhance",
+						},
+						XAmount = Input {
+							Expression = "((-1 / Input.OriginalWidth) * inparam.ErodeDilatePixels) / 2",
+						},
+						Input = Input {
+							SourceOp = "UnsharpMask1_1_1",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input { },
+						EffectMask = Input { },
+					},
+					ViewInfo = OperatorInfo { Pos = { 792.627, 298.414, }, },
+					UserControls = ordered() {
+						WidthinPixels = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+					},
+				},
+				UnsharpMask1_1_1 = UnsharpMask {
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.EdgeEnhance",
+						},
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XSize = Input { Value = 4, },
+						Gain = Input { Value = 2, },
+						Input = Input {
+							SourceOp = "Blur1_4_1_1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 627.627, 298.414, }, },
+				},
+				Blur1_4_1_1_1 = Blur {
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.EdgeEnhance",
+						},
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XBlurSize = Input { Value = 0.5, },
+						BlendClone = Input { Expression = "inparam.EdgeEnhance", },
+						Input = Input {
+							SourceOp = "ErodeDilate1_1_1_1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 517.627, 298.414, }, },
+				},
+				ErodeDilate1_1_1_1_1 = ErodeDilate {
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.EdgeEnhance",
+						},
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XAmount = Input { Expression = "((-1 / Input.OriginalWidth) * inparam.ErodeDilatePixels) / 2", },
+						Input = Input {
+							SourceOp = "ErodeDilate1_1",
+							Source = "Output",
+						},
+						WidthinPixels = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 407.627, 298.414, }, },
+					UserControls = ordered() {
+						WidthinPixels = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+					},
+				},
+				ErodeDilate1_1 = ErodeDilate {
+					Inputs = {
+						Blend = Input { Expression = "iif(inparam.EdgeEnhance == 1.0, 0.0, 1.0)", },
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XAmount = Input { Expression = "(-1 / Input.OriginalWidth) * inparam.ErodeDilatePixels", },
+						Input = Input {
+							SourceOp = "MatteControl1",
+							Source = "Output",
+						},
+						WidthinPixels = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 187.627, 298.414, }, },
+					UserControls = ordered() {
+						WidthinPixels = { INPID_PreviewControl = "", IC_ControlPage = 0, INPID_InputControl = "", },
+					},
+				},
+				inparam = Custom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						LUTIn1 = Input {
+							SourceOp = "inparamLUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "inparamLUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "inparamLUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "inparamLUTIn4",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 55, 115.5, }, },
+					UserControls = ordered() {
+						EdgeEnhance = {
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Edge Enhance",
+						},
+						ClipMin = {
+							INP_MaxAllowed = 1,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							INP_Default = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							LINKS_Name = "Clip Min",
+						},
+						ClipMax = {
+							INP_MaxAllowed = 1,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKS_Name = "Clip Max",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 1,
+						},
+						ErodeDilatePixels = {
+							INP_MaxAllowed = 100,
+							INP_MinScale = -5,
+							INP_MinAllowed = -100,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 5,
+							LINKS_Name = "Erode (Pixels)",
+						},
+						BlurPixels = {
+							INP_MaxAllowed = 300,
+							LINKS_Name = "Blur (Pixels)",
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 10,
+							INP_Default = 0,
+						},
+						IsolateEdge = {
+							INP_MaxAllowed = 1,
+							INPID_InputControl = "CheckboxControl",
+							LINKS_Name = "Isolate Edge",
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						InputisPremultiplied = {
+							LINKID_DataType = "Number",
+							LINKS_Name = "Input is Premultiplied",
+							IC_ControlPage = 0,
+							INPID_InputControl = "CheckboxControl",
+							INP_Default = 1,
+						},
+						Sharpen = {
+							IC_ControlPage = 0,
+							LBLC_DropDownButton = true,
+							INPID_InputControl = "LabelControl",
+							LBLC_NumInputs = 4,
+							LBLC_NestLevel = 1,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						Size = {
+							INP_MaxAllowed = 1000,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MaxScale = 10,
+							INP_Default = 0,
+						},
+						Gain = {
+							INP_MaxAllowed = 100,
+							LINKID_DataType = "Number",
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							INP_MaxScale = 5,
+							IC_ControlPage = 0,
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+						Low = {
+							INP_MaxAllowed = 1,
+							IC_ControlGroup = 2,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "RangeControl",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+						High = {
+							INP_MaxAllowed = 1,
+							INPID_InputControl = "RangeControl",
+							IC_ControlPage = 0,
+							INP_Default = 1,
+							INP_MinAllowed = 0,
+							LINKID_DataType = "Number",
+							IC_ControlID = 1,
+							IC_ControlGroup = 2,
+						},
+					},
+				},
+				inparamLUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0, },
+					CtrlWShown = false,
+				},
+				inparamLUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0, },
+					CtrlWShown = false,
+				},
+				inparamLUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204, },
+					CtrlWShown = false,
+				},
+				inparamLUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+						},
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204, },
+					CtrlWShown = false,
+				},
+				MatteControl1 = MatteControl {
+					Inputs = {
+						LowMatteThreshold = Input { Expression = "inparam.ClipMin", },
+						High = Input { Expression = "inparam.ClipMax", },
+						Background = Input {
+							SourceOp = "unpremult",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 22.6274, 298.414, }, },
+				},
+				Note1_1 = Note {
+					CtrlWShown = false,
+					Inputs = {
+						Comments = Input { Value = "clip min/max", },
+					},
+					ViewInfo = StickyNoteInfo {
+						Pos = { 22.6274, 232.414, },
+						Flags = {
+							Expanded = true,
+						},
+						Size = { 86, 47.3, },
+					},
+				},
+				unpremult = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "inparam.InputisPremultiplied",
+						},
+						Operation = Input { Value = 7, },
+						ToRed = Input { Value = 8, },
+						ToGreen = Input { Value = 8, },
+						ToBlue = Input { Value = 8, },
+						ToAlpha = Input { Value = 4, },
+					},
+					ViewInfo = OperatorInfo { Pos = { -142.373, 298.414, }, },
+				},
+				Note1_1_1 = Note {
+					CtrlWShown = false,
+					Inputs = {
+						Comments = Input { Value = "unpremultiply", },
+					},
+					ViewInfo = StickyNoteInfo {
+						Pos = { -142.373, 232.414, },
+						Flags = {
+							Expanded = true,
+						},
+						Size = { 86, 47.3, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.376470588235294, B = 0.549019607843137, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+	ActiveTool = "diyEdgeTool",
+}

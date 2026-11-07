@@ -1,0 +1,42 @@
+-- ********** milSaveToName v%d.%d **********
+-- (C)2007 by Blazej Floch - private@bfloch.com
+-- Version:
+iVerMajor = 0
+iVerMinor = 1
+-- Usage:
+-- prints the number of nodes
+--
+-- ***** TODO *****
+--
+-- ******************************************
+
+-- function that returns or prints count of (visible) nodes
+function bf_count_nodes(bPrint)
+
+	local oatrFus = fusion:GetAttrs()
+	
+	oToollist = composition:GetToolList(false)
+	
+	if oatrFus.FUSIONS_Version == "5.1" or oatrFus.FUSIONS_Version == "5.2" then   
+		oVisibleToollist = {}
+		for i = 1, table.getn(oToollist) do
+		
+		    if oToollist[i]:GetAttrs().TOOLB_Visible == true then
+			table.insert(oVisibleToollist ,i)
+		    end
+		end
+		
+	else
+		oVisibleToollist = oToollist
+	end
+	
+	if bPrint then
+		print (table.getn(oVisibleToollist))
+	end
+	
+	return (table.getn(oVisibleToollist))
+	
+end
+
+print (string.format("\n\n********** bf_count_nodes v%d.%d **********", iVerMajor, iVerMinor))
+bf_count_nodes(true)

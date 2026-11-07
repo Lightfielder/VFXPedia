@@ -1,0 +1,29 @@
+--###################################
+-- a little tool script that selects 
+-- the source of a WirelessLink Fuse
+--
+-- michael vorberg (mv@empty98.de)
+-- 15 Aug 2008
+--######################################
+
+
+fusion = Fusion()
+
+composition = fusion:GetCurrentComp()
+
+flow = composition.CurrentFrame.FlowView
+
+if (composition == nil) or (tool == nil) then
+	print("This script is a tool script. Place the script in the Fusion:\Tools directory and run it from a tools context menu.")
+	os.exit()
+end
+
+
+if tool:GetAttrs().TOOLS_RegID == "Fuse.Wireless" then 
+	source = tool.Input:GetConnectedOutput():GetTool()
+	--print (source)
+	flow:SetScale(1)
+	composition:SetActiveTool(source)
+else
+	print ("Just works on WireLessLink Fuses")
+end

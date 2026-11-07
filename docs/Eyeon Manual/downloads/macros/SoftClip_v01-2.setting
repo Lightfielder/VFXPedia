@@ -1,0 +1,131 @@
+{
+	Tools = ordered() {
+		SoftClip = MacroOperator {
+			CtrlWZoom = false,
+			CustomData = {
+				HelpPage = "http://www.vfxpedia.com/index.php?title=Settings_and_Macros/SoftClip_Description",
+			}, 
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "SoftClip v1.2 by stefan@bildfehler.de\r\nSoftly compresses pixel values above the threshold to prevent clipping.",
+				},
+				Input = InstanceInput {
+					SourceOp = "SoftClip_Macro",
+					Source = "Image1",
+					Name = "Image",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "SoftClip_Macro",
+					Source = "ProcessRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "SoftClip_Macro",
+					Source = "ProcessGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "SoftClip_Macro",
+					Source = "ProcessBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				Threshold = InstanceInput {
+					SourceOp = "SoftClip_Macro",
+					Source = "Threshold",
+					Default = 0.9,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "SoftClip_Macro",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 660, 82.5, },
+			},
+			Tools = ordered() {
+				SoftClip_Macro = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 0.9,
+							Expression = "Threshold",
+						},
+						Setup1 = Input {
+							Value = "if(n1<0, 0, if(n1>=1, 0.999, n1))",
+						},
+						Setup2 = Input {
+							Value = "1/(1-s1)",
+						},
+						RedExpression = Input {
+							Value = "if(c1>s1, (-1/((c1-s1)*s2+1)+1)/s2 +s1 , c1)",
+						},
+						GreenExpression = Input {
+							Value = "if(c1>s1, (-1/((c1-s1)*s2+1)+1)/s2 +s1 , c1)",
+						},
+						BlueExpression = Input {
+							Value = "if(c1>s1, (-1/((c1-s1)*s2+1)+1)/s2 +s1 , c1)",
+						},
+						NameforNumber1 = Input {
+							Value = "Threshold",
+						},
+						ShowNumber2 = Input {
+							Value = 0,
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Threshold = Input {
+							Value = 0.9,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 10.15, },
+					},
+					UserControls = ordered() {
+						Threshold = {
+							INP_MaxAllowed = 1,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "SliderControl",
+							LINKID_DataType = "Number",
+							INP_Default = 0.95,
+						},
+					},
+				},
+			},
+		},
+	},
+}

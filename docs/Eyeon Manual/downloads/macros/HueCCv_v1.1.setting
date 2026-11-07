@@ -1,0 +1,573 @@
+{
+	Tools = ordered() {
+		HueCCv = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "HLS_reference",
+					Source = "EditRed",
+					Name = "Hue",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "HLS_reference",
+					Source = "EditGreen",
+					Name = "Luma/Val",
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "HLS_reference",
+					Source = "EditBlue",
+					Name = "Saturation",
+					Default = 0,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "HLS_reference",
+					Source = "Red",
+					ControlGroup = 6,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "HLS_reference",
+					Source = "Green",
+					ControlGroup = 6,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "HLS_reference",
+					Source = "Blue",
+					ControlGroup = 6,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "radioButtons",
+					Source = "ProcessWhenBlendIs00",
+					Name = "Color Mode HLS|HSV =  On|Off",
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "radioButtons",
+					Source = "PreDividePostMultiply",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Engine",
+					Source = "Comments",
+					Name = "Notes",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PreDivide",
+					Source = "Background",
+					Name = "Input",
+				},
+				Input11 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "ApplyMaskInverted",
+					Default = 0,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "MultiplyByMask",
+					Default = 0,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "FitMask",
+				},
+				Input14 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "MaskChannel",
+					Default = 3,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "MaskHigh",
+					ControlGroup = 14,
+					Default = 1,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "MaskLow",
+					ControlGroup = 14,
+					Default = 0,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "UseObject",
+					Default = 0,
+				},
+				Input18 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "UseMaterial",
+					Default = 0,
+				},
+				Input19 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "CorrectEdges",
+				},
+				Input20 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "ObjectID",
+					Name = "Object / Material",
+					ControlGroup = 18,
+					Default = 0,
+				},
+				Input21 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "MaterialID",
+					Name = "Object / Material",
+					ControlGroup = 18,
+					Default = 0,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "EffectMask",
+					Source = "EffectMask",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "PostMult",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "HueCCv",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				radioButtons = BrightnessContrast {
+					PassThrough = true,
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ProcessWhenBlendIs00 = Input {
+							Value = 1,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						PreDividePostMultiply = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 137.5, 43.15, },
+					},
+				},
+				spreadHue = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						ToGreen = Input {
+							Value = 0,
+						},
+						ToBlue = Input {
+							Value = 0,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "toColor",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 27.5, 43.15, },
+					},
+				},
+				HLS_reference = ColorCurves {
+					PickColor = true,
+					PassThrough = true,
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						ColorSpace = Input {
+							Value = 2,
+						},
+						EditGreen = Input {
+							Value = 0,
+						},
+						EditBlue = Input {
+							Value = 0,
+						},
+						EditAlpha = Input {
+							Value = 0,
+						},
+						Red = Input {
+							SourceOp = "HLS_referenceHue",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "HLS_referenceLuminance",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "HLS_referenceSaturation",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "LUTBezier1",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 137.5, 76.15, },
+					},
+				},
+				Instance_RGB_curves = ColorCurves {
+					PickColor = true,
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					SourceOp = "HLS_reference",
+					Inputs = {
+						ColorSpace = Input {
+						},
+						Input = Input {
+							SourceOp = "spreadHue",
+							Source = "Output",
+						},
+						ReferenceImage = Input {
+						},
+						StartEndRenderScripts = Input {
+						},
+						EffectMask = Input {
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 27.5, 76.15, },
+					},
+					Tools = {
+						HLS_referenceHue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0.5, RH = { 0.111088886910303, 0.5, }, },
+									[0.3333] = { 0.5, LH = { 0.222211112765241, 0.5, }, RH = { 0.44442221723393, 0.5, }, },
+									[0.6667] = { 0.5, LH = { 0.55557778276607, 0.5, }, RH = { 0.777788887234759, 0.5, }, },
+									[1] = { 0.5, LH = { 0.888911113089706, 0.5, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 0, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						HLS_referenceLuminance = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0.5, RH = { 0.111088888096262, 0.5, }, },
+									[0.3333] = { 0.5, LH = { 0.222211112765241, 0.5, }, RH = { 0.44442221723393, 0.5, }, },
+									[0.6667] = { 0.5, LH = { 0.55557778276607, 0.5, }, RH = { 0.777788887234759, 0.5, }, },
+									[1] = { 0.5, LH = { 0.888911113089687, 0.5, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 255, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						HLS_referenceSaturation = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0.5, RH = { 0.111088888096262, 0.5, }, },
+									[0.3333] = { 0.5, LH = { 0.222211112765241, 0.5, }, RH = { 0.44442221723393, 0.5, }, },
+									[0.6667] = { 0.5, LH = { 0.55557778276607, 0.5, }, RH = { 0.777788887234759, 0.5, }, },
+									[1] = { 0.5, LH = { 0.888911113089687, 0.5, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 0, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						LUTBezier1 = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.333333333333333, 0.333333333333333, }, Flags = { Linear = true, }, },
+									[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+						},
+					},
+				},
+				HSVorder = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "1-radioButtons.ProcessWhenBlendIs00",
+						},
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 2,
+						},
+						ToBlue = Input {
+							Value = 1,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "toColor",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -82.5, 76.15, },
+					},
+				},
+				Engine = Custom {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						Intermediate1 = Input {
+							Value = "(r1+r2-0.5)%1",
+						},
+						Intermediate2 = Input {
+							Value = "(r1+r2+0.5)%1",
+						},
+						RedExpression = Input {
+							Value = "if((i1<0),i2,i1)",
+						},
+						GreenExpression = Input {
+							Value = "if ((g2<0.5),g1*(g2*2),1-(1-g1)*((1-g2)*2))",
+						},
+						BlueExpression = Input {
+							Value = "if((b2<0.5),b1*(b2*2),b1+(b2-0.5)*2)",
+						},
+						Image1 = Input {
+							SourceOp = "HSVorder",
+							Source = "Output",
+						},
+						Image2 = Input {
+							SourceOp = "Instance_RGB_curves",
+							Source = "Output",
+						},
+						Comments = Input {
+							Value = "HUE color curves - macro\r\nOriginal Author: Attila Sziklai\r\n\r\nv1.1 release notes (2009.08.14)\r\n- fixed effect masking\r\n- fixed HUE offsetting to negative\r\n\r\nv1.0 (2007.10.)\r\n\r\nTips: \r\nFor more precise result use 16bit int or 32bit float color depth.\r\nHLS and HSV color modes handles saturation and luminance  differently",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 22.5214, 114.696, },
+					},
+				},
+				Instance_HSVorder = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					SourceOp = "HSVorder",
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "1-radioButtons.ProcessWhenBlendIs00",
+						},
+						Background = Input {
+							SourceOp = "Engine",
+							Source = "Output",
+						},
+						Foreground = Input {
+						},
+						StartEndRenderScripts = Input {
+						},
+						EffectMask = Input {
+						},
+						Matte = Input {
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -82.5, 142.15, },
+					},
+				},
+				toColor = ColorSpace {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					Inputs = {
+						ProcessAlpha = Input {
+							Value = 0,
+						},
+						ColorSpaceConversion = Input {
+							Value = 1,
+						},
+						ColorType = Input {
+							Value = 4,
+							Expression = "radioButtons.ProcessWhenBlendIs00*4",
+						},
+						BWRed = Input {
+							Disabled = true,
+						},
+						BWGreen = Input {
+							Disabled = true,
+						},
+						BWBlue = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "PreDivide",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, 49.5, },
+					},
+				},
+				Instance_toRGB = ColorSpace {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = {
+						Settings = {
+						},
+					},
+					SourceOp = "toColor",
+					Inputs = {
+						ColorSpaceConversion = Input {
+							Value = 2,
+						},
+						ColorType = Input {
+							Value = 4,
+							Expression = "radioButtons.ProcessWhenBlendIs00*4",
+						},
+						BWRed = Input {
+							Disabled = true,
+						},
+						BWGreen = Input {
+							Disabled = true,
+						},
+						BWBlue = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Instance_HSVorder",
+							Source = "Output",
+						},
+						StartEndRenderScripts = Input {
+						},
+						EffectMask = Input {
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -137.5, 175.15, },
+					},
+				},
+				PostMult = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "radioButtons.PreDividePostMultiply",
+						},
+						Operation = Input {
+							Value = 6,
+						},
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "EffectMask",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 137.5, 175.15, },
+					},
+				},
+				PreDivide = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Expression = "radioButtons.PreDividePostMultiply",
+						},
+						Operation = Input {
+							Value = 7,
+						},
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -137.5, 10.15, },
+					},
+				},
+				EffectMask = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "PreDivide",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Instance_toRGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0.804337, 175.065, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "HueCCv",
+}

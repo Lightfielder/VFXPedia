@@ -1,0 +1,70 @@
+-- Get the input of the selected tool
+myMaster = tool
+myMasterName = myMaster:GetAttrs().TOOLS_Name
+
+-- some masks don't have the full set of controls. So for now, let's just exclude them:
+myOddities={WandMask = true, BitmapMask =true, PaintMask = true}
+
+if not string.find (myMaster:GetAttrs().TOOLS_RegID, "Mask") then
+	print("This script should be run on a masks only. Exiting.")
+	do return end
+end
+
+dlg = comp:AskUser("Connect Upstream Mask Controls", {
+	{ "cLevel", "Checkbox", Name = "Level", Default = 0},
+	{ "cSoftEdge", "Checkbox", Name = "SoftEdge", Default = 0},
+	{ "cBorderWidth", "Checkbox", Name = "Border Width", Default = 0},
+	{ "cCenter", "Checkbox", Name = "Center", Default = 0},
+	{ "cSize", "Checkbox", Name = "Size", Default = 0},
+	{ "cXRot", "Checkbox", Name = "X Rotation", Default = 0},
+	{ "cYRot", "Checkbox", Name = "Y Rotation", Default = 0},
+	{ "cZRot", "Checkbox", Name = "Z Rotation", Default = 0}
+})
+
+if dlg then
+
+comp:StartUndo("SE MaskConnect")
+
+myStackTool = myMaster
+
+while myStackTool.EffectMask:GetConnectedOutput() do
+	myTool = myStackTool.EffectMask:GetConnectedOutput():GetTool()
+
+	if not myOddities[myTool:GetAttrs().TOOLS_RegID] then
+		if dlg.cLevel == 1 then
+			myTool.Level:SetExpression(myMasterName..".Level")
+		end
+		if dlg.cSoftEdge == 1 then
+			myTool.SoftEdge:SetExpression(myMasterName..".SoftEdge")
+		end
+		if dlg.cBorderWidth == 1 then
+			myTool.BorderWidth:SetExpression(myMasterName..".BorderWidth")
+		end
+		if dlg.cCenter == 1 then
+			myTool.Center:SetExpression(myMasterName..".Center")
+		end
+		if dlg.cSize == 1 then
+			myTool.Size:SetExpression(myMasterName..".Size")
+		end
+		if dlg.cXRot == 1 then
+			myTool.XRotation:SetExpression(myMasterName..".XRotation")
+		end
+		if dlg.cYRot == 1 then
+			myTool.YRotation:SetExpression(myMasterName..".YRotation")
+		end
+		if dlg.cZRot == 1 then
+			myTool.ZRotation:SetExpression(myMasterName..".ZRotation")
+		end
+	else
+		print("Skipping Tool: "..myTool:GetAttrs().TOOLS_Name..". Currently unsupported type.")
+	end
+	
+	myStackTool = myTool
+end
+comp:EndUndo(true)
+
+else
+
+print("You cancelled the execution. Should we talk about it?")
+
+end

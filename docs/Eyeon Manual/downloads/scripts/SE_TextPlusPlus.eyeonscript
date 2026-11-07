@@ -1,0 +1,31 @@
+globals.MyOp=""
+globals.MyTool=tool
+MyShaders={"Shader 1","Shader 2","Shader 3","Shader 4","Shader 5","Shader 6","Shader 7","Shader 8"}
+
+globals.MyInputs={"Opacity","Overlap","ElementShape","Thickness","AdaptThicknessToPerspective","OutsideOnly","JoinStyle","LineStyle",
+"Type","Red","Green","Blue","Alpha","ShadingGradient","ShadingMappingAngle","ShadingMappingSize","ShadingMappingAspect","ShadingMappingLevel",
+"Softness","SoftnessX","SoftnessY","SoftnessOnFillColorToo","SoftnessGlow","SoftnessBlend","Transform","Offset","OffsetZ","Pivot","PivotZ","AngleX",
+"AngleY","AngleZ","ShearX","ShearY","SizeX","SizeY","ExtendHorizontal", "ExtendVertical", "Round", "ShadingGradient" }
+-- removed "PriorityBack" from table
+
+ret = AskUser("SirEdric's TextPlus ShaderCopy", {	
+	{"Copy from",  "Dropdown", Options = MyShaders},
+	{"Copy to",  "Dropdown", Options = MyShaders},
+		})
+
+		
+if ret then
+
+	globals.cfs=tonumber(ret["Copy from"])+1 --=copy from shader
+	globals.cts=tonumber(ret["Copy to"])+1 --=copy to shader
+
+	dostring("MyTool.Enabled"..cts.."=1")
+	
+	for v = 1, table.getn(MyInputs) do
+		print(v.." value "..MyInputs[v])
+		print("MyOp=MyTool."..MyInputs[v]..cfs)
+		MyCopyValue=dostring("MyOp=MyTool."..MyInputs[v]..cfs)
+		MyPasteValue=dostring("MyTool."..MyInputs[v]..cts.."=MyOp[0]")
+	end
+
+end

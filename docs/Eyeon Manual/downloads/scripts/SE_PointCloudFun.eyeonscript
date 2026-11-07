@@ -1,0 +1,130 @@
+-- PointCloudPhun 1.0 by SirEdric (eric@eyeonline.com)
+-- Huge thanks & support-credits to the Wizard of Oz Daniel Koch (daniel@eyeonline.com)
+-- this goes into scripts/tools
+
+
+MyCloud=tool
+MyCheck=MyCloud:GetAttrs()
+MyTName=MyCheck.TOOLS_Name
+print (MyTName .." is a "..MyCheck.TOOLS_RegID)
+
+if MyCheck.TOOLS_RegID == "PointCloud3D" then
+
+	MyPosName={}
+	MyTool = comp:CopySettings(tool)
+	--MyMerge["Data3D1"]....some nifty concatenation of names and variables to get to the subtable
+	MyPos = MyTool["Tools"][MyTName]["Positions"]
+	MyNums=table.getn(MyPos)
+	MySaveDiv=math.floor(MyNums/20)
+	print("We found "..MyNums.." points in the PointCloud")
+	
+	-- copy point's names to separate table for the dropdowns in AskUser
+	MyPosName={}
+	MyPosList=""
+	for i = 1, MyNums do
+		MyPosName[i]=MyPos[i][4]
+		MyPosList=MyPosList..MyPos[i][4].."\n"
+	end
+
+	
+	-- MAKE askuser to set subdivisions!!!! (and some other option later on....;-))
+	-- add dropdown with cameras in scene to allow user to connect to that cam directly?
+	ret = AskUser("SirEdric's PointCloudPhun", {	
+	{"CreatePlane", Name = "Create Imageplanes at PointPositions", "Checkbox", Default = 0},
+	{"Important hint:", "Text", Lines=5, Default="With a division-level of 1 this script will generate "..MyNums.." Imageplanes from the currently selected Pointcloud. With the current default of "..MySaveDiv.." it will create 20 of them. Please make sure to set to a reasonable level of Division to keep Fusion responsive....;-)", ReadOnly=true, Wrap=true},
+	{"Divisions", "Slider", Min = 1, Max = 100, Default =MySaveDiv, Integer=true},
+	{"Look_at", Name = "Make Imageplanes look at common target", "Checkbox", Default = 0},
+	{"Another hint:", "Text", Lines=5, Default="Along with the ImagePlanes a 3DMerge will be created. This 3Mg's Pivot-Point will be used as the target for the Planes. You can then assign the 3Mg's pivot to your camera e.g. later on.", ReadOnly=true, Wrap=true},
+	{"Select here:", "Text", Lines=10, Default=MyPosList, ReadOnly=true, Wrap=true},
+	{"CreateLoc", Name = "Create 4 Locators using:", "Checkbox", Default = 0},
+	{"Loc_1",Name="TopLeft",  "Dropdown", Options = MyPosName},
+	{"Loc_2",Name="TopRight",  "Dropdown", Options = MyPosName},
+	{"Loc_3",Name="BottomLeft",  "Dropdown", Options = MyPosName},
+	{"Loc_4",Name="BottomRight",  "Dropdown", Options = MyPosName},
+	})
+	for i=1,4 do
+		print(ret["Loc_"..i])
+	end
+	if ret then
+		composition:StartUndo("PointCloudPhun")	
+		
+		if ret.CreatePlane==1 then
+			-- create a master-input
+			MyMaster = BrightnessContrast()
+			-- create a Merge3D and remember it's name for later connections
+			MyMerge = Merge3D()
+			MyMergeName = MyMerge:GetAttrs().TOOLS_Name
+			
+			MyCount=1
+			MyDivs=math.floor(ret.Divisions)
+			print("creating "..math.floor(MyNums/MyDivs).." imageplanes now....please be patient....")
+			
+			for i = 1, MyNums, MyDivs do
+				--print("Name: "..MyPos[i][4].."X_value: "..MyPos[i][1].."X_value: "..MyPos[i][2].."Z_value: "..MyPos[i][3])
+				
+				--create an imageplane
+				MyPlane = ImagePlane3D()
+				-- and position it in 3DSpace according to the Point-position in the pointcloud
+				MyPlane.Transform3DOp.Translate.X = MyPos[i][1]
+				MyPlane.Transform3DOp.Translate.Y = MyPos[i][2]
+				MyPlane.Transform3DOp.Translate.Z = MyPos[i][3]
+				
+				--should they always face a target?
+				if ret.Look_at==1 then
+					--switch Target on
+					MyPlane.Transform3DOp.UseTarget=1
+
+					--Now add an expression to the plane's XYZ and connect it to the merge's pivot.
+					MyPlane.Transform3DOp.Target.X:SetExpression(MyMergeName.. ".Transform3DOp.Pivot.X")
+					MyPlane.Transform3DOp.Target.Y:SetExpression(MyMergeName.. ".Transform3DOp.Pivot.Y")
+					MyPlane.Transform3DOp.Target.Z:SetExpression(MyMergeName.. ".Transform3DOp.Pivot.Z")
+				end
+				
+				-- connect to input
+				MyPlane.Input=MyMaster
+
+				--connect to Merge3D
+				--MyString="MyMerge.Data3D"..MyCount.."=MyPlane" --MyMerge.Data3D1=MyPlane
+				MyMerge["Data3D"..MyCount]=MyPlane
+				MyCount=MyCount+1
+			end
+			-- NOW select all imageplanes & group them via script.....is this possible???
+		end
+		
+		if ret.CreateLoc==1 then
+		-- here we go with our locators!
+			MyLocNames={"TopLeft","TopRight", "BottomLeft","BottomRight"}
+			--MyCount=1
+			for i=1,4 do
+				print("Now connecting to: "..MyPos[ret["Loc_" .. i]+1][4]) -- +1 because of 0/1 issue with dropdown indices
+				-- create a Locator3D
+				MyLoc= Locator3D
+				MyLoc:SetAttrs({TOOLS_Name = MyLocNames[i]})
+				
+				-- connect 'em up
+				if i==1 then
+					MyLoc.Data3D=MyCloud
+				else
+					MyLoc.Data3D=MyTempLoc
+				end
+				
+				-- position in 3D space
+				MyLoc.Transform3DOp.Translate.X = MyPos[ret["Loc_"..i]+1][1]
+				MyLoc.Transform3DOp.Translate.Y = MyPos[ret["Loc_"..i]+1][2]
+				MyLoc.Transform3DOp.Translate.Z = MyPos[ret["Loc_"..i]+1][3]
+				
+				-- store old tool for next connection
+				MyTempLoc=MyLoc
+
+			
+			end
+		
+		end
+		composition:EndUndo(true)
+  end
+
+else
+	print("This script only works on PointCloud-Tools. \n Sorry to say....I'm off.....;-)")
+  
+end
+

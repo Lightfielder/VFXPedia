@@ -1,0 +1,1564 @@
+Composition {
+	CurrentTime = 146,
+	RenderRange = { 0, 150, },
+	GlobalRange = { 0, 1000, },
+	HiQ = true,
+	Version = "Fusion 5.1 build 100",
+	SavedOutputs = 2,
+	HeldTools = 0,
+	DisabledTools = 0,
+	LockedTools = 0,
+	AudioOffset = 0,
+	AutoRenderRange = false,
+	Resumable = true,
+	OutputClips = {
+	},
+	Tools = {
+		Displace1 = Displace {
+			Inputs = {
+				XChannel = Input {
+					Disabled = true,
+				},
+				XRefraction = Input {
+					Disabled = true,
+				},
+				YChannel = Input {
+					Disabled = true,
+				},
+				YRefraction = Input {
+					Disabled = true,
+				},
+				RefractionStrength = Input {
+					Value = 0.1657459,
+				},
+				Input = Input {
+					SourceOp = "SoftGlow1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "This displaces our text based on the 'welding particles' to add an idea of heathaze.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1485, 214.5, },
+			},
+		},
+		Displace1_1 = Displace {
+			Inputs = {
+				XChannel = Input {
+					Disabled = true,
+				},
+				XRefraction = Input {
+					Disabled = true,
+				},
+				YChannel = Input {
+					Disabled = true,
+				},
+				YRefraction = Input {
+					Value = 0.0590055,
+					Disabled = true,
+				},
+				RefractionStrength = Input {
+					Value = 0.4309392,
+				},
+				Spread = Input {
+					Value = 0.6,
+				},
+				Input = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Displacing the particles with themselves?\r\nYes. To add some 'liquid' appearance to them.\r\n\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1540, 115.5, },
+			},
+		},
+		BrightnessContrast1 = BrightnessContrast {
+			Inputs = {
+				ApplyMaskInverted = Input {
+					Value = 1,
+				},
+				Alpha = Input {
+					Value = 1,
+				},
+				Gain = Input {
+					Value = 0,
+				},
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "This creates the region for our particle emitter.\r\nMasked out by RegionMask we only get the center where both parts of the text 'collide'.\r\n",
+				},
+				EffectMask = Input {
+					SourceOp = "RegionMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 825, 82.5, },
+			},
+		},
+		pEmitter1 = pEmitter {
+			Inputs = {
+				Number = Input {
+					SourceOp = "pEmitter1Number",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 20,
+				},
+				LifespanVariance = Input {
+					Value = 5,
+				},
+				Color = Input {
+					Value = 1,
+				},
+				PositionVariance = Input {
+					Value = 0.01,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				VelocityVariance = Input {
+					Value = 0.5,
+				},
+				AngleVariance = Input {
+					Value = 90,
+				},
+				RotationControls = Input {
+					Value = 1,
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBlob", },
+				},
+				Region = Input {
+					Value = FuID { "BitmapRgn", },
+				},
+				Comments = Input {
+					Value = "Our 'welding blast'\r\nThe Number of the particles created is animated\r\nto match the 'bumping together' of the text.",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 0.45, },
+							[1] = { 1, 1, 1, 0, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 0.1,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.3900709,
+				},
+				["ParticleStyle.MergeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["BitmapRgn.Bitmap"] = Input {
+					SourceOp = "BrightnessContrast1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 82.5, },
+			},
+		},
+		pEmitter1Number = BezierSpline {
+			SplineColor = { 1, 0, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[8] = { 0, RH = { 8.33333333333333, 1000, }, Flags = { Linear = true, }, },
+				[9] = { 3000, LH = { 8.66666666666667, 2000, }, RH = { 9.33333333333333, 2000, }, Flags = { Linear = true, }, },
+				[10] = { 0, LH = { 9.66666666666667, 1000, }, RH = { 11.3333333333333, 0, }, Flags = { Linear = true, }, },
+				[14] = { 0, LH = { 12.6666666666667, 0, }, RH = { 14.3333333333333, 666.666666666667, }, Flags = { Linear = true, }, },
+				[15] = { 2000, LH = { 14.6666666666667, 1333.33333333333, }, RH = { 15.3333333333333, 1333.33333333333, }, Flags = { Linear = true, }, },
+				[16] = { 0, LH = { 15.6666666666667, 666.666666666667, }, RH = { 17, 0, }, Flags = { Linear = true, }, },
+				[19] = { 0, LH = { 18, 0, }, RH = { 19.3333333333333, 333.333333333333, }, Flags = { Linear = true, }, },
+				[20] = { 1000, LH = { 19.6666666666667, 666.666666666667, }, RH = { 20.3333333333333, 666.666666666667, }, Flags = { Linear = true, }, },
+				[21] = { 0, LH = { 20.6666666666667, 333.333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.00520833333333329, RH = { 0.333333333333333, 0.336805555555556, }, Flags = { Linear = true, }, },
+					[1] = { 1, LH = { 0.666666666666667, 0.668402777777778, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			KeyFrames = {
+				[0] = { 0.00520833333333329, RH = { 0.333333333333333, 0.336805555555556, }, Flags = { Linear = true, }, },
+				[1] = { 1, LH = { 0.666666666666667, 0.668402777777778, }, Flags = { Linear = true, }, },
+			},
+		},
+		pEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.749019607843137, 0.498039215686275, 0.250980392156863, },
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pDirectionalForce1 = pDirectionalForce {
+			Inputs = {
+				Strength = Input {
+					Value = 0.5,
+				},
+				Direction = Input {
+					Value = 0,
+				},
+				DirectionZ = Input {
+					Value = -90,
+				},
+				Input = Input {
+					SourceOp = "pEmitter1",
+					Source = "Output",
+				},
+				EndAge = Input {
+					Value = 0.0529801,
+				},
+				Comments = Input {
+					Value = "We need some movement towards the camera.\r\nBut only for the first few frames of a particle's lifetime.\r\nSee the EndAge in the conditions-tab",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1045, 82.5, },
+			},
+		},
+		pTurbulence1 = pTurbulence {
+			Inputs = {
+				XStrength = Input {
+					Value = 0.5,
+				},
+				YStrength = Input {
+					Value = 0.5,
+				},
+				ZStrength = Input {
+					Value = 0,
+				},
+				StrengthOverLife = Input {
+					Value = 1,
+				},
+				StrengthOverLifeLUT = Input {
+					SourceOp = "pTurbulence1StrengthoverLifeLUT",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pDirectionalForce1",
+					Source = "Output",
+				},
+				EndAge = Input {
+					Value = 0.1986755,
+				},
+				Comments = Input {
+					Value = "Some turbulence won't hurt.\r\nAgain limited to the first few frames using Conditions.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1155, 82.5, },
+			},
+		},
+		pTurbulence1StrengthoverLifeLUT = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pDirectionalForce2 = pDirectionalForce {
+			Inputs = {
+				Input = Input {
+					SourceOp = "pTurbulence1",
+					Source = "Output",
+				},
+				StartAge = Input {
+					Value = 0.2715232,
+				},
+				Comments = Input {
+					Value = "And some gravity to make the particles fall down.\r\n\r\nThis time it kicks in *after* the particles have reached a certain age.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1265, 82.5, },
+			},
+		},
+		pRender1 = pRender {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pDirectionalForce2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1375, 82.5, },
+			},
+		},
+		Merge3 = Merge {
+			Inputs = {
+				ApplyMode = Input {
+					Value = FuID { "Screen", },
+				},
+				Background = Input {
+					SourceOp = "Displace1_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "pRender1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Screen the original Particles on top of the displaced ones to add to the look.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1650, 115.5, },
+			},
+		},
+		Merge2 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "Displace1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Merge3",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Merge the 'welding particles' on top of the text.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1705, 214.5, },
+			},
+		},
+		Instance_Text1 = TextPlus {
+			ExtentSet = false,
+			SourceOp = "Text1",
+			Inputs = {
+				ApplyMaskInverted = Input {
+					Value = 1,
+				},
+				LayoutRotation = Input {
+				},
+				InternationalFontControls = Input {
+				},
+				AdvancedFontControls = Input {
+				},
+				Alignment = Input {
+				},
+				LineRotation = Input {
+				},
+				WordRotation = Input {
+				},
+				CharacterRotation = Input {
+				},
+				Options1 = Input {
+				},
+				Color1 = Input {
+				},
+				ColorImage1 = Input {
+				},
+				Softness1 = Input {
+				},
+				Transform1 = Input {
+				},
+				StartEndRenderScripts = Input {
+				},
+				Comments = Input {
+					Value = "Your basic Text, but in the commons-tab\r\n'Apply mask inverted' is checked.\r\nThus giving you the lower part of the Text.",
+				},
+				EffectMask = Input {
+					SourceOp = "TextCutOff",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, 214.5, },
+			},
+		},
+		Text1CenterZ = BezierSpline {
+			SplineColor = { 0.705882352941177, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, RH = { 33.3333333333333, -0.0644567333333333, }, },
+				[100] = { -0.1933702, LH = { 66.6666666666667, -0.128913466666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		Transform1_1 = Transform {
+			Inputs = {
+				MotionBlur = Input {
+					SourceOp = "Transform1MotionBlur",
+					Source = "Value",
+				},
+				Center = Input {
+					Expression = "Point(0.5, 1-Transform1.Center.Y)",
+				},
+				Input = Input {
+					SourceOp = "Instance_Text1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Moves the Text from bottom to top.\r\n\r\nConnected to the first transform by this nifty expression:\r\nPoint(0.5, 1-Transform1.Center.Y)\r\n\r\nSo, X remains at 0.5 while Y is the inverse of the first XF's Y, resulting in a counter-direction.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 214.5, },
+			},
+		},
+		Transform1MotionBlur = BezierSpline {
+			SplineColor = { 1, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[20] = { 1, RH = { 20.3333333333333, 0.666666666666667, }, },
+				[21] = { 0, LH = { 20.6666666666667, 0.333333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		TextCutOff = RectangleMask {
+			NameSet = true,
+			Inputs = {
+				Center = Input {
+					Value = { 0.5, 1, },
+				},
+				Width = Input {
+					Value = 1.30528375733855,
+				},
+				Height = Input {
+					Value = 1.05,
+				},
+				Comments = Input {
+					Value = "Feel free to adjust the height (NOT the center!)\r\nof this mask to adjust the CutOff on the text to yoour liking.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 55, 148.5, },
+			},
+		},
+		Text1 = TextPlus {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				CenterZ = Input {
+					SourceOp = "Text1CenterZ",
+					Source = "Value",
+				},
+				Size = Input {
+					Value = 0.198895,
+				},
+				Font = Input {
+					Value = "Verdana",
+				},
+				StyledText = Input {
+					Value = "smashing",
+				},
+				Style = Input {
+					Value = "Bold",
+				},
+				ManualFontKerningPlacement = Input {
+					Value = StyledText {
+						Array = {
+						},
+						Value = "",
+					},
+				},
+				Type1 = Input {
+					Value = 2,
+				},
+				ShadingGradient1 = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 0.473333333333333, 0.0522255726161657, 0.0228041481481481, 1, },
+							[1] = { 1, 0.558412646593901, 0.189155555555556, 1, },
+						},
+					},
+				},
+				ShadingMappingLevel1 = Input {
+					Value = 3,
+				},
+				Comments = Input {
+					Value = "Your basic Text\r\ncut off by the rectangular mask.",
+				},
+				EffectMask = Input {
+					SourceOp = "TextCutOff",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 220, 82.5, },
+			},
+		},
+		Transform1 = Transform {
+			Inputs = {
+				MotionBlur = Input {
+					SourceOp = "Transform1MotionBlur",
+					Source = "Value",
+				},
+				Quality = Input {
+					Value = 10,
+				},
+				ShutterAngle = Input {
+					Value = 360,
+				},
+				Center = Input {
+					SourceOp = "XYPath1",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "Text1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "This moves the text from Top to bottom.\r\nCheck out the animated MotionBlur settings \r\nin the commons tab.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 385, 82.5, },
+			},
+		},
+		XYPath1 = XYPath {
+			Inputs = {
+				X = Input {
+					SourceOp = "XYPathonTransform1X",
+					Source = "Value",
+				},
+				Y = Input {
+					SourceOp = "XYPathonTransform1Y",
+					Source = "Value",
+				},
+				Z = Input {
+					SourceOp = "XYPathonTransform1Z",
+					Source = "Value",
+				},
+				Displacement = Input {
+					SourceOp = "XYPathonTransform1Displacement",
+					Source = "Value",
+				},
+			},
+		},
+		XYPathonTransform1X = BezierSpline {
+			SplineColor = { 0, 1, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 3.33333333333333, 0.5, }, },
+				[10] = { 0.5, LH = { 6.66666666666667, 0.5, }, RH = { 11, 0.5, }, Flags = { Linear = true, }, },
+				[13] = { 0.5, LH = { 12, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPathonTransform1Y = BezierSpline {
+			SplineColor = { 1, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 1.06794425087108, RH = { 3, 0.87862950058072, }, },
+				[9] = { 0.5, LH = { 6, 0.68931475029036, }, RH = { 10, 0.50564314921697, }, Flags = { Linear = true, }, },
+				[12] = { 0.516929447650909, LH = { 11, 0.51128629843394, }, RH = { 13, 0.51128629843394, }, Flags = { Linear = true, }, },
+				[15] = { 0.5, LH = { 14, 0.50564314921697, }, RH = { 15.6666666666667, 0.502992153167725, }, Flags = { Linear = true, }, },
+				[17] = { 0.508976459503174, LH = { 16.3333333333333, 0.505984306335449, }, RH = { 18, 0.505984306335449, }, Flags = { Linear = true, }, },
+				[20] = { 0.5, LH = { 19, 0.502992153167725, }, Flags = { Linear = true, }, },
+			},
+		},
+		XYPathonTransform1Z = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, },
+			},
+		},
+		XYPathonTransform1Displacement = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0, },
+			},
+		},
+		Merge1 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "Transform1_1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Transform1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Well..we need to put upper and lower part together, don't we?...;-)",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 550, 148.5, },
+			},
+		},
+		FastNoise1 = FastNoise {
+			ExtentSet = false,
+			Inputs = {
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				Discontinuous = Input {
+					Value = 1,
+				},
+				Inverted = Input {
+					Value = 1,
+				},
+				Detail = Input {
+					Value = 0.3314917,
+				},
+				Contrast = Input {
+					Value = 5,
+				},
+				XScale = Input {
+					Value = 16.7955801,
+				},
+				YScale = Input {
+					Disabled = true,
+				},
+				SeetheRate = Input {
+					Value = 0.3,
+				},
+				Type = Input {
+					Value = 1,
+				},
+				Gradient = Input {
+					Value = Gradient {
+						Colors = {
+							[0.949019607843137] = { 0, 0, 0, 1, },
+							[1] = { 1, 1, 1, 1, },
+						},
+					},
+				},
+				Comments = Input {
+					Value = "A steep gradient and high contrast give us this look.\r\nThe Seethe Rate takes care of the movement.",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 148.5, },
+			},
+		},
+		RegionMask = RectangleMask {
+			NameSet = true,
+			Inputs = {
+				Level = Input {
+					SourceOp = "Rectangle2Level",
+					Source = "Value",
+				},
+				Center = Input {
+					Value = { 0.5, 0.475, },
+					Expression = "Point(.5, 1- TextCutOff.Height/2)",
+				},
+				Width = Input {
+					Value = 1.20849420849421,
+				},
+				Height = Input {
+					Value = 0.0171821305841924,
+				},
+				Comments = Input {
+					Value = "Another nifty expression:\r\nPoint(.5, 1- TextCutOff.Height/2)\r\nAs long as the TextCutOff's center stays at 0.5 / 1.0\r\nyou can freely adjust it's height to select where your text is cut in half.\r\nRegionMask will follow and automatically generate the correct Region for your Particles.\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 715, 148.5, },
+			},
+		},
+		Rectangle2Level = BezierSpline {
+			SplineColor = { 1, 0.705882352941177, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[50] = { 1, RH = { 53.3333333333333, 0.666666666666667, }, Flags = { Linear = true, }, },
+				[60] = { 0, LH = { 56.6666666666667, 0.333333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		GlowMask = BitmapMask {
+			NameSet = true,
+			Inputs = {
+				Level = Input {
+					SourceOp = "Bitmap1Level",
+					Source = "Value",
+				},
+				Image = Input {
+					SourceOp = "FastNoise1",
+					Source = "Output",
+				},
+				Channel = Input {
+					Value = FuID { "Luminance", },
+				},
+				Comments = Input {
+					Value = "Animated level to fade in the gloweffect creatd by the fastnoise.",
+				},
+				EffectMask = Input {
+					SourceOp = "RegionMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 181.5, },
+			},
+		},
+		Bitmap1Level = BezierSpline {
+			SplineColor = { 0, 1, 0.705882352941177, },
+			NameSet = true,
+			KeyFrames = {
+				[40] = { 0, RH = { 51.6666666666667, 0.333333333333333, }, },
+				[75] = { 1, LH = { 63.3333333333333, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		SoftGlow1 = SoftGlow {
+			Inputs = {
+				Gain = Input {
+					SourceOp = "SoftGlow1Gain",
+					Source = "Value",
+				},
+				XGlowSize = Input {
+					SourceOp = "SoftGlow1GlowSize",
+					Source = "Value",
+				},
+				YGlowSize = Input {
+					Disabled = true,
+				},
+				Input = Input {
+					SourceOp = "Merge1",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "Firstly, relying on the RegionMask this generates the glow at the 'welding point' of our text.\r\nLater on it's driven by GlowMask to add that exciting glow to the text.",
+				},
+				GlowMask = Input {
+					SourceOp = "GlowMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 935, 214.5, },
+			},
+		},
+		SoftGlow1Gain = BezierSpline {
+			SplineColor = { 1, 0.498039215686275, 0.498039215686275, },
+			NameSet = true,
+			KeyFrames = {
+				[20] = { 15, RH = { 33.3333333333333, 11.6666666666667, }, },
+				[60] = { 5, LH = { 46.6666666666667, 8.33333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		SoftGlow1GlowSize = BezierSpline {
+			SplineColor = { 0, 1, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[20] = { 30, RH = { 33.3333333333333, 23.3333333333333, }, },
+				[60] = { 10, LH = { 46.6666666666667, 16.6666666666667, }, RH = { 65, 7.77163903333333, }, Flags = { Linear = true, }, },
+				[75] = { 3.3149171, LH = { 70, 5.54327806666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		pImageEmitter1 = pImageEmitter {
+			CtrlWZoom = false,
+			Inputs = {
+				RandomSeed = Input {
+					Value = 17501,
+				},
+				XDensity = Input {
+					Value = 0.05,
+				},
+				YDensity = Input {
+					Value = 0.05,
+				},
+				AlphaThreshold = Input {
+					Value = 0.3,
+				},
+				LockParticleColorToInitialFrame = Input {
+					Value = 1,
+				},
+				CreateParticlesEveryFrame = Input {
+					SourceOp = "pImageEmitter1CreateParticlesEveryFrame",
+					Source = "Value",
+				},
+				Lifespan = Input {
+					Value = 75,
+				},
+				LifespanVariance = Input {
+					Value = 10,
+				},
+				PositionVariance = Input {
+					Value = 0.01,
+				},
+				VelocityControls = Input {
+					Value = 1,
+				},
+				VelocityVariance = Input {
+					Value = 1,
+				},
+				AngleVariance = Input {
+					Value = 360,
+				},
+				AngleZ = Input {
+					Value = -90,
+				},
+				Input = Input {
+					SourceOp = "SoftGlow1",
+					Source = "Output",
+				},
+				Style = Input {
+					Value = FuID { "ParticleStyleBitmap", },
+				},
+				Comments = Input {
+					Value = "Here we go with our exploding text!\r\n\r\nCheck out \r\n- the animated 'CreateParticlesEveryFrame'\r\n- the size and color over life\r\n- ",
+				},
+				["ParticleStyle.ColorControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLifeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.ColorOverLife"] = Input {
+					Value = Gradient {
+						Colors = {
+							[0] = { 1, 1, 1, 0.3, },
+							[1] = { 0, 0, 0, 0.3, },
+						},
+					},
+				},
+				["ParticleStyle.SizeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.Size"] = Input {
+					Value = 8,
+				},
+				["ParticleStyle.SizeVariance"] = Input {
+					Value = 3,
+				},
+				["ParticleStyle.SizeOverLife"] = Input {
+					SourceOp = "pImageEmitter1SizeoverLife",
+					Source = "Value",
+				},
+				["ParticleStyle.FadeControls"] = Input {
+					Value = 1,
+				},
+				["ParticleStyle.FadeOut"] = Input {
+					Value = 0.4,
+				},
+				["ParticleStyle.BlurOverLife"] = Input {
+					SourceOp = "pImageEmitter1BluroverLife2D",
+					Source = "Value",
+				},
+				["ParticleStyleBitmap.Animate"] = Input {
+					Value = 1,
+				},
+				["ParticleStyleBitmap.DropToolsHere"] = Input {
+					SourceOp = "MatteControl1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1595, 313.5, },
+			},
+		},
+		pImageEmitter1CreateParticlesEveryFrame = BezierSpline {
+			SplineColor = { 1, 1, 0, },
+			NameSet = true,
+			KeyFrames = {
+				[79] = { 1, RH = { 79.3333333333333, 0.666666666666667, }, },
+				[80] = { 0, LH = { 79.6666666666667, 0.333333333333333, }, Flags = { Linear = true, }, },
+			},
+		},
+		pImageEmitter1SizeoverLife = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.0299479166666666, RH = { 0.315919574361699, 0.945886501287817, }, Flags = { Linear = true, }, },
+					[1] = { 0.994791666666667, LH = { 0.693673869136697, 0.890510430628095, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.0299479166666666, RH = { 0.315919574361699, 0.945886501287817, }, Flags = { Linear = true, }, },
+				[1] = { 0.994791666666667, LH = { 0.693673869136697, 0.890510430628095, }, },
+			},
+		},
+		pImageEmitter1BluroverLife2D = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pTurbulence2 = pTurbulence {
+			Inputs = {
+				XStrength = Input {
+					Value = 0.4,
+				},
+				YStrength = Input {
+					Value = 0.4,
+				},
+				ZStrength = Input {
+					Value = 1,
+				},
+				StrengthOverLifeLUT = Input {
+					SourceOp = "pTurbulence2StrengthoverLifeLUT",
+					Source = "Value",
+				},
+				Input = Input {
+					SourceOp = "pImageEmitter1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1705, 313.5, },
+			},
+		},
+		pTurbulence2StrengthoverLifeLUT = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+					[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+				},
+			},
+			SplineColor = { 0.752941176470588, 0.501960784313725, 0.250980392156863, },
+			NameSet = true,
+			KeyFrames = {
+				[0] = { 0.5, RH = { 0.3, 0.5, }, Flags = { Linear = true, }, },
+				[1] = { 0.5, LH = { 0.7, 0.5, }, Flags = { Linear = true, }, },
+			},
+		},
+		pDirectionalForce3 = pDirectionalForce {
+			Inputs = {
+				RandomSeed = Input {
+					Value = 7774,
+				},
+				Input = Input {
+					SourceOp = "pTurbulence2",
+					Source = "Output",
+				},
+				StartAge = Input {
+					Value = 0.1258278,
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1815, 313.5, },
+			},
+		},
+		pRender2 = pRender {
+			ExtentSet = true,
+			Inputs = {
+				GlobalIn = Input {
+					Value = 75,
+				},
+				Width = Input {
+					Value = 1280,
+				},
+				Height = Input {
+					Value = 720,
+				},
+				OutputMode = Input {
+					Value = FuID { "TwoD", },
+					Disabled = true,
+				},
+				SubFrameCalculationAccuracy = Input {
+					Value = 1,
+				},
+				Input = Input {
+					SourceOp = "pDirectionalForce3",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "To save rendertime this one has a global in of 75",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1925, 313.5, },
+			},
+		},
+		Dissolve1 = Dissolve {
+			Transitions = {
+				[0] = "DFTDissolve",
+			},
+			Inputs = {
+				Mix = Input {
+					SourceOp = "Dissolve1BackgroundForeground",
+					Source = "Value",
+				},
+				Background = Input {
+					SourceOp = "Merge2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "pRender2",
+					Source = "Output",
+				},
+				Comments = Input {
+					Value = "An animated dissolve to switch from our original text to the exploding version at frame 75.\r\n",
+				},
+			},
+			ViewInfo = OperatorInfo {
+				Pos = { 1925, 214.5, },
+			},
+		},
+		Dissolve1BackgroundForeground = BezierSpline {
+			SplineColor = { 1, 0, 1, },
+			NameSet = true,
+			KeyFrames = {
+				[74] = { 0, RH = { 74.3333333333333, 0.333333333333333, }, },
+				[75] = { 1, LH = { 74.6666666666667, 0.666666666666667, }, Flags = { Linear = true, }, },
+			},
+		},
+		SE_FastSmoke111 = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "One of the macros that could be found on:\r\nwww.vfxpedia.com\r\n\r\n",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "GlobalIn",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "GlobalOut",
+					ControlGroup = 1,
+					Default = 1000,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "Width",
+					Name = "Resoution (square pixel)",
+					Default = 128,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "Depth",
+					Default = 0,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "Detail",
+					Name = "Noise Detail",
+					Default = 2.707182,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "Brightness",
+					Name = "Noise Brightness",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "Contrast",
+					Name = "Noise Contrast",
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "LockXY",
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "XScale",
+					Name = "Noise Scale X",
+					Default = 1.767956,
+				},
+				Input10 = InstanceInput {
+					Disabled = true,
+					SourceOp = "FastNoise1_1",
+					Source = "YScale",
+					Name = "Noise Scale Y",
+					Default = 2,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "FastNoise1_1",
+					Source = "SeetheRate",
+					Name = "Noise Speed",
+					Default = 0.1,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "Ellipse1_1",
+					Source = "SoftEdge",
+					Name = "Mask Softness",
+				},
+				Input13 = InstanceInput {
+					SourceOp = "Ellipse1_1",
+					Source = "Width",
+					Name = "Mask Size",
+					Default = 0.4198895,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "Displace1_2",
+					Source = "RefractionStrength",
+					Name = "Displace Power",
+					Default = 1.314917,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "Displace1_2",
+					Source = "Spread",
+					Name = "Displace Softness",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "MatteControl1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 1595, 280.5, },
+			},
+			Tools = ordered() {
+				FastNoise1_1 = FastNoise {
+					ExtentSet = false,
+					CtrlWShown = false,
+					Inputs = {
+						Width = Input {
+							Value = 64,
+						},
+						Height = Input {
+							Value = 64,
+							Expression = "Width",
+						},
+						Discontinuous = Input {
+							Value = 1,
+						},
+						Detail = Input {
+							Value = 2.707182,
+						},
+						XScale = Input {
+							Value = 1.767956,
+						},
+						YScale = Input {
+							Disabled = true,
+						},
+						SeetheRate = Input {
+							Value = 0.5,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -55, 10.15, },
+					},
+				},
+				Background1 = Background {
+					ExtentSet = false,
+					CtrlWShown = false,
+					Inputs = {
+						Width = Input {
+							Value = 64,
+							Expression = "FastNoise1_1.Width",
+						},
+						Height = Input {
+							Value = 64,
+							Expression = "Width",
+						},
+						TopLeftRed = Input {
+							Value = 1,
+						},
+						TopLeftGreen = Input {
+							Value = 1,
+						},
+						TopLeftBlue = Input {
+							Value = 1,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+						EffectMask = Input {
+							SourceOp = "Ellipse1_1",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -55, 76.15, },
+					},
+				},
+				Ellipse1_1 = EllipseMask {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						SoftEdge = Input {
+							Value = 0.0574586,
+						},
+						Width = Input {
+							Value = 0.4198895,
+						},
+						Height = Input {
+							Value = 0.4198895,
+							Expression = "Width",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -165, 76.15, },
+					},
+				},
+				Displace1_2 = Displace {
+					CtrlWShown = false,
+					Inputs = {
+						XChannel = Input {
+							Disabled = true,
+						},
+						XRefraction = Input {
+							Disabled = true,
+						},
+						YChannel = Input {
+							Disabled = true,
+						},
+						YRefraction = Input {
+							Disabled = true,
+						},
+						RefractionStrength = Input {
+							Value = 1.314917,
+						},
+						Input = Input {
+							SourceOp = "Background1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "FastNoise1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 55, 76.15, },
+					},
+				},
+				MatteControl1 = MatteControl {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						MatteCombine = Input {
+							Value = 4,
+						},
+						CombineOp = Input {
+							Value = 5,
+						},
+						PostMultiplyImage = Input {
+							Value = 1,
+						},
+						Background = Input {
+							SourceOp = "FastNoise1_1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Displace1_2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 165, 10.15, },
+					},
+				},
+			},
+		},
+	},
+	Views = {
+		{
+			Mode = 3,
+			LayoutPreset = 0,
+			Left = 0,
+			Top = 0,
+			Width = 1564,
+			Height = 730,
+			Views = {
+				Main = MultiView {
+					Active = "Flow",
+					Flow = FlowView {
+						Flags = {
+							Navigator = true,
+							GridSnap = true,
+							AutoSnap = true,
+							RemoveRouters = true,
+						},
+						Direction = "Horizontal",
+						PipeStyle = "Direct",
+						Scale = 1.10717,
+						Offset = { -1030.19, 36.5829, },
+					},
+					Console = ConsoleView {
+						Show = {
+						},
+						History = {
+						},
+					},
+					Timeline = TimelineView {
+						TreeControlState = {
+							{ "pEmitter1", Expanded = true, },
+							{ "RegionMask", Expanded = true, },
+							{ "Transform1", Expanded = true, },
+							{ "SoftGlow1", Expanded = true, },
+							{ "GlowMask", Expanded = true, },
+							{ "Instance_Text1", Expanded = true, },
+							{ "Dissolve1", Expanded = true, },
+							{ "SE_FastSmoke111", Expanded = true, },
+							{ "FastNoise1_1", Expanded = true, },
+							{ "Background1", Expanded = true, },
+							{ "Ellipse1_1", Expanded = true, },
+						},
+						DisplayMode = "All Tools",
+						ShowCurrentTimeTools = false,
+						Filter = "Show All",
+						ShowSelectedTools = false,
+						ShowAnimatedToolsOnly = false,
+						ShowEditBoxes = false,
+						KeyFrameView = {
+							Position = { Left = 130, Bottom = 509, },
+							ScaleX = 0.196504269019099,
+							OffsetX = -49.1733193031152,
+							OffsetY = 20,
+							ScaleLocked = false,
+							AutoSnapTo = "frame",
+							AutoSnapToGuidelines = true,
+							GuidelinesSnapTo = "frame",
+						},
+						Spreadsheet = { LeftPos = 130, Visible = false, },
+					},
+					Spline = SplineEditorView {
+						LeftPos = 225,
+						ScaleX = 0.2,
+						ScaleY = 0.0034965034965035,
+						OffsetX = -13.6,
+						OffsetY = 4.44089209850063e-016,
+						ScaleLocked = false,
+						AutoSnapTo = "frame",
+						AutoSnapToGuidelines = true,
+						GuidelinesSnapTo = "frame",
+						ShowKeyMarkers = false,
+						IndependentHandles = false,
+						ShowNonSplineModifiers = false,
+						ShowOneToolOnly = false,
+						ShowSelectedTools = true,
+						ShowAllInputs = false,
+						Filter = "Show All",
+					},
+				},
+				Controls = MultiView {
+					Active = "Tools",
+				},
+				Time = {
+					VisibleRange = { 0, 1000, },
+				},
+			},
+			Layout = {
+				Columns = 2,
+				RatioX = 1,
+				RatioY = 1,
+				{
+					Rows = 3,
+					RatioX = 0.845953002610966,
+					RatioY = 0.0101476014760148,
+					{
+						Columns = 2,
+						RatioX = 1,
+						RatioY = 0.475881261595547,
+						{
+							ID = "Left",
+							RatioX = 1,
+							RatioY = 102.600389863548,
+							Pop = true,
+						},
+						{
+							ID = "Right",
+							RatioX = -2,
+							Pop = true,
+						},
+						Pop = true,
+					},
+					{
+						ID = "Main",
+						RatioY = 0.474025974025974,
+						Pop = true,
+					},
+					{
+						ID = "Time",
+						SnapY = 52,
+						Flat = true,
+					},
+				},
+				{
+					Rows = 2,
+					PixelX = 293,
+					{
+						ID = "Controls",
+						RatioX = 1,
+						RatioY = 1,
+					},
+					{
+						ID = "Transport",
+						FixedY = -2,
+					},
+				},
+			},
+		},
+	},
+	Prefs = {
+		Comp = {
+			Memory = {
+				FramesAtOnce = 3,
+			},
+			Views = {
+				Right = {
+					Viewer = {
+						LUTPlugin = "",
+						CheckerUnderlay = false,
+					},
+				},
+				Left = {
+					Viewer = {
+						CheckerUnderlay = false,
+						ScaleMode = 0,
+					},
+					ViewLUT = {
+					},
+				},
+			},
+			Preview = {
+				HiQ = true,
+			},
+			FrameFormat = {
+				Name = "HDTV 720",
+				Width = 1280,
+				Height = 720,
+				Rate = 30,
+				AspectY = 1,
+				GuideRatio = 1.77777777777778,
+			},
+			LastFile = "E:\\Erics\\FusionSupport\\th_moneytv3d.jpg",
+			Unsorted = {
+				RenderSettings = {
+					Configs = {
+						Preview = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+						Final = {
+							StepRender = false,
+							PriorityClasses = "all",
+							CustomAspect = true,
+							StepSize = 5,
+							SizeType = 1,
+							CustomHeight = 160,
+							ShowSlaves = false,
+							CustomWidth = 200,
+							MotionBlur = true,
+							UpdateMode = "Some",
+							UseNetwork = false,
+							Quality = true,
+						},
+					},
+					PreviewConfig = "Preview",
+					CurrentConfig = "Final",
+				},
+			},
+			SplineEditor = {
+				AutoSnap = {
+					Keys = 18,
+				},
+				ShowKeyMarkers = true,
+			},
+			Timeline = {
+				ViewFilterMode = 0,
+			},
+			FilterModeName = "Show All",
+			Paths = {
+			},
+			LastLUTFile = "C:\\Programme\\Fusion51\\Comps\\dvs3.rgb",
+			FlowView = {
+				GridSnap = true,
+			},
+			QuickTime = {
+			},
+		},
+	},
+}
+
+ 

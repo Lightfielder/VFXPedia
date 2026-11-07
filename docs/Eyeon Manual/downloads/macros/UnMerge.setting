@@ -1,0 +1,188 @@
+{
+	Tools = ordered() {
+		UnMerge = MacroOperator {
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "SolidBackground",
+					Source = "TopLeftRed",
+					Name = "Background Color",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "SolidBackground",
+					Source = "TopLeftGreen",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "SolidBackground",
+					Source = "TopLeftBlue",
+					ControlGroup = 1,
+					Default = 0,
+				},
+				Comments = Input {
+					Value = "http://vfxpedia.com/index.php?title=Settings_and_Macros",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "SubtractFromResult",
+					Source = "Background",
+					Name = "MergedFG",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "DummyInput",
+					Source = "Input",
+					Name = "FGalpha",
+				},
+				MainInput3 = InstanceInput {
+					SourceOp = "Switch",
+					Source = "Foreground",
+					Name = "CleanBG",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "RestoreFGalpha",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				SolidBackground = Background {
+					ExtentSet = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 1024,
+							Expression = "NegateFGalpha.Output.OriginalWidth",
+						},
+						Height = Input {
+							Value = 576,
+							Expression = "NegateFGalpha.Output.OriginalHeight",
+						},
+						TopLeftAlpha = Input {
+							Value = 0,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 715, 775.5, },
+					},
+				},
+				MultiplyByBG = ChannelBoolean {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Operation = Input {
+							Value = 6,
+						},
+						ToRed = Input {
+							Value = 3,
+						},
+						ToGreen = Input {
+							Value = 3,
+						},
+						ToBlue = Input {
+							Value = 3,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "Switch",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "NegateFGalpha",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 660, 709.5, },
+					},
+				},
+				Switch = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "SolidBackground",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 660, 742.5, },
+					},
+				},
+				SubtractFromResult = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Operation = Input {
+							Value = 2,
+						},
+						Foreground = Input {
+							SourceOp = "MultiplyByBG",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 770, 709.5, },
+					},
+				},
+				NegateFGalpha = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Operation = Input {
+							Value = 10,
+						},
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "DummyInput",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 550, 709.5, },
+					},
+				},
+				RestoreFGalpha = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "DummyInput",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "SubtractFromResult",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 825, 676.5, },
+					},
+				},
+				DummyInput = PipeRouter {
+					NameSet = true,
+					ViewInfo = PipeRouterInfo {
+						Pos = { 550, 676.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "UnMerge",
+}

@@ -1,0 +1,256 @@
+{
+	Tools = ordered() {
+		Invert = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Inverts the RGB channels or Luminance taking the Alpha into account\r\nby Gregory Chalenko for Parasol Island\r\nwww.compositing.ru",
+				},
+				Input = InstanceInput {
+					SourceOp = "Bol_AlphaDivide",
+					Source = "Background",
+					Name = "Input",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "EffectMask",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "ExposedRed",
+					Name = "Red",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "ExposedGreen",
+					Name = "Green",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "ExposedBlue",
+					Name = "Blue",
+					Default = 1,
+				},
+				ProcessAlpha = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "ProcessAlpha",
+					Default = 0,
+				},
+				Type = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "Type",
+					Default = 0,
+				},
+				LuminanceSubtractionMode = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "LuminanceSubtractionMode",
+					Name = "Luminance Subtraction Mode",
+					Default = 0,
+				},
+				PreDividePostMultiply = InstanceInput {
+					SourceOp = "Bol_AlphaDivide",
+					Source = "ProcessWhenBlendIs00",
+					Name = "Pre-Divide / Post-Multiply by Alpha",
+					Default = 1,
+				},
+				Blend = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "Blend",
+					Default = 1,
+					Page = "Common Controls",
+				},
+				ProcessWhenBlendIs00 = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "ProcessWhenBlendIs00",
+				},
+				ApplyMaskInverted = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "ApplyMaskInverted",
+				},
+				MultiplyByMask = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "MultiplyByMask",
+				},
+				MaskChannel = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "MaskChannel",
+				},
+				MaskHigh = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "MaskHigh",
+					ControlGroup = 4,
+				},
+				MaskLow = InstanceInput {
+					SourceOp = "Bol_Negative",
+					Source = "MaskLow",
+					ControlGroup = 4,
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "Bol_AlphaMultiply",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				CS_FromRGB = ColorSpace {
+					NameSet = true,
+					Inputs = {
+						Input = Input {
+							SourceOp = "Bol_AlphaDivide",
+							Source = "Output",
+						},
+						Blend = Input {
+							Value = 0,
+							Expression = "Bol_Negative.Type",
+						},
+						ColorSpaceConversion = Input { Value = 1, },
+						ColorType = Input {
+							Value = 4,
+							Expression = "iif(Bol_Negative.LuminanceSubtractionMode<2, Bol_Negative.LuminanceSubtractionMode, 4)",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 55, 17.05, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Bol_Negative = ChannelBoolean {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Operation = Input { Value = 10, },
+						ProcessRed = Input { Expression = "iif(Type==1,iif(LuminanceSubtractionMode==1,1,0),ExposedRed)", },
+						ProcessGreen = Input { Expression = "iif(Type==1,iif(LuminanceSubtractionMode==2,1,0),ExposedGreen)", },
+						ProcessBlue = Input { Expression = "iif(Type==1,iif(LuminanceSubtractionMode==0,1,0),ExposedBlue)", },
+						ProcessAlpha = Input { Value = 0, },
+						Background = Input {
+							SourceOp = "CS_FromRGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 165, 17.05, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+					UserControls = ordered() {
+						ExposedRed = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							IC_ControlPage = 2,
+							ICD_Width = 0.25,
+							INP_Default = 1,
+						},
+						ExposedGreen = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							IC_ControlPage = 2,
+							ICD_Width = 0.25,
+							INP_Default = 1,
+						},
+						ExposedBlue = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "CheckboxControl",
+							IC_ControlPage = 2,
+							ICD_Width = 0.25,
+							INP_Default = 1,
+						},
+						Type = {
+							{ MBTNC_AddButton = "RGB", },
+							{ MBTNC_AddButton = "Luminance", },
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							IC_ControlPage = 0,
+							INP_Default = 0,
+						},
+						LuminanceSubtractionMode = {
+							{ MBTNC_AddButton = "HSV", },
+							{ MBTNC_AddButton = "YUV", },
+							{ MBTNC_AddButton = "HLS", },
+							INPID_InputControl = "MultiButtonControl",
+							LINKID_DataType = "Number",
+							MBTNC_StretchToFit = true,
+							IC_ControlPage = 0,
+							INPS_Name = "Luminance Subtraction Mode",
+							INP_Default = 0,
+						},
+					},
+				},
+				CS_ToRGB = ColorSpace {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 0,
+							Expression = "Bol_Negative.Type",
+						},
+						ColorSpaceConversion = Input { Value = 2, },
+						ColorType = Input { Value = 4, },
+						Input = Input {
+							SourceOp = "Bol_Negative",
+							Source = "Output",
+						},
+						ColorType = Input {
+							Value = 4,
+							Expression = "CS_FromRGB.ColorType",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 272.18, 17.3717, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Bol_AlphaDivide = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "ProcessWhenBlendIs00", },
+						ProcessWhenBlendIs00 = Input { Value = 1, },
+						Operation = Input { Value = 7, },
+						ToRed = Input { Value = 3, },
+						ToGreen = Input { Value = 3, },
+						ToBlue = Input { Value = 3, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "CS_FromRGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { -6, 7, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Bol_AlphaMultiply = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input { Expression = "Bol_AlphaDivide.ProcessWhenBlendIs00", },
+						Operation = Input { Value = 6, },
+						ToRed = Input { Value = 3, },
+						ToGreen = Input { Value = 3, },
+						ToBlue = Input { Value = 3, },
+						ToAlpha = Input { Value = 4, },
+						Background = Input {
+							SourceOp = "CS_ToRGB",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 198.41, 8.15, }, },
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

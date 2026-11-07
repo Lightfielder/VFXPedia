@@ -1,0 +1,234 @@
+--[[--
+DoD Demo Fuse
+
+programming example for:
+- working on an image that has a DoD in LUA and OpenCL
+- modifying the DoD that is returned by this tool
+- printing dimensions of DoD and RoI for debugging purposes
+- NoPreCalcProcess
+- MultiButtonIDControl inputs
+--]]--
+
+FuRegisterClass("DoDDemo", CT_Tool, {
+	REGS_Name          = "DoD Demo",
+	REGS_Category      = "Fuses",
+	REGS_OpIconString  = "DoDD",
+	REGS_OpDescription = "Programming Example for DoD-ready Fuses",
+	REGS_Company       = "Stefan Ihringer",
+	REGS_HelpTopic     = "http://www.vfxpedia.com/index.php?title=Third_Party_Fuses",
+	REG_SupportsDoD    = true,		-- without this, Fusion would always request a full image
+	REG_NoPreCalcProcess = true,	-- Process() will receive both kinds of requests
+	})
+
+clsource = [[
+/*** draws a simple uv gradient inside the destination's DoD */
+__kernel
+void uvgradient(FuWriteImage_t dst,
+	const int2 imgsize,		// width and height of the full image
+	const int4 dimensions,	// output image DoD, used to calculate u&v coordinates of gradient
+	const int2 offset)		// offset of processed data window from DoD's bottom-left corner
+{
+	int2 ipos = (int2)(get_global_id(1), get_global_id(0));							// current pixel coordinates (0/0 = bottom-left corner of data window)
+	float2 fpos = convert_float2(ipos + offset) / convert_float2(dimensions.zw);	// float coordinates normalized to size of DoD
+	float4 outcol = (float4)(fpos.x, fpos.y, 0, 1);
+	FuWriteImagef(dst, ipos, imgsize, outcol);
+}
+]]
+
+function Create()
+	-- MultiButtonIDControls are similar to MultiButtonControls. They just hava a DataType of "FuID"
+	-- and need the MBTNCID_AddID parameters. The default option is set via INPID_DefaultID.
+	InOutputDoD = self:AddInput("Output DoD", "OutputDoD", {
+		LINKID_DataType      = "FuID",
+		INPID_InputControl   = "MultiButtonIDControl",
+		INPID_DefaultID      = "Domain",
+		{MBTNC_AddButton     = "Domain",     MBTNCID_AddID = "Domain", },
+		{MBTNC_AddButton     = "Enlarged",   MBTNCID_AddID = "Enlarged", },
+		{MBTNC_AddButton     = "Frame",      MBTNCID_AddID = "Frame", },
+		{MBTNC_AddButton     = "Infinite",   MBTNCID_AddID = "None", },		-- IDs don't have to match button text
+		MBTNC_StretchToFit   = true,
+		MBTNC_ShowName       = true,
+		})
+
+	InConsoleOutput = self:AddInput("Print Debugging Output to Console", "ConsoleOutput", {
+		LINKID_DataType     = "Number",
+		INPID_InputControl  = "CheckboxControl",
+		INP_Default         = 1,
+		})
+
+	InUseOpenCL = self:AddInput("Use OpenCL", "UseOpenCL", {
+		LINKID_DataType     = "Number",
+		INPID_InputControl  = "CheckboxControl",
+		INP_Default         = 0,
+		})
+
+	-- image input
+	InImage = self:AddInput("Input", "Input", {
+		LINKID_DataType = "Image",
+		LINK_Main       = 1,
+		INP_Required    = true,
+		})
+
+	-- output
+	OutImage = self:AddOutput("Output", "Output", {
+		LINKID_DataType = "Image",
+		LINK_Main = 1,
+		})
+end
+
+
+function OnAddToFlow()
+	mgr = OCLManager()
+	if mgr then
+		prog = mgr:BuildCachedProgram(self.RegNode, clsource)
+	end
+end
+
+function OnRemoveFromFlow()
+	prog = nil
+	mgr = nil
+end
+
+
+-- prints the contents of a FuRectInt object. Since version 6.31 you can
+-- print these objects directly, but earlier versions need special handling.
+-- label parameter is optional
+function debug_furect(furect, label)
+	if ThisApp():GetAppInfo().Version < 6.31 then
+		-- make sure, 1st parameter really is a FuRectInt (or compatible) object
+		if furect.left ~= nil and furect.bottom ~= nil and furect.top ~= nil and furect.right ~= nil then
+			if label ~= nil then
+				print(label, "{ "..furect.left..", "..furect.bottom..", "..furect.right..", "..furect.top.." }")
+			else
+				print("{ "..furect.left..", "..furect.bottom..", "..furect.right..", "..furect.top.." }")
+			end
+		end
+	else
+		if label ~= nil then
+			print(label, furect)
+		else
+			print(furect)
+		end
+	end
+end
+
+
+-- multithreaded function that fills the DoD with a test gradient. Besides the scanline
+-- number, this function receives the following additional variables in its context:
+-- Out: output image object
+-- Dimensions: the image's DoD, used to calculate u&v coordinates of gradient (FuRectInt)
+function mp_uvgradient(scanline)
+	-- scanline number starts at zero
+	local y = scanline + Out.DataWindow.bottom
+
+	for x = Out.DataWindow.left, Out.DataWindow.right-1 do
+		local u = (x - Dimensions.left) / Dimensions:Width()
+		local v = (y - Dimensions.bottom) / Dimensions:Height()
+		Out:SetPixel(x, y, Pixel({R = u, G = v, B = 0, A = 1}))
+	end
+end
+
+
+-- Process()
+-- handles both precalc as well as regular requests. During a precalc request,
+-- Fusion wants to determine the maximum DoD that this tool could produce
+-- (if it wasn't restricted by region of interest). The DoD resulting from a
+-- precalc request will be drawn in the viewer with a dashed line. On the other
+-- hand, the DoD resulting from a regular render request can be smaller since
+-- it is restricted by the region of interest (either because a RoI was defined
+-- in the viewer or a downstream tool is masked and decided to only request
+-- a part of the upstream image).
+-- During precalc, images are created but don't contain any data yet. By
+-- defining NoPreCalcProcess = true for our Fuse, we have indicated that
+-- Process() can handle both requests. Only in certain places, we need to
+-- provide separate code paths.
+function Process(req)
+	local img = InImage:GetValue(req)
+	local mode = InOutputDoD:GetValue(req).Value
+	local debug = InConsoleOutput:GetValue(req).Value > 0.5
+	local opencl = prog and InUseOpenCL:GetValue(req).Value > 0.5
+	local success = false
+	
+	-- get input DoD and request ROI
+	local dod, roi = req:GetInputDoD(InImage), req:GetRoI()
+	-- datawnd will be the area that this tool processes instead of the default frame size.
+	-- The intersection is a safety to make sure we don't access pixels beyond the upstreams image bounds.
+	local datawnd = dod:Intersect(img.DataWindow)
+
+	-- Now, the output DoD will be modified based on the selected option.
+	if mode == "Enlarged" then
+		-- as an example, this will enlarge the DoD by a factor of 2.
+		datawnd:Inflate(datawnd:Width() / 2, datawnd:Height() / 2)
+	elseif mode == "Frame" then
+		-- set data window to whole frame. This automatically takes care of proxy mode.
+		datawnd = FuRectInt(0, 0, img.Width, img.Height)
+	elseif mode == "None" then
+		-- special case for an "infinite" DoD. This is what an Xf tool would do if it's set to duplicate edges.
+		datawnd = FuRectInt(-1000000,-1000000, 1000000,1000000)
+	end
+
+	-- If a region of interest exists (which is only the case in a regular render request)
+	-- the area that needs to be calculated is restricted to it. We *could* render the whole
+	-- DoD, but this would be a waste of time.
+	-- However, we need to save the calculated DoD first, because we need its dimensions to
+	-- draw the test gradient later.
+	local newdod = datawnd
+	if roi ~= nil then
+		datawnd = roi:Intersect(datawnd)
+	end
+
+	if debug then
+		if req:IsPreCalc() then
+			print("\n\nPrecalc:")
+		else
+			print("Request:")
+		end
+		debug_furect(dod, "  DoD")
+		debug_furect(roi, "  RoI")
+	end
+	
+	-- create output image object
+	local out = Image({
+		IMG_Like = img,
+		IMG_DataWindow = datawnd,
+		IMG_ValidWindow = roi and roi.ValidWindow,		-- only set if roi ~= nil (e.g. not a precalc request)
+		IMG_NoData = req:IsPreCalc(),					-- precalc request images don't contain any data
+		})
+
+	if not req:IsPreCalc() then
+		-- actual pixel processing must only be done in render requests, not during precalc
+		if opencl then
+			-- OpenCL version:
+			local outcl = prog:CreateImage(out, "readwrite")
+			if outcl then
+				kernel = prog:CreateKernel("uvgradient")
+				if kernel then
+					prog:SetArg(kernel, 0, outcl)
+					prog:SetArgInt(kernel, 1, out.Width, out.Height)
+					prog:SetArgInt(kernel, 2, newdod.left, newdod.bottom, newdod:Width(), newdod:Height())
+					prog:SetArgInt(kernel, 3, datawnd.left - newdod.left, datawnd.bottom - newdod.bottom)
+					success = prog:RunKernel(kernel, false)
+
+					if success and prog:Download(outcl, out) == nil then
+						success = false
+					end
+				end
+				outcl:ReleaseCLObject()
+			end
+		else
+			-- CPU version:
+			self:DoMultiProcess(nil, {Out = out, Dimensions = newdod}, datawnd.top - datawnd.bottom, mp_uvgradient)
+			if self.Status == "OK" then
+				success = true
+			end
+		end
+	else
+		success = true
+	end
+	
+	if success then
+		OutImage:Set(req, out)
+	else
+		OutImage:Set(req, nil)
+	end
+end

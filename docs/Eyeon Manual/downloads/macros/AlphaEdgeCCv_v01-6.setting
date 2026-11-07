@@ -1,0 +1,278 @@
+{
+	Tools = ordered() {
+		AlphaEdgeCCv = MacroOperator {
+			CustomData = {
+				HelpPage = "http://vfxpedia.com/index.php?title=Settings_and_Macros/AlphaEdgeCCv_Description",
+			},
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Finds objects' edges according to the Alpha channel.\r\n\Useful as a mask for edge work like blurring and color correcting while keying.\r\n\Can also be used for creative purposes (able to create multiple edges with certain curves setups)\r\n\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				Input = InstanceInput {
+					SourceOp = "Blur1",
+					Source = "Input",
+				},
+				BrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1",
+					Source = "GarbageMatte",
+					Name = "Brightness Map",
+				},
+				PreBlurSize = InstanceInput {
+					SourceOp = "Blur1",
+					Source = "XBlurSize",
+					Name = "Pre-Blur Size",
+					Default = 0,
+				},
+				EdgeProfile = InstanceInput {
+					SourceOp = "CCv_EdgeProfile",
+					Source = "Alpha",
+					ControlGroup = 9,
+					Name = "Edge Profile",
+				},
+				Gain = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Gain",
+					Default = 1,
+				},
+				Gamma = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Gamma",
+					Default = 1,
+				},
+				Contrast = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Contrast",
+					Default = 0,
+				},
+				Low = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Low",
+					ControlGroup = 4,
+					Default = 0,
+				},
+				High = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "High",
+					ControlGroup = 4,
+					Default = 1,
+				},
+				ClipBlack = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "ClipBlack",
+					Default = 1,
+				},
+				ClipWhite = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "ClipWhite",
+					Default = 1,
+				},
+				PostBlurSize = InstanceInput {
+					SourceOp = "MatteControl1",
+					Source = "MatteBlur",
+					Name = "Post-Blur Size",
+					Default = 0,
+				},
+				InvertBrightnessMap = InstanceInput {
+					SourceOp = "MatteControl1",
+					Source = "InvertGarbageMatte",
+					Name = "Invert Brightness Map",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ChannelBooleans1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Name = "AlphaEdgeCCv_v01",
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				BrightnessContrast1 = BrightnessContrast {
+					CtrlWShown = false,
+					Inputs = {
+						Alpha = Input {
+							Value = 1,
+						},
+						ClipBlack = Input {
+							Value = 1,
+						},
+						ClipWhite = Input {
+							Value = 1,
+						},
+						Input = Input {
+							SourceOp = "CCv_EdgeProfile",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1156.74, 312.667, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Blur1 = Blur {
+					CtrlWShown = false,
+					Inputs = {
+						Filter = Input {
+							Value = FuID { "Multi-box", },
+						},
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1153.73, 248.172, },
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.545098039215686, B = 0.376470588235294, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				CCv_EdgeProfile = ColorCurves {
+					PickColor = true,
+					CtrlWShown = false,
+					Inputs = {
+						Red = Input {
+							SourceOp = "CCv_EdgeProfileRed",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "CCv_EdgeProfileGreen",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "CCv_EdgeProfileBlue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "CCv_EdgeProfileAlpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Blur1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1155, 280.5, },
+					},
+					Tools = {
+						CCv_EdgeProfileRed = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 52, Blue = 52, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						CCv_EdgeProfileAlpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						CCv_EdgeProfileGreen = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						CCv_EdgeProfileBlue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.166666666666667, 0, }, Flags = { Linear = true, }, },
+									[0.5] = { 1, LH = { 0.333333333333333, 1, }, RH = { 0.666666666666667, 1, }, },
+									[1] = { 0, LH = { 0.833333333333333, 0, }, },
+								},
+							},
+							SplineColor = { Red = 68, Green = 68, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				ChannelBooleans1 = ChannelBoolean {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						ToRed = Input {
+							Value = 8,
+						},
+						ToGreen = Input {
+							Value = 8,
+						},
+						ToBlue = Input {
+							Value = 8,
+						},
+						ToAlpha = Input {
+							Value = 8,
+						},
+						Background = Input {
+							SourceOp = "MatteControl1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1155, 346.5, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				MatteControl1 = MatteControl {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					Inputs = {
+						InvertGarbageMatte = Input {
+							Value = 1,
+						},
+						Background = Input {
+							SourceOp = "BrightnessContrast1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1155, 379.5, },
+					},
+					Colors = {
+						TileColor = { R = 0.443137254901961, G = 0.372549019607843, B = 0.545098039215686, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.443137254901961, G = 0.376470588235294, B = 0.549019607843137, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

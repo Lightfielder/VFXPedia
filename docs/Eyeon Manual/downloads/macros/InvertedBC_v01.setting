@@ -1,0 +1,189 @@
+{
+	Tools = ordered() {
+		InvertedBC = MacroOperator {
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Inverted Brightness/Contrast, version 01 for Fusion 5.21 and above\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "Image1",
+					Name = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "Gain",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "Gamma",
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "Contrast",
+				},
+				Input4 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "Brightness",
+				},
+				Input5 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "Low",
+					ControlGroup = 6,
+					Default = 0,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "CustomTool",
+					Source = "High",
+					ControlGroup = 6,
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "CustomTool",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				CustomTool = Custom {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 1,
+							Expression = "Gain",
+						},
+						NumberIn2 = Input {
+							Value = 1,
+							Expression = "Gamma",
+						},
+						NumberIn3 = Input {
+							Expression = "Contrast",
+						},
+						NumberIn4 = Input {
+							Expression = "Brightness",
+						},
+						NumberIn5 = Input {
+							Value = 1,
+							Expression = "1",
+						},
+						NumberIn6 = Input {
+							Expression = "Low",
+						},
+						NumberIn7 = Input {
+							Value = 1,
+							Expression = "High",
+						},
+						RedExpression = Input {
+							Value = "((r1*(n7-n6)+n6-n4-0.5)/(n3+1)+0.5)^n2/n1",
+						},
+						GreenExpression = Input {
+							Value = "((g1*(n7-n6)+n6-n4-0.5)/(n3+1)+0.5)^n2/n1",
+						},
+						BlueExpression = Input {
+							Value = "((b1*(n7-n6)+n6-n4-0.5)/(n3+1)+0.5)^n2/n1",
+						},
+						AlphaExpression = Input {
+							Value = "((a1*(n7-n6)+n6-n4-0.5)/(n3+1)+0.5)^n2/n1",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Gain",
+						},
+						NameforNumber2 = Input {
+							Value = "Gamma",
+						},
+						NameforNumber3 = Input {
+							Value = "Contrast",
+						},
+						NameforNumber4 = Input {
+							Value = "Brightness",
+						},
+						NameforNumber5 = Input {
+							Value = "Saturation",
+						},
+						NameforNumber6 = Input {
+							Value = "Low",
+						},
+						NameforNumber7 = Input {
+							Value = "High",
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 759, 118, },
+					},
+					UserControls = ordered() {
+						Gain = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_MaxScale = 5,
+							IC_ControlPage = 0,
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+						Gamma = {
+							LINKID_DataType = "Number",
+							INPID_InputControl = "SliderControl",
+							INP_MaxScale = 5,
+							IC_ControlPage = 0,
+							ICD_Center = 1,
+							INP_Default = 1,
+						},
+						Contrast = {
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MinScale = -1,
+							INPID_InputControl = "SliderControl",
+						},
+						Brightness = {
+							LINKID_DataType = "Number",
+							IC_ControlPage = 0,
+							INP_MinScale = -1,
+							INPID_InputControl = "SliderControl",
+						},
+						Low = {
+							IC_ControlGroup = 1,
+							LINKID_DataType = "Number",
+							IC_ControlID = 0,
+							IC_ControlPage = 0,
+							INPID_InputControl = "RangeControl",
+							INP_Default = 0,
+						},
+						High = {
+							INP_Default = 1,
+							LINKID_DataType = "Number",
+							IC_ControlID = 1,
+							IC_ControlPage = 0,
+							INPID_InputControl = "RangeControl",
+							IC_ControlGroup = 1,
+						},
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "InvertedBC",
+}

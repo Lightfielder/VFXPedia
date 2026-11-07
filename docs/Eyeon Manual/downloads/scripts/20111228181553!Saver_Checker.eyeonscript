@@ -1,0 +1,121 @@
+-- Saver Checker
+-- by Stefan Ihringer <stefan@bildfehler.de>
+--
+-- This script helps managing comps with several savers. It will print a summary
+-- of all enabled savers which is helpful if you want to make sure only desired
+-- branches/savers are rendered. The script can be configured to automatically
+-- create missing output directories for all savers and to set the render range
+-- to the combined range of all active savers. If only one saver is enabled,
+-- that one will be highlighted in the flow view.
+-- Long story short: simply run this script before you hit render and it will
+-- make sure the range is set up correctly and no saver will fail due to missing
+-- directories.
+--
+-- version 1.0, 2011-01-06: initial release
+
+-- comment this line if you don't want to create missing output directories
+CREATE_DIRS = true
+-- comment this line if you don't want to disable orphaned savers
+DISABLE_ORPHANS = true
+-- comment this line if you don't want to modify the render range
+SET_RENDER_RANGE = true
+
+------------------------------------------------
+
+
+if composition == nil then
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	print("This is a composition script, it should be run from within Fusion.")
+	exit()
+end
+
+if composition:GetAttrs().COMPB_Rendering == true then
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	print("This script can't be run while the composition is rendering!")
+	exit()
+end
+
+local savers = composition:GetToolList(false, "Saver")
+
+if savers == nil or #savers < 1 then
+	composition:GetFrameList()[1]:SwitchMainView('ConsoleView') 
+	print("There are no savers in this comp.")
+	exit()
+end
+
+print()
+print("Saver Checker script:")
+print("---------------------")
+
+-- filter out disabled/orphaned savers
+local savers2 = {}
+for _,s in pairs(savers) do
+	local clipname = s.Clip[TIME_UNDEFINED]
+	local sattrs = s:GetAttrs()
+	if clipname ~= "" then
+		if sattrs.TOOLB_PassThrough == false then
+			-- print info
+			print("Saver \""..sattrs.TOOLS_Name.."\":", clipname)
+			-- is it orphaned?
+			if s["Input"]:GetConnectedOutput() == nil then
+				if DISABLE_ORPHANS == true then
+					s:SetAttrs({TOOLB_PassThrough = true})
+					print (" -> saver is orphaned and has been disabled.")
+				else
+					print (" -> saver is orphaned!")
+				end
+			else
+				table.insert(savers2, s)
+				-- check directory
+				local fp = eyeon.parseFilename(comp:MapPath(clipname))
+				if CREATE_DIRS == true then
+					if eyeon.direxists(fp.Path) == false then
+						if eyeon.createdir(fp.Path) == true then
+							print(" -> created missing output directory.")
+						else
+							print(" -> output directory could not be created! Render will probably fail.")
+						end
+					end
+				else
+					if eyeon.direxists(fp.Path) == false then
+						print(" -> output directory missing! Render will probably fail.")
+					end
+				end
+			end
+		end
+	else
+		print("Saver \""..sattrs.TOOLS_Name.."\" has no output file!")
+	end
+end
+
+if #savers2 == 0 then
+	print("All savers are disabled.")
+	exit()
+end
+
+-- set render range?
+if SET_RENDER_RANGE == true then
+	local firstframe = 1000000
+	local lastframe = -1000000
+	local oldstart = comp:GetAttrs().COMPN_RenderStart
+	local oldend = comp:GetAttrs().COMPN_RenderEnd
+	-- find combined enabled region
+	for _, s in savers2 do
+		local sattrs = s:GetAttrs()
+		firstframe = math.min(firstframe, sattrs.TOOLNT_EnabledRegion_Start[1])
+		lastframe  = math.max(lastframe,  math.floor(sattrs.TOOLNT_EnabledRegion_End[1]))
+	end
+	-- clip to global range
+	firstframe = math.max(firstframe, comp:GetAttrs().COMPN_GlobalStart)
+	lastframe  = math.min(lastframe, comp:GetAttrs().COMPN_GlobalEnd)
+	comp:SetAttrs({COMPN_RenderStart = firstframe, COMPN_RenderEnd = lastframe})
+	if oldstart ~= firstframe or oldend ~= lastframe then
+		print("adjusted render range: "..firstframe.."-"..lastframe)
+	end
+end
+
+-- if only one saver is enabled, select it
+if #savers2 == 1 then
+	composition:SetActiveTool(savers2[1])
+end
+

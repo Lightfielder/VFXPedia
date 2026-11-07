@@ -1,0 +1,112 @@
+{
+	Tools = ordered() {
+		SwitchProxy = MacroOperator {
+			Inputs = ordered() {
+				Full = InstanceInput {
+					SourceOp = "Pipe_Full",
+					Source = "Input",
+					Name = "Full",
+				},
+				Mode = InstanceInput {
+					SourceOp = "DX_Switch",
+					Source = "InputSwitch",
+					Name = "Mode",
+					Default = 2,
+				},
+				Proxy = InstanceInput {
+					SourceOp = "Pipe_Proxy",
+					Source = "Input",
+					Name = "Proxy",
+				},
+			},
+			Outputs = {
+				Output = InstanceOutput {
+					SourceOp = "DoD_Proxy",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo { Pos = { 0, 0, }, },
+			Tools = ordered() {
+				Pipe_Full = PipeRouter {
+					NameSet = true,
+					ViewInfo = PipeRouterInfo { Pos = { 880, 82.5, }, },
+				},
+				DX_Switch = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve",
+					},
+					NameSet = true,
+					Inputs = {
+						Mix = Input { Expression = "iif(InputSwitch==2, (comp.Proxy==true and 1 or 0), InputSwitch)", },
+						Background = Input {
+							SourceOp = "Pipe_Full",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Pipe_Proxy",
+							Source = "Output",
+						},
+						InputSwitch = Input { Value = 2, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 990, 115.5, }, },
+					UserControls = ordered() {
+						InputSwitch = {
+							{ MBTNC_AddButton = "Full", },
+							{ MBTNC_AddButton = "Proxy", },
+							{ MBTNC_AddButton = "Auto", },
+							INP_MaxAllowed = 2,
+							INP_Integer = true,
+							INP_MinAllowed = 0,
+							INPID_InputControl = "MultiButtonControl",
+							LINKS_Name = "Input Switch",
+							MBTNC_StretchToFit = true,
+							LINKID_DataType = "Number",
+							INP_Default = 0,
+						},
+					},
+				},
+				Pipe_Proxy = PipeRouter {
+					CtrlWZoom = false,
+					NameSet = true,
+					ViewInfo = PipeRouterInfo { Pos = { 880, 148.5, }, },
+				},
+				DoD_Proxy = SetDomain {
+					NameSet = true,
+					Inputs = {
+						Mode = Input { Expression = "iif(DX_Switch.Mix==1,\"Adjust\",\"Set\")", },
+						Combine = Input { Value = FuID { "Intersect", }, },
+						Input = Input {
+							SourceOp = "DoD_Full",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Pipe_Proxy",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1100, 148.5, }, },
+				},
+				DoD_Full = SetDomain {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Mode = Input {
+							Value = FuID { "Set", },
+							Expression = "iif(DX_Switch.Mix==1,\"Set\",\"Adjust\")",
+						},
+						Input = Input {
+							SourceOp = "DX_Switch",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Pipe_Full",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 1100, 82.5, }, },
+				},
+			},
+		},
+	},
+	ActiveTool = "SwitchProxy",
+}

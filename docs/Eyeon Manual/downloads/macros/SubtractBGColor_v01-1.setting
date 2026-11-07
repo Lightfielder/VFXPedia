@@ -1,0 +1,129 @@
+{
+	Tools = ordered() {
+		SubtractBGColor = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Removes unwanted BG color from edges of CG images when they are rendered not against black. Requires the Alpha channel embedded in the input image\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "PipeRouter1",
+					Source = "Input",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "Bol_SubtractBGColor",
+					Source = "Foreground",
+					Name = "Background Color",
+				},
+				EffectMask = InstanceInput {
+					SourceOp = "Bmp_Alpha",
+					Source = "EffectMask",
+				},
+				ProcessRed = InstanceInput {
+					SourceOp = "Bol_SubtractBGColor",
+					Source = "ProcessRed",
+					Default = 1,
+				},
+				ProcessGreen = InstanceInput {
+					SourceOp = "Bol_SubtractBGColor",
+					Source = "ProcessGreen",
+					Default = 1,
+				},
+				ProcessBlue = InstanceInput {
+					SourceOp = "Bol_SubtractBGColor",
+					Source = "ProcessBlue",
+					Default = 1,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Bol_SubtractBGColor",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 906.48, 148.5, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					GridSnap = true,
+					PipesAlways = true,
+					AutoSnap = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 253.461, 97.5649, },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -26.4804, 0, },
+			},
+			Tools = ordered() {
+				Bol_SubtractBGColor = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Blend = Input {
+							Value = 1,
+						},
+						Operation = Input {
+							Value = 2,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "Bmp_Alpha",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 55, 16.5, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.505882352941176, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				PipeRouter1 = PipeRouter {
+					CtrlWShown = false,
+					ViewInfo = PipeRouterInfo {
+						Pos = { -55, 10.6, },
+					},
+				},
+				Bmp_Alpha = BitmapMask {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Invert = Input {
+							Value = 1,
+						},
+				PaintMode = Input {
+					Value = FuID { "Multiply", },
+				},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						ClippingMode = Input {
+							Value = FuID { "None", },
+						},
+						Image = Input {
+							SourceOp = "PipeRouter1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 49.5, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.666666666666667, G = 0.501960784313725, B = 0.235294117647059, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}

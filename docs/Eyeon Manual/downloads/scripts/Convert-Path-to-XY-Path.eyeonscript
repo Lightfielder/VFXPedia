@@ -1,0 +1,121 @@
+------------------------------------------------------------------------------
+-- Convert Path to XY Path: Bakes animation into an XY Path
+-- This is a tool script!
+-- written by Stefan Ihringer, stefan@bildfehler.de
+-- parts based on "Bake Animation" by Isaac Guenard and "Tracker to Xf" by Jirka Sindelar
+-- Version 0.1
+-- October 31st 2007
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+-- SETUP ---------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+if not tool then
+	tool = composition:GetAttrs().COMPH_ActiveTool
+	if not tool then
+		print("This is a tool script, you must select a tool in the flow to run this script")
+		return
+	end
+end
+
+inputlist = {}   -- saves the names of animated inputs
+for key,inp in tool:GetInputList() do
+	attrs = inp:GetAttrs()
+	if attrs.INPB_Connected and inp:GetConnectedOutput():GetAttrs().OUTS_DataType == "Point" then
+		if inp:GetConnectedOutput():GetTool():GetAttrs().TOOLS_RegID ~= "XYPath" then
+			table.insert(inputlist, attrs.INPS_ID)
+		end
+	end
+end
+
+if table.getn(inputlist) == 0 then
+	print("No animated points found on this tool.")
+	return
+end
+
+compattrs = composition:GetAttrs()
+composition.
+from = 1
+to = 1
+
+------------------------------------------------------------------------------
+-- MAIN ----------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+--composition:Lock()
+composition:StartUndo("Convert to XY Path")
+
+-- display dialog
+msg = "This option only works if the selected input is a standard displacement path. Smooth bezier handles will NOT be converted correctly and the frame range will be ignored."
+dlg = composition:AskUser("Convert Path to XY Path", {
+	{ "input", "Dropdown", Name = "Input", Options = inputlist },
+	{ "axis", "Dropdown", Name = "Axis mode", Options = {"X and Y", "X only", "Y only"} },
+	{ "from", "Slider", Name = "Start frame", Integer = true, Default = compattrs.COMPN_RenderStart, Min = compattrs.COMPN_GlobalStart, Max = compattrs.COMPN_GlobalEnd },
+	{ "to", "Slider", Name = "End frame", Integer = true, Default = compattrs.COMPN_RenderEnd, Min = compattrs.COMPN_GlobalStart, Max = compattrs.COMPN_GlobalEnd },
+	{ "keysOnly", "Checkbox", Name = "Convert Keyframes Only", Default = 0, NumAcross = 2 },
+	{ "info", "Text", Name = "", ReadOnly = true, Lines = 4, Wrap = true, Default = msg }
+})
+
+if dlg then
+	inpname = inputlist[dlg.input+1]
+	inp = tool[inpname]
+	if dlg.to > dlg.from then
+		from = dlg.from
+		to = dlg.to
+	else
+		from = dlg.to
+		to = dlg.from
+	end
+	-- create new XY Path modifier
+	xypath = XYPath({})
+	xypath.Z = nil
+	xypath.Displacement = nil
+
+	valid_types = {
+		PolyPath = true,
+		Path = true,
+	}
+	
+	connectedTool = inp:GetConnectedOutput():GetTool()
+	killKey = true
+	
+	if dlg.keysOnly == 1 and valid_types[connectedTool:GetAttrs().TOOLS_RegID] == true then
+		-- smart loop (only converts existing keyframes)
+		keys = connectedTool.Displacement:GetKeyFrames()
+		for i,k in keys do
+			xypath.X[k] = inp[k][1]
+			xypath.Y[k] = inp[k][2]
+			-- kill auto-generated keyframe on animation curve after 1st keyframe has been set
+			if killKey and k ~= composition.CurrentTime then
+				killKey = false
+				xypath.X[composition.CurrentTime] = nil
+				xypath.Y[composition.CurrentTime] = nil
+			end
+		end
+	else
+		-- dumb loop (bakes animation)
+		for i = from,to do
+			xypath.X[i] = inp[i][1]
+			xypath.Y[i] = inp[i][2]
+			-- kill auto-generated keyframe on animation curve after 1st keyframe has been set
+			if killKey and i ~= composition.CurrentTime then
+				killKey = false
+				xypath.X[composition.CurrentTime] = nil
+				xypath.Y[composition.CurrentTime] = nil
+			end
+		end
+	end
+
+	-- connect XY path overwriting old modifier
+	if dlg.axis == 1 then
+		xypath.Y = nil
+	elseif dlg.axis == 2 then
+		xypath.X = nil
+	end
+	tool[inpname] = xypath
+end
+
+composition:EndUndo(true)
+--composition:Unlock()
+

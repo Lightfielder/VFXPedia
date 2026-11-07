@@ -1,0 +1,1191 @@
+{
+	Tools = ordered() {
+		Grain = GroupOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "CustomTool2",
+					Source = "Image1",
+				},
+				Input7 = InstanceInput {
+					SourceOp = "r",
+					Source = "XScale",
+					Name = "Red Size",
+					MinScale = 400,
+					MaxScale = 1000,
+					Default = 600,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "g",
+					Source = "XScale",
+					Name = "Green Size",
+					MinScale = 400,
+					MaxScale = 1000,
+					Default = 600,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "b",
+					Source = "XScale",
+					Name = "Blue Size",
+					MinScale = 400,
+					MaxScale = 1000,
+					Default = 550,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn7",
+				},
+				
+				Input12 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn2",
+				},
+				Input14 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn4",
+				},
+				Input16 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn6",
+				},
+				Input11 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn1",
+				},
+				Input13 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn3",
+				},
+				Input15 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn5",
+				},
+				Input18 = InstanceInput {
+					SourceOp = "b_r",
+					Source = "XBlurSize",
+					Name = "Red Softness",
+					Default = 0,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "b_g",
+					Source = "XBlurSize",
+					Name = "Green Softness",
+					Default = 0,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "b_b",
+					Source = "XBlurSize",
+					Name = "Blue Softness",
+					Default = 0,
+				},
+				Input1 = InstanceInput {
+					SourceOp = "schadow_control",
+					Source = "LockRGBA",
+					Name = "Lock shadow",
+					Default = 1,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "schadow_control",
+					Source = "GainRed",
+					Name = "Shadow Gain Red",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "schadow_control",
+					Source = "GainGreen",
+					Name = "Shadow Gain Green",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "schadow_control",
+					Source = "GainBlue",
+					Name = "Shadow Gain Blue",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input22 = InstanceInput {
+					SourceOp = "highlight_control",
+					Source = "LockRGBA",
+					Name = "Lock highlight",
+					Default = 1,
+				},
+				Input23 = InstanceInput {
+					SourceOp = "highlight_control",
+					Source = "GainRed",
+					Name = "Highlight_Gain Red",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input24 = InstanceInput {
+					SourceOp = "highlight_control",
+					Source = "GainGreen",
+					Name = "Highlight Gain Green",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input25 = InstanceInput {
+					SourceOp = "highlight_control",
+					Source = "GainBlue",
+					Name = "Highlight Gain Blue",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input26 = InstanceInput {
+					SourceOp = "BrightnessContrast1",
+					Source = "Saturation",
+					Name = "Saturation",
+					MaxScale = 2,
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "bol_add",
+					Source = "EffectMask",
+				},
+				Comments = Input {
+					Value = "Grain Macro to replace Fusion's own grain tool, in many cases the original tool cannot generate small enough grain. This Macro adds the grain in a gamma corrected space so the grain should work more natural in the highlights and shadows.\n\nSize: Sets the size of the grain, smaller values mean bigger grain.\n\nPower: The amplitude of the grain. The main Power slider value is added to the individual channels.\n\nDisplacemant: Used to displace the center of amplitude of the grain. In experience we found that sometimes the grain has a littel overall color displacement.\n\nSoftness: Blurs the channel.\n\nHighlight/Shadow Gain: Usefull in correcting the way the grain reacts in the highlights and the shadows. Possibility to unlock the channels.\nSaturation: If you want to desaturate the grain for monochrome use.\n\n\n\nIn 5.3 build 55 there is a bug with the expression to set the size of the grain. I will also put up a version where you can manully adjust the resolution. In Build 66 the bug is fixed. I don't know about older versions probably also have the bug.\n\nTodo: Add another layer of darker more random grain, this sometimes is seen in the grain. \n\nKasper Oerlemans\nFilmmore Amsterdam\nNovember 2008",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "ChangeDepth2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				CustomTool2 = Custom {
+					ViewInfo = OperatorInfo {
+						Pos = { 660, 676.5, },
+					},
+				},
+				ChangeDepth1 = ChangeDepth {
+					CtrlWZoom = false,
+					Inputs = {
+						Depth = Input {
+						Value = 4,
+						},
+						Input = Input {
+							SourceOp = "CustomTool2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 770, 676.5, },
+					},
+				},
+				highlight_control = Trails {
+					NameSet = true,
+					Inputs = {
+						Input = Input {
+							SourceOp = "ChangeDepth1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 770, 610.5, },
+					},
+				},
+				schadow_control = Trails {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Input = Input {
+							SourceOp = "ChangeDepth1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 770, 511.5, },
+					},
+				},
+				shadow = RangesMask {
+					NameSet = true,
+					Inputs = {
+						MaskWidth = Input {
+							Value = 3072,
+						},
+						MaskHeight = Input {
+							Value = 1570,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Image = Input {
+							SourceOp = "ChangeDepth1",
+							Source = "Output",
+						},
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.4, 0.2, },
+											{ 0.6, 0, },
+											{ 1, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0, 0, },
+											{ 0.4, 0, },
+											{ 0.6, 0.2, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 880, 511.5, },
+					},
+				},
+				highlight = RangesMask {
+					NameSet = true,
+					Inputs = {
+						MaskWidth = Input {
+							Value = 3072,
+						},
+						MaskHeight = Input {
+							Value = 1570,
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Image = Input {
+							SourceOp = "ChangeDepth1",
+							Source = "Output",
+						},
+						RangesRange = Input {
+							Value = 2,
+						},
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1, },
+											{ 0.4, 0.2, },
+											{ 0.6, 0, },
+											{ 1, 0, },
+										},
+									},
+									{
+										Points = {
+											{ 0, 0, },
+											{ 0.4, 0, },
+											{ 0.6, 0.2, },
+											{ 1, 1, },
+										},
+									},
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 880, 610.5, },
+					},
+				},
+				ColorCurves1_6 = ColorCurves {
+					PickColor = true,
+					Inputs = {
+						Red = Input {
+							SourceOp = "ColorCurves1_6Red",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ColorCurves1_6Green",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ColorCurves1_6Blue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ColorCurves1_6Alpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "ChangeDepth1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 935, 742.5, },
+					},
+					Tools = {
+						ColorCurves1_6Blue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.00163986966365873, 0.033360989889222, }, },
+									[0.0063] = { 0.1, LH = { 0.00151007052028279, 0.0669660035881572, }, RH = { 0.0112095117012093, 0.13385870138765, }, },
+									[0.029] = { 0.2, LH = { 0.0214340901255608, 0.176503385483108, }, RH = { 0.0400897350110414, 0.234440170841744, }, },
+									[0.0707] = { 0.3, LH = { 0.0568013902306557, 0.273323205816997, }, RH = { 0.0889038879493374, 0.334940283971857, }, },
+									[0.1332] = { 0.4, LH = { 0.112368750345707, 0.371638870450248, }, RH = { 0.159077930191405, 0.435232035658823, }, },
+									[0.2176] = { 0.5, LH = { 0.189469480466843, 0.470666820090555, }, RH = { 0.25152043601808, 0.535370631927091, }, },
+									[0.325] = { 0.6, LH = { 0.289203580594063, 0.570007189437841, }, RH = { 0.36723099783878, 0.635384162412049, }, },
+									[0.4563] = { 0.7, LH = { 0.412537710726261, 0.669514253379492, }, RH = { 0.50699102773236, 0.7353124540107, }, },
+									[0.6121] = { 0.8, LH = { 0.560171860861778, 0.769163812863289, }, RH = { 0.671415441357409, 0.835222946174234, }, },
+									[0.7931] = { 0.9, LH = { 0.732772701001167, 0.86889543748449, }, RH = { 0.861230625100961, 0.935127932508874, }, },
+									[1] = { 1, LH = { 0.930633493837822, 0.967568190583248, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 0, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves1_6Alpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.333300005277158, 0.333300005277158, }, },
+									[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+						},
+						ColorCurves1_6Green = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.00163986966365873, 0.033360989889222, }, },
+									[0.0063] = { 0.1, LH = { 0.00151007052028279, 0.0669660035881572, }, RH = { 0.0112095117012093, 0.13385870138765, }, },
+									[0.029] = { 0.2, LH = { 0.0214340901255608, 0.176503385483108, }, RH = { 0.0400897350110414, 0.234440170841744, }, },
+									[0.0707] = { 0.3, LH = { 0.0568013902306557, 0.273323205816997, }, RH = { 0.0889038879493374, 0.334940283971857, }, },
+									[0.1332] = { 0.4, LH = { 0.112368750345707, 0.371638870450248, }, RH = { 0.159077930191405, 0.435232035658823, }, },
+									[0.2176] = { 0.5, LH = { 0.189469480466843, 0.470666820090555, }, RH = { 0.25152043601808, 0.535370631927091, }, },
+									[0.325] = { 0.6, LH = { 0.289203580594063, 0.570007189437841, }, RH = { 0.36723099783878, 0.635384162412049, }, },
+									[0.4563] = { 0.7, LH = { 0.412537710726261, 0.669514253379492, }, RH = { 0.50699102773236, 0.7353124540107, }, },
+									[0.6121] = { 0.8, LH = { 0.560171860861778, 0.769163812863289, }, RH = { 0.671415441357409, 0.835222946174234, }, },
+									[0.7931] = { 0.9, LH = { 0.732772701001167, 0.86889543748449, }, RH = { 0.861230625100961, 0.935127932508874, }, },
+									[1] = { 1, LH = { 0.930633493837822, 0.967568190583248, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves1_6Red = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.00163986966365873, 0.033360989889222, }, },
+									[0.0063] = { 0.1, LH = { 0.00151007052028279, 0.0669660035881572, }, RH = { 0.0112095117012093, 0.13385870138765, }, },
+									[0.029] = { 0.2, LH = { 0.0214340901255608, 0.176503385483108, }, RH = { 0.0400897350110414, 0.234440170841744, }, },
+									[0.0707] = { 0.3, LH = { 0.0568013902306557, 0.273323205816997, }, RH = { 0.0889038879493374, 0.334940283971857, }, },
+									[0.1332] = { 0.4, LH = { 0.112368750345707, 0.371638870450248, }, RH = { 0.159077930191405, 0.435232035658823, }, },
+									[0.2176] = { 0.5, LH = { 0.189469480466843, 0.470666820090555, }, RH = { 0.25152043601808, 0.535370631927091, }, },
+									[0.325] = { 0.6, LH = { 0.289203580594063, 0.570007189437841, }, RH = { 0.36723099783878, 0.635384162412049, }, },
+									[0.4563] = { 0.7, LH = { 0.412537710726261, 0.669514253379492, }, RH = { 0.50699102773236, 0.7353124540107, }, },
+									[0.6121] = { 0.8, LH = { 0.560171860861778, 0.769163812863289, }, RH = { 0.671415441357409, 0.835222946174234, }, },
+									[0.7931] = { 0.9, LH = { 0.732772701001167, 0.86889543748449, }, RH = { 0.861230625100961, 0.935127932508874, }, },
+									[1] = { 1, LH = { 0.930633493837822, 0.967568190583248, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 0, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+				},
+				b = FastNoise {
+					ExtentSet = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 2048,
+							Expression = "bg.Width*bg.PixelAspect.X",
+						},
+						Height = Input {
+							Value = 1180,
+							Expression = "bg.Height*bg.PixelAspect.Y",
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },"bg.PixelAspect",
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						Detail = Input {
+							Value = 1,
+						},
+						XScale = Input {
+							Value = 550,
+						},
+						YScale = Input {
+							Disabled = true,
+						},
+						Seethe = Input {
+							Value = 2.650794,
+						},
+						SeetheRate = Input {
+							Value = 10,
+						},
+						Color1Red = Input {
+							Value = 0.4,
+							Expression = "CustomTool1.NumberIn5+0.4",
+						},
+						Color1Alpha = Input {
+							Value = 1,
+						},
+						Color2Red = Input {
+							Value = 0.54,
+							Expression = "CustomTool1.NumberIn6+0.4+CustomTool1.NumberIn7",
+						},
+						Color2Green = Input {
+							Value = 0,
+						},
+						Color2Blue = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 935, 313.5, },
+					},
+				},
+				g = FastNoise {
+					ExtentSet = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 2048,
+							Expression = "bg.Width*bg.PixelAspect.X",
+						},
+						Height = Input {
+							Value = 1180,
+							Expression = "bg.Height*bg.PixelAspect.Y",
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },"bg.PixelAspect",
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						Detail = Input {
+							Value = 1,
+						},
+						XScale = Input {
+							Value = 600,
+						},
+						YScale = Input {
+							Disabled = true,
+						},
+						Seethe = Input {
+							Value = 14.41799,
+						},
+						SeetheRate = Input {
+							Value = 10,
+						},
+						Color1Red = Input {
+							Value = 0.4,
+							Expression = "CustomTool1.NumberIn3+0.4",
+						},
+						Color1Alpha = Input {
+							Value = 1,
+						},
+						Color2Red = Input {
+							Value = 0.52,
+							Expression = "CustomTool1.NumberIn4+0.4+CustomTool1.NumberIn7",
+						},
+						Color2Green = Input {
+							Value = 0,
+						},
+						Color2Blue = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 935, 280.5, },
+					},
+				},
+				r = FastNoise {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Width = Input {
+							Value = 2048,
+							Expression = "bg.Width*bg.PixelAspect.X",
+						},
+						Height = Input {
+							Value = 1180,
+							Expression = "bg.Height*bg.PixelAspect.Y",
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },"bg.PixelAspect",
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						Detail = Input {
+							Value = 1,
+						},
+						XScale = Input {
+							Value = 600,
+						},
+						YScale = Input {
+							Disabled = true,
+						},
+						Seethe = Input {
+							Value = 0.6931217,
+						},
+						SeetheRate = Input {
+							Value = 10,
+						},
+						Color1Red = Input {
+							Value = 0.4,
+							Expression = "CustomTool1.NumberIn1+0.4",
+						},
+						Color1Alpha = Input {
+							Value = 1,
+						},
+						Color2Red = Input {
+							Value = 0.52,
+							Expression = "CustomTool1.NumberIn2+0.4+CustomTool1.NumberIn7",
+						},
+						Color2Green = Input {
+							Value = 0,
+						},
+						Color2Blue = Input {
+							Value = 0,
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 935, 247.5, },
+					},
+				},
+				bc_G_highlight = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Value = 1.7582418,
+							Expression = "math.abs((highlight_control.LockRGBA-1))*highlight_control.GainGreen+(highlight_control.LockRGBA)*highlight_control.GainRed",
+						},
+						Input = Input {
+							SourceOp = "bc_R_highlight",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "highlight",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 610.5, },
+					},
+				},
+				bc_R_schaduw = BrightnessContrast {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Green = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Value = 0.4143646,
+							Expression = "schadow_control.GainRed",
+						},
+						Input = Input {
+							SourceOp = "ChannelBooleans6",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "shadow",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 478.5, },
+					},
+				},
+				bc_B_highlight = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Value = 1.7582418,
+							Expression = "math.abs((highlight_control.LockRGBA-1))*highlight_control.GainBlue+(highlight_control.LockRGBA)*highlight_control.GainRed",
+						},
+						Input = Input {
+							SourceOp = "bc_G_highlight",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "highlight",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 643.5, },
+					},
+				},
+				bc_R_highlight = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Green = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Value = 1.7582418,
+							Expression = "highlight_control.GainRed",
+						},
+						Input = Input {
+							SourceOp = "bc_B_schaduw",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "highlight",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 577.5, },
+					},
+				},
+				bc_B_schaduw = BrightnessContrast {
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Expression = "math.abs((schadow_control.LockRGBA-1))*schadow_control.GainBlue+(schadow_control.LockRGBA)*schadow_control.GainRed",
+						},
+						Input = Input {
+							SourceOp = "bc_G_schaduw",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "shadow",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 544.5, },
+					},
+				},
+				bc_G_schaduw = BrightnessContrast {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Gain = Input {
+							Expression = "math.abs((schadow_control.LockRGBA-1))*schadow_control.GainGreen+(schadow_control.LockRGBA)*schadow_control.GainRed",
+						},
+						Input = Input {
+							SourceOp = "bc_R_schaduw",
+							Source = "Output",
+						},
+						EffectMask = Input {
+							SourceOp = "shadow",
+							Source = "Mask",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1044, 511.5, },
+					},
+				},
+				ChannelBooleans6 = ChannelBoolean {
+					Inputs = {
+						Operation = Input {
+							Value = 2,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "b_b",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "bg",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 445.5, },
+					},
+				},
+				b_b = Blur {
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Green = Input {
+							Value = 0,
+						},
+						Alpha = Input {
+							Value = 0,
+						},
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "b_g",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 412.5, },
+					},
+				},
+				b_g = Blur {
+					NameSet = true,
+					Inputs = {
+						Red = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Alpha = Input {
+							Value = 0,
+						},
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "b_r",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 379.5, },
+					},
+				},
+				bol_add = ChannelBoolean {
+					NameSet = true,
+					Inputs = {
+						Operation = Input {
+							Value = 1,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "ColorCurves1_6",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "BrightnessContrast1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 709.5, },
+					},
+				},
+				Resize1 = BetterResize {
+					CtrlWZoom = false,
+					Inputs = {
+						Width = Input {
+							Value = 700,
+							Expression = "CustomTool2.Output.OriginalWidth",
+						},
+						Height = Input {
+							Value = 1180,
+							Expression = "CustomTool2.Output.OriginalHeight",
+							},
+						ChangePixelAspect = Input {
+							Value = 1,
+							},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+							Expression = "Point(CustomTool2.Output.OriginalXScale,CustomTool2.Output.OriginalYScale)",
+							},
+						FilterMethod = Input {
+							Value = 0,
+							},
+						Input = Input {
+							SourceOp = "bc_B_highlight",
+							Source = "Output",
+							},
+						},
+					ViewInfo = OperatorInfo {
+					Pos = { 1045, 750.5, },
+					},
+				},
+				BrightnessContrast1 = BrightnessContrast {
+					CtrlWZoom = false,
+					Inputs = {
+						Saturation = Input {
+							Value = 1.0,
+							},
+						Input = Input {
+							SourceOp = "Resize1",
+							Source = "Output",
+							},
+						},
+					ViewInfo = OperatorInfo {
+					Pos = {1045, 850.5, },
+					},
+				},
+				ChannelBooleans1_3 = ChannelBoolean {
+					Inputs = {
+						ToRed = Input {
+							Value = 5,
+						},
+						ToGreen = Input {
+							Value = 0,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						Background = Input {
+							SourceOp = "CustomTool1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "g",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 280.5, },
+					},
+				},
+				ChannelBooleans2_2 = ChannelBoolean {
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 0,
+						},
+						Background = Input {
+							SourceOp = "ChannelBooleans1_3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "b",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 313.5, },
+					},
+				},
+				CustomTool1 = Custom {
+					Inputs = {
+						NumberIn2 = Input {
+							Value = 0.02,
+						},
+						NumberIn4 = Input {
+							Value = 0.02,
+						},
+						NumberIn6 = Input {
+							Value = 0.04,
+						},
+						NumberIn7 = Input {
+							Value = 0.1,
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Red Displacement",
+						},
+						NameforNumber2 = Input {
+							Value = "Red Power",
+						},
+						NameforNumber3 = Input {
+							Value = "Green Displacement",
+						},
+						NameforNumber4 = Input {
+							Value = "Green Power",
+						},
+						NameforNumber5 = Input {
+							Value = "Blue Displacement",
+						},
+						NameforNumber6 = Input {
+							Value = "Blue Power",
+						},
+						NameforNumber7 = Input {
+							Value = "Power",
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						ShowPoint1 = Input {
+							Value = 0,
+						},
+						ShowPoint2 = Input {
+							Value = 0,
+						},
+						ShowPoint3 = Input {
+							Value = 0,
+						},
+						ShowPoint4 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "r",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 247.5, },
+					},
+				},
+				b_r = Blur {
+					NameSet = true,
+					Inputs = {
+						Green = Input {
+							Value = 0,
+						},
+						Blue = Input {
+							Value = 0,
+						},
+						Alpha = Input {
+							Value = 0,
+						},
+						XBlurSize = Input {
+							Value = 0,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "ChannelBooleans2_2",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1045, 346.5, },
+					},
+				},
+				bg = Background {
+					ExtentSet = false,
+					NameSet = true,
+					Inputs = {
+						UseFrameFormatSettings = Input {
+							Value = 0,
+						},
+						Width = Input {
+							Value = 2048,
+							Expression = "CustomTool2.Output.OriginalWidth*CustomTool2.Output.OriginalXScale",
+						},
+						Height = Input {
+							Value = 1180,
+							Expression = "CustomTool2.Output.OriginalHeight*CustomTool2.Output.OriginalYScale",
+						},
+						PixelAspect = Input {
+							Value = { 1, 1, },
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						TopLeftRed = Input {
+							Value = 0.46,
+							Expression = "(r.Color2Red-r.Color1Red)/2+0.4",
+						},
+						TopLeftGreen = Input {
+							Value = 0.46,
+							Expression = "(g.Color2Red-g.Color1Red)/2+0.4",
+						},
+						TopLeftBlue = Input {
+							Value = 0.47,
+							Expression = "(b.Color2Red-b.Color1Red)/2+0.4",
+						},
+						Gradient = Input {
+							Value = Gradient {
+								Colors = {
+									[0] = { 0, 0, 0, 1, },
+									[1] = { 1, 1, 1, 1, },
+								},
+							},
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1155, 445.5, },
+					},
+				},
+				ColorCurves1_7 = ColorCurves {
+					PickColor = true,
+					Inputs = {
+						Red = Input {
+							SourceOp = "ColorCurves1_7Red",
+							Source = "Value",
+						},
+						Green = Input {
+							SourceOp = "ColorCurves1_7Green",
+							Source = "Value",
+						},
+						Blue = Input {
+							SourceOp = "ColorCurves1_7Blue",
+							Source = "Value",
+						},
+						Alpha = Input {
+							SourceOp = "ColorCurves1_7Alpha",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "bol_add",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1155, 742.5, },
+					},
+					Tools = {
+						ColorCurves1_7Red = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.033360989889222, 0.00163986966365873, }, },
+									[0.1] = { 0.0063, LH = { 0.0669660035881572, 0.00151007052028279, }, RH = { 0.13385870138765, 0.0112095117012093, }, },
+									[0.2] = { 0.029, LH = { 0.176503385483108, 0.0214340901255608, }, RH = { 0.234440170841744, 0.0400897350110414, }, },
+									[0.3] = { 0.0707, LH = { 0.273323205816997, 0.0568013902306557, }, RH = { 0.334940283971857, 0.0889038879493374, }, },
+									[0.4] = { 0.1332, LH = { 0.371638870450248, 0.112368750345707, }, RH = { 0.435232035658823, 0.159077930191405, }, },
+									[0.5] = { 0.2176, LH = { 0.470666820090555, 0.189469480466843, }, RH = { 0.535370631927091, 0.25152043601808, }, },
+									[0.6] = { 0.325, LH = { 0.570007189437841, 0.289203580594063, }, RH = { 0.635384162412049, 0.36723099783878, }, },
+									[0.7] = { 0.4563, LH = { 0.669514253379492, 0.412537710726261, }, RH = { 0.7353124540107, 0.50699102773236, }, },
+									[0.8] = { 0.6121, LH = { 0.769163812863289, 0.560171860861778, }, RH = { 0.835222946174234, 0.671415441357409, }, },
+									[0.9] = { 0.7931, LH = { 0.86889543748449, 0.732772701001167, }, RH = { 0.935127932508874, 0.861230625100961, }, },
+									[1] = { 1, LH = { 0.967568190583248, 0.930633493837822, }, },
+								},
+							},
+							SplineColor = { Red = 255, Green = 0, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves1_7Alpha = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.333300005277158, 0.333300005277158, }, },
+									[1] = { 1, LH = { 0.666666666666667, 0.666666666666667, }, },
+								},
+							},
+							SplineColor = { Red = 204, Green = 204, Blue = 204, },
+							CtrlWShown = false,
+						},
+						ColorCurves1_7Blue = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.033360989889222, 0.00163986966365873, }, },
+									[0.1] = { 0.0063, LH = { 0.0669660035881572, 0.00151007052028279, }, RH = { 0.13385870138765, 0.0112095117012093, }, },
+									[0.2] = { 0.029, LH = { 0.176503385483108, 0.0214340901255608, }, RH = { 0.234440170841744, 0.0400897350110414, }, },
+									[0.3] = { 0.0707, LH = { 0.273323205816997, 0.0568013902306557, }, RH = { 0.334940283971857, 0.0889038879493374, }, },
+									[0.4] = { 0.1332, LH = { 0.371638870450248, 0.112368750345707, }, RH = { 0.435232035658823, 0.159077930191405, }, },
+									[0.5] = { 0.2176, LH = { 0.470666820090555, 0.189469480466843, }, RH = { 0.535370631927091, 0.25152043601808, }, },
+									[0.6] = { 0.325, LH = { 0.570007189437841, 0.289203580594063, }, RH = { 0.635384162412049, 0.36723099783878, }, },
+									[0.7] = { 0.4563, LH = { 0.669514253379492, 0.412537710726261, }, RH = { 0.7353124540107, 0.50699102773236, }, },
+									[0.8] = { 0.6121, LH = { 0.769163812863289, 0.560171860861778, }, RH = { 0.835222946174234, 0.671415441357409, }, },
+									[0.9] = { 0.7931, LH = { 0.86889543748449, 0.732772701001167, }, RH = { 0.935127932508874, 0.861230625100961, }, },
+									[1] = { 1, LH = { 0.967568190583248, 0.930633493837822, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 0, Blue = 255, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+						ColorCurves1_7Green = LUTBezier {
+							KeyColorSplines = {
+								[0] = {
+									[0] = { 0, RH = { 0.033360989889222, 0.00163986966365873, }, },
+									[0.1] = { 0.0063, LH = { 0.0669660035881572, 0.00151007052028279, }, RH = { 0.13385870138765, 0.0112095117012093, }, },
+									[0.2] = { 0.029, LH = { 0.176503385483108, 0.0214340901255608, }, RH = { 0.234440170841744, 0.0400897350110414, }, },
+									[0.3] = { 0.0707, LH = { 0.273323205816997, 0.0568013902306557, }, RH = { 0.334940283971857, 0.0889038879493374, }, },
+									[0.4] = { 0.1332, LH = { 0.371638870450248, 0.112368750345707, }, RH = { 0.435232035658823, 0.159077930191405, }, },
+									[0.5] = { 0.2176, LH = { 0.470666820090555, 0.189469480466843, }, RH = { 0.535370631927091, 0.25152043601808, }, },
+									[0.6] = { 0.325, LH = { 0.570007189437841, 0.289203580594063, }, RH = { 0.635384162412049, 0.36723099783878, }, },
+									[0.7] = { 0.4563, LH = { 0.669514253379492, 0.412537710726261, }, RH = { 0.7353124540107, 0.50699102773236, }, },
+									[0.8] = { 0.6121, LH = { 0.769163812863289, 0.560171860861778, }, RH = { 0.835222946174234, 0.671415441357409, }, },
+									[0.9] = { 0.7931, LH = { 0.86889543748449, 0.732772701001167, }, RH = { 0.935127932508874, 0.861230625100961, }, },
+									[1] = { 1, LH = { 0.967568190583248, 0.930633493837822, }, },
+								},
+							},
+							SplineColor = { Red = 0, Green = 255, Blue = 0, },
+							CtrlWShown = false,
+							NameSet = true,
+						},
+					},
+				},
+				ChangeDepth2 = ChangeDepth {
+					CtrlWZoom = false,
+					Inputs = {
+						Depth = Input {
+							Value = 1,
+							Expression = "CustomTool2.Output.Depth-4",
+						},
+						Input = Input {
+							SourceOp = "ColorCurves1_7",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 1255, 742.5, },
+						},
+					},
+				},
+			Colors = {
+				TileColor = { R = 0.6, G = 0.6, B = 0.6, },
+				TextColor = { R = 0, G = 0, B = 0, },
+			},
+		},
+	},
+	ActiveTool = "Grain",
+}

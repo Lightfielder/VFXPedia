@@ -1,0 +1,346 @@
+{
+	Tools = ordered() {
+		SE_Spiral3D = MacroOperator {
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Base",
+					Source = "Input",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.Radius",
+					Default = 0.12,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.Height",
+					Default = 40,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.SubdivisionLevelBase",
+					Default = 50,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.SubdivisionLevelHeight",
+					Default = 200,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.StartSweep",
+					ControlGroup = 6,
+					Default = 0,
+				},
+				Input6 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.EndSweep",
+					ControlGroup = 6,
+					Default = 360,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.DiffuseRed",
+					Name = "Diffuse Color",
+					ControlGroup = 6,
+					Default = 1,
+				},
+				Input8 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.DiffuseGreen",
+					ControlGroup = 6,
+					Default = 1,
+				},
+				Input9 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.DiffuseBlue",
+					ControlGroup = 6,
+					Default = 1,
+				},
+				Input10 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.BottomCap",
+					Default = 1,
+				},
+				Input11 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.TopCap",
+					Default = 1,
+				},
+				Input12 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.Wireframe",
+					Default = 0,
+				},
+				Input13 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.IsWireframeAntialiased",
+					Default = 1,
+				},
+				Input14 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.IsVisible",
+					Default = 1,
+				},
+				Input15 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.IsUnseenByCameras",
+					Default = 0,
+				},
+				Input16 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.CullFrontFace",
+					Default = 0,
+				},
+				Input17 = InstanceInput {
+					SourceOp = "Base",
+					Source = "SurfaceCylinderInputs.CullBackFace",
+					Default = 0,
+				},
+				Input18 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlSelectComboBox.MaterialSelector",
+				},
+				Input19 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.SpecularRed",
+					Name = "Specular Color",
+					ControlGroup = 16,
+					Default = 1,
+				},
+				Input20 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.SpecularGreen",
+					ControlGroup = 16,
+					Default = 1,
+				},
+				Input21 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.SpecularBlue",
+					ControlGroup = 16,
+					Default = 1,
+				},
+				Input22 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.SpecularIntensity",
+					Default = 1,
+				},
+				Input23 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.SpecularExponent",
+					Default = 50,
+				},
+				Input24 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.Alpha",
+					Default = 1,
+				},
+				Input25 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.Opacity",
+					Default = 1,
+				},
+				Input26 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.TransmittanceRed",
+					Name = "Attenuation",
+					ControlGroup = 21,
+					Default = 0,
+				},
+				Input27 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.TransmittanceGreen",
+					ControlGroup = 21,
+					Default = 0,
+				},
+				Input28 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.TransmittanceBlue",
+					ControlGroup = 21,
+					Default = 0,
+				},
+				Input29 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.TransmittanceAlphaDetail",
+					Default = 1,
+				},
+				Input30 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.TransmittanceColorDetail",
+					Default = 0,
+				},
+				Input31 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.TransmittanceSaturation",
+					Default = 1,
+				},
+				Input32 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.ReceivesLighting",
+					Default = 1,
+				},
+				Input33 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.ReceivesShadows",
+					Default = 1,
+				},
+				Input34 = InstanceInput {
+					SourceOp = "Base",
+					Source = "MtlStdInputs.UseTwoSidedLighting",
+					Default = 0,
+				},
+				Input35 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.WrapType",
+					Name = "Wrap Type",
+					Default = 0,
+				},
+				Input36 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.UOffset",
+					Name = "U Offset",
+					Default = 0,
+				},
+				Input37 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.VOffset",
+					Name = "V Offset",
+					Default = 0,
+				},
+				Input38 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.UScale",
+					Name = "U Scale",
+					Default = 1,
+				},
+				Input39 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.VScale",
+					Name = "V Scale",
+					Default = 1,
+				},
+				Input40 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.URepeats",
+					Name = "U Repeats",
+					Default = 1,
+				},
+				Input41 = InstanceInput {
+					SourceOp = "Base",
+					Source = "TextureImageInputs.VRepeats",
+					Name = "V Repeats",
+					Default = 1,
+				},
+				Input42 = InstanceInput {
+					SourceOp = "twists",
+					Source = "Amount",
+					Name = "Turns",
+					Default = 10,
+				},
+				Input43 = InstanceInput {
+					SourceOp = "twists",
+					Source = "Angle",
+					Name = "Turns Angle",
+					Default = 0,
+				},
+				Input44 = InstanceInput {
+					SourceOp = "Extend",
+					Source = "Amount",
+					Name = "Stretch",
+					MaxScale = 10,
+					Default = 8,
+				},
+				Input45 = InstanceInput {
+					SourceOp = "Extend",
+					Source = "Angle",
+					Name = "Stretch Angle",
+					Default = 0,
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "twists",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 0, 0, },
+			},
+			Tools = ordered() {
+				Base = Shape3D {
+					NameSet = true,
+					Inputs = {
+						["SurfacePlaneInputs.Height"] = Input {
+							Value = 0.1,
+						},
+						["SurfacePlaneInputs.Width"] = Input {
+							Value = 10,
+						},
+						["SurfacePlaneInputs.SubdivisionWidth"] = Input {
+							Value = 40,
+						},
+						Shape = Input {
+							Value = FuID { "SurfaceCylinderInputs", },
+						},
+						["SurfaceCylinderInputs.Radius"] = Input {
+							Value = 0.12,
+						},
+						["SurfaceCylinderInputs.Height"] = Input {
+							Value = 40,
+						},
+						["SurfaceCylinderInputs.SubdivisionLevelBase"] = Input {
+							Value = 50,
+						},
+						["SurfaceCylinderInputs.SubdivisionLevelHeight"] = Input {
+							Value = 200,
+						},
+						["SurfaceCylinderInputs.BottomCap"] = Input {
+							Value = 1,
+						},
+						["SurfaceCylinderInputs.TopCap"] = Input {
+							Value = 1,
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -110, 379.5, },
+					},
+				},
+				twists = Bender3D {
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						Amount = Input {
+							Value = 10,
+						},
+						Data3D = Input {
+							SourceOp = "Extend",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 110, 379.5, },
+					},
+				},
+				Extend = Bender3D {
+					NameSet = true,
+					Inputs = {
+						Bender = Input {
+							Value = FuID { "Shear", },
+						},
+						Amount = Input {
+							Value = 8,
+						},
+						Data3D = Input {
+							SourceOp = "Base",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 0, 379.5, },
+					},
+				},
+			},
+		},
+	},
+	ActiveTool = "SE_Spiral3D",
+}

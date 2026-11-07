@@ -1,0 +1,296 @@
+{
+	Tools = ordered() {
+		Refraction = MacroOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				Comments = Input {
+					Value = "Refraction\r\nby Gregory Chalenko\r\nwww.compositing.ru",
+				},
+				MainInput1 = InstanceInput {
+					SourceOp = "Blur",
+					Source = "Input",
+					Name = "Refraction Map",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "Blur",
+					Source = "XBlurSize",
+					Name = "Map Blur",
+					Default = 28.61842,
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn1",
+				},
+				Input3 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "NumberIn2",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "Texture1",
+					Source = "Texture",
+				},
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Texture1",
+					Source = "Output",
+				},
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 604, 257, },
+				Flags = {
+					AllowPan = false,
+					ForceSource = true,
+					FullIndicator = true,
+					RemoveRouters = true,
+				},
+				Size = { 417.78, 260.894, },
+				Direction = "Vertical",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { 0, 0, },
+			},
+			Tools = ordered() {
+				Blur = Blur {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						XBlurSize = Input {
+							Value = 10,
+						},
+						YBlurSize = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Background_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -114.16, 10.15, },
+					},
+					Colors = {
+						TileColor = { R = 0.423529411764706, G = 0.525490196078431, B = 0.356862745098039, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Filter_1 = Filter {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Angle = Input {
+							Value = 180,
+						},
+						Randomize = Input {
+							Disabled = true,
+						},
+						Seed = Input {
+							Disabled = true,
+						},
+						Animated = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Blur",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -32.69, 60.28, },
+					},
+					Colors = {
+						TileColor = { R = 0.490196078431373, G = 0.505882352941176, B = 0.298039215686275, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Filter = Filter {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						Angle = Input {
+							Value = 90,
+						},
+						Randomize = Input {
+							Disabled = true,
+						},
+						Seed = Input {
+							Disabled = true,
+						},
+						Animated = Input {
+							Disabled = true,
+						},
+						Input = Input {
+							SourceOp = "Blur",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -145.89, 102.545, },
+					},
+					Colors = {
+						TileColor = { R = 0.490196078431373, G = 0.505882352941176, B = 0.298039215686275, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				CustomTool1 = Custom {
+					Inputs = {
+						NumberIn1 = Input {
+							Value = 1,
+						},
+						NumberIn2 = Input {
+							Value = 1,
+						},
+						RedExpression = Input {
+							Value = "r2+(r3-0.5)*n1",
+						},
+						GreenExpression = Input {
+							Value = "g2+(g1-0.5)*n2",
+						},
+						NumberControls = Input {
+							Value = 1,
+						},
+						NameforNumber1 = Input {
+							Value = "Horizontal Power",
+						},
+						NameforNumber2 = Input {
+							Value = "Vertical Power",
+						},
+						ShowNumber3 = Input {
+							Value = 0,
+						},
+						ShowNumber4 = Input {
+							Value = 0,
+						},
+						ShowNumber5 = Input {
+							Value = 0,
+						},
+						ShowNumber6 = Input {
+							Value = 0,
+						},
+						ShowNumber7 = Input {
+							Value = 0,
+						},
+						ShowNumber8 = Input {
+							Value = 0,
+						},
+						Image1 = Input {
+							SourceOp = "Filter",
+							Source = "Output",
+						},
+						Image2 = Input {
+							SourceOp = "Background",
+							Source = "Output",
+						},
+						Image3 = Input {
+							SourceOp = "Filter_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -13.07, 99.683, },
+					},
+				},
+				ChannelBooleans = ChannelBoolean {
+					CtrlWShown = false,
+					NameSet = true,
+					Inputs = {
+						ToRed = Input {
+							Value = 4,
+						},
+						ToGreen = Input {
+							Value = 4,
+						},
+						ToBlue = Input {
+							Value = 4,
+						},
+						ToAlpha = Input {
+							Value = 4,
+						},
+						EnableExtraChannels = Input {
+							Value = 1,
+						},
+						ToUTexture = Input {
+							Value = 5,
+						},
+						ToVTexture = Input {
+							Value = 6,
+						},
+						Background = Input {
+							SourceOp = "CustomTool1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -16.32, 156.036, },
+					},
+					Colors = {
+						TileColor = { R = 0.666666666666667, G = 0.498039215686275, B = 0.235294117647059, },
+						TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+					},
+				},
+				Background = Background {
+					ExtentSet = false,
+					CtrlWZoom = false,
+					NameSet = true,
+					Inputs = {
+						GlobalIn = Input {
+							Value = 1,
+						},
+						Width = Input {
+							Value = 2048,
+							Expression = "CustomTool1.Image1.OriginalWidth",
+						},
+						Height = Input {
+							Value = 1556,
+							Expression = "CustomTool1.Image1.OriginalHeight",
+						},
+						PixelAspect = Input {
+							Expression = "Point(CustomTool1.Image1.OriginalXScale, CustomTool1.Image1.OriginalYScale)",
+						},
+						Depth = Input {
+							Value = 4,
+						},
+						Type = Input {
+							Value = FuID { "Corner", },
+						},
+						TopLeftGreen = Input {
+							Value = 0.999357326478149,
+							Expression = "(CustomTool1.Image1.OriginalHeight-1)/(CustomTool1.Image1.OriginalHeight)",
+						},
+						TopRightRed = Input {
+							Value = 0.99951171875,
+							Expression = "(CustomTool1.Image1.OriginalWidth-1)/(CustomTool1.Image1.OriginalWidth)",
+						},
+						TopRightGreen = Input {
+							Value = 0.999357326478149,
+							Expression = "TopLeftGreen",
+						},
+						BottomRightRed = Input {
+							Value = 0.99951171875,
+							Expression = "TopRightRed",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { 145.89, 80.351, },
+					},
+				},
+				Texture1 = Texture {
+					CtrlWShown = false,
+					Inputs = {
+						Input = Input {
+							SourceOp = "ChannelBooleans",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo {
+						Pos = { -17.7499, 206.744, },
+					},
+				},
+			},
+			Colors = {
+				TileColor = { R = 0.537254901960784, G = 0.368627450980392, B = 0.525490196078431, },
+				TextColor = { R = 0.862745098039216, G = 0.862745098039216, B = 0.862745098039216, },
+			},
+		},
+	},
+}
