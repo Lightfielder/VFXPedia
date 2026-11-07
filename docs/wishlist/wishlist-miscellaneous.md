@@ -31,7 +31,7 @@ All requests that don't fit into other categories.
 ### Rendering
 
 - Ability to render not only final but custom frame size and quality with network rendering.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - Treat savers outside their active range (as set in the timeline) as disabled during rendering. Branches that end in disabled savers won't be rendered, but if a saver is enabled but not active, these branches are rendered in vain.
   -- Tilt) 15:41, 10 January 2011 
@@ -41,7 +41,7 @@ All requests that don't fit into other categories.
 - A complete documentation of the scripting engine with both Lua and the new Python Features. Including Fuses with examples and breakdowns of each example. A good example is the very mature MAXscript documentation.
 
 - Is it possible to separate file names from menu item names for scripts just like they are for macros? The menu item name can be stored in the script's header. Then a script file name could contain its version number and no spaces, while its menu name would remain clean and clear. When a script is updated , users could easily spot it.
-  -- [Gringo](index27a2.html?title=User:Gringo) 03:19, 5 November 2009 
+  -- Gringo 03:19, 5 November 2009 
 
 - Visual scripting something like programming in Visual basic you can draw slider, text box, and label, Buttons...And there list of objects.
 
@@ -49,15 +49,15 @@ All requests that don't fit into other categories.
   -- Ata 16:32, 18 October 2007 (Central Daylight Time)
 
 - Macro Editor should assign actual input IDs according to the instanced tools, not just Input1, Input2, MainInput1 etc. If correct IDs are assigned, EffectMask input gets correct colored and parameters of a macro can be more intuitively used in simple expressions and scripts.
-  -- [Gringo](index27a2.html?title=User:Gringo) 13:25, 28 October 2009 
+  -- Gringo 13:25, 28 October 2009 
 
 - Default value of a macro's inputs should override default values of instanced tools controls. Now if a tool's parameter has been changed from default, the "Default" macro tag doesn't work.
-  -- [Gringo](index27a2.html?title=User:Gringo) 14:51, 28 October 2009 
+  -- Gringo 14:51, 28 October 2009 
 
 - Static caching of SimpleExpressions that are constant or reference static inputs. -- Chad 21:51, 9 December 2010 
 
 - Sometimes, published or animated parameters change their names when some other parameters are connected to them. Can the names of the parameters remain unchanged?
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - Load Default / Save Default for Macros. -- Chad 13:54, 25 August 2011 
   -- Why don't you want to simply adjust and re-save the macros themselves? Is it for multy-user purposes? You can have different versions of macros for each user anyway... -- Gringo 10:42, 26 August 2011 
@@ -87,9 +87,9 @@ All requests that don't fit into other categories.
 - new help files with new examples and pdf Tutorials.
 
 - Saver should have a parameter Result Numbering Offset related to frame numbers of the Timeline rather than the Set Sequence Start related to Global In of an inbound branch. Set Sequence Start creates unexpected results when tools' in points are adjusted or their order is rearranged.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- Solved in Fusion 6.1 as an option: Saver-relative Numbering in the Saver.
 
 - A possibility to link macros to their VFXPedia description pages. There could be two additional macro tags: VFXPediaHelpPage and OfflineHelpPage for online and local help correspondingly. If a macro contains the tags, a user could select the macro node, press F1 and get online or offline description depending on the Help>Enable VFXPedia Help setting. Such a feature would be great for custom fuses and plugins too. [Related Pigsfly topic](http://www.pigsfly.com/forums/index.php?showtopic=5960)
-  -- [Gringo](index27a2.html?title=User:Gringo) 07:11, 26 December 2009 
+  -- Gringo 07:11, 26 December 2009 
   -- This should be possible in 6.31, right? (from changelog: Operator instances can override their help page with a topic/URL string in`m_CustomData["HelpPage"])`.

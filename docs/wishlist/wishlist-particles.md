@@ -12,30 +12,30 @@ New features or tweaks for the particle system.
   -- [andromeda_girl](index511a.html?title=User:Andromeda_girl)
 
 - Ability to deinstance splines like Size over Life or Blur over Life for instanced pEmitters
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - Branching for particle tools
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - Import Transform button in pEmitter.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - It's strange that all rotations in Fusion are measured according to the common 3D concept (2D rotation counterclockwise is considered as positive Z rotation) while pDirectionalForce.DirectionZ is actually negative rotation around Y. The same old-fashioned 2D-style is in pEmitter.VelosityControls.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - Now, if you RMB on any parameter in the Region tab except X/Y/Z Offset, the menu offers Animate Cube/Rect/SphereRgn Group instead of expected Animate Rotation/Pivot Group.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- If you look at the input IDs you'll see why that is. The X/Y/Z Offset inputs have IDs SphereRgn.Translate.X/Y/Z so they're all part of the "SphereRgn.Translate" group, where X/Y/Z Rotation inputs have IDs SphereRgn.X/Y/ZRotation, so they're part of a "SphereRgn" group, ie. the whole SphereRgn. Doesn't really seem like something that should be in a wishlist.
   -- Stuart: What if groups in pEmitter were arranged just like in any other tool from the 3D suite so that you could "Animate Translate Group", "Animate Rotate Group", "Animate Scale Group"?-- Gringo
 
 - Config tab for the pCustomTool just like in general CustomTool to rename the controls and hide unneeded ones. And also, connectible point controls.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - An option in the pEmitter to use Variance parameters not as values which are added or subtracted from corresponding parameters, but as a fraction of them. If the Variance = 0, there is no variations, otherwise the corresponding parameter (CP) changes from CP-CP*Variance to CP+CP*Variance. Now, if you don't connect a Variation to the corresponding parameter with a simple expression, you always have to adjust it manually to keep the proportion and to avoid undesirable negative values. So I always end up with simple expressions like LifespanVariance=Lifespan/N which makes the slider unusable.
   -- This is especially important for the color variations. For example, if you want to start and stop emission of a sprite-based smoke smoothly, you need to animate the emitted particle Color values from 0 to 1 and then from 1 to 0 (you won't be satisfied with the Number animation getting separate sprite puffs instead of growing and decaying stream). Now, when the Color is 1, variance of 0.5 will change it from 0.5 to 1.5, but when the color is 0.1, it will be changed from -0.4 to 0.6, so you have to animate Red Low, Red High, Green Low, Green High, Blue Low, Blue High, Alpha Low, Alpha High proportionally. -- Gringo 14:29, 19 November 2011 
 
 - Non-linearity for variations in particle parameters to have a few big particles amongst small ones or to emit a few particles off axis whilst the others fly in a stream. It could be an additional parameter like Variation Bias which would work as a power function applied to the variations array.
-  -- [Gringo](index27a2.html?title=User:Gringo) 16:16, 19 November 2011 
+  -- Gringo 16:16, 19 November 2011 
 
 ### Particle Style
 
@@ -48,16 +48,16 @@ New features or tweaks for the particle system.
   -- [bFloch](index5c9f.html?title=User:Milho&action=edit&redlink=1)
 
 - Possibility to set pEmitter.ParticleStyle.ColorVariance less than -1 and more than 1. Would be useful in the cases of very bright particles with color value >10 which are used for sparkles, fireworks and so on. I know, it can be solved with a post-color correction, but it's not so elegant.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - Color Variance values are now added to the particle color instead of being multipliers. It makes problems when, for example, the initial color is 0.5 and the variance value is -1.
-  -- [Gringo](index27a2.html?title=User:Gringo) 09:27, 1 September 2010 
+  -- Gringo 09:27, 1 September 2010 
 
 - Opacity over Life graph would give us much better control over non-linear fade in/out being more handy and easy to adjust than Fade Controls + Color over Life, especially, if the particles should change not only opacity, but also their color.
-  -- [Gringo](index27a2.html?title=User:Gringo) 09:27, 1 September 2010 
+  -- Gringo 09:27, 1 September 2010 
 
 - Transparency to Size parameter which would adjust particles' transparency according to their size. This control would be extremely useful for making sprite-based smoke, where the transparency of each sprite should quadratically increase with the size as the smoke dissolves. It would be also great for simulating out-of-focus suspended dust (the bigger the defocused particle - the greater the trasparency). If the parameter would be set to negative, it could help creatind fade in/out effect for the particles like highlights which need to emerge from transparency, grow and then fade out decreasing the size.
-  -- [Gringo](index27a2.html?title=User:Gringo) 11:06, 3 October 2011 
+  -- Gringo 11:06, 3 October 2011 
 
 - Animatable Style.  So we can either keyframe it, or more likely, modify with expressions. -- Chad
 
@@ -72,10 +72,10 @@ New features or tweaks for the particle system.
   -- Then it could be any textured 3D objects, not only image plane. -- Gringo
 
 - Another, simpler suggestion: a Scale control in the Bitmap region. It would be very useful in case the same particle setup needs to be added to shots with different framing. Now, if you use long shots and close ups as the source for the Bitmap region, the scale of the emitting areas changes in 3D and there is no possibility to align the shots apart from scaling particle size and forces' parameters.
-  -- [Gringo](index27a2.html?title=User:Gringo) 07:01, 21 October 2011 
+  -- Gringo 07:01, 21 October 2011 
 
 - Ability to smooth regions. For example, smooth decay of particle generation according to softness of a bezier region or multiple gradations based on a bitmap region.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- In some cases you can animate the region size with a frequent sub-frame shake in order to smooth it. -- Gringo 08:26, 26 October 2011 
   -- Description of the technique. -- Gringo 14:00, 24 January 2013 
 
@@ -84,7 +84,7 @@ New features or tweaks for the particle system.
 - pImageEmitter needs a Filter Method (even a basic one, Nearest Neighbor / Linear)  for the particle-to-image sampling.  Right now, and black/white input map will make grey particles where the black and white regions meet, even if there is no grey pixels. -- Chad 13:28, 18 November 2009 
 
 - An option to make regions renderable. It's important in case the regions have to be synchronized with objects in the BG plate. For now, the only option is to create a Shape3D and connect it's parameters to the region's parameters.
-  -- [Gringo](index27a2.html?title=User:Gringo) 16:30, 31 August 2011 
+  -- Gringo 16:30, 31 August 2011 
 
 ### Dynamics
 
@@ -102,10 +102,10 @@ New features or tweaks for the particle system.
 - 3D curves to control/emit particles (e.g. writeOn effects in 3D Space)
 
 - Possibility to define particles' trajectory by a 2D path. X axis of that 2D path should be oriented in space according to each particle's initial angle. Additional parameters like Path X Rotation and Path X Rotation Variance would be useful.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - The Spin parameter in the pEmitter should affect the Point Cluster particles just like it does with other particle styles.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - A possibility to connect the emission direction to the Region rotation. It's needed, for example, to simulate exhaustion from bottom nozzles of a flying object which has a complicated trajectory.
   -- Now there are several ways to solve this task, but all of them have their disadvantages.
@@ -120,13 +120,13 @@ New features or tweaks for the particle system.
   -- An example:PEmitter_RegionRotationToAngle.comp-- Gringo 07:13, 21 November 2009 
 
 - An option to emit particles along the normals of Mesh emitters in case of emitting from surface.
-  -- [Gringo](index27a2.html?title=User:Gringo) 08:33, 26 October 2011 
+  -- Gringo 08:33, 26 October 2011 
 
 - A Mass parameter for all the particle generators. It would define how quickly particles respond to the forces. This is especially important when an effect consists of different types of particles like sparks, debris and dust/smoke as well as when your forces quickly change the vector. pFriction doesn't solve this problem.
-  -- [Gringo](index27a2.html?title=User:Gringo) 16:21, 27 November 2010 
+  -- Gringo 16:21, 27 November 2010 
 
 - A possibility to preview the particle dynamics itself separately from the final rendering would tremendously speed-up the process of tweaking. Now the user has to wait for slow rendering every time he/she plays with forces. It's getting much worse when the motion blur is used. And particle cache should be able to store dynamics separately as well.
-  -- [Gringo](index27a2.html?title=User:Gringo) 15:52, 2 December 2010 
+  -- Gringo 15:52, 2 December 2010 
 
 ### Particle Forces and Auxiliary Tools
 
@@ -134,26 +134,26 @@ New features or tweaks for the particle system.
   -- Is this solved by means of Theo's techniquehttp://www.pigsfly.com/forums/index.php?showtopic=5340?-- Gringo: No, it doesn't appear to be iterative.  And it's really slow.  The pGF is internally using vector fields, so I would just like to override the conversion and just input my own. -- Chad
 
 - Would be great if the pSpawn.StartAge/EndAge parameters were turn into Number over Parents' Life to control the quantity of particles that are emitted during the main particles' life.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- The same for other Start Ages /End Ages in the Conditions tab of different forces. So, a force can start/end affecting particles smoothly and can change its magnitude several times during a particle's life. Currently only pTurbulence has such a possibility-- Gringo
 
 - It would make more sense if the Use Color from Parent Particle option of the pSpawn inherited the actual color of a parent particle considering its Color over Life and Fade. Now this option copies the parent particle's style, which can be done by just copying the pEmitter's style properties to the pSpawn. To not break the compatibility, I suggest adding another option so that the user could choose between Use Style Color, Copy Style Color Properties from Parent and Inherit Actual Color from Parent.
-  -- [Gringo](index27a2.html?title=User:Gringo) 09:09, 17 November 2010 
+  -- Gringo 09:09, 17 November 2010 
 
 - It would be great if the pSpawn had a parameter like Number to Velocity, which would increase the number of generated daughter particles for fast parent ones. This would be useful to create trails of different kinds. pSpawn has to generate enough particles to make trails continuous, but if the general Number is increased, lots of particles are generated in vain, because slow parents don't need a great number of daughters :)))
-  -- [Gringo](index27a2.html?title=User:Gringo) 04:21, 4 February 2011 
+  -- Gringo 04:21, 4 February 2011 
 
 - It would be more intuitive if the Power parameter in pVortex and pPointForce was called Strength Decay.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - A Temporal Frequency parameter in the pTurbulence. First of all, it would help eliminate the jerky motion the pTurbulence introduces to particles. At the moment, the pTurbulence is nearly useless for realistic particle effects and I have to create setups based on the pCustom instead which are slow, cumbersome and have their own flaws (not as obvious though) in the result.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - A possibility to shift the Turbulence pattern in space.
-  -- [Gringo](index27a2.html?title=User:Gringo) 09:11, 25 October 2011 
+  -- Gringo 09:11, 25 October 2011 
 
 - Possibility to apply Transform3D and Duplicate3D directly to pEmitter (to affect only pEmitter coordinates, not particles' coordinates) so that it could participate in hierarchy and could be instanced in a special way.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
 
 - pCustom "Set" output.  So we can use "if" statements to move particles into a new set. -- Chad
 
@@ -162,10 +162,10 @@ New features or tweaks for the particle system.
     -- The problem with that is that there is no "before they are modified by a pCustom", particles don't get evaluated one tool at a time, but are integrated over time.  So the input for a pCustom is meaningless except for setting up the order of operations for the integration steps.  The only way you could access that information is if you had cached it somewhere.  Perhaps in an image buffer, or to some persistent user data.  You could probably do this with a fuse, but I haven't tested to see how ID's get "recycled" if at all when you change the particle counts over time. -- Chad 09:36, 5 May 2010 
 
 - Config tab in the pCustom just like in the Expression modifier to name and hide the controls.
-  -- [Gringo](index27a2.html?title=User:Gringo) 06:40, 9 September 2010 
+  -- Gringo 06:40, 9 September 2010 
 
 - A possibility to change the particle style from a pCustom. It would make mimicking 3D particles much easier and if the pCustom could also address any frame from a sequence, it would tremendously simplify particles look variations.
-  -- [Gringo](index27a2.html?title=User:Gringo) 11:26, 14 September 2010 
+  -- Gringo 11:26, 14 September 2010 
 
 ### Rendering
 
@@ -176,14 +176,14 @@ New features or tweaks for the particle system.
   -- It would be great to have the ability to mask glows etc. to material or object channels based on the set of a particle.
 
 - There is a bug with motion blur: Quality, Shutter Angle and Center Bias parameters affect particles' position.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- Why would this be a bug?-- Chad: Motion Blur should just blur particles (maybe with some shift) and shouldn't completely change their position. It prevents to make combinations of blurred and not blurred particles that must have the same position. Also, it's wrong when you quickly tune particles without MB and then need to turn it on for the final render. -- Gringo: Motion Blur is supposed to be based on motion, which requires the particles to move.  EVERY tool in Fusion works this way, not just particles. -- Chad: Try to create a pEmitter, connected to a pRender (2D). Set Number=1, Velosity=0.1 in the pEmitter. Go to the 10-th frame. Drag'n'drop the pRender to a Display View. Turn MB on. Set Quality=3 in the pRender. Set Quality=4. Set Shutter Angle=179... -- Gringo: I think it happens because particles are born not exactly in a particular frame, but somewhere about regardless the Sub-frame Calculation Accuracy setting. You can get certain of it if you animate the Number in pEmitter so that it was 0 in all frames and 10 in frame 15, then compare particles' position when Global In of pRender is 1, 14, 15-- Gringo
 
 - An option in the pRender to inherit the motion blur settings from a Renderer3D in 3D mode (on by default). For correct results, these settings should be the same, so why to set them every time manually in both nodes? It's not obvious for the beginners and confusing, not to mention that it takes time to re-enter the settings or to make connections via expressions. For the cases when the particle system is connected to multiple Renderer3Ds, there could be a drop-down list to chose, where to copy the settings from.
-  -- [Gringo](index27a2.html?title=User:Gringo) 13:31, 19 November 2011 
+  -- Gringo 13:31, 19 November 2011 
 
 - An option for motion blur to calculate particles' positions between frames not as independent samples, but as interpolation (spline or linear) between whole frames. It would eliminate the complete change in particles behaviour when you switch MB on and off or adjust its properties. The point is, for a user MB has nothing to do with the dynamics calculations precision, it's rather one of the aspects of particles appearance. It's usually switched on after you've set up everything and want to get the final rendering. With the current approach users get completely unexpected results with motion blur. Particularly when they use a pCustom, whose expressions are calculated not once per frame but once per a MB sample.
-  -- [Gringo](index27a2.html?title=User:Gringo) 11:11, 14 September 2010 
+  -- Gringo 11:11, 14 September 2010 
 
 - Change shading parameters of particles.
 
@@ -218,7 +218,7 @@ New features or tweaks for the particle system.
 - **Note:** motion blur does work on 3D particles, even in Fusion 5.02, if and only if you have **identical mblur settings** on both the [pRender](indexb5eb.html?title=Eyeon:Manual/Tool_Reference/Particle/pRender) and [Renderer 3D](index69dd.html?title=Eyeon:Manual/Tool_Reference/3D/Renderer_3D) tools.
 
 - Time Variance parameter in Bitmap Style, Over Time mode to make particles unique when they are born at the same time.
-  -- [Gringo](index27a2.html?title=User:Gringo)-- Gringo: Has been solvedhere.
+  -- Gringo-- Gringo: Has been solvedhere.
 
 - Position Variance for each axis separately in [Particle Emitter](index95a4.html?title=Eyeon:Manual/Tool_Reference/Particle/pEmitter)
   -- This could be done easily with the pCustom node.theotheo-Just enter expressions likeif(age>0, px, px+rand(0.01,-0.01))to the Position X/Y/Z Expression fields of the pCustom. See also:PRandomizeInitialPosition.setting. -- Gringo
@@ -230,7 +230,7 @@ New features or tweaks for the particle system.
   -- I think it can be done by dissolving both textes to blobs and combining them together as sequences (one of them reversed and time-shifted)-- Gringo
 
 - Animatable motion blur parameters in the pRender. Not to animate them, but to connect, for example, to a Render3D motion blur parameters.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- Available in Fusion 6.3 and later. -- Gringo 09:42, 5 November 2011 
 
 - 3D shape particles

@@ -3,11 +3,10 @@
 - ***New*** A RenderRange_to_NodeRange tool script. It could be useful to optimize your compositions (for example, you can automatically set a pRender range to exclude frames before render range from processing).
   -- Another use is to store render range in the case when you have several savers which must work for different ranges. So, you can quckly set a Saver's range equall to the comp range and afterwards restore it by drag'n'dropping the saver to the Time Ruller. Sometimes custom range of a comp needs to be changed to full range of a Loader for tracking. So, the script could help restore the custom range afterwards. -- Gringo
 
-- ***Update*** There is an extremely useful script for keyframes retiming described here: [http://www.pigsfly.com/forums/index.php?showtopic=5210&view=findpost&p=17877](http://www.pigsfly.com/forums/index.php?showtopic=5210&view=findpost&p=17877) the only thing it can't retime at the moment is masks. Would be great if it was finished.
-  -- [Gringo](index27a2.html?title=User:Gringo)
+- ***Update*** There is an extremely useful script for keyframes retiming described here: [http://www.pigsfly.com/forums/index.php?showtopic=5210&view=findpost&p=17877](http://www.pigsfly.com/forums/index.php?showtopic=5210&view=findpost&p=17877) the only thing it can't retime at the moment is masks. Would be great if it was finished. -- Gringo
 
 - ***Update*** The "Attach Mask to path, keep position" Toolscript needs to be updated to work with baked and X-Y Tracker paths
-  -- [Fry](indexd1e1.html?title=User:Fry) 14:25, 16 May 2010 
+  -- Fry14:25, 16 May 2010 
 
 - ***New*** A script that checks installed macros for updates (if they have a help URL that points to VFXPedia where one could parse the HTML).  Came up in [this pigsfly thread](http://www.pigsfly.com/forums/index.php?showtopic=8183).
   -- Tilt 13:50, 7 April 2013 
@@ -20,7 +19,7 @@
 ## Workarounds
 
 - ***Update*** A possibility for [-=Batch Changer=-](index57ad.html?title=Useful_Scripts#Comp_Scripts) to batch-edit the Comment fields. Needed to assign priority level for multiple tools to use with [SE_PriorityPassthrough.eyeonscript](index57ad.html?title=Useful_Scripts#Comp_Scripts)
-  -- [Gringo](index27a2.html?title=User:Gringo) 10:44, 24 November 2009 
+  -- Gringo 10:44, 24 November 2009 
   -- what aboutSE_PrioritySetLevel?
   -- michael_v: It works perfectly, thanks :)-- Gringo 05:59, 25 November 2009 
 
@@ -37,7 +36,7 @@
   -- See:http://www.pigsfly.com/forums/index.php?showtopic=5559-- Gringo
 
 - ***New*** A simple script which would copy the path from a saver to a loader when both are selected. Needed badly in case of manual caching or if you just want to see quickly the result of the rendering.
-  -- [Gringo](index27a2.html?title=User:Gringo) 10:46, 22 September 2010 
+  -- Gringo 10:46, 22 September 2010 
   -- wouldthis onecover your use case?
   -- Tilt 16:28, 25 September 2010 
     -- Wow, this is awesome! Thank you so much!-- Gringo 18:35, 25 September 2010 
@@ -47,7 +46,7 @@
   -- Solved by this script:Comp_Name_&Saver&_Date_to_Saver_Folder_v03-- Gringo 16:23, 24 October 2010 
 
 - ***Update*** Please, make the standard **Destabilize Transform.eyeonscript** tool script work not only for Transforms and Merges but for all the tools which have a Center, Angle | Z Rotation | Angle Z and Size parameters (such as Masks, GridWarps, Text+).
-  -- [Gringo](index27a2.html?title=User:Gringo)
+  -- Gringo
   -- It could also automatically rename Transforms according to the Trackers. XF_Tracker2, for instance. -- Gringo 03:43, 10 August 2009 
     -- Such a script would be even more handy if it could assign the Tracker automatically if one Tracker is selected along with the affected tools. -- Gringo 10:43, 29 September 2010 
     -- I've extended the script, still need to implement that last bit

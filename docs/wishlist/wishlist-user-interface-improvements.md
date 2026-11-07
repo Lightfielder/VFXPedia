@@ -448,7 +448,7 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 - Where would you save that data?  You mean like caching the bitmaps?-- Chad 14:16, 27 March 2013 
 - Good question! I think the images should be saved into a subfolder where the comp file is. This subfolder could store all the cached thumbnails for the comps in the folder with the names like `.\FusionThumbnails\Thumb.<CompName>.<NodeName>.bmp`-- Gringo 17:08, 28 March 2013
 
-- There's already a thumbnail cache pathmap that is used for Bins if I recall correctly. -- Tilt 07:44, 29 March 2013 
+- There's already a thumbnail cache pathmap that is used for Bins if I recall correctly. -- Tilt 07:44, 29 March 2013
 
 - When a tool is inactive in the current fame (due to its range being limited in the timeline), display a clear indication of that fact in the flow node (ex., a red cross) and in the spline editor (ex., dashed line). I must have wasted several hours of my life trying to find out why a tool isn't having any effect on the composition, only to find that I'm adding keyframes to a segment outside the range set in the timeline. - RMN 18:03, 20 August 2011
 
@@ -500,10 +500,9 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - For non-spline-animated controls in Timeline Editor, allow color coded controls from Spline Editor to show up.  Perhaps as text color?  Or a background for the text?  As it is now, I can see in Spline Editor that I want to modify the "Orange Mid" control, but in Timeline, I only see a dozen Mid controls, and don't know which one was the one I wanted. -- Chad 17:17, 27 August 2009 
 
-- Cursor left/right should move the tools range bar like it allows you to shift keyframes.
-  -- Tilt 00:59, 25 October 2009 
-  -- Oh look, it's already here. Just wanted to add this :-) To elaborate: when you want to move a loader in time, you can't always use the cursor keys in its global in/out range control because that won't let you move it past the current extends of the range control. You need to manually enter something like "-1" to make the range extend to negative X which gives you a bit more legroom to move the footage. Especially when aligning a long clip (think edit reference) dragging the timeline bar with your mouse is too coarse (unless you're zoomed in completely) so cursor key control for the timeline bar (and shift-cursor keys for 10-frame-increments) would be neat.
-  -- Tilt 14:55, 8 April 2013 
+- Cursor left/right should move the tools range bar like it allows you to shift keyframes. -- Tilt 00:59, 25 October 2009
+
+- Oh look, it's already here. Just wanted to add this :-) To elaborate: when you want to move a loader in time, you can't always use the cursor keys in its global in/out range control because that won't let you move it past the current extends of the range control. You need to manually enter something like "-1" to make the range extend to negative X which gives you a bit more legroom to move the footage. Especially when aligning a long clip (think edit reference) dragging the timeline bar with your mouse is too coarse (unless you're zoomed in completely) so cursor key control for the timeline bar (and shift-cursor keys for 10-frame-increments) would be neat. -- Tilt 14:55, 8 April 2013 
 
 - A possibility to exclude specific tracks or categories of tracks from considering when jumping between keyframes with Alt+arrow. Now, once you've connected a mask to a tracker with a keyframe in each frame, Alt+arrows becomes useless. -- Gringo 09:16, 5 April 2010 
 
@@ -516,53 +515,57 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 - For each selected point in the spline view, highlight the corresponding control in the hierarchy on the left.  Color coding doesn't work well enough if you have overlapping splines, nor does it help if you have a dozen controls with the same color. -- Chad 10:07, 3 May 2012 
 
 - We have "Zoom to Rect" in Spline, but how about a "Zoom to Fit Selected"?  "Fit" wants to fit the entire time range, but I just want to fit the points I have selected. -- Chad 10:07, 3 May 2012 
-  -- What about the "Fit" command fitting the selected points or the entire curve if no points are selected? Then get rid of that weird zoom to rect option. Ideally, this behavior should be consistent in the flow view and the small spline editor of the color curves or hue curves as well.
-  -- Tilt 08:03, 29 March 2013 
+  -- What about the "Fit" command fitting the selected points or the entire curve if no points are selected? Then get rid of that weird zoom to rect option. Ideally, this behavior should be consistent in the flow view and the small spline editor of the color curves or hue curves as well. -- Tilt 08:03, 29 March 2013 
 
 - In Spline view, shift-mousewheel scrolls time, and ctrl-mousewheel zooms values, but alt-mousewheel doesn't do anything. would be nice if it could zoom time. -- Chad 13:54, 4 May 2012 
-  -- ctrl-wheel zooms both here as does left+middle button drag zooming. What about doing zooming the Nuke/Blender way where you can drag vertically to scale values and horizontall to scale time or any combination depending on your mouse pointer trajectory.
-  -- Tilt 16:05, 2 July 2014 
+  -- ctrl-wheel zooms both here as does left+middle button drag zooming. What about doing zooming the Nuke/Blender way where you can drag vertically to scale values and horizontall to scale time or any combination depending on your mouse pointer trajectory. -- Tilt 16:05, 2 July 2014 
 
 - Modifier key to allow dragging of points constrained not to X or Y, but to slope.  So editing the keyframes of some control to extend the animation without changing the speed becomes very simple. -- Chad 13:15, 18 February 2014 
 
-- Now that we have smooth 3D splines in the 3D viewer, please make the spline editor not flicker when zooming and finally draw anti-aliased curves in the spline/LUT editors.
-  -- Tilt 16:05, 2 July 2014 
-  -- Sure, if it was rewritten to not be GDI based (of course the 3D viewer can do it, because OpenGL does double buffering can do AA lines).
-  -- Stuart 14:28, 3 July 2014 
+- Now that we have smooth 3D splines in the 3D viewer, please make the spline editor not flicker when zooming and finally draw anti-aliased curves in the spline/LUT editors. -- Tilt 16:05, 2 July 2014 
+
+- Sure, if it was rewritten to not be GDI based (of course the 3D viewer can do it, because OpenGL does double buffering can do AA lines). -- Stuart 14:28, 3 July 2014 
 
 ### Tool Controls
 
 - Independence control add into view windows
-  -- Example when working you want to return to change hue, glow, tone, color ,size ,rotation   …control simply you alt click on hue or something slider and drag it to view window and change the hue as you want and still in view window.
+
+- Example when working you want to return to change hue, glow, tone, color ,size ,rotation   …control simply you alt click on hue or something slider and drag it to view window and change the hue as you want and still in view window.
 
 - Interface improvements along the lines discussed and sketched [here](http://www.pigsfly.com/forums/index.php?s=&showtopic=1630&view=findpost&p=8657). E.g. "animated values can have different colors in the tools panel" is something I find very useful in my 3D apps. These improvements would make work easier by reducing the number of clicks required to get to content.
 
 - A more advanced coloring scheme for the controls which are animated or connected instead of current Blue = any animation or connection, Green = keyframe in the current frame:
-  -- Red = animated with spline and has a keyframe in the current frameOrange = animated with splineBeige = publishedBlue = connected to a modifierPurple = the modifier has a keyframeGreen should be totally reserved for instanced parameters. -- Gringo 12:34, 8 September 2011 
-  -- Fusion 7's animation indicator bars at least differentiate keyframes and simple expressions.
-  -- Tilt 17:44, 2 July 2014 
+  -- Red = animated with spline and has a keyframe in the current frameOrange = animated with splineBeige = publishedBlue = connected to a modifierPurple = the modifier has a keyframeGreen should be totally reserved for instanced parameters. -- Gringo 12:34, 8 September 2011
+  
+- Fusion 7's animation indicator bars at least differentiate keyframes and simple expressions. -- Tilt 17:44, 2 July 2014 
 
 - Green border around multibuttons and checkboxes showing that they are instanced, same as around the number fields, drop-down lists etc. -- Gringo 12:25, 8 September 2011 
 
 - The tool which was the original for instanced tools, should have green borders around parameters too for the link works in both directions anyway and this would help to see which parameters were de-instanced in all the copies. -- Gringo 12:44, 8 September 2011 
 
 - There could be a kind of indication for all the tools' parameters changed from default. For example, in the ColorCorrector, if the text on buttons Shadows, Midtones, Levels, Suppress etc. would change the color or become bold, or a symbol (asterisk?) would appear, you would see at a glance, what was done. The same behavior for all the parameters' names and tabs would be nice too. -- Gringo
-  -- Partially implemented in Fusion 6.1, but it still doesn't have any indication on tabs whether controls inside these tabs were modified. -- Gringo 05:27, 11 June 2010 
-  -- seethis pigsfly threadfor mockups and discussion.
-  -- Currently, only the Slider and Screw controls have the visible "Set to Default" feature rendered as a gray dot. I believe, it was made so to have the reset function and the default value position in one, and only sliders and screws have space for that gray dot. The other controls like Range, Checkbox, Multibutton, Color still don't represent any indication about being altered. I would suggest to put such gray dots next to all the input names on the right. Clicking on the dot would reset the input, or if the dot against the group of controls name was clicked, the whole group (Color, 3D position, 2D Offset) would be reset. The same for the Label controls and tabs: clicking on the dot would reset all the inputs which are included (resetting the Label control collapsed/expanded state doesn't make sense to me). See thesketches. Or another suggestion - to display the changed parameters' names in bold and reset them by double-click on the name (like in Adobe Light Room). -- Gringo 09:43, 25 November 2012 
+
+- Partially implemented in Fusion 6.1, but it still doesn't have any indication on tabs whether controls inside these tabs were modified. -- Gringo 05:27, 11 June 2010
+
+- see this pigsfly thread for mockups and discussion.
+
+- Currently, only the Slider and Screw controls have the visible "Set to Default" feature rendered as a gray dot. I believe, it was made so to have the reset function and the default value position in one, and only sliders and screws have space for that gray dot. The other controls like Range, Checkbox, Multibutton, Color still don't represent any indication about being altered. I would suggest to put such gray dots next to all the input names on the right. Clicking on the dot would reset the input, or if the dot against the group of controls name was clicked, the whole group (Color, 3D position, 2D Offset) would be reset. The same for the Label controls and tabs: clicking on the dot would reset all the inputs which are included (resetting the Label control collapsed/expanded state doesn't make sense to me). See thesketches. Or another suggestion - to display the changed parameters' names in bold and reset them by double-click on the name (like in Adobe Light Room). -- Gringo 09:43, 25 November 2012 
 
 - Ability to "gang" or "group" a selection of sliders by lasooing them (with left or right mouse button) and then sliding only one - which makes all selected ones move together.
-  -- How does that differ from publishing or simple expressions?-- Chad
 
-- It sounds easier, faster and more ergonomic - one click'n drag vs several click'n drags or wading through menus (nested menus are slow). It could be a shortcut for creating simple expressions of that kind. It's also easy move for stylus.
-  -- Hevonen
-  -- But where would you use this?  Simple Expressions let you have offsets and multipliers.  If you were to set all the sliders to be the same with a lasso?  Where do you find sliders like that where this would be useful?-- Chad
+- How does that differ from publishing or simple expressions?-- Chad
+
+- It sounds easier, faster and more ergonomic - one click'n drag vs several click'n drags or wading through menus (nested menus are slow). It could be a shortcut for creating simple expressions of that kind. It's also easy move for stylus. -- Hevonen
+
+- But where would you use this?  Simple Expressions let you have offsets and multipliers.  If you were to set all the sliders to be the same with a lasso?  Where do you find sliders like that where this would be useful? -- Chad
 
 - I don't find them anywhere right now (except maybe macros), but that may change if proposed property sheet gets implemented. This kind of interface features make things feel smooth. I wonder what was the target of original wish.
-  -- Hevonen: It's a good idea. In Sofimage|XSI color sliders work this way when you hold Ctrl. So you can set, for example, luminance in RGB mode with ease. -- Gringo: I can see a bit of a problem if / when the sliders have different scales. If one varies from 0 to 1 and the other varies from 0 to 20, what happens when you "link" them and drag one? Do they both change by the same amount? Or the same percentage of their scale? The "special case" of binding R+G+B while holding down Control is more straightforward, but people rarely need to drag the three by the same amount (which changes the hue and saturation); it's better to switch to HSL and drag the luminance cursor (which scales all values by the same amount, rather than offseting them linearly). If that's what you meant, then I guess it could save a bit of time (no need to open the HLS controls).
-  -- RMN 01:51, 6 September 2011 
-  -- More seriously, an enhanced interface for the channel booleans would be great too, to avoid having to search for each channel in a scrolling list for example.
-  -- chib
+
+  -- It's a good idea. In Sofimage|XSI color sliders work this way when you hold Ctrl. So you can set, for example, luminance in RGB mode with ease.
+  
+  I can see a bit of a problem if / when the sliders have different scales. If one varies from 0 to 1 and the other varies from 0 to 20, what happens when you "link" them and drag one? Do they both change by the same amount? Or the same percentage of their scale? The "special case" of binding R+G+B while holding down Control is more straightforward, but people rarely need to drag the three by the same amount (which changes the hue and saturation); it's better to switch to HSL and drag the luminance cursor (which scales all values by the same amount, rather than offseting them linearly). If that's what you meant, then I guess it could save a bit of time (no need to open the HLS controls). -- RMN 01:51, 6 September 2011 
+
+- More seriously, an enhanced interface for the channel booleans would be great too, to avoid having to search for each channel in a scrolling list for example. -- chib
 
 - "Lock R/G/B" checkbox for the ChannelBooleans to have a possibility to select a single source for all of them at once. For example, would be useful to divide by Alpha or to fill with white. -- Gringo 12:23, 24 August 2010 
 
@@ -572,23 +575,23 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - Allow values to be shown as pixels instead of normalized values in all 2d tools. This could only be interface visualization thing, everything could still run resolution independent in the background. Currently this seems to be possible only with transform tool.
 
-- When viewing a Merge3D in the viewport, there is no "Show Controls" button in the view toolbar. If you were viewing a normal 2D tool with the "Show Controls" OFF, then load viewer with Merge3D, no 3D tools will be visible. Late at night this is a real head scratcher as you wonder why the camera and lights are not visible. You then have to use Ctrl-K to view controls. I think to be consistent in the UI, there should be a "View Controls" button next to the Wire-Light-Shad- Fast buttons. If for no other reason than to be a visual reminder of the controls state.
-  -- Drswoboda
+- When viewing a Merge3D in the viewport, there is no "Show Controls" button in the view toolbar. If you were viewing a normal 2D tool with the "Show Controls" OFF, then load viewer with Merge3D, no 3D tools will be visible. Late at night this is a real head scratcher as you wonder why the camera and lights are not visible. You then have to use Ctrl-K to view controls. I think to be consistent in the UI, there should be a "View Controls" button next to the Wire-Light-Shad- Fast buttons. If for no other reason than to be a visual reminder of the controls state. -- Drswoboda
 
 - "Make unique" context menu item for connected parameters to disconnect parameters and copy animation spline when you don't want to break other tools' parameters links. -- Gringo
-  -- I could really use that.  So many times I do a "connect to" but later want to make the controller unique while preserving the keys.  Should be a single right-click. -- Chad
+
+- I could really use that.  So many times I do a "connect to" but later want to make the controller unique while preserving the keys.  Should be a single right-click. -- Chad
 
 - Histogram control should adopt to the Control Panel horizontal size. -- Gringo
 
 - For tools like Rsz, where there is a "Change Pixel Aspect" button, it would be nice if, upon checking it, the Input pixel aspect was set.  Defaulting to the Comp setting seems odd to me, since I'm usually converting the input aspect ratio anyway. -- Chad
 
-- It would be nice to be able to access all parameters from a tool's inputs and not just width and height.  Similar to the existing expressions for example: EffectMask.Width.  So we could get EffectMask.Centre or EffectMask.Level... etc
-  -- [Protean](index28e0.html?title=User:Protean&action=edit&redlink=1)
-  -- Oooo... I like it. Especially if it was recursive.  Like if you could get the EffectMask.EffectMask.Center.  I assume it would fail if the input being requested was not there, but I can totally live with that, as that's how SimpleExpressions work now. -- Chad
+- It would be nice to be able to access all parameters from a tool's inputs and not just width and height.  Similar to the existing expressions for example: EffectMask.Width.  So we could get EffectMask.Centre or EffectMask.Level... etc -- Protean
 
-- Can we have a UserControl button that can execute scripts (e.g. tool scripts or any other script)? this would be useful for creating new macros, fuses or tools for pipeline integration. it is imho an great improvement when you can just click the script execution button in the tool  against right clicking, finding and choosing the right script.
-  -- [michael_v](indexc6f7.html?title=User:Michael_v)
-  -- We had asked a similar question about plugins.  Can we execute a script via a button in a plugin?  It would really simplify a lot of our workflows, where tools need to be connected in a certain way. -- Chad 17:45, 1 September 2009 
+- Oooo... I like it. Especially if it was recursive.  Like if you could get the EffectMask.EffectMask.Center.  I assume it would fail if the input being requested was not there, but I can totally live with that, as that's how SimpleExpressions work now. -- Chad
+
+- Can we have a UserControl button that can execute scripts (e.g. tool scripts or any other script)? this would be useful for creating new macros, fuses or tools for pipeline integration. it is imho an great improvement when you can just click the script execution button in the tool  against right clicking, finding and choosing the right script. -- michael_v
+
+- We had asked a similar question about plugins.  Can we execute a script via a button in a plugin?  It would really simplify a lot of our workflows, where tools need to be connected in a certain way. -- Chad 17:45, 1 September 2009 
 
 - Expandable intool script windows to display more lines. -- Gringo 19:55, 27 October 2009 
 
@@ -596,55 +599,53 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - Modifier tab hotkey combination that allows you to tab through the controls of all the controls showing in the tool control panel.  Currently can't tab between two or more tools. -- Chad 11:23, 27 April 2010 
 
-- Shake had this awesome feature for the color swatch next to the RGB sliders: you could hold down hotkeys and click-drag the mouse left and right to modify the color. Besides the R, G and B keys there was S for saturation, H(ue), V(alue), L(uminance) and T for the color Temperature. (one for Green/Magenta as well I think but I can't remember which). I would love to see this feature as it would make the color picker more powerful, it would make the Interface less cluttered because you could keep the color Wheel folded up, you could keep your eyes on the viewer while the Mouse is locked during dragging, and it would add color temperature controls to existing tools without the need to add new GUI elements. The hotkeys could also work on the color wheel itself, making tiny adjustments of hue or saturation easier than the current shift-drag feature (it can't lock onto hue or saturation below a certain threshold)
-  -- Tilt 22 October 2010
-  -- Here's a macro that implements thisTMI systemfor a gain operation. Of course, being just a macro, it can't provide RGBHSL sliders at the same time.
-  -- The way of dealing with input values, modifying them and copying them could be improved on:
+- Shake had this awesome feature for the color swatch next to the RGB sliders: you could hold down hotkeys and click-drag the mouse left and right to modify the color. Besides the R, G and B keys there was S for saturation, H(ue), V(alue), L(uminance) and T for the color Temperature. (one for Green/Magenta as well I think but I can't remember which). I would love to see this feature as it would make the color picker more powerful, it would make the Interface less cluttered because you could keep the color Wheel folded up, you could keep your eyes on the viewer while the Mouse is locked during dragging, and it would add color temperature controls to existing tools without the need to add new GUI elements. The hotkeys could also work on the color wheel itself, making tiny adjustments of hue or saturation easier than the current shift-drag feature (it can't lock onto hue or saturation below a certain threshold) -- Tilt 22 October 2010
 
-- Modifying a control's value by interacting directly with the number (ala Nuke, Photoshop,...): When the input cursor is inside the number input field, pressing the up and down or page-up/page-down keys would increase/decrease the digit to the right of the cursor. For mouse/stylus users, click-dragging with a modifier key or mouse-wheeling allows you to increase/decrease a selected digit as well. This would make situations where exact numbers are necessary (3D or grading) easier than eyeballing results while dragging the sliders. Even though you can increment a slider using the cursor keys, the step size (which even varies from slider to slider) sometimes makes it impossible to e.g. increase a value by 10 or 0.1.
-  -- Tilt 10:15, 3 April 2011 
-  -- Moreover, this would allow you to use the keyboard properly. Right now you can tab between several number inputs but then you can't use the cursor keys to change the number. You first need to click a slider once to allow left/right cursor control. And you need to click very carefully so it doesn't accidentally register as slider dragging.
-  -- Tilt 16:24, 30 September 2011 
+- Here's a macro that implements thisTMI systemfor a gain operation. Of course, being just a macro, it can't provide RGBHSL sliders at the same time.
+
+- The way of dealing with input values, modifying them and copying them could be improved on:
+
+- Modifying a control's value by interacting directly with the number (ala Nuke, Photoshop,...): When the input cursor is inside the number input field, pressing the up and down or page-up/page-down keys would increase/decrease the digit to the right of the cursor. For mouse/stylus users, click-dragging with a modifier key or mouse-wheeling allows you to increase/decrease a selected digit as well. This would make situations where exact numbers are necessary (3D or grading) easier than eyeballing results while dragging the sliders. Even though you can increment a slider using the cursor keys, the step size (which even varies from slider to slider) sometimes makes it impossible to e.g. increase a value by 10 or 0.1. -- Tilt 10:15, 3 April 2011
+
+- Moreover, this would allow you to use the keyboard properly. Right now you can tab between several number inputs but then you can't use the cursor keys to change the number. You first need to click a slider once to allow left/right cursor control. And you need to click very carefully so it doesn't accidentally register as slider dragging. -- Tilt 16:24, 30 September 2011 
 
 - The new PICK button for 3D transforms could also serve as a means to copy position/rotation values from elsewhere around the interface. For example, dragging it onto another 3D tool either in the flow or the tool panel could copy position/rotation. An example would be to quickly point a camera to another 3D tool or to place one image plane at the same place as another one.
 
 - Double-clicking an input field containing a number doesn't select a potential minus sign. This makes it even more tedious to transfer 2D or 3D coordinates from one input or tool to another one. Adding copy & paste options to the context menu of 2D point and 3D controls might clutter the menu and Nuke is also cramming a bit too much into the GUI with its multiple buttons next to each and every input. Maybe the text label itself could become a means to drag and drop an input's value somewhere else (like the pick button or expression pick-whip, but instead of retrieving the value this would be like pasting the value where you release the mouse button).
-  -- It's annoying isn't it? It's just what standard edit boxes do these days. Microsoft seems to have changed the behaviour between XP and Vista/Windows 7 (it will select the minus sign in XP). Or perhaps, the difference is due to multi-language and right-to-left support being standard, rather than it being an extra install component as in XP.
-  -- Stuart 20:48, 3 April 2011 
-  -- selecting the minus sign in input fields has been fixed in 6.2.
-  -- Tilt 11:31, 19 August 2011 
 
-- The input fields should support triple-clicking or ctrl-A to select the whole string. Would be great for expression fields! The comment field already does it...
-  -- Tilt 08:22, 24 March 2012 
-  -- Ctrl-A has been enabled in Fusion 6.4.
+- It's annoying isn't it? It's just what standard edit boxes do these days. Microsoft seems to have changed the behaviour between XP and Vista/Windows 7 (it will select the minus sign in XP). Or perhaps, the difference is due to multi-language and right-to-left support being standard, rather than it being an extra install component as in XP. -- Stuart 20:48, 3 April 2011 
 
-- Increase the width of the number input boxes next to each slider. Or make sure the digits in there stay left-justified when such an input box is highlighted using the "tab" key. Right now, the field is so narrow that the value's integer part gets scrolled out of view when the contents is selected which is annoying. Nowadays, widescreen monitors are standard anyways.
-  -- Tilt 16:24, 30 September 2011 
+- selecting the minus sign in input fields has been fixed in 6.2. -- Tilt 11:31, 19 August 2011 
+
+- The input fields should support triple-clicking or ctrl-A to select the whole string. Would be great for expression fields! The comment field already does it... -- Tilt 08:22, 24 March 2012 
+
+- Ctrl-A has been enabled in Fusion 6.4.
+
+- Increase the width of the number input boxes next to each slider. Or make sure the digits in there stay left-justified when such an input box is highlighted using the "tab" key. Right now, the field is so narrow that the value's integer part gets scrolled out of view when the contents is selected which is annoying. Nowadays, widescreen monitors are standard anyways. -- Tilt 16:24, 30 September 2011 
 
 - "Pick" button in gradient controls that allows you to set the *position* of a flag based on the color picked.  So you'd be picking the input value, just like the CCv tool. -- Chad
 
 - Ideally, the ability to control any parameter with a map (ex., assigning a map controller to the "scale" slider of a distort tool would change the effect scale for each pixel based on the value of the corresponding map coordinates, multiplied by the value of the slider). If the map sample at [0,0] was white and the sample at [0,0.1] was 50% gray, then the distortion at [0,0] would be processed with the full scale set by the slider, while the distortion at [0,0.1] would use only half the slider's value. This is basically equivalent to the way material maps work in 3D applications. I'm not sure how viable this is with Fusion's architecture, but it would be extremely powerful and useful. Alternatively, see next suggestion. - RMN 18:33, 20 August 2011 
 
 - Add optional map inputs to most tools' parameters. For example, the VectorDistortion tool has inputs for image, distortion vectors and effect mask, but no way to map the intensity of the effect (the effect mask simply blends the distorted version with the original), the glow or the center bias. A checkbox near the "scale" slider would add an input for "scale map" to the flow node (and the same for the other parameters). This might require rewriting individual tools but probably doesn't need as many architectural changes as the previous suggestion. - RMN 18:33, 20 August 2011 
-  -- This can be achieved without architectural changes (for example Krokodove's distortion tool already does this). It's just a question of adding a new input that is included into the calculation. For example, the glow tool has such an input (called "premask" vs the "effect mask" input that every tool has). Especially for the warp tools, this has been added to the wishlist already. For VectorDistortion though you achieve the desired effect by multiplying your vectors with a map before you feed it into the tool. You just have to take care that your vectors are centered around zero (not 0.5 or something like that).
-  -- Tilt 08:35, 21 August 2011 
-    -- Yes, I realize individual tool authors can support map inputs (hence the request to have more map inputs added to Fusion's standard tools). The comment about architectural changes was in comparison with the previous suggestion (which is the one I'd really like to see, but my hopes aren't too high).
-    -- RMN 01:51, 6 September 2011 
-    -- If "auto control hide" is disabled, tool control panels stack up when they tools are activated but they will never vanish again. With more than a hand full of tool controls it's basically impossible to find a desired tool by scrolling through the whole list so looking for it in the flow view is probably faster (so "auto control hide" could just as well stay enabled). It would be nice to have a user-defined limit of visible tool controls in most-recently used order (a FIFO buffer so to speak). A double-click on a node would take its control panel to the top of the list if it's not there already. There could also be an option to make double-clicking a node the only way to actually open a tool control panel or scroll it into view. Reasoning: currently, whenever you select a few nodes to drag them around, you will lose the control window of the tool you were working on most recently. If you want to open the panels of two tools on opposite sides of a flow you will have to scroll a lot and a wrong click or forgetting to "pin" a control header will force you to do it all again. (long story short: I'd love to have Nuke's control panel handling in Fusion).
-  -- Tilt 12:55, 30 September 2011 
-  -- Fusion 7 adds a limit to the displayed control windows, but newly opened tool windows show up anywhere in the stack, not consistently at the top. To me it felt like I had to constantly reorient myself to the unpredictable panel changes when selecting tools instead of relying on my "muscle memory" that new control windows would appear in a predictable place. I have played around with all the options that affect the opening and closing of tool windows but no combination of options felt "right". New panels would sometimes appear opened, sometimes closed - seemingly unrelated to the "auto close/hide" options. Sometimes panels would appear at the top, sometimes at the bottom of the window...
-  -- Tilt 17:44, 2 July 2014 
 
-- I wish there was a way to know which output a control is connected to. For example, if I connect a position to a tracker's unsteady position or a probe's red value, I will never know this later on (except when looking at the comp in Scite). Just one of these options would improve the situation:
-  -- Tilt 16:23, 31 August 2012 
+- This can be achieved without architectural changes (for example Krokodove's distortion tool already does this). It's just a question of adding a new input that is included into the calculation. For example, the glow tool has such an input (called "premask" vs the "effect mask" input that every tool has). Especially for the warp tools, this has been added to the wishlist already. For VectorDistortion though you achieve the desired effect by multiplying your vectors with a map before you feed it into the tool. You just have to take care that your vectors are centered around zero (not 0.5 or something like that). -- Tilt 08:35, 21 August 2011 
+
+- Yes, I realize individual tool authors can support map inputs (hence the request to have more map inputs added to Fusion's standard tools). The comment about architectural changes was in comparison with the previous suggestion (which is the one I'd really like to see, but my hopes aren't too high). -- RMN 01:51, 6 September 2011
+
+- If "auto control hide" is disabled, tool control panels stack up when they tools are activated but they will never vanish again. With more than a hand full of tool controls it's basically impossible to find a desired tool by scrolling through the whole list so looking for it in the flow view is probably faster (so "auto control hide" could just as well stay enabled). It would be nice to have a user-defined limit of visible tool controls in most-recently used order (a FIFO buffer so to speak). A double-click on a node would take its control panel to the top of the list if it's not there already. There could also be an option to make double-clicking a node the only way to actually open a tool control panel or scroll it into view. Reasoning: currently, whenever you select a few nodes to drag them around, you will lose the control window of the tool you were working on most recently. If you want to open the panels of two tools on opposite sides of a flow you will have to scroll a lot and a wrong click or forgetting to "pin" a control header will force you to do it all again. (long story short: I'd love to have Nuke's control panel handling in Fusion). -- Tilt 12:55, 30 September 2011 
+
+- Fusion 7 adds a limit to the displayed control windows, but newly opened tool windows show up anywhere in the stack, not consistently at the top. To me it felt like I had to constantly reorient myself to the unpredictable panel changes when selecting tools instead of relying on my "muscle memory" that new control windows would appear in a predictable place. I have played around with all the options that affect the opening and closing of tool windows but no combination of options felt "right". New panels would sometimes appear opened, sometimes closed - seemingly unrelated to the "auto close/hide" options. Sometimes panels would appear at the top, sometimes at the bottom of the window... -- Tilt 17:44, 2 July 2014 
+
+- I wish there was a way to know which output a control is connected to. For example, if I connect a position to a tracker's unsteady position or a probe's red value, I will never know this later on (except when looking at the comp in Scite). Just one of these options would improve the situation: -- Tilt 16:23, 31 August 2012 
 
 - The context menu just says "Remove Tracker1" which could be more verbose (either using the ID as in Tracker1.UnsteadyPosition or the output's user-friendly name).
 
 - There could be a tooltip when hovering over the input.
 
 - The connection could be printed in the status bar at the bottom of the screen ("SomeTool.Center -> Tracker1.UnsteadyPosition"). The tooltips of inputs and outputs in the flow view already provide this information, for example.
-  -- It used to show the tool and output in the context menu (a long time ago, probably pre-DF4), but people/users seemed to think that was all too overwhelming/confusing, so it was simplified.
-  -- Stuart 00:46, 1 September 2012 
+
+- It used to show the tool and output in the context menu (a long time ago, probably pre-DF4), but people/users seemed to think that was all too overwhelming/confusing, so it was simplified. -- Stuart 00:46, 1 September 2012 
 
 ### Simple Expression Input
 
@@ -652,17 +653,15 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - If a simple expression is created on a parameter which is connected to a modifier, it should rather create a link to the modifier in the expression than copy the current values. It would be an approach  similar to what you've done with the Insert menu when you use the result of current modifier or animation as the input for a new one. -- Gringo 04:57, 12 September 2011 
 
-- Color coding of Intool and SimpleExpression text entry boxes.  Assuming it's all eyeonscript, I'd love to be able to track my parentheses and such.  A bit far fetched?  Maybe a context menu for "Open In SciTe" or similar?-- Chad 14:53, 30 March 2011 
+- Color coding of Intool and SimpleExpression text entry boxes.  Assuming it's all eyeonscript, I'd love to be able to track my parentheses and such.  A bit far fetched?  Maybe a context menu for "Open In SciTe" or similar? -- Chad 14:53, 30 March 2011 
 
 - Modifier key for the SimpleExpression + button, so that when you say, alt-drag, it would enter not the selected input name, but something like NodeName:GetValue("InputName", time).  This would set up a nice template for referencing values from different frames. -- Chad 10:51, 2 July 2014 
 
-- Using the context menu item to add an expression or typing "=" into an input should make the expression text input active so you can start typing immediately. Instead, keyboard focus moves to the next input or stays (depending on that one pref option) which makes sense if you have entered a whole expression. But if you have only entered an equals sign followed by enter (or used the context menu item), the expression field should receive keyboard focus automatically
-  -- Tilt 15:52, 2 July 2014 
+- Using the context menu item to add an expression or typing "=" into an input should make the expression text input active so you can start typing immediately. Instead, keyboard focus moves to the next input or stays (depending on that one pref option) which makes sense if you have entered a whole expression. But if you have only entered an equals sign followed by enter (or used the context menu item), the expression field should receive keyboard focus automatically -- Tilt 15:52, 2 July 2014 
 
 ### File Browser
 
-- I think it would be good and improve working speed when you double click on a loader/saver it automaticlly opens the filebrowser
-  -- [Michael_v](indexc6f7.html?title=User:Michael_v)
+- I think it would be good and improve working speed when you double click on a loader/saver it automaticlly opens the filebrowser -- michael_v
 
 - Dropdown list on left side for "Active Comp" that would show the current LD, SV, FBX, etc. paths being used by the current comp.  This could also be extended to offer "Comps" which could show all open comps, not just the active one. -- Chad
 
@@ -676,18 +675,17 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - Add "Recent Files" entries as one of the expanding categories on the left. -- Chad 11:54, 19 February 2010 
 
-- A way to load a single file from a sequence (currently only possible by dragging and dropping with the shift key). Maybe by pressing shift-OK or even by default if gather sequences is off?
-  -- Tilt 14:38, 10 May 2011 
+- A way to load a single file from a sequence (currently only possible by dragging and dropping with the shift key). Maybe by pressing shift-OK or even by default if gather sequences is off? -- Tilt 14:38, 10 May 2011 
 
 - Accept file strings in quotes.  "C:\Users\Chad\Pictures\Image.JPG".  This formatting is produced when the user (in Windows) shift-clicks on a file in explorer and chooses "Copy as path".
-  -- It would be great if the flow view accepted a file name string as well, so copy & pasting a path would create a new loader immediately (like dragging that file from the explorer, but copy/paste is often necessary when you've been sent a path via email or chat). If it's just a path, not a full file name, the file requester could open with the directory pre-selected.
-  -- Tilt 14:43, 8 April 2013 
 
-- Of the pre-defined path maps, only Comp: and a few others are actually useful in the file selector. It would be nice to be able to black/white list some of these entries to make that list less cluttered.
-  -- Tilt 02:21, 26 November 2013 
-  -- You could add the ones you want to white-list as bookmarks/favourites (or edit prefs directly to make them path maps, rather than the first path the path map refers to).
-  -- Stuart 14:34, 26 November 2013 
-  -- so I can create a bookmark that contains "Comp:" as its path name? cool!
+- It would be great if the flow view accepted a file name string as well, so copy & pasting a path would create a new loader immediately (like dragging that file from the explorer, but copy/paste is often necessary when you've been sent a path via email or chat). If it's just a path, not a full file name, the file requester could open with the directory pre-selected. -- Tilt 14:43, 8 April 2013 
+
+- Of the pre-defined path maps, only Comp: and a few others are actually useful in the file selector. It would be nice to be able to black/white list some of these entries to make that list less cluttered. -- Tilt 02:21, 26 November 2013
+
+- You could add the ones you want to white-list as bookmarks/favourites (or edit prefs directly to make them path maps, rather than the first path the path map refers to). -- Stuart 14:34, 26 November 2013 
+
+- so I can create a bookmark that contains "Comp:" as its path name? cool!
 
 ### Render Dialog
 
@@ -698,8 +696,8 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 - Resizable dialog would be nice, ala File Browser.  Any more than a handful or slaves or groups and you can't see them all together, same with having a large number of frame ranges to render. -- Chad 11:02, 23 August 2014 
 
 - Listing out the names of the Savers, whether they are in passthrough (with a checkbox), and their ranges would be very nice.  That way we could verify in the render dialog that the correct savers were going to be processed. -- Chad 11:02, 23 August 2014 
-  -- I've made theSaver Checkerscript to solve this.
-  -- Tilt 05:53, 24 August 2014 
+
+- I've made the Saver Checker script to solve this. -- Tilt 05:53, 24 August 2014 
 
 - An option to launch a different render manager would be great.  So if in the global .prefs you specify a path to an .eyeonscript and you check the "Use Network" button, instead of submitting to Render Manager, the script is executed when you hit Start Render.  It's always seemed odd that to submit to Deadline or Qube the user has to use a comp script go outside of Fusion entirely when the UI for Fusion has that plump green Render button. -- Chad 11:02, 23 August 2014 
 
@@ -707,28 +705,35 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - When you set a compound frame range in the Render Settings it should be remembered for further renderings... What if the work area of a comp could be compound?-- Gringo
 
-- The render settings dialog displays a notice if branches don't end in a saver. It would be much more helpful for me if I was reminded of the number of savers that are active or disabled ("3 savers will be rendered", "1 or 4 savers will be rendered") because dead-end branches usually happen on purpose (trying out different color corrections for example)
-  -- Tilt 16:09, 13 January 2014 
-  -- Actually I think the text is wrong.  If you don't view those branches, they don't render if your comp is in "some" mode, which is the default.  It would be useful if there was a warning about tools being rendered for the sake of a viewer but aren't connected to a saver.  I've wasted many clock cycles accidentally generating histograms or having tools in the B buffer that aren't needed for a render. -- Chad 21:34, 13 January 2014 
-  -- good point
+- The render settings dialog displays a notice if branches don't end in a saver. It would be much more helpful for me if I was reminded of the number of savers that are active or disabled ("3 savers will be rendered", "1 or 4 savers will be rendered") because dead-end branches usually happen on purpose (trying out different color corrections for example) -- Tilt 16:09, 13 January 2014 
+
+- Actually I think the text is wrong.  If you don't view those branches, they don't render if your comp is in "some" mode, which is the default.  It would be useful if there was a warning about tools being rendered for the sake of a viewer but aren't connected to a saver.  I've wasted many clock cycles accidentally generating histograms or having tools in the B buffer that aren't needed for a render. -- Chad 21:34, 13 January 2014 
+
+- good point
 
 ## Workarounds
 
-- User Markers on the timeline (Like in AE and DVDSP) that you can jump to.
-  -- [Seaniepie](index64df.html?title=User:Seaniepie)
-  -- Did you try the guides that can be created by LMB on the top of Timeline window? Shift+G gives additional controls over them. -- Gringo
+- User Markers on the timeline (Like in AE and DVDSP) that you can jump to. -- Seaniepie
+
+- Did you try the guides that can be created by LMB on the top of Timeline window? Shift+G gives additional controls over them. -- Gringo
 
 - Would be handy if the current value of a parameter was automatically copied to the simple expression row when the simple expression was created on the parameter. -- Gringo
-  -- Can be achieved if you create a simple expression by putting "=" into the number field right before the current value. -- Gringo
+
+- Can be achieved if you create a simple expression by putting "=" into the number field right before the current value. -- Gringo
 
 - A ruler for the viewer. Often I need to know the distance between two points in pixel. i.e. for keeping things at the same size or for expressions. I just want to point at a region and drag the mouse somewhere, pulling a rubber band that tells me its length after releasing the mousebutton.
-  -- Can be solved with an expression put in macro. The expression could expose two points and it'd use dist() to calculate the distance. If you want the distance in pixels, two corresponding multipliers (Height and Width) can be added. -- Gringo 05:55, 25 September 2009 
-  -- Implemented in this macro:Tape Measure-- Gringo 11:51, 28 September 2009 
+
+- Can be solved with an expression put in macro. The expression could expose two points and it'd use dist() to calculate the distance. If you want the distance in pixels, two corresponding multipliers (Height and Width) can be added. -- Gringo 05:55, 25 September 2009 
+
+- Implemented in this macro:Tape Measure -- Gringo 11:51, 28 September 2009 
 
 - Possibility of creating tabs in macros. Would make the interface of complicated ones more readable and convenient. -- Gringo
-  -- The UserControls script works for Macros.  I was able to add controls to a User tab.  Might handle what you need. -- Chad: Thank you! It's better than nothing, but I'd like a "Create Tab" button in the Macro Editor and a drop-down list against every parameter where you can define the tab for it. In the text of a macro there can be a tag that contains the list of tabs and a special tag for inputs themselves that could define a tab numerically. Or inputs can be wrapped to tags of tabs. It would be more vivid but less compatible perhaps... -- Gringo
-- In a editor, you just add: Page = 'Tab page', that will make it put all the following inputs on that tab until you give it a new page (found in the pigsfly forum)
-  -- michael_v
+
+- The UserControls script works for Macros.  I was able to add controls to a User tab. Might handle what you need. -- Chad
+
+- Thank you! It's better than nothing, but I'd like a "Create Tab" button in the Macro Editor and a drop-down list against every parameter where you can define the tab for it. In the text of a macro there can be a tag that contains the list of tabs and a special tag for inputs themselves that could define a tab numerically. Or inputs can be wrapped to tags of tabs. It would be more vivid but less compatible perhaps... -- Gringo
+
+- In a editor, you just add: Page = 'Tab page', that will make it put all the following inputs on that tab until you give it a new page (found in the pigsfly forum) -- michael_v
 
 - And perhaps spawning nodes as in Houdini; Where you press tab to bring up the tools menu, and you start to type the letters/name for the node and it narrows it down until you got the node you're looking for. Would definetly speed up our workflow.
 
@@ -772,7 +777,7 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - Make Control-C/Control-V to paste node(s) to cursor location instead of far away corner in the flow. Doing this via right-click menu is bit backwards and slower too.
 
-- one way is to select some node to "catch" pasted tool and rewire if necessary, but pasting under cursor would help, also for script created tools. -- Jirka
+- One way is to select some node to "catch" pasted tool and rewire if necessary, but pasting under cursor would help, also for script created tools. -- Jirka
 
 - Snap to pixel when pixelgrid is turned on in viewer. This would be useful for lo-res work (when compositing pixel-precise graphics for example).
 
@@ -780,11 +785,11 @@ Examples:Media:ModifierFlowExample.png&Media:ModifierFlowExample2.png.
 
 - now THAT would be great for roto. Just like Maya's curves. Misha- Translation of B-spline and Bezier points without actually click-dragging on the point itself.  I want to be able to move the mouse to translate the selected vertex, not use it to window select other vertices.  If you "pickwalk" through the vertices, you could then just click-drag anywhere in the viewer and the selected vertex would move.  Modifier keys could be used as well to allow rotation of handles and scaling of in-vector and out-vector. -- Chad
 
-- you could have a key that selects the nearest vertex when you click somewhere, and if you drag it moves it.
+- You could have a key that selects the nearest vertex when you click somewhere, and if you drag it moves it.
 
 - Available by holding down the ALT key.
 
-- the little 'i' icon appears on a tool when you add a note. this stands out, and you can easily see when a note has been added because it appears. however, the 'i' tab [next to the spline editor tab] is always on, whether or not a note has been added there. this makes it impossible to know if a note is even there or not at a glance. i suggest the 'i' icon be greyed out if no note is there, and lit up if a note is added- this would be similar to the 'i' icon appearing on a tool if a note is added, and not there is no note is added. much more identifiable.
+- The little 'i' icon appears on a tool when you add a note. this stands out, and you can easily see when a note has been added because it appears. however, the 'i' tab [next to the spline editor tab] is always on, whether or not a note has been added there. this makes it impossible to know if a note is even there or not at a glance. i suggest the 'i' icon be greyed out if no note is there, and lit up if a note is added- this would be similar to the 'i' icon appearing on a tool if a note is added, and not there is no note is added. much more identifiable.
 
 - Actually, it IS greyed out if blank.  It turns blue when you type something in. -- Chad
 
@@ -934,6 +939,6 @@ Workaround:
 
 - "BezierSpline" is there because it's considered a common option that a user will likely use. Same with "Publish". "Animate" will use whatever you have set in your Defaults preferences (and if it's set to None, it'll use BezierSpline). Same thing for Point type inputs: "Path" and "Publish" are there because they're considered to be common, and "Animate" will use whatever is set in Defaults preferences (and if that's set to None, it'll use Path). -- Stuart03:53, 20 July 2012 
 
-- pasting settings to groups of controls is available in Fusion7
+- Pasting settings to groups of controls is available in Fusion 7
 
 - Ability to scroll through a sequence or mov in the thumbnail image (like in the bins). -- Tilt 11:28, 13 November 2011 
