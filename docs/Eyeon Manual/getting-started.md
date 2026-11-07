@@ -8,9 +8,9 @@
 
 [Registration and Obtaining a License](index001c.html?title=Eyeon:Manual/Registration_and_Obtaining_a_License)
 
-[Installing the License](index2fa5.html?title=Eyeon:Manual/Installing_the_License)
+[Installing the License](./installing-the-license.md)
 
-[Administering a License Server](index14b5.html?title=Eyeon:Manual/Administering_a_License_Server)
+[Administering a License Server](./administering-a-license-server.md)
 
 [Tour of the Interface](index8853.html?title=Eyeon:Manual/Tour_of_the_Interface)
 
@@ -19,4 +19,3 @@
 [Frame Formats](index2171.html?title=Eyeon:Manual/Frame_Formats)
 
 [Previews and Final Renders](index9d91.html?title=Eyeon:Manual/Previews_and_Final_Renders)
- 

@@ -5,12 +5,12 @@ Contents1Administrators FAQ1.1Is there a list of all the environment variables f
 
 ## Is there a list of all the environment variables for Fusion?
 
-Yes, there is. Click on [Environment Variables](indexdca0.html?title=Environment_Variables) to see it.
+Yes, there is. Click on [Environment Variables](./environment-variables.md) to see it.
 
 ## Where do OFX plugins go?
 
 By default, they install themselves into `C:\Program Files\Common Files\OFX\Plugins`. On 64bit Windows, this folder is meant for 64bit plugins. 32-bit plugins will be searched for in `C:\Program Files (x86)\Common Files\OFX\Plugins`.
-You can also define an [environment variable](indexdca0.html?title=Environment_Variables) called FUSION_OFX_PLUGIN_PATH which will be searched as well. Use it to store OFX plugins that need to be hidden from other OFX hosts.
+You can also define an [environment variable](./environment-variables.md) called FUSION_OFX_PLUGIN_PATH which will be searched as well. Use it to store OFX plugins that need to be hidden from other OFX hosts.
 
 ## How can I customize Fusion's hotkeys?
 

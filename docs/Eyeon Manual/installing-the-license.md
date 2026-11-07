@@ -16,7 +16,7 @@ Once the license is found, Fusion examines the license to see if it is valid. If
 
 ## Finding The License
 
-[![](images/F5_MANUAL_BOOK-1.jpg)](index26e6.html?title=File:F5_MANUAL_BOOK-1.jpg)
+![](images/F5_MANUAL_BOOK-1.jpg)
 
 Fusion searches the following locations (in order) for a license file named `Fusion.dat`.
 

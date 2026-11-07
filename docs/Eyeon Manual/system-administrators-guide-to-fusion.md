@@ -4,9 +4,9 @@
 
 While installation and administration of Fusion and DFX+ in small numbers is relatively straightforward, the deployment of large quantities of licenses often calls for more flexibility. This document is intended to cover the topics that would be of most interest to System Administrators, Visual Effects Supervisors, and anyone else responsible for the creation and maintenance of a post production pipeline.
 
-## [Administering a License Server](index14b5.html?title=Eyeon:Manual/Administering_a_License_Server)
+## [Administering a License Server](./administering-a-license-server.md)
 
-[Administering a License Server](index14b5.html?title=Eyeon:Manual/Administering_a_License_Server) covers topics such as installing and testing the FlexLM license server, configuring clients and troubleshooting.
+[Administering a License Server](./administering-a-license-server.md) covers topics such as installing and testing the FlexLM license server, configuring clients and troubleshooting.
 
 ## [Deploying and Managing Shared Bins](indexeda3.html?title=Shared_Bins)
 
