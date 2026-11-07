@@ -10,11 +10,11 @@ While installation and administration of Fusion and DFX+ in small numbers is rel
 
 ## [Deploying and Managing Shared Bins](indexeda3.html?title=Shared_Bins)
 
-Instructions on creating and deploying a [Shared Bins](indexeda3.html?title=Shared_Bins) server.
+Instructions on creating and deploying a [Shared Bins](./shared-bins.md) server.
 
-## [Per-User Preferences and Paths](indexad6a.html?title=Per-User_Preferences_and_Paths)
+## [Per-User Preferences and Paths](./per-user-preferences-and-paths.md)
 
-The [Per-User Preferences and Paths](indexad6a.html?title=Per-User_Preferences_and_Paths) section shows how an administrator can provide unique preferences, plugin and script paths for each user.
+The [Per-User Preferences and Paths](./per-user-preferences-and-paths.md) section shows how an administrator can provide unique preferences, plugin and script paths for each user.
 
 ## [Environment Variables](./environment-variables.md)
 
