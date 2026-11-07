@@ -10,11 +10,11 @@ Yes, there is. Click on [Environment Variables](./environment-variables.md) to s
 ## Where do OFX plugins go?
 
 By default, they install themselves into `C:\Program Files\Common Files\OFX\Plugins`. On 64bit Windows, this folder is meant for 64bit plugins. 32-bit plugins will be searched for in `C:\Program Files (x86)\Common Files\OFX\Plugins`.
-You can also define an [environment variable](./environment-variables.md) called FUSION_OFX_PLUGIN_PATH which will be searched as well. Use it to store OFX plugins that need to be hidden from other OFX hosts.
+You can also define an [environment variable](./environment-variables.md) called `FUSION_OFX_PLUGIN_PATH` which will be searched as well. Use it to store OFX plugins that need to be hidden from other OFX hosts.
 
 ## How can I customize Fusion's hotkeys?
 
-Hotkeys are defined in the file called Fusion.hotkeys which resides in the profile directory (located in AllDocs:Profiles, default on Windows Vista/7 would be `C:\ProgramData\eyeon\Fusion\Profiles\Default\Fusion.hotkeys`). If it doesn't exist, call the Hotkey Manager script from the main *File -> Script* menu which will create a template. You can of course use that dialog to edit hotkeys but copying&pasting is easier on the raw file.
+Hotkeys are defined in the file called Fusion.hotkeys which resides in the profile directory (located in `AllDocs:Profiles`, default on Windows Vista/7 would be `C:\ProgramData\eyeon\Fusion\Profiles\Default\Fusion.hotkeys`). If it doesn't exist, call the Hotkey Manager script from the main *File -> Script* menu which will create a template. You can of course use that dialog to edit hotkeys but copying&pasting is easier on the raw file.
 
 The Fusion.hotkeys file is a standard LUA table with sections for each part of the interface. The "Frame" section contains keys that work anywhere in a composition window. Each subsection contains hotkey definitions in `KEYCODE = "command"` form. All available key codes can be found [on MSDN](http://msdn.microsoft.com/en-us/library/dd375731(VS.85).aspx). The command can either be pure LUA code or a call to an existing script by writing "`@path_to_lua_or_python_script`". Depending on the section, the *self* variable can be used here to call methods of the currently active object (e.g. a [viewer](indexc3e5.html?title=Eyeon:Script/Reference/Applications/Fusion/Classes/GLViewer) or the [flow view](index106c.html?title=Eyeon:Script/Reference/Applications/Fusion/Classes/FlowView)). Here's an example (the parameters for AddTool are documented [here](indexc8a1.html?title=Eyeon:Script/Reference/Applications/Fusion/Classes/Composition/AddTool)):
 

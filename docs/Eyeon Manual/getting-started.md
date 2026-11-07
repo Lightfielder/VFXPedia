@@ -2,7 +2,7 @@
 
 [What is Fusion?](index4140.html?title=Eyeon:Manual/What_is_Fusion%3F)
 
-[System Requirements](index9216.html?title=Eyeon:Manual/System_Requirements)
+[System Requirements](./system-requirements.md)
 
 [Installing Fusion](index8091.html?title=Eyeon:Manual/Installing_Fusion)
 

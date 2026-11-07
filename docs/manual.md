@@ -13,7 +13,6 @@ sidebar_position: 1
 - Fusion 6 Examples
 - Fusion 6 Reference Manual as PDF (26Mb)
 
-
 ## Fusion 5.1
 
 - Getting Started
@@ -48,6 +47,3 @@ sidebar_position: 1
 - Changes Between Fusion 5.1 and 5.2
 - Changes Between Fusion 5 and 5.1
 
-
-> Tip: **Want to be notified when new builds are released?**
-> Subscribe to the page's RSS feed.
