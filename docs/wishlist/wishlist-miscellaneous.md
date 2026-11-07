@@ -18,20 +18,24 @@ All requests that don't fit into other categories.
 
 - If a Loader's footage is replaced, its depth is reset to default or format (depending on the prefs). Why doesn't it keep the option I've intentionally set myself? -- Tilt 15:05, 7 March 2012 
 
-- Because the import options are part of the Clip, not the Loader. Give it a new Clip, and Loader shows what that Clip's options are set to. Remember that you can have a clip list, where each Clip has the options set differently, hence why they come from the Clip.Stuart18:17, 7 March 2012 - For the format presets, it would be nice if you could specify default metadata to add.  This would be set for things like BG, FN, Man, etc. when that format is chosen. -- Chad 14:10, 30 August 2012 
+- Because the import options are part of the Clip, not the Loader. Give it a new Clip, and Loader shows what that Clip's options are set to. Remember that you can have a clip list, where each Clip has the options set differently, hence why they come from the Clip. -- Stuart 18:17, 7 March 2012
+
+- For the format presets, it would be nice if you could specify default metadata to add.  This would be set for things like BG, FN, Man, etc. when that format is chosen. -- Chad 14:10, 30 August 2012 
 
 - Whenever a node throws an error, there's usually a whole cascade of error messages that clutters the console. Finding the source of the error would be easier if the first error message was highlighted somehow (or the other errors were printed in a darker shade of red, indented or hidden altogether).
   -- Tilt) 12:01, 24 July 2013 
 
-- Support for the SpaceMouse/SpaceNavigator ( [http://www.3dconnexion.com](http://www.3dconnexion.com/) ) - both in 2D as well as 3D Lightwolf
-  -- yeah, as a alternative to a shuttle/jog, this could be cool.  A long time ago one of our developers had this "working" in Fusion, but because we couldn't find anywhere in the SDK to hook in an input device, it was restricted to our own tools.  So we could make a "SpaceMouse Transform" but we couldn't get it to do anything to a built in Transform3D. -- Chad 16:18, 29 July 2013 
-  -- the latest beta driver they have allows you to re-map the spacemouse to all kinds of keyboard of mouse combos. However, remapping to mouse movements to pan, for example, alsmo moves the mouse cursor which isn't ideal. I can see it being very useful in a lot of situations, especially with a Pro that gives you a few hardware buttons as well.
-  -- Lightwolf 19:17, 29 July 2013 
+- Support for the SpaceMouse/SpaceNavigator ( [http://www.3dconnexion.com](http://www.3dconnexion.com/) )
+
+- both in 2D as well as 3D Lightwolf
+
+- yeah, as a alternative to a shuttle/jog, this could be cool.  A long time ago one of our developers had this "working" in Fusion, but because we couldn't find anywhere in the SDK to hook in an input device, it was restricted to our own tools.  So we could make a "SpaceMouse Transform" but we couldn't get it to do anything to a built in Transform3D. -- Chad 16:18, 29 July 2013 
+
+- the latest beta driver they have allows you to re-map the spacemouse to all kinds of keyboard of mouse combos. However, remapping to mouse movements to pan, for example, also moves the mouse cursor which isn't ideal. I can see it being very useful in a lot of situations, especially with a Pro that gives you a few hardware buttons as well. -- Lightwolf 19:17, 29 July 2013 
 
 ### Rendering
 
-- Ability to render not only final but custom frame size and quality with network rendering.
-  -- Gringo
+- Ability to render not only final but custom frame size and quality with network rendering. -- Gringo
 
 - Treat savers outside their active range (as set in the timeline) as disabled during rendering. Branches that end in disabled savers won't be rendered, but if a saver is enabled but not active, these branches are rendered in vain.
   -- Tilt) 15:41, 10 January 2011 
@@ -40,56 +44,57 @@ All requests that don't fit into other categories.
 
 - A complete documentation of the scripting engine with both Lua and the new Python Features. Including Fuses with examples and breakdowns of each example. A good example is the very mature MAXscript documentation.
 
-- Is it possible to separate file names from menu item names for scripts just like they are for macros? The menu item name can be stored in the script's header. Then a script file name could contain its version number and no spaces, while its menu name would remain clean and clear. When a script is updated , users could easily spot it.
-  -- Gringo 03:19, 5 November 2009 
+- Is it possible to separate file names from menu item names for scripts just like they are for macros? The menu item name can be stored in the script's header. Then a script file name could contain its version number and no spaces, while its menu name would remain clean and clear. When a script is updated , users could easily spot it. -- Gringo 03:19, 5 November 2009 
 
-- Visual scripting something like programming in Visual basic you can draw slider, text box, and label, Buttons...And there list of objects.
+- Visual scripting something like programming in Visual basic you can draw slider, text box, and label, Buttons... And there list of objects.
 
-- Macro spline visibility: Ability to hide splines and other results (ie. expressions) inside macros. In the macro editor would be a good place to modify which splines want the author to be visible in the spline editor. Now all expressions and other unnecessary splines are visible which are related to the structure of the macro.
-  -- Ata 16:32, 18 October 2007 (Central Daylight Time)
+- Macro spline visibility: Ability to hide splines and other results (ie. expressions) inside macros. In the macro editor would be a good place to modify which splines want the author to be visible in the spline editor. Now all expressions and other unnecessary splines are visible which are related to the structure of the macro.  -- Ata 16:32, 18 October 2007
 
-- Macro Editor should assign actual input IDs according to the instanced tools, not just Input1, Input2, MainInput1 etc. If correct IDs are assigned, EffectMask input gets correct colored and parameters of a macro can be more intuitively used in simple expressions and scripts.
-  -- Gringo 13:25, 28 October 2009 
+- Macro Editor should assign actual input IDs according to the instanced tools, not just Input1, Input2, MainInput1 etc. If correct IDs are assigned, EffectMask input gets correct colored and parameters of a macro can be more intuitively used in simple expressions and scripts. -- Gringo 13:25, 28 October 2009 
 
-- Default value of a macro's inputs should override default values of instanced tools controls. Now if a tool's parameter has been changed from default, the "Default" macro tag doesn't work.
-  -- Gringo 14:51, 28 October 2009 
+- Default value of a macro's inputs should override default values of instanced tools controls. Now if a tool's parameter has been changed from default, the "Default" macro tag doesn't work. -- Gringo 14:51, 28 October 2009 
 
 - Static caching of SimpleExpressions that are constant or reference static inputs. -- Chad 21:51, 9 December 2010 
 
-- Sometimes, published or animated parameters change their names when some other parameters are connected to them. Can the names of the parameters remain unchanged?
-  -- Gringo
+- Sometimes, published or animated parameters change their names when some other parameters are connected to them. Can the names of the parameters remain unchanged? -- Gringo
 
 - Load Default / Save Default for Macros. -- Chad 13:54, 25 August 2011 
-  -- Why don't you want to simply adjust and re-save the macros themselves? Is it for multy-user purposes? You can have different versions of macros for each user anyway... -- Gringo 10:42, 26 August 2011 
-  -- Yes, that's the exact problem.  They have permission to save a default or setting locally, but not to write/modify a shared macro .setting file.  So we cannot have per-user macros unless we remove macro sharing on a per-macro basis.  Further, we've had lots of cases where a user wants to reset a macro back to a default setting.  There's no interface for that now, you have to do a "replace" which is a lot more mousework, plus any expressions referencing the original macro will break because the "replacing" macro will have a new name. -- Chad 16:00, 29 August 2011 
+
+-- Why don't you want to simply adjust and re-save the macros themselves? Is it for multy-user purposes? You can have different versions of macros for each user anyway... -- Gringo 10:42, 26 August 2011
+
+- Yes, that's the exact problem.  They have permission to save a default or setting locally, but not to write/modify a shared macro .setting file.  So we cannot have per-user macros unless we remove macro sharing on a per-macro basis. Further, we've had lots of cases where a user wants to reset a macro back to a default setting. There's no interface for that now, you have to do a "replace" which is a lot more mousework, plus any expressions referencing the original macro will break because the "replacing" macro will have a new name. -- Chad 16:00, 29 August 2011 
 
 ## Workarounds
 
 - I would like a "pause" function while rendering.  Sometimes I need my CPU back but don't want to cancel a render, since it might be doing a multi-frame format saver. -- Chad
-  -- You can click the Stop Render button, and it will pause the render while the dialogue is up. Then click Cancel and keep going where you left off.
-  -- Daniel
+- You can click the Stop Render button, and it will pause the render while the dialogue is up. Then click Cancel and keep going where you left off. -- Daniel
 
 ## Completed Requests
 
 - I'd like to be able to do a copy while a comp is rendering.  I understand why I can't cut or paste on an active render, but copy seem innocuous enough, no? Just want to be able to grab some tools to paste into a new comp so I can try something without canceling a render. -- Chad
-  -- Can be tricky in some cases, such as if a tool is animated and changing while it's copied.
-  -- Daniel: But you can copy an animated tool when you are just playing a comp. -- Chad
-  -- Possible in Fusion 6.2
+
+- Can be tricky in some cases, such as if a tool is animated and changing while it's copied. -- Daniel
+
+- But you can copy an animated tool when you are just playing a comp. -- Chad
+
+- Possible in Fusion 6.2
 
 - Is there a reason for Fusion to auto-name nodes that have been pasted multiple times "`_1_1_1_1`" instead of "`_1"`, "`_2`" and so on?
-  -- Yep. Copy a tool, then paste it 3x - you get `_1`,`_2`, `_3` as expected. Now you (optionally) make some changes to the new `_3` tool, copy that and paste it 3x - you get `_3_1`, `_3_2`, `_3_3`. They're copies of the `_3` tool, so Fusion names them so that you get a "history".
-  -- Daniel
-  -- Option in Fusion 6.
+
+- Yep. Copy a tool, then paste it 3x - you get `_1`,`_2`, `_3` as expected. Now you (optionally) make some changes to the new `_3` tool, copy that and paste it 3x - you get `_3_1`, `_3_2`, `_3_3`. They're copies of the `_3` tool, so Fusion names them so that you get a "history". -- Daniel
+
+- Option in Fusion 6.
 
 - Option to output debug logs to `%appdata%` or `%userprofiles%` or somesuch.  We have all our paths set to write data to places where users have privileges, but we can't set the path for the debug logs. -- Chad
-  -- As of Fusion 6, these logs are output to `%appdata%`.
+
+- As of Fusion 6, these logs are output to `%appdata%`.
 
 - new help files with new examples and pdf Tutorials.
 
-- Saver should have a parameter Result Numbering Offset related to frame numbers of the Timeline rather than the Set Sequence Start related to Global In of an inbound branch. Set Sequence Start creates unexpected results when tools' in points are adjusted or their order is rearranged.
-  -- Gringo
-  -- Solved in Fusion 6.1 as an option: Saver-relative Numbering in the Saver.
+- Saver should have a parameter Result Numbering Offset related to frame numbers of the Timeline rather than the Set Sequence Start related to Global In of an inbound branch. Set Sequence Start creates unexpected results when tools' in points are adjusted or their order is rearranged. -- Gringo
 
-- A possibility to link macros to their VFXPedia description pages. There could be two additional macro tags: VFXPediaHelpPage and OfflineHelpPage for online and local help correspondingly. If a macro contains the tags, a user could select the macro node, press F1 and get online or offline description depending on the Help>Enable VFXPedia Help setting. Such a feature would be great for custom fuses and plugins too. [Related Pigsfly topic](http://www.pigsfly.com/forums/index.php?showtopic=5960)
-  -- Gringo 07:11, 26 December 2009 
-  -- This should be possible in 6.31, right? (from changelog: Operator instances can override their help page with a topic/URL string in`m_CustomData["HelpPage"])`.
+- Solved in Fusion 6.1 as an option: Saver-relative Numbering in the Saver.
+
+- A possibility to link macros to their VFXPedia description pages. There could be two additional macro tags: VFXPediaHelpPage and OfflineHelpPage for online and local help correspondingly. If a macro contains the tags, a user could select the macro node, press F1 and get online or offline description depending on the Help>Enable VFXPedia Help setting. Such a feature would be great for custom fuses and plugins too. [Related Pigsfly topic](http://www.pigsfly.com/forums/index.php?showtopic=5960) -- Gringo 07:11, 26 December 2009 
+
+- This should be possible in 6.31, right? (from changelog: Operator instances can override their help page with a topic/URL string in`m_CustomData["HelpPage"])`.
