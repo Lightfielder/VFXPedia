@@ -1,0 +1,38 @@
+-- Auto PathMap.scriptlib
+-- by Stefan Ihringer <stefan@bildfehler.de>, 2013-03-05
+
+-- This scriptlib, if placed in the Scripts: folder will be automatically executed whenever Fusion
+-- is started. It will check for the existence of files and then set a global path map entry based
+-- on which file was accessible.
+-- This way, comps can use a path mapping (e.g. "Host:") in loaders that will always point to
+-- the footage. You can use this to share a comp between artists on different locations, take your
+-- comp and a copy of the footage with you on a laptop while travelling or use a virtual machine like
+-- Parallels on a Mac (where the Mac's hard drive is mapped to a virtual network share) without the
+-- need to search&replace path names.
+
+-- name of the path mapping
+AUTOMAP = "Host:"
+
+-- Possible values for the path map and their corresponding probe files.
+-- The first one that is found wins.
+-- Remember to use double back slashes inside LUA strings.
+OPTIONS = {{"E:\\",      "Users\\.DS_Store" },	-- Mac partition under Bootcamp
+           {"\\\\psf\\", "Host\\.DS_Store"}}	-- Virtual network share inside Parallels
+-- more examples:
+-- {"\\\\server\\footage", ".footagedrive"}		-- hidden probe file on a network share of main studio
+-- {"Y:\\",                "projects.txt"}		-- an external artist on his own machine/network
+
+--------
+
+currentMapping = fusion:GetPrefs("Global.Paths.Map."..AUTOMAP) or ""
+
+for i,v in ipairs(OPTIONS) do
+	if eyeon.fileexists(v[1]..v[2]) then
+		currentMapping = v[1]
+		break
+	end
+end
+
+if currentMapping ~= "" then
+	fusion:SetPrefs("Global.Paths.Map."..AUTOMAP, currentMapping)
+end

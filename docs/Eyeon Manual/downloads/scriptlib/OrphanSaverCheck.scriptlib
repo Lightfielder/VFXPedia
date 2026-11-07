@@ -1,0 +1,33 @@
+while composition == nil do
+ 
+end
+
+globals.ev = AddEventSuite("Composition")
+
+function ev:OnStartRender(event)
+
+        local toollist=comp:GetToolList(false, "Saver")
+
+	for i, tool in toollist do
+
+		if tool.Input:GetConnectedOutput() then
+			self:Default(event)
+		else
+			-- report the problem
+			msg = "The saver named ".. tool:GetAttrs().TOOLS_Name .. " is not connected to any other tools.\n\n"
+			msg = msg.."Select OK to continue anyway, or Cancel to exit."
+			
+			ret = comp:AskUser("Warning: Orphan Savers!", {
+				{"Warning", Name = "Warning", "Text", ReadOnly = true, Lines = 5, Wrap = true, Default = msg},
+				})
+			
+			if ret then
+				self:Default(event)
+			end
+			
+		end
+		
+        end
+	
+end
+ 
