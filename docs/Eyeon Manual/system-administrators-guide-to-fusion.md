@@ -8,7 +8,7 @@ While installation and administration of Fusion and DFX+ in small numbers is rel
 
 [Administering a License Server](./administering-a-license-server.md) covers topics such as installing and testing the FlexLM license server, configuring clients and troubleshooting.
 
-## [Deploying and Managing Shared Bins](indexeda3.html?title=Shared_Bins)
+## [Deploying and Managing Shared Bins](./shared-bins.md)
 
 Instructions on creating and deploying a [Shared Bins](./shared-bins.md) server.
 
