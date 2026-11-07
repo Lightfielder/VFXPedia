@@ -6,7 +6,7 @@ Most facilities with more than one license of Fusion run a FlexLM license server
 
 Network licenses are available to any facility which owns three or more copies of Fusion, DFX+ or Fusion Render Slave at their facility. Contact a [sales representative](mailto:sales@eyeonline.com) for details on converting hardware lock licenses to floating licenses instead.
 
-### Required Files
+## Required Files
 
 The files listed below can also be found on the Fusion install CD in a folder labeled FLEXlm. The versions linked below will likely be more recent however.
 
