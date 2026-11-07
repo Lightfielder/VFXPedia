@@ -44,6 +44,6 @@ These are requests which a) we can't understand what the user is asking for, or 
 
 - Implemented as a fusionscript, no longer needed. -- Chad
 
-- Hotkey Manager
+### Hotkey Manager
 
 - How about Hotkey Manager?  Does that do what you need? -- Chad
