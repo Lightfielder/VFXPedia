@@ -16,10 +16,10 @@ Instructions on creating and deploying a [Shared Bins](indexeda3.html?title=Shar
 
 The [Per-User Preferences and Paths](indexad6a.html?title=Per-User_Preferences_and_Paths) section shows how an administrator can provide unique preferences, plugin and script paths for each user.
 
-## [Environment Variables](indexdca0.html?title=Environment_Variables)
+## [Environment Variables](./environment-variables.md)
 
-A list of all the [Environment Variables](indexdca0.html?title=Environment_Variables) that can be used to adjust a Fusion installations behaviour.
+A list of all the [Environment Variables](./environment-variables.md) that can be used to adjust a Fusion installations behaviour.
 
-## [Administrators FAQ](indexa105.html?title=Administrators_FAQ)
+## [Administrators FAQ](./administrators-faq.md)
 
-The [Administrators FAQ](indexa105.html?title=Administrators_FAQ) covers frequently asked questions about configuring and administering Fusion which may not be covered elsewhere.
+The [Administrators FAQ](./administrators-faq.md) covers frequently asked questions about configuring and administering Fusion which may not be covered elsewhere.
