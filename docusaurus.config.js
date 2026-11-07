@@ -16,8 +16,7 @@ module.exports = {
   projectName: 'vfxpedia',
 
   // Google Fonts: IBM Plex Sans for headings + body, IBM Plex Mono for code,
-  // tables, counts and labels. Shared with the Swiftpedia and Vonk Ultra docs
-  // sites so the projects read as one design family.
+  // tables, counts and labels.
   stylesheets: [
     {
       href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap',
@@ -56,7 +55,7 @@ module.exports = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Follow the OS light/dark preference on first visit, matching Swiftpedia.
+      // Follow the OS light/dark preference on first visit
       colorMode: {
         respectPrefersColorScheme: true,
       },
@@ -107,7 +106,7 @@ module.exports = {
             ],
           },
         ],
-        copyright: `Copyright © 2008-${new Date().getFullYear()} VFXPedia. Built with Docusaurus.`,
+        copyright: `Copyright © 2008-${new Date().getFullYear()} VFXPedia.`,
       },
       prism: {
         theme: prism.themes.github,
